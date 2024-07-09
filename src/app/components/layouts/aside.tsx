@@ -71,7 +71,7 @@ export default function Aside({
   </Stack>
  );
 
- const subMenuKonteks = "penetapan-konteks";
+ const subMenuKonteks = "penetapan";
  const subMenuProfil = "profil-risiko";
  const subMenuMitigasi = "pemantauan";
 
@@ -111,9 +111,9 @@ export default function Aside({
        }
       >
        <SubmenuItem
-        label="Konteks Strategis"
+        label="Penetapan Objek"
         url={subMenuKonteks}
-        urlLv2="konteks-strategis"
+        urlLv2="objek"
        />
        <SubmenuItem
         label="Konteks Strategis"
@@ -125,6 +125,11 @@ export default function Aside({
         label="Selera Risiko"
         url={subMenuKonteks}
         urlLv2="selera-risiko"
+       />
+       <SubmenuItem
+        label="Penetapan Kriteria"
+        url={subMenuKonteks}
+        urlLv2="konteks-strategis"
        />
       </MenuItem>
       <MenuItem

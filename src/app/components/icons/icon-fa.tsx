@@ -19,8 +19,11 @@ export const IconFA = ({
    className={`fa-${name}`}
    onClick={onclick}
    sx={{
-    fontSize: `${size}px`,
+    fontSize: size ? `${size}px !important` : "18px",
     color: color,
+    // ".MuiIcon-root": {
+    //  fontSize: `${size}px`,
+    // },
     ...sx,
    }}
   />

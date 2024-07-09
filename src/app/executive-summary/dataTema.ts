@@ -3,32 +3,75 @@ export const dataTema = [
  {
   temaId: "1",
   tema: "Penurunan Stunting",
+  urgensi: [
+   "Prevalensi Stunting masih tinggi: 21,6% (SSGI, 2022), termasuk kategori tinggi (WHO: 20-30%). Diperlukan percepatan hingga dua kali (3,5%  rata-rata penurunan/tahun) untuk mencapai target RPJMN 2020-2024 (14%).",
+   "Gagal tumbuh, hambatan perkembangan kognitif dan motorik, serta gangguan metabolik saat dewasa (The Lancet, 2008), Potensi kerugian 2-3% dari GDP per tahun (World Bank, 2016)",
+   "Diperlukan intervensi lintas-sektor yang mencakup dukungan terhadap intervensi spesifik dan sensitive",
+  ],
   swot: [
    {
-    label: "strength",
+    factor: "Internal",
     item: [
-     "Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan stunting",
-     "Komitmen nasional: Perpres 72/2021 tentang percepatan penurunan stunting",
+     {
+      label: "strength",
+      item: [
+       "Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan stunting",
+       "Komitmen nasional: Perpres 72/2021 tentang percepatan penurunan stunting",
+      ],
+     },
+     {
+      label: "weakness",
+      item: [
+       "Capaian indikator intervensi spesifik dan sensitif belum mencapai target",
+       "Pemahaman intervensi stunting belum fokus pada upaya pencegahan",
+       "Tata kelola program belum berjalan optimal",
+      ],
+     },
     ],
    },
    {
-    label: "weakness",
+    factor: "Eksternal",
     item: [
-     "Capaian indikator intervensi spesifik dan sensitif belum mencapai target",
-     "Pemahaman intervensi stunting belum fokus pada upaya pencegahan",
-     "Tata kelola program belum berjalan optimal",
+     {
+      label: "opportunity",
+      item: [
+       "Prevalensi stunting merupakan salah satu indikator dalam Human Capital Index (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+      ],
+     },
+     {
+      label: "threat",
+      item: ["Pemahaman di lapangan yang bervariasi"],
+     },
     ],
    },
+  ],
+  location: [
    {
-    label: "opportunity",
-    item: [
-     "Prevalensi stunting merupakan salah satu indikator dalam Human Capital Index (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+    type: "Fisik",
+    list: [
+     "Jawa Barat",
+     "Jawa Tengah",
+     "Jawa Timur",
+     "Sumatera Utara",
+     "Banten",
+     "NTT",
+     "Sulawesi Barat",
+     "Aceh",
+     "NTB",
+     "Kalimantan Selatan",
+     "Kalimantan Barat",
+     "Sulawesi Tenggara",
     ],
+    note: ["Area of Interest: 43.503 Ha"],
    },
    {
-    label: "threat",
-    item: ["Pemahaman di lapangan yang bervariasi"],
+    type: "Non-fisik",
+    list: ["Jawa Timur", "Sumatera Utara", "Banten", "NTT"],
+    note: [],
    },
+  ],
+  fot: [
+   "https://res.cloudinary.com/caturteguh/image/upload/v1720135168/mrpn/executive_summary/kerangka_pikir/fot-stunting_cdh5k1.png",
   ],
   goals: [
    "Prevalensi wasting (kurus dan sangat kurus) pada balita (Kemkes)",
@@ -38,6 +81,7 @@ export const dataTema = [
    "% bayi usia kurang dari 6 bulan mendapat ASI eksklusif (Kemkes)",
    "% Keluarga 1000 HPK yg mendapat pendampingan (BKKBN)",
   ],
+  nomenklatur: ["Penurunan stunting"],
   typeOfRisk: [
    {
     type: "Risiko Lingkungan",
@@ -75,9 +119,14 @@ export const dataTema = [
    "Remaja putri",
    "Calon pengantin",
   ],
+  iku: [
+   "Prevalensi wasting (kurus dan sangat kurus) pada balita",
+   "% Ibu hamil KEK",
+   "% anemia pada ibu hamil",
+  ],
   cascading: [
    {
-    outcome: "Menurunnya prevalensi stunting pada balita",
+    pnpp: "Menurunnya prevalensi stunting pada balita",
     code: "",
     sasaran: ["Kesehatan untuk Semua"],
    },
@@ -921,36 +970,57 @@ export const dataTema = [
  {
   temaId: "2",
   tema: "Penyelesaian Destinasi Pariwisata",
+  urgensi: [
+   "Destinasi pariwisata menghadapi masalah (1) degradasi lingkungan akibat overtourism, (2) akulturasi budaya dari wisatawan yang berakibat pada hilangnya budaya lokal, (3) terbatasnya amenitas, aksesibilitas, dan atraksi yang melaksanakan kaidah pariwisata berkelanjutan, (4) pengelolaan dan kualitas layanan pariwisata yang tidak berfokus pada pariwisata berkualitas, (5) rendahnya pengeluaran wisatawan akibat rendahnya investasi pariwisata dan pilihan kegiatan wisata.",
+   "Mendukung agenda pembangunan: Transformasi Ekonomi - IE 4. IPTEK, Inovasi, dan Produktivitas Ekonomi",
+  ],
   swot: [
    {
-    label: "strength",
+    factor: "Internal",
     item: [
-     "Sejak 2005, sektor pariwisata Indonesia telah mengalami perkembangan yang signifikan. 5 destinasi telah memiliki infrastruktur yang cukup baik, termasuk bandara internasional, jalan raya, akomodasi, dan fasilitas pariwisata lainnya.",
+     {
+      label: "strength",
+      item: [
+       "Sejak 2005, sektor pariwisata Indonesia telah mengalami perkembangan yang signifikan. 5 destinasi telah memiliki infrastruktur yang cukup baik, termasuk bandara internasional, jalan raya, akomodasi, dan fasilitas pariwisata lainnya.",
+      ],
+     },
+     {
+      label: "weakness",
+      item: [
+       "Investasi sektor pariwisata degradasi lingkungan di destinasi Implementasi pariwisata berkelanjutan kurang optimal",
+      ],
+     },
     ],
    },
    {
-    label: "weakness",
+    factor: "Eksternal",
     item: [
-     "Investasi sektor pariwisata degradasi lingkungan di destinasi Implementasi pariwisata berkelanjutan kurang optimal",
-    ],
-   },
-   {
-    label: "opportunity",
-    item: [
-     "Prestasi pariwisata Indonesia telah diakui secara internasional. Peringkat Daya Saing Kepariwisataan Indonesia meningkat dari peringkat 74 (2011) ke peringkat 32 (2021), naik 42 posisi dalam 1 dasawarsa terakhir.",
-    ],
-   },
-   {
-    label: "threat",
-    item: [
-     "Ketidakstabilan Geopolitik dan Keamanan",
-     "Perubahan Iklim",
-     "Persaingan dari Destinasi negara lain",
+     {
+      label: "opportunity",
+      item: [
+       "Prestasi pariwisata Indonesia telah diakui secara internasional. Peringkat Daya Saing Kepariwisataan Indonesia meningkat dari peringkat 74 (2011) ke peringkat 32 (2021), naik 42 posisi dalam 1 dasawarsa terakhir.",
+      ],
+     },
+     {
+      label: "threat",
+      item: [
+       "Ketidakstabilan Geopolitik dan Keamanan",
+       "Perubahan Iklim",
+       "Persaingan dari Destinasi negara lain",
+      ],
+     },
     ],
    },
   ],
+  location: [],
+  fot: [
+   "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-pariwisata_q1d8ec.png",
+  ],
   goals: [
    "Meningkatnya nilai tambah dan daya saing kepariwisataan Danau Toba, Borobudur-Yogyakarta-Prambanan, Lombok-Gili Tramena, Labuan Bajo, dan Manado-Likupang",
+  ],
+  nomenklatur: [
+   "Penyelesaian Destinasi Pariwisata Prioritas Danau Toba, Bajo, dan Manado-Likupang",
   ],
   typeOfRisk: [
    {
@@ -997,9 +1067,10 @@ export const dataTema = [
    "Penduduk di destinasi",
    "Pemerintah dan pemerintah daerah",
   ],
+  iku: ["IKU ekonomi PDB", "IKU Lingkungan IKLH", "IKU sosial tenaker"],
   cascading: [
    {
-    outcome: "Meningkatnya rasio PDB pariwisata dan Devisa pariwisata",
+    pnpp: "Meningkatnya rasio PDB pariwisata dan Devisa pariwisata",
     code: "",
     sasaran: [
      "Transformasi Ekonomi - IE 4. IPTEK, Inovasi, dan Produktivitas Ekonomi",
@@ -1303,42 +1374,63 @@ export const dataTema = [
  {
   temaId: "3",
   tema: "Kawasan Sentra Produksi Pangan Kalimantan Tengah",
+  urgensi: [
+   "Capaian Prevalensi Ketidakcukupan Konsumsi Pangan (PoU) Indonesia masih jauh dari target dengan kecenderungan meningkat pada rentang tahun 2020-2022; menunjukkan ketahanan pangan Indonesia masih belum tahan terhadap guncangan. DIbutuhkan sentra produksi pangan yang berkelanjutan dan dapat menyokong sebuah sistem pangan regional",
+   "Indikasi keberlanjutan dari Food Estate Kalimantan Tengah",
+  ],
   swot: [
    {
-    label: "strength",
+    factor: "Internal",
     item: [
-     "Merupakan bentuk konkret dari indikasi keberlanjutan Food Estate Kalimantan Tengah (KEP. 18/M.PPN/HK/03/2023)",
-     "Dukungan K/L Multisektoral terintegrasi",
-     "Sistem Tata Air mikro sudah baik (terutama Blok A Dadahup)",
+     {
+      label: "strength",
+      item: [
+       "Merupakan bentuk konkret dari indikasi keberlanjutan Food Estate Kalimantan Tengah (KEP. 18/M.PPN/HK/03/2023)",
+       "Dukungan K/L Multisektoral terintegrasi",
+       "Sistem Tata Air mikro sudah baik (terutama Blok A Dadahup)",
+      ],
+     },
+     {
+      label: "weakness",
+      item: [
+       "Lokasi berada di lahan gambut",
+       "Ketersediaan dan kapasitas petani masih rendah",
+       "Penggunaan teknologi masih rendah",
+      ],
+     },
     ],
    },
    {
-    label: "weakness",
+    factor: "Eksternal",
     item: [
-     "Lokasi berada di lahan gambut",
-     "Ketersediaan dan kapasitas petani masih rendah",
-     "Penggunaan teknologi masih rendah",
+     {
+      label: "opportunity",
+      item: [
+       "Posisi dekat IKN",
+       "Dukungan investasi hilirisasi dari Pihak Swasta/BUMN",
+      ],
+     },
+     {
+      label: "threat",
+      item: [
+       "Ketidakjelasan batas kepemilikan lahan",
+       "Curah hujan yang tinggi",
+       "Isu lingkungan",
+      ],
+     },
     ],
    },
-   {
-    label: "opportunity",
-    item: [
-     "Posisi dekat IKN",
-     "Dukungan investasi hilirisasi dari Pihak Swasta/BUMN",
-    ],
-   },
-   {
-    label: "threat",
-    item: [
-     "Ketidakjelasan batas kepemilikan lahan",
-     "Curah hujan yang tinggi",
-     "Isu lingkungan",
-    ],
-   },
+  ],
+  location: [],
+  fot: [
+   "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-pangan_rffqlh.png",
   ],
   goals: [
    "Peningkatan Produksi Padi KSPP Kalimantan Tengah (%) [Kementerian Pertanian]",
    "Peningkatan Produktivitas Padi KSPP Kalimantan Tengah (%) [Kementerian Pertanian]",
+  ],
+  nomenklatur: [
+   "Kawasan Sentra Produksi Pangan (Kalimantan Tengah, Sumatera Utara, Sumatera Selatan, Nusa Tenggara Timur, Papua, Papua Selatan)",
   ],
   typeOfRisk: [
    {
@@ -1373,9 +1465,13 @@ export const dataTema = [
    },
   ],
   segment: ["Petani (Poktan, Gapoktan, P3A, dan Lembaga Pertanian lainnya)"],
+  iku: [
+   "Peningkatan Produksi Padi KSPP Kalimantan Tengah (%)",
+   "Peningkatan Produktivitas Padi KSPP Kalimantan Tengah (%)",
+  ],
   cascading: [
    {
-    outcome:
+    pnpp:
      "Meningkatnya ketersediaan pangan nasional sesuai Pola Pangan Harapan",
     code: "",
     sasaran: [
@@ -1541,36 +1637,55 @@ export const dataTema = [
  {
   temaId: "7",
   tema: "Reformasi Tata Kelola Persampahan",
+  urgensi: [
+   "Pengelolaan sampah nasional masih minim intervensi di sumber (hulu) dan membebankan hilir. Pada tahun 2023 setidaknya 10 TPA melebihi kapasitasnya dan 35 TPA terbakar akibat pengelolaan yang tidak optimal. Diperkirakan hampir seluruh TPA melebihi daya tampungnya pada tahun 2028 mengakibatkan polusi di lingkungan, menghasilkan emisi gas rumah kaca, dan mempengaruhi kesehatan masyarakat.",
+   "Reformasi persampahan merupakan Game Changer RPJPN 2025-2045, salah satu sektor prioritas untuk mencapai target utama penurunan intensitas emisi GRK menuju net zero emission 2060, serta indikator pada Indeks Ekonomi Hijau.",
+  ],
   swot: [
    {
-    label: "strength",
-    item: ["Sudah banyak regulasi yang disusun"],
-   },
-   {
-    label: "weakness",
+    factor: "Internal",
     item: [
-     "Implementasi regulasi rendah dan belum ada aspek penegakan hukum yang kuat",
-     "Pembiayaan sampah rendah karena dianggap tidak prioritas",
-     "Infrastruktur yang terbangun tidak operasional",
+     {
+      label: "strength",
+      item: ["Sudah banyak regulasi yang disusun"],
+     },
+     {
+      label: "weakness",
+      item: [
+       "Implementasi regulasi rendah dan belum ada aspek penegakan hukum yang kuat",
+       "Pembiayaan sampah rendah karena dianggap tidak prioritas",
+       "Infrastruktur yang terbangun tidak operasional",
+      ],
+     },
     ],
    },
    {
-    label: "opportunity",
+    factor: "Eksternal",
     item: [
-     "Kerjasama dengan Swasta dan mitra pembangunan",
-     "Kebijakan ekonomi sirkular",
+     {
+      label: "opportunity",
+      item: [
+       "Kerjasama dengan Swasta dan mitra pembangunan",
+       "Kebijakan ekonomi sirkular",
+      ],
+     },
+     {
+      label: "threat",
+      item: [
+       "Pertumbuhan ekonomi dan pola konsumsi yang meningkatkan timbulan sampah",
+      ],
+     },
     ],
    },
-   {
-    label: "threat",
-    item: [
-     "Pertumbuhan ekonomi dan pola konsumsi yang meningkatkan timbulan sampah",
-    ],
-   },
+  ],
+  location: [],
+  fot: [
+   "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-sampah_x6livv.png",
   ],
   goals: [
    "Terciptanya reformasi sistem pengelolaan sampah dalam aspek perencanaan, kelembagaan, dan pendanaan",
   ],
+  nomenklatur: ["Reformasi Tata Kelola Persampahan"],
   typeOfRisk: [
    {
     type: "Risiko Lingkungan",
@@ -1610,9 +1725,10 @@ export const dataTema = [
    },
   ],
   segment: ["Seluruh Masyarakat"],
+  iku: ["Indeks Kinerja Pengelolaan Sampah (IKPS)", "Target 2029: 60"],
   cascading: [
    {
-    outcome: "Berkurangnya jumlah sampah yang diangkut ke TPA",
+    pnpp: "Berkurangnya jumlah sampah yang diangkut ke TPA",
     code: "",
     sasaran: [
      "Meningkatnya timbulan sampah terolah di fasilitas pengolahan sampah",

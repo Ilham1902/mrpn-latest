@@ -549,10 +549,10 @@ export default function ContentPage({
      heightTitleBreadcrumb
       ? "calc(100vh - 258px)"
       : overflowHidden
-      ? "calc(100vh - 244px)"
+      ? "calc(100vh - 240px)"
       : // : flagPathnameTheme
         // ? "calc(100vh - 328px)"
-        "calc(100vh - 244px)"
+        "calc(100vh - 240px)"
     }
     overflow={overflowHidden ? "hidden" : "auto"}
     margin={noMinusMargin ? 0 : -1}

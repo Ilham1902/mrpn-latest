@@ -13,7 +13,7 @@ export default function CustomToggleButton({
  minheight,
 }: {
  value: string;
- valueLabel: string;
+ valueLabel?: string;
  label: string;
  code?: string | boolean | any;
  variant?: string;
@@ -54,22 +54,26 @@ export default function CustomToggleButton({
     },
    }}
   >
-   {code && (
-    <Box
-     component="span"
-     px={2}
-     py={1.5}
-     bgcolor={grey[200]}
-     lineHeight={1.2}
-     sx={{
-      borderStartStartRadius: "12px",
-      borderEndStartRadius: "12px",
-     }}
-    >
-     {code}
-     <br />
-     {valueLabel}
-    </Box>
+   {valueLabel && (
+    <>
+     {code && (
+      <Box
+       component="span"
+       px={2}
+       py={1.5}
+       bgcolor={grey[200]}
+       lineHeight={1.2}
+       sx={{
+        borderStartStartRadius: "12px",
+        borderEndStartRadius: "12px",
+       }}
+      >
+       {code}
+       <br />
+       {valueLabel}
+      </Box>
+     )}
+    </>
    )}
    <Typography px={3} component="span" fontWeight={600}>
     {label}

@@ -37,6 +37,7 @@ export default function CardItem({
  addButton,
  setting,
  multiEdit,
+ contentNoPadding,
  settingEditOnclick,
  settingEditOutputClick,
  settingEditBisnisClick,
@@ -46,6 +47,7 @@ export default function CardItem({
  addButton?: React.ReactNode;
  setting?: React.ReactNode;
  multiEdit?: boolean;
+ contentNoPadding?: boolean;
  settingEditOnclick?: () => void;
  settingEditOutputClick?: () => void;
  settingEditBisnisClick?: () => void;
@@ -212,7 +214,14 @@ export default function CardItem({
     }
     sx={{ bgcolor: grey[300] }}
    />
-   <CardContent sx={{ pb: "16px !important" }}>{children}</CardContent>
+   <CardContent
+    sx={{
+     p: contentNoPadding ? "0 !important" : 2,
+     pb: contentNoPadding ? 0 : "16px !important",
+    }}
+   >
+    {children}
+   </CardContent>
   </Card>
  );
 }

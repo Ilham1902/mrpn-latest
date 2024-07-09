@@ -12,23 +12,27 @@ export default function SelectCustomTheme({
  anchorRight,
  rounded,
  sx,
+ multiple,
+ renderValue,
 }: {
- value: string;
+ value: any;
  children: React.ReactNode;
- //  onChange?: () => void | any;
  onChange?: any;
  defaultStyle?: boolean;
  small?: boolean;
  anchorRight?: boolean;
  rounded?: boolean;
  sx?: any;
+ multiple?: boolean;
+ renderValue?: any;
 }) {
  return (
   <Select
    size={small ? "small" : "medium"}
    value={value}
    onChange={onChange}
-   //    label="Triwulan"
+   multiple={multiple}
+   renderValue={renderValue}
    displayEmpty
    inputProps={{
     paperprops: {

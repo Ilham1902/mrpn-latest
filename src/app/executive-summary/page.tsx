@@ -21,11 +21,21 @@ import {
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/components/icons/icon-fa";
+import Tab1Background from "./partials/tab1Background";
+import Tab2Profile from "./partials/tab2Profile";
+import Tab3Fot from "./partials/tab3Fot";
+import Tab4Cascading from "./partials/tab4Cascading";
+import Tab9Indication from "./partials/tab9Indication";
+import Tab8Fund from "./partials/tab8Fund";
+import Tab7Regulation from "./partials/tab7Regulation";
+import Tab6Critical from "./partials/tab6Critical";
+import Tab5Roadmap from "./partials/tab5Roadmap";
 
 interface TabPanelProps {
  children?: React.ReactNode;
  index: number;
  value: number;
+ project?: string;
 }
 
 function a11yProps(index: number) {
@@ -36,7 +46,7 @@ function a11yProps(index: number) {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
- const { children, value, index, ...other } = props;
+ const { children, value, index, project, ...other } = props;
 
  return (
   <div
@@ -45,6 +55,7 @@ function CustomTabPanel(props: TabPanelProps) {
    id={`simple-tabpanel-${index}`}
    aria-labelledby={`simple-tab-${index}`}
    {...other}
+   style={{ display: project === "5" ? "none" : "block" }}
   >
    {value === index && (
     <Box
@@ -163,7 +174,6 @@ export default function PageExecutiveSummary({}) {
        <Tabs
         value={value}
         onChange={handleChange}
-        aria-label="Tabel Analisis"
         sx={{
          ".MuiTabs-flexContainer": {
           gap: 1,
@@ -176,7 +186,7 @@ export default function PageExecutiveSummary({}) {
           width: "800px",
           overflowX: "auto !important",
           "&::-webkit-scrollbar": {
-           height: "8px",
+           height: "4px",
            bgcolor: grey[100],
           },
           "&::-webkit-scrollbar-track": {
@@ -184,7 +194,7 @@ export default function PageExecutiveSummary({}) {
            //    bgcolor: grey[800],
           },
           "&::-webkit-scrollbar-thumb": {
-           bgcolor: alpha(grey[400], 0.5),
+           bgcolor: alpha(grey[400], 0.9),
           },
           //   },
          },
@@ -211,9 +221,7 @@ export default function PageExecutiveSummary({}) {
          icon={<IconFA size={16} name="pen-to-square" />}
         />
         <Tab
-         label={`Profil ${
-          project === "5" ? "Program Prioritas" : "Kegiatan Program"
-         }`}
+         label={`Profil ${project === "5" ? "PP" : "KP"}`}
          {...a11yProps(1)}
          iconPosition="start"
          icon={<IconFA size={16} name="address-card" sx={{ width: "auto" }} />}
@@ -235,6 +243,7 @@ export default function PageExecutiveSummary({}) {
          {...a11yProps(4)}
          iconPosition="start"
          icon={<IconFA size={16} name="route" sx={{ width: "auto" }} />}
+         sx={{ display: project === "5" ? "none" : "inline-flex" }}
         />
         <Tab
          label="Critical Path"
@@ -247,9 +256,10 @@ export default function PageExecutiveSummary({}) {
            sx={{ width: "auto" }}
           />
          }
+         sx={{ display: project === "5" ? "none" : "inline-flex" }}
         />
         <Tab
-         label="Kerangka Kelembagaan & Regulasi"
+         label="Kelembagaan & Regulasi"
          {...a11yProps(6)}
          iconPosition="start"
          icon={<IconFA size={16} name="gavel" sx={{ width: "auto" }} />}
@@ -269,31 +279,31 @@ export default function PageExecutiveSummary({}) {
        </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-       Latar Belakang
+       <Tab1Background project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-       Profil
+       <Tab2Profile project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-       Kerangka Pikir
+       <Tab3Fot project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-       Cascading
+       <Tab4Cascading project={project} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-       Project Roadmap
+      <CustomTabPanel value={value} index={4} project={project}>
+       <Tab5Roadmap project={project} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
-       Critical Path
+      <CustomTabPanel value={value} index={5} project={project}>
+       <Tab6Critical project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={6}>
-       Kerangka Kelembagaan & Kerangka Regulasi
+       <Tab7Regulation project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={7}>
-       Pendanaan & Investasi
+       <Tab8Fund project={project} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={8}>
-       Indikasi Risiko RPJMN
+       <Tab9Indication project={project} />
       </CustomTabPanel>
      </Box>
     </Collapse>

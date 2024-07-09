@@ -1,229 +1,3 @@
-// import { type MRT_ColumnDef } from "material-react-table";
-
-// export type Person = {
-//  id: number;
-//  name: {
-//   firstName: string;
-//   lastName: string;
-//  };
-//  email: string;
-//  city: string;
-// };
-
-// export const columns: MRT_ColumnDef<Person>[] = [
-//  {
-//   accessorKey: "id",
-//   header: "No.",
-//   size: 120,
-//   grow: false,
-//  },
-//  {
-//   accessorFn: (row) => `${row.name.firstName} ${row.name.lastName}`,
-//   header: "Nama User",
-//   grow: true,
-//  },
-// ];
-
-// export const data: Person[] = [
-//  {
-//   id: 1,
-//   name: {
-//    firstName: "Mason",
-//    lastName: "Anderson",
-//   },
-//   email: "manderson57@yopmail.com",
-//   city: "Seattle",
-//  },
-//  {
-//   id: 2,
-//   name: {
-//    firstName: "Nora",
-//    lastName: "Bishop",
-//   },
-//   email: "nbishop26@mailinator.com",
-//   city: "Portland",
-//  },
-//  {
-//   id: 3,
-//   name: {
-//    firstName: "Liam",
-//    lastName: "Patterson",
-//   },
-//   email: "lpatterson61@yopmail.com",
-//   city: "Austin",
-//  },
-//  {
-//   id: 4,
-//   name: {
-//    firstName: "Harper",
-//    lastName: "Ross",
-//   },
-//   email: "hross38@mailinator.com",
-//   city: "Chicago",
-//  },
-//  {
-//   id: 5,
-//   name: {
-//    firstName: "Oliver",
-//    lastName: "Baker",
-//   },
-//   email: "obaker72@yopmail.com",
-//   city: "Miami",
-//  },
-//  {
-//   id: 6,
-//   name: {
-//    firstName: "Charlotte",
-//    lastName: "Phillips",
-//   },
-//   email: "cphillips33@mailinator.com",
-//   city: "Los Angeles",
-//  },
-//  {
-//   id: 7,
-//   name: {
-//    firstName: "Henry",
-//    lastName: "Cooper",
-//   },
-//   email: "hcooper18@yopmail.com",
-//   city: "Denver",
-//  },
-//  {
-//   id: 8,
-//   name: {
-//    firstName: "Emma",
-//    lastName: "Jenkins",
-//   },
-//   email: "ejenkins49@mailinator.com",
-//   city: "Boston",
-//  },
-//  {
-//   id: 9,
-//   name: {
-//    firstName: "Alexander",
-//    lastName: "Gonzalez",
-//   },
-//   email: "agonzalez67@yopmail.com",
-//   city: "Dallas",
-//  },
-//  {
-//   id: 10,
-//   name: {
-//    firstName: "Ava",
-//    lastName: "Ramirez",
-//   },
-//   email: "aramirez94@mailinator.com",
-//   city: "Houston",
-//  },
-//  {
-//   id: 11,
-//   name: {
-//    firstName: "William",
-//    lastName: "Bailey",
-//   },
-//   email: "wbailey59@yopmail.com",
-//   city: "Phoenix",
-//  },
-//  {
-//   id: 12,
-//   name: {
-//    firstName: "Sophia",
-//    lastName: "Cox",
-//   },
-//   email: "scox77@mailinator.com",
-//   city: "Atlanta",
-//  },
-//  {
-//   id: 13,
-//   name: {
-//    firstName: "James",
-//    lastName: "Sanders",
-//   },
-//   email: "jsanders26@yopmail.com",
-//   city: "Detroit",
-//  },
-//  {
-//   id: 14,
-//   name: {
-//    firstName: "Mia",
-//    lastName: "Long",
-//   },
-//   email: "mlong33@mailinator.com",
-//   city: "Philadelphia",
-//  },
-//  {
-//   id: 15,
-//   name: {
-//    firstName: "Benjamin",
-//    lastName: "Bennett",
-//   },
-//   email: "bbennett92@yopmail.com",
-//   city: "Washington, D.C.",
-//  },
-//  {
-//   id: 16,
-//   name: {
-//    firstName: "Dylan",
-//    lastName: "Murray",
-//   },
-//   email: "dmurray@yopmail.com",
-//   city: "East Daphne",
-//  },
-//  {
-//   id: 17,
-//   name: {
-//    firstName: "Raquel",
-//    lastName: "Kohler",
-//   },
-//   email: "rkholer33@yopmail.com",
-//   city: "Columbus",
-//  },
-//  {
-//   id: 18,
-//   name: {
-//    firstName: "Ervin",
-//    lastName: "Reinger",
-//   },
-//   email: "ereinger@mailinator.com",
-//   city: "South Linda",
-//  },
-//  {
-//   id: 19,
-//   name: {
-//    firstName: "Brittany",
-//    lastName: "McCullough",
-//   },
-//   email: "bmccullough44@mailinator.com",
-//   city: "Lincoln",
-//  },
-//  {
-//   id: 20,
-//   name: {
-//    firstName: "Branson",
-//    lastName: "Frami",
-//   },
-//   email: "bframi@yopmain.com",
-//   city: "New York",
-//  },
-//  {
-//   id: 21,
-//   name: {
-//    firstName: "Julia",
-//    lastName: "Thomas",
-//   },
-//   email: "jthomas42@mailinator.com",
-//   city: "San Francisco",
-//  },
-// ];
-
-// export const listKemungkinan = [
-//  "Kemungkinan 1",
-//  "Kemungkinan 2",
-//  "Kemungkinan 3",
-//  "Kemungkinan 4",
-//  "Kemungkinan 5",
-// ];
-
 export const listKemungkinan = [
  { id: "1", value: "1", label: "Kemungkinan 1" },
  { id: "2", value: "2", label: "Kemungkinan 2" },
@@ -231,14 +5,6 @@ export const listKemungkinan = [
  { id: "4", value: "4", label: "Kemungkinan 4" },
  { id: "5", value: "5", label: "Kemungkinan 5" },
 ];
-
-// export const listDampak = [
-//  "Dampak 1",
-//  "Dampak 2",
-//  "Dampak 3",
-//  "Dampak 4",
-//  "Dampak 5",
-// ];
 
 export const listDampak = [
  { id: "1", value: "1", label: "Dampak 1" },
@@ -284,4 +50,28 @@ export const listLevelKemungkinan = [
  "3 - Sedang",
  "4 - Tinggi",
  "5 - Sangat Tinggi",
+];
+
+export interface OptionKebijakan {
+ id: string;
+ value: string;
+ label: string;
+}
+
+export const listKebijakan: OptionKebijakan[] = [
+ { id: "1", value: "1", label: "Janpres" },
+ { id: "2", value: "2", label: "SDGs" },
+ { id: "3", value: "3", label: "Dekon" },
+ { id: "4", value: "4", label: "DAK" },
+ { id: "5", value: "5", label: "PEN" },
+ { id: "6", value: "6", label: "RPJPN" },
+ { id: "7", value: "7", label: "RPJMN" },
+ { id: "8", value: "8", label: "RKP" },
+ { id: "9", value: "9", label: "Major Project" },
+ { id: "10", value: "10", label: "Astacita" },
+ { id: "11", value: "11", label: "Renstra" },
+ { id: "12", value: "12", label: "RKPD" },
+ { id: "13", value: "13", label: "8 Quick Wins" },
+ { id: "14", value: "14", label: "10 Game Changer" },
+ { id: "15", value: "15", label: "45 Indikator Utama Pembangunan" },
 ];
