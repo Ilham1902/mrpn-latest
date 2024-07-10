@@ -12,6 +12,7 @@ import {
  Box,
  Button,
  DialogActions,
+ Collapse,
 } from "@mui/material";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
@@ -23,10 +24,13 @@ import useThemes from "./hooks/useTheme";
 import LoadingPage from "@/app/components/loadingPage";
 import ThemeToggleButton from "@/app/components/toggleButton/theme";
 import { usePathname } from "next/navigation";
+import { styleToggleButton } from "./style";
+import TabObject from "./partials/tab";
 
 export default function PageTema({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenCollapse, setModalOpenCollapse] = React.useState(false);
+ const [openTab, setOpenTab] = React.useState(false);
 
  const {
   activeTab,
@@ -49,16 +53,21 @@ export default function PageTema({}) {
   setModalOpenCollapse(false);
  };
 
+ const handleOpenTab = () => {
+  setModalOpenCollapse(false);
+  setOpenTab(true);
+ };
+
  const dialogActionFooter = (
   <DialogActions sx={{ p: 2, px: 3 }}>
    <Button onClick={handleModalClose}>Batal</Button>
    <Button
     variant="contained"
     type="submit"
-    href="/executive-summary"
     sx={{
      color: "white !important",
     }}
+    onClick={handleOpenTab}
    >
     Simpan
    </Button>
@@ -70,7 +79,7 @@ export default function PageTema({}) {
    <Button onClick={handleModalClose}>Batal</Button>
    <Button
     variant="contained"
-    onClick={handleModalClose}
+    onClick={handleOpenTab}
     sx={{
      color: "white !important",
     }}
@@ -92,8 +101,9 @@ export default function PageTema({}) {
    <DashboardLayout noOverflow>
     <LoadingPage />
     <ContentPage
-     //  title="Tema"
+     title="Penetapan Objek"
      noMinusMargin
+     heightNoSet
      withCard={false}
      addButton={
       <AddButton
@@ -112,76 +122,16 @@ export default function PageTema({}) {
       />
      ) : (
       <>
-       {/* <Typography color={grey[600]} fontSize={14} fontStyle="italic">
-        Pilih salah satu tema
-       </Typography> */}
-       {flagPathnameTheme ? null : (
-        <Typography color={grey[400]} fontSize={14} fontStyle="italic">
-         Pilih salah satu tema
-        </Typography>
-       )}
+       <Typography color={grey[600]} fontSize={14} fontStyle="italic">
+        Pilih salah satu objek
+       </Typography>
        <Box>
         <ToggleButtonGroup
          value={activeTab}
          exclusive
          onChange={handleAlignment}
          aria-label="text alignment"
-         sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 2,
-          mt: 2,
-          p: "1px",
-          button: {
-           //  bgcolor: "white",
-           transition: "all 800ms ease-in-out",
-           span: {
-            //   lineHeight: 1.2,
-            py: 2,
-            height: "100%",
-            //   display: "inline-flex",
-            //   alignItems: "center",
-           },
-           "&:hover": {
-            //   bgcolor: alpha(theme.palette.primary.main, 0.1),
-            color: alpha(theme.palette.secondary.dark, 0.8),
-            background: `linear-gradient(135deg, ${alpha(
-             theme.palette.primary.main,
-             0.3
-            )} 100%, rgba(255, 255, 255, 0.2) 100%),url(https://res.cloudinary.com/caturteguh/image/upload/v1715510168/mrpn/bg-button-theme_cxwxph.jpg)`,
-            //   backgroundSize: "140%",
-            //   backgroundPosition: "-240px -125px",
-            backgroundSize: "110%",
-            backgroundPosition: "right center",
-           },
-           "&.Mui-selected": {
-            // bgcolor: theme.palette.primary.main,
-            // color: "white",
-            color: "white",
-            background: `linear-gradient(135deg, ${alpha(
-             theme.palette.primary.main,
-             1
-            )} 40%, rgba(255, 255, 255, 0.2) 100%),url(https://res.cloudinary.com/caturteguh/image/upload/v1715510168/mrpn/bg-button-theme_cxwxph.jpg)`,
-            backgroundSize: "120%",
-            backgroundPosition: "right center",
-            ".MuiBox-root": {
-             bgcolor: theme.palette.primary.main,
-             color: "white",
-             borderRight: "1px solid white",
-            },
-            "&:hover": {
-             bgcolor: theme.palette.primary.main,
-             color: "white",
-            },
-           },
-          },
-          [theme.breakpoints.down("md")]: {
-           gridTemplateColumns: "1fr 1fr",
-          },
-          [theme.breakpoints.down("sm")]: {
-           gridTemplateColumns: "1fr",
-          },
-         }}
+         sx={styleToggleButton}
         >
          <ThemeToggleButton
           // code="01.01.02"
@@ -221,124 +171,10 @@ export default function PageTema({}) {
          />
         </ToggleButtonGroup>
        </Box>
-       {/* <ToggleButtonGroup
-        value={activeTab}
-        exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
-        sx={{
-         display: "grid",
-         gridTemplateColumns: "1fr 1fr 1fr",
-         gap: 2,
-         mt: 2,
-         button: {
-          span: {
-           lineHeight: 1.2,
-           py: 2,
-           height: "100%",
-           display: "inline-flex",
-           alignItems: "center",
-          },
-          "&:hover": {
-           bgcolor: alpha(theme.palette.primary.main, 0.1),
-          },
-          "&.Mui-selected": {
-           bgcolor: theme.palette.primary.main,
-           color: "white",
-           ".MuiBox-root": {
-            bgcolor: theme.palette.primary.main,
-            color: "white",
-            borderRight: "1px solid white",
-           },
-           "&:hover": {
-            bgcolor: theme.palette.primary.main,
-            color: "white",
-           },
-          },
-         },
-         [theme.breakpoints.down("md")]: {
-          gridTemplateColumns: "1fr 1fr",
-         },
-         [theme.breakpoints.down("sm")]: {
-          gridTemplateColumns: "1fr",
-         },
-        }}
-       >
-        <CustomToggleButton
-         //  code="01.01.02"
-         value="penurunan-stunting"
-         label="Penurunan Stunting"
-        />
-        <CustomToggleButton
-         //  code="01.01.03"
-         value="penurunan-kemiskinan"
-         label="Penurunan Kemiskinan"
-        />
-        <CustomToggleButton
-         //  code="01.01.04"
-         value="percepatan-transisi-energi"
-         label="Percepatan Transisi Energi"
-         disabled
-        />
-        <CustomToggleButton
-         //  code="01.01.05"
-         value="peningkatan-pariwisata"
-         label="Peningkatan Pariwisata"
-         disabled
-        />
-        <CustomToggleButton
-         //  code="01.01.06"
-         value="ketahanan-pangan"
-         label="Ketahanan Pangan"
-         disabled
-        />
-        <CustomToggleButton
-         //  code="01.01.07"
-         value="sistem-persampahan"
-         label="Sistem Persampahan"
-         disabled
-        />
-       </ToggleButtonGroup> */}
-       {/* <Collapse in={activeTab === "penurunan-stunting"}>
-        <SearchKP
-         activeTab="penurunan-stunting"
-         listData={listData}
-         handleSearchTermUpdate={handleSearchTermUpdate}
-         searchTerm={searchTab}
-        />
-        <Button
-         variant="contained"
-         sx={{
-          minWidth: 160,
-          mt: 2,
-          borderRadius: 50,
-          color: "white !important",
-         }}
-         href="/executive-summary"
-        >
-         Simpan
-        </Button>
-       </Collapse> 
-       <Collapse in={activeTab === "penurunan-kemiskinan"}>
-        <SearchKP
-         activeTab="penurunan-kemiskinan"
-         listData={listData}
-         handleSearchTermUpdate={handleSearchTermUpdate}
-         searchTerm={searchTab}
-        />
-        <Button
-         variant="contained"
-         sx={{
-          minWidth: 160,
-          mt: 2,
-          borderRadius: 50,
-          color: "white !important",
-         }}
-         href="/executive-summary"
-        >
-         Simpan
-        </Button>
-       </Collapse> */}
+
+       <Collapse in={openTab}>
+        <TabObject />
+       </Collapse>
       </>
      )}
     </ContentPage>

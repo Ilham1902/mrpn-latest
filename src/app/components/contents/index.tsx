@@ -45,6 +45,7 @@ export default function ContentPage({
  dateRangeDropdown,
  noMinusMargin,
  sxHeaderCard,
+ heightNoSet,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -70,6 +71,7 @@ export default function ContentPage({
  dateRangeDropdown?: boolean;
  noMinusMargin?: boolean;
  sxHeaderCard?: React.CSSProperties;
+ heightNoSet?: boolean;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -550,6 +552,8 @@ export default function ContentPage({
       ? "calc(100vh - 258px)"
       : overflowHidden
       ? "calc(100vh - 240px)"
+      : heightNoSet
+      ? "auto"
       : // : flagPathnameTheme
         // ? "calc(100vh - 328px)"
         "calc(100vh - 240px)"

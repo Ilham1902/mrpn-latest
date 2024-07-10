@@ -30,6 +30,7 @@ import Tab8Fund from "./partials/tab8Fund";
 import Tab7Regulation from "./partials/tab7Regulation";
 import Tab6Critical from "./partials/tab6Critical";
 import Tab5Roadmap from "./partials/tab5Roadmap";
+import { styleDownload, styleTab, styleTabPanel } from "./style";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -57,24 +58,7 @@ function CustomTabPanel(props: TabPanelProps) {
    {...other}
    style={{ display: project === "5" ? "none" : "block" }}
   >
-   {value === index && (
-    <Box
-     sx={{
-      p: 0,
-      mt: 2,
-      height: "calc(100vh - 344px)",
-      overflow: "auto",
-      "&::-webkit-scrollbar": {
-       width: "3px",
-      },
-      [theme.breakpoints.down("sm")]: {
-       height: "calc(100vh - 366px)",
-      },
-     }}
-    >
-     {children}
-    </Box>
-   )}
+   {value === index && <Box sx={styleTabPanel}>{children}</Box>}
   </div>
  );
 }
@@ -122,15 +106,7 @@ export default function PageExecutiveSummary({}) {
      {breakpointDownMd ? null : "Download Lampiran"}
     </Stack>
    }
-   sx={{
-    bgcolor: "white",
-    fontWeight: 600,
-    lineHeight: 1,
-    cursor: "pointer",
-    height: 38,
-    px: 1,
-    borderRadius: "50px",
-   }}
+   sx={styleDownload}
   />
  );
 
@@ -171,49 +147,7 @@ export default function PageExecutiveSummary({}) {
     <Collapse in={!flagProjectNoCard}>
      <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-       <Tabs
-        value={value}
-        onChange={handleChange}
-        sx={{
-         ".MuiTabs-flexContainer": {
-          gap: 1,
-          ".MuiTab-labelIcon": {
-           whiteSpace: "nowrap",
-          },
-         },
-         ".MuiTabs-scroller": {
-          //   [theme.breakpoints.down("md")]: {
-          width: "800px",
-          overflowX: "auto !important",
-          "&::-webkit-scrollbar": {
-           height: "4px",
-           bgcolor: grey[100],
-          },
-          "&::-webkit-scrollbar-track": {
-           //    boxShadow: "none",
-           //    bgcolor: grey[800],
-          },
-          "&::-webkit-scrollbar-thumb": {
-           bgcolor: alpha(grey[400], 0.9),
-          },
-          //   },
-         },
-         button: {
-          p: 2,
-          px: 3,
-          my: 2,
-          gap: 1,
-          minHeight: 0,
-          bgcolor: grey[300],
-          borderRadius: 2,
-          lineHeight: 1,
-          "&.Mui-selected": {
-           bgcolor: theme.palette.primary.main,
-           color: "white",
-          },
-         },
-        }}
-       >
+       <Tabs value={value} onChange={handleChange} sx={styleTab}>
         <Tab
          label="Latar Belakang"
          {...a11yProps(0)}

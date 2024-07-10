@@ -129,7 +129,7 @@ export default function Aside({
        <SubmenuItem
         label="Penetapan Kriteria"
         url={subMenuKonteks}
-        urlLv2="konteks-strategis"
+        urlLv2="kriteria"
        />
       </MenuItem>
       <MenuItem

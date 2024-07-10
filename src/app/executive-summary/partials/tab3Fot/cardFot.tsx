@@ -6,21 +6,10 @@ import CardItem from "@/app/components/cardTabItem";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
 import { dataTema } from "../../dataTema";
+import { VisuallyHiddenInput } from "@/app/utils/constant";
 
 export default function CardFot({ project }: { project: string }) {
  const isEmpty = false;
-
- const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
- });
 
  return (
   <CardItem
