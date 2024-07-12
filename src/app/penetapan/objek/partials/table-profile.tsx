@@ -19,6 +19,7 @@ import { IconEmptyData } from "@/app/components/icons";
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import { VisuallyHiddenInput } from "@/app/utils/constant";
+import TextareaComponent from "@/app/components/textarea";
 
 export default function TableProfile({ mode }: { mode?: string }) {
  const rows = [
@@ -107,19 +108,11 @@ export default function TableProfile({ mode }: { mode?: string }) {
          <Typography gutterBottom fontSize={14} color={grey[600]}>
           Justifikasi & Penjelasan
          </Typography>
-         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, facilis
-          hic consectetur vel corrupti voluptatem illo nulla, assumenda
-          exercitationem iure accusantium harum totam nam, sunt minus. Officia
-          numquam eum explicabo! Lorem, ipsum dolor sit amet consectetur
-          adipisicing elit. Dolores accusamus tempora quis eligendi nostrum
-          omnis. Quam ullam nihil, distinctio dolor, sapiente iusto quidem
-          reiciendis fuga, vel quos omnis nulla aliquid. Lorem, ipsum dolor sit
-          amet consectetur adipisicing elit. Delectus laborum architecto
-          perferendis ratione repudiandae harum earum iure repellendus, soluta
-          facilis dignissimos quia, aut ipsa expedita nobis pariatur dolore
-          neque exercitationem.
-         </p>
+         <TextareaComponent
+          width="100%"
+          label="Justifikasi & Penjelasan Usulan Objek MRPN Lintas Sektor"
+          placeholder="Justifikasi & Penjelasan Usulan Objek MRPN Lintas Sektor"
+         />
         </TableCell>
        </TableRow>
       </TableBody>
@@ -167,19 +160,11 @@ export default function TableProfile({ mode }: { mode?: string }) {
          <Typography gutterBottom fontSize={14} color={grey[600]}>
           Justifikasi & Penjelasan
          </Typography>
-         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, facilis
-          hic consectetur vel corrupti voluptatem illo nulla, assumenda
-          exercitationem iure accusantium harum totam nam, sunt minus. Officia
-          numquam eum explicabo! Lorem, ipsum dolor sit amet consectetur
-          adipisicing elit. Dolores accusamus tempora quis eligendi nostrum
-          omnis. Quam ullam nihil, distinctio dolor, sapiente iusto quidem
-          reiciendis fuga, vel quos omnis nulla aliquid. Lorem, ipsum dolor sit
-          amet consectetur adipisicing elit. Delectus laborum architecto
-          perferendis ratione repudiandae harum earum iure repellendus, soluta
-          facilis dignissimos quia, aut ipsa expedita nobis pariatur dolore
-          neque exercitationem.
-         </p>
+         <TextareaComponent
+          width="100%"
+          label="Justifikasi & Penjelasan Usulan UPR Lintas Sektor"
+          placeholder="Justifikasi & Penjelasan Usulan UPR Lintas Sektor"
+         />
         </TableCell>
        </TableRow>
       </TableBody>

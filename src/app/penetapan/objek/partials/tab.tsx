@@ -100,7 +100,7 @@ export default function TabObject({}) {
     </CardItem>
    </CustomTabPanel>
    <CustomTabPanel value={value} index={1}>
-    <CardItem title="Shortlist">
+    <CardItem title="Profil Usulan Objek MRPN">
      {isEmpty ? (
       <EmptyState
        dense

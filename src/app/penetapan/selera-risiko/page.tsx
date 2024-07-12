@@ -34,8 +34,8 @@ const LabelRadio = ({
 }: {
  heading: string;
  description: any;
- value: string | any;
- rangeValue: string | any;
+ value?: string | any;
+ rangeValue?: string | any;
 }) => {
  return (
   <Stack direction="column" justifyContent="flex-start">
@@ -228,12 +228,13 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="Tidak Toleran"
-        rangeValue={userLevel === "bappenas" ? null : "1-6"}
-        value={userLevel === "bappenas" ? 3 : null}
+        // rangeValue={userLevel === "bappenas" ? null : "1-6"}
+        // value={userLevel === "bappenas" ? 3 : null}
         description={
          <Stack gap={1}>
           {userLevel === "bappenas" ? (
            <FormatBP
+            levelId={1}
             form={
              <TextareaComponent
               label="Deskripsi"
@@ -282,12 +283,13 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="KONSERVATIF"
-        rangeValue={userLevel === "bappenas" ? null : "7-12"}
-        value={userLevel === "bappenas" ? 8 : null}
+        // rangeValue={userLevel === "bappenas" ? null : "7-12"}
+        // value={userLevel === "bappenas" ? 8 : null}
         description={
          <Stack gap={1}>
           {userLevel === "bappenas" ? (
            <FormatBP
+            levelId={2}
             form={
              <TextareaComponent
               label="Deskripsi"
@@ -334,12 +336,13 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="MODERAT"
-        rangeValue={userLevel === "bappenas" ? null : "13-18"}
-        value={userLevel === "bappenas" ? 15 : null}
+        // rangeValue={userLevel === "bappenas" ? null : "13-18"}
+        // value={userLevel === "bappenas" ? 15 : null}
         description={
          <Stack gap={1}>
           {userLevel === "bappenas" ? (
            <FormatBP
+            levelId={3}
             form={
              <TextareaComponent
               label="Deskripsi"
@@ -389,12 +392,13 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="AGRESIF"
-        rangeValue={userLevel === "bappenas" ? null : "19-25"}
-        value={userLevel === "bappenas" ? 25 : null}
+        // rangeValue={userLevel === "bappenas" ? null : "19-25"}
+        // value={userLevel === "bappenas" ? 25 : null}
         description={
          <Stack gap={1}>
           {userLevel === "bappenas" ? (
            <FormatBP
+            levelId={4}
             form={
              <TextareaComponent
               label="Deskripsi"
