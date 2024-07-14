@@ -7,29 +7,28 @@ import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
 import { dataTema } from "../../dataTema";
 import { VisuallyHiddenInput } from "@/app/utils/constant";
+import TablePeraturan from "./partials/table-peraturan";
 
 export default function CardRegulation({ project }: { project: string }) {
+ const [modalOpen, setModalOpen] = React.useState(false);
+
+ const handleModalOpen = () => {
+  setModalOpen(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpen(false);
+ };
+
  const isEmpty = false;
 
  return (
   <CardItem
    title="Kerangka Regulasi"
-   addButton={
-    <Button
-     size="small"
-     component="label"
-     role={undefined}
-     variant="contained"
-     tabIndex={-1}
-     startIcon={<IconFA name="upload" size={14} />}
-     sx={{ borderRadius: 25, textTransform: "capitalize", px: 2 }}
-    >
-     Upload file
-     <VisuallyHiddenInput type="file" />
-    </Button>
-   }
+   setting
+   settingEditOnclick={handleModalOpen}
   >
-   {isEmpty || project === "1" ? (
+   {isEmpty || project === "4" ? (
     <EmptyState
      dense
      icon={<IconEmptyData width={100} />}
@@ -37,27 +36,11 @@ export default function CardRegulation({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <>
-     {dataTema.map((itemFot, index) => (
-      <Fragment key={index}>
-       {project === itemFot.temaId && (
-        <>
-         {itemFot.fot.map((imgFot, index) => (
-          <Image
-           key={index}
-           alt="Kerangka Pikir"
-           src={imgFot}
-           width={0}
-           height={0}
-           sizes="100vw"
-           style={{ width: "100%", height: "auto" }}
-          />
-         ))}
-        </>
-       )}
-      </Fragment>
-     ))}
-    </>
+    <TablePeraturan
+     mode="view"
+     modalOpen={modalOpen}
+     modalClose={handleModalClose}
+    />
    )}
   </CardItem>
  );

@@ -52,8 +52,8 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <TableStakeholderEksternal mode={mode} project="1" />
     <Divider sx={{ my: 3 }} />
     <TableRincianOutput mode={mode} />
-    <Divider sx={{ my: 3 }} />
-    <TablePeraturan mode={mode} />
+    {/* <Divider sx={{ my: 3 }} />
+    <TablePeraturan mode={mode} /> */}
     <Divider sx={{ my: 3 }} />
     <TableKemungkinan mode={mode} />
     <Divider sx={{ my: 3 }} />
