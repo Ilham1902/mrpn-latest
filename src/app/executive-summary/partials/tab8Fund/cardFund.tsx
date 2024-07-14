@@ -20,9 +20,7 @@ export default function CardFund({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <>
-     <TableFund project={project} />
-    </>
+    <TableFund project={project} />
    )}
   </CardItem>
  );

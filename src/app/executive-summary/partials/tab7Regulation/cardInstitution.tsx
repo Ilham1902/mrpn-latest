@@ -2,7 +2,7 @@ import React from "react";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
-import MyOrgChart from "./partials/react-org-chart";
+import InstitutionOrgChart from "./partials/org-chart";
 
 export default function CardInstitution({ project }: { project: string }) {
  const isEmpty = false;
@@ -17,9 +17,7 @@ export default function CardInstitution({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <>
-     <MyOrgChart />
-    </>
+    <InstitutionOrgChart />
    )}
   </CardItem>
  );
