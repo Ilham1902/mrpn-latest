@@ -228,7 +228,7 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="Tidak Toleran"
-        // rangeValue={userLevel === "bappenas" ? null : "1-6"}
+        rangeValue={userLevel === "bappenas" ? null : "1-6"}
         // value={userLevel === "bappenas" ? 3 : null}
         description={
          <Stack gap={1}>
@@ -283,7 +283,7 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="KONSERVATIF"
-        // rangeValue={userLevel === "bappenas" ? null : "7-12"}
+        rangeValue={userLevel === "bappenas" ? null : "7-12"}
         // value={userLevel === "bappenas" ? 8 : null}
         description={
          <Stack gap={1}>
@@ -336,7 +336,7 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="MODERAT"
-        // rangeValue={userLevel === "bappenas" ? null : "13-18"}
+        rangeValue={userLevel === "bappenas" ? null : "13-18"}
         // value={userLevel === "bappenas" ? 15 : null}
         description={
          <Stack gap={1}>
@@ -392,7 +392,7 @@ export default function PageSeleraRisiko({}) {
       <Box mt={2}>
        <LabelRadio
         heading="AGRESIF"
-        // rangeValue={userLevel === "bappenas" ? null : "19-25"}
+        rangeValue={userLevel === "bappenas" ? null : "19-25"}
         // value={userLevel === "bappenas" ? 25 : null}
         description={
          <Stack gap={1}>

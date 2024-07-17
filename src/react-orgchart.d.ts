@@ -2,9 +2,8 @@ declare module "@dabeng/react-orgchart" {
  import { ComponentType } from "react";
 
  export interface Node {
-  //   id: string;
-  name?: string;
-  title?: string;
+  name?: React.ReactNode;
+  title?: React.ReactNode;
   children?: Node[];
  }
 

@@ -19,18 +19,13 @@ import { dataTema } from "../../dataTema";
 import FormRoadmap from "./form-roadmap";
 
 export default function CardRoadmap({ project }: { project: string }) {
- const [modalOpenOutput, setModalOpenOutput] = React.useState(false);
  const [modalOpenBisnis, setModalOpenBisnis] = React.useState(false);
 
- const handleModalOpenOutput = () => {
-  setModalOpenOutput(true);
- };
  const handleModalOpenBisnis = () => {
   setModalOpenBisnis(true);
  };
 
  const handleModalClose = () => {
-  setModalOpenOutput(false);
   setModalOpenBisnis(false);
  };
 
@@ -40,9 +35,7 @@ export default function CardRoadmap({ project }: { project: string }) {
   <CardItem
    title="Project Roadmap"
    setting
-   multiEdit
-   settingEditOutputClick={handleModalOpenOutput}
-   settingEditBisnisClick={handleModalOpenBisnis}
+   settingEditOnclick={handleModalOpenBisnis}
   >
    {isEmpty || project === "4" ? (
     <EmptyState
@@ -219,24 +212,6 @@ export default function CardRoadmap({ project }: { project: string }) {
      </Box>
     </>
    )}
-   <DialogComponent
-    width={800}
-    dialogOpen={modalOpenOutput}
-    dialogClose={handleModalClose}
-    title="Project Roadmap Berbasis Output"
-    dialogFooter={
-     <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button variant="outlined" onClick={handleModalClose}>
-       Batal
-      </Button>
-      <Button variant="contained" type="submit">
-       Simpan
-      </Button>
-     </DialogActions>
-    }
-   >
-    <FormRoadmap mode="add" />
-   </DialogComponent>
    <DialogComponent
     width={800}
     dialogOpen={modalOpenBisnis}

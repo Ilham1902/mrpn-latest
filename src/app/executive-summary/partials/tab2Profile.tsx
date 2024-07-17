@@ -6,7 +6,6 @@ import CardNomenklatur from "./tab2Profile/cardNomenklatur";
 import CardIndicator from "./tab2Profile/cardIndicator";
 import CardLocation from "./tab2Profile/cardLocation";
 import CardProfilRo from "./tab2Profile/cardProfilRo";
-import CardStakeholder from "./tab2Profile/cardStakeholder";
 import CardGoals from "./tab2Profile/cardGoals";
 
 export default function Tab2Profile({ project }: { project: string }) {
@@ -17,9 +16,8 @@ export default function Tab2Profile({ project }: { project: string }) {
    <CardSupport project={project} />
    <CardRelated project={project} />
    <CardIndicator project={project} />
-   <CardLocation project={project} />
    <CardProfilRo project={project} />
-   <CardStakeholder project={project} />
+   <CardLocation project={project} />
   </Stack>
  );
 }

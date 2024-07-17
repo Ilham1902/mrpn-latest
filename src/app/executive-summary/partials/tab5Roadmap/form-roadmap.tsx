@@ -14,6 +14,7 @@ import TextareaComponent from "@/app/components/textarea";
 import dynamic from "next/dynamic";
 import SelectCustomTheme from "@/app/components/select";
 import { listTahun } from "@/app/utils/data";
+import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 
 export default function FormRoadmap({ mode }: { mode?: string }) {
  const [value, setValue] = React.useState("");
@@ -41,7 +42,7 @@ export default function FormRoadmap({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Tahun</Typography>
+      <FieldLabelInfo title="Tahun" information="Tahun" />
       {mode === "add" ? (
        <SelectCustomTheme
         defaultStyle
@@ -90,7 +91,7 @@ export default function FormRoadmap({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Output</Typography>
+      <FieldLabelInfo title="Output" information="Output" />
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -116,7 +117,7 @@ export default function FormRoadmap({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth sx={{ mb: 3 }}>
-      <Typography gutterBottom>RO Pendukung</Typography>
+      <FieldLabelInfo title="RO Pendukung" information="RO Pendukung" />
       {mode === "add" ? (
        <ReactQuill
         theme="snow"
@@ -137,7 +138,7 @@ export default function FormRoadmap({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Catatan Lain</Typography>
+      <FieldLabelInfo title="Catatan Lain" information="Catatan Lain" />
       {mode === "add" ? (
        <ReactQuill
         theme="snow"

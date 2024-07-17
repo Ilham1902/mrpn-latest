@@ -6,11 +6,10 @@ import { styleTab } from "@/app/executive-summary/style";
 import CardItem from "@/app/components/cardTabItem";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
-import TableShortlist from "./table-short";
-import TableProfile from "./table-profile";
-import TableLonglist from "./table-long-step-2";
-import TableLonglistStepper from "./table-long-stepper";
-import TableProposal from "./table-proposal";
+import CardKategori from "./cardKategori";
+import CardKemungkinan from "./cardKemungkinan";
+import CardDampak from "./cardDampak";
+import CardMatriks from "./cardMatriks";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -61,7 +60,7 @@ function CustomTabPanel(props: TabPanelProps) {
  );
 }
 
-export default function TabObject({}) {
+export default function TabCriteria({}) {
  const [value, setValue] = React.useState(0);
 
  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -75,7 +74,7 @@ export default function TabObject({}) {
    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
     <Tabs value={value} onChange={handleChange} sx={styleTab}>
      <Tab
-      label="Longlist"
+      label="Kategori Risiko"
       {...a11yProps(0)}
       iconPosition="start"
       icon={
@@ -83,19 +82,19 @@ export default function TabObject({}) {
       }
      />
      <Tab
-      label="Shortlist"
+      label="Kriteria Kemungkinan"
       {...a11yProps(1)}
       iconPosition="start"
       icon={<IconFA size={16} name="arrow-down-wide-short" />}
      />
      <Tab
-      label="Usulan UPR Linsek"
+      label="Kriteria Dampak"
       {...a11yProps(2)}
       iconPosition="start"
       icon={<IconFA size={16} name="scroll" />}
      />
      <Tab
-      label="Nota Dinas Objek MRPN & UPR Linsek"
+      label="Matriks Risiko Konservatif"
       {...a11yProps(3)}
       iconPosition="start"
       icon={<IconFA size={16} name="newspaper" sx={{ width: "auto" }} />}
@@ -103,60 +102,52 @@ export default function TabObject({}) {
     </Tabs>
    </Box>
    <CustomTabPanel value={value} index={0}>
-    <CardItem title="Longlist">
-     {isEmpty ? (
-      <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
-      />
-     ) : (
-      <TableLonglistStepper />
-     )}
-    </CardItem>
+    {isEmpty ? (
+     <EmptyState
+      dense
+      icon={<IconEmptyData width={100} />}
+      title="Data Kosong"
+      description="Silahkan isi konten halaman ini"
+     />
+    ) : (
+     <CardKategori />
+    )}
    </CustomTabPanel>
    <CustomTabPanel value={value} index={1}>
-    <CardItem title="Shortlist">
-     {isEmpty ? (
-      <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
-      />
-     ) : (
-      <TableShortlist />
-     )}
-    </CardItem>
+    {isEmpty ? (
+     <EmptyState
+      dense
+      icon={<IconEmptyData width={100} />}
+      title="Data Kosong"
+      description="Silahkan isi konten halaman ini"
+     />
+    ) : (
+     <CardKemungkinan />
+    )}
    </CustomTabPanel>
    <CustomTabPanel value={value} index={2}>
-    <CardItem title="Usulan UPR Linsek">
-     {isEmpty ? (
-      <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
-      />
-     ) : (
-      <TableProposal />
-     )}
-    </CardItem>
+    {isEmpty ? (
+     <EmptyState
+      dense
+      icon={<IconEmptyData width={100} />}
+      title="Data Kosong"
+      description="Silahkan isi konten halaman ini"
+     />
+    ) : (
+     <CardDampak />
+    )}
    </CustomTabPanel>
    <CustomTabPanel value={value} index={3}>
-    <CardItem title="Nota Dinas Objek MRPN & UPR Linsek">
-     {isEmpty ? (
-      <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
-      />
-     ) : (
-      <TableProfile />
-     )}
-    </CardItem>
+    {isEmpty ? (
+     <EmptyState
+      dense
+      icon={<IconEmptyData width={100} />}
+      title="Data Kosong"
+      description="Silahkan isi konten halaman ini"
+     />
+    ) : (
+     <CardMatriks />
+    )}
    </CustomTabPanel>
   </Box>
  );

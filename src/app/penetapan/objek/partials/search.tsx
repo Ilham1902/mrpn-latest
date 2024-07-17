@@ -1,7 +1,5 @@
-import { useState } from "react";
 import SearchField from "./search-bar";
-import { Box, Divider, FormGroup, Stack, Typography } from "@mui/material";
-import { grey, yellow } from "@mui/material/colors";
+import { Box, FormGroup, Stack, Typography } from "@mui/material";
 import SearchResult from "./search-result";
 import TreeView from "./tree-view";
 
@@ -18,13 +16,6 @@ export default function SearchKP({
  handleSearchTermUpdate: any;
  addTheme?: boolean;
 }) {
- //  const [searchTerm, setSearchTerm] = useState("");
-
- //  const handleSearchTermUpdate = (searchTermUpdate: any) => {
- //   setSearchTerm(searchTermUpdate.target.value);
- //  };
-
- // Trim ends, split into array and remove empty strings in array
  const searchTermsArray = searchTerm
   .replace(/[.*+?^${}()|[\]\\]/g, "\\$&") // Remove regex from search text - $& means the whole matched string
   .trim()
@@ -58,16 +49,9 @@ export default function SearchKP({
 
  return (
   <>
-   {/* <Divider sx={{ my: 2 }} /> */}
-   <Stack
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
-    // mt={2}
-   >
-    {/* <Typography color={grey[600]} fontSize={14} fontStyle="italic"></Typography> */}
+   <Stack direction="row" justifyContent="space-between" alignItems="center">
     <Typography>
-     {addTheme ? "Pilih AP" : "Pilih AP/PP/KP dari tema"}{" "}
+     {addTheme ? "Pilih PN" : "Pilih AP/PP/KP dari topik"}{" "}
      <Typography fontWeight={600} fontSize={14} component="span">
       {activeTab === "penurunan-stunting"
        ? "Penurunan Stunting"
@@ -93,7 +77,6 @@ export default function SearchKP({
     mt={2}
     sx={{
      maxHeight: "30vh",
-     //  maxHeight: "15vh",
      overflow: "auto",
      "&::-webkit-scrollbar": {
       width: "3px",

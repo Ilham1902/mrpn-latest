@@ -112,11 +112,11 @@ export default function FormTable({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Kode Tema</Typography>
+      <Typography gutterBottom>Kode Topik</Typography>
       <TextField
        variant="outlined"
        size="small"
-       placeholder="Kode Tema"
+       placeholder="Kode Topik"
        InputLabelProps={{
         shrink: true,
        }}
@@ -125,11 +125,11 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={8}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Tema</Typography>
+      <Typography gutterBottom>Topik</Typography>
       <TextField
        variant="outlined"
        size="small"
-       placeholder="Tema"
+       placeholder="Topik"
        InputLabelProps={{
         shrink: true,
        }}
@@ -147,66 +147,6 @@ export default function FormTable({ mode }: { mode?: string }) {
       />
      </Paper>
     </Grid>
-    {/* <Grid item lg={6}>
-     <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
-      <Grid container spacing={2}>
-       <Grid item lg={12}>
-        <Divider>
-         <Chip label="Proyek Pembangunan (PP)" size="small" />
-        </Divider>
-       </Grid>
-       {itemsPP.map((tags: any) => (
-        <Fragment key={`${tags.id}`}>
-         <ItemKP type="pp" />
-         <Grid item lg={2}>
-          <FormControl sx={{ mt: "27px" }}>
-           <IconButton
-            aria-label="delete"
-            color="error"
-            onClick={() => minusPP(tags.id)}
-           >
-            <IconFA size={18} name="trash-can" />
-           </IconButton>
-          </FormControl>
-         </Grid>
-        </Fragment>
-       ))}
-      </Grid>
-      <FormControl sx={{ mt: 2 }}>
-       <AddButton title="Tambah PP" noMargin onclick={addPP} />
-      </FormControl>
-     </Paper>
-    </Grid>
-    <Grid item lg={6}>
-     <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
-      <Grid container spacing={2}>
-       <Grid item lg={12}>
-        <Divider>
-         <Chip label="Kegiatan Pembangunan (KP)" size="small" />
-        </Divider>
-       </Grid>
-       {itemsKP.map((tags: any) => (
-        <Fragment key={`${tags.id}`}>
-         <ItemKP type="kp" />
-         <Grid item lg={1}>
-          <FormControl sx={{ mt: "27px" }}>
-           <IconButton
-            aria-label="delete"
-            color="error"
-            onClick={() => minusKP(tags.id)}
-           >
-            <IconFA size={18} name="trash-can" />
-           </IconButton>
-          </FormControl>
-         </Grid>
-        </Fragment>
-       ))}
-      </Grid>
-      <FormControl sx={{ mt: 2 }}>
-       <AddButton title="Tambah KP" noMargin onclick={addKP} />
-      </FormControl>
-     </Paper>
-    </Grid> */}
    </Grid>
   </>
  );

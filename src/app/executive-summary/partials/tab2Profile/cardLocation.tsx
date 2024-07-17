@@ -17,22 +17,23 @@ import { dataTema } from "../../dataTema";
 // import FormSwot from "../tab1Background/form-swot";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
+import FormLocation from "./form-location";
 
 export default function CardLocation({ project }: { project: string }) {
- const [modalOpenFact, setModalOpenFact] = React.useState(false);
+ const [modalOpen, setModalOpen] = React.useState(false);
 
- const handleModalOpenFact = () => {
-  setModalOpenFact(true);
+ const handleModalOpen = () => {
+  setModalOpen(true);
  };
 
  const handleModalClose = () => {
-  setModalOpenFact(false);
+  setModalOpen(false);
  };
 
  const isEmpty = false;
 
  return (
-  <CardItem title="Lokasi" setting settingEditOnclick={handleModalOpenFact}>
+  <CardItem title="Lokasi" setting settingEditOnclick={handleModalOpen}>
    {isEmpty || project !== "1" ? (
     <EmptyState
      dense
@@ -118,9 +119,9 @@ export default function CardLocation({ project }: { project: string }) {
     </Stack>
    )}
    <DialogComponent
-    dialogOpen={modalOpenFact}
+    dialogOpen={modalOpen}
     dialogClose={handleModalClose}
-    title="Kondisi Saat Ini/Latar Belakang Proyek (SWOT)"
+    title="Ubah Lokasi"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>
@@ -132,7 +133,7 @@ export default function CardLocation({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    {/* <FormSwot mode="add" project={project} /> */}
+    <FormLocation mode="add" />
    </DialogComponent>
   </CardItem>
  );

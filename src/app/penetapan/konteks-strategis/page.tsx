@@ -125,7 +125,7 @@ export default function PageKonteksStrategis({}) {
    <LoadingPage />
    <DashboardLayout>
     <ContentPage
-     title="Konteks Strategis"
+     title="Eksplorasi Konteks Strategis"
      chooseProject
      project={project}
      handleChangeProject={handleChangeProject}

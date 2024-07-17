@@ -713,7 +713,25 @@ export const dataTema = [
   ],
   stakeholder: [
    {
-    label: "Entitas Utama",
+    label: "Kemenko Koordinator",
+    tag: "Monitor",
+    desc:
+     "Melakukan proses pengawasan atas penyaluran asupan gizi dan penyediaan sarpras secara berkelanjutan kepada masyarakat",
+    instance: [
+     {
+      name: "Kementerian PPN",
+      logo:
+       "https://res.cloudinary.com/caturteguh/image/upload/v1711964917/mrpn/company_logo/logo_bappenas_gwhnut.png",
+     },
+     {
+      name: "Puskesmas",
+      logo:
+       "https://res.cloudinary.com/caturteguh/image/upload/v1711956111/mrpn/company_logo/logo_puskesmas_ckdzmi.png",
+     },
+    ],
+   },
+   {
+    label: "Entitas Sektor Utama",
     tag: "Manage Closely",
     desc: "Meningkatkan asupan gizi dan menyediakan sarana dan prasarana dasar",
     instance: [
@@ -776,62 +794,45 @@ export const dataTema = [
      },
     ],
    },
-   {
-    label: "Monitoring dan Pengawasan",
-    tag: "Monitor",
-    desc:
-     "Melakukan proses pengawasan atas penyaluran asupan gizi dan penyediaan sarpras secara berkelanjutan kepada masyarakat",
-    instance: [
-     {
-      name: "Kementerian PPN",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1711964917/mrpn/company_logo/logo_bappenas_gwhnut.png",
-     },
-     {
-      name: "Puskesmas",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1711956111/mrpn/company_logo/logo_puskesmas_ckdzmi.png",
-     },
-    ],
-   },
-   {
-    label: "Koordinasi, Informasi, sosialisasi berkala",
-    tag: "Keep Informed",
-    desc:
-     "Keterlibatan pemerintah daerah dalam pelaksanaan penurunan stunting yang diagendakan pada beberapa daerah",
-    instance: [
-     {
-      name: "Pemerintahan Jawa Barat",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1711725536/mrpn/company_logo/logo_gemah_ueqink.png",
-     },
-     {
-      name: "Pemerintahan DKI Jakarta",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_jaya_p7hnyk.png",
-     },
-     {
-      name: "Pemerintahan Kabupaten Bekasi",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_swatantra_jq1s4e.png",
-     },
-     {
-      name: "Pemerintahan Kabupaten Badung",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_badung_s4tmhb.png",
-     },
-     {
-      name: "Pemerintahan Kabupaten Bogor",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_bogor_ygigaw.png",
-     },
-     {
-      name: "Pemerintahan Kabupaten Kediri",
-      logo:
-       "https://res.cloudinary.com/caturteguh/image/upload/v1714802050/mrpn/company_logo/logo_kab_kediri_q6yfnp.png",
-     },
-    ],
-   },
+
+   //  {
+   //   label: "Koordinasi, Informasi, sosialisasi berkala",
+   //   tag: "Keep Informed",
+   //   desc:
+   //    "Keterlibatan pemerintah daerah dalam pelaksanaan penurunan stunting yang diagendakan pada beberapa daerah",
+   //   instance: [
+   //    {
+   //     name: "Pemerintahan Jawa Barat",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725536/mrpn/company_logo/logo_gemah_ueqink.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan DKI Jakarta",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_jaya_p7hnyk.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Bekasi",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_swatantra_jq1s4e.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Badung",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_badung_s4tmhb.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Bogor",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_bogor_ygigaw.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Kediri",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714802050/mrpn/company_logo/logo_kab_kediri_q6yfnp.png",
+   //    },
+   //   ],
+   //  },
   ],
   roadmap: [
    {

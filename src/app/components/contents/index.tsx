@@ -46,6 +46,7 @@ export default function ContentPage({
  noMinusMargin,
  sxHeaderCard,
  heightNoSet,
+ selectedTopic,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -72,6 +73,7 @@ export default function ContentPage({
  noMinusMargin?: boolean;
  sxHeaderCard?: React.CSSProperties;
  heightNoSet?: boolean;
+ selectedTopic?: React.ReactNode | boolean;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -256,38 +258,13 @@ export default function ContentPage({
         }}
        />
       )}
+      {selectedTopic}
      </Stack>
     </Stack>
     <Stack direction="row" alignItems="center" gap={1}>
      {chooseProjectPage}
      {dowloadAttachmentFile}
-     {chooseProject && (
-      <>
-       <DropdownKp
-        // project={project}
-        handleChangeProject={handleChangeProject}
-       />
-
-       {/* <FormControl size="small">
-        <SelectCustomTheme small value={project} onChange={handleChangeProject}>
-         <MenuItem value="" disabled>
-          <Typography fontSize={14} fontStyle="italic">
-           Pilih Kegiatan Pembangunan (KP)
-          </Typography>
-         </MenuItem>
-         <MenuItem value="1" defaultChecked>
-          KP.02 - Penurunan stunting
-         </MenuItem>
-         <MenuItem value="2">
-          KP.03 - Peningkatan pelayanan kesehatan...
-         </MenuItem>
-         <MenuItem value="3">
-          KP.04 - Penyediaan Akses Terhadap Rumah...
-         </MenuItem>
-        </SelectCustomTheme>
-       </FormControl> */}
-      </>
-     )}
+     {chooseProject && <DropdownKp handleChangeProject={handleChangeProject} />}
      {chooseRo && (
       <FormControl size="small">
        <SelectCustomTheme

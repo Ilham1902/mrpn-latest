@@ -30,7 +30,7 @@ export const styleTab = [
   button: {
    p: 2,
    px: 3,
-   my: 2,
+   mb: 2,
    gap: 1,
    minHeight: 0,
    bgcolor: grey[300],

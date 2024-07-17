@@ -1,6 +1,6 @@
 import React from "react";
 import OrgChart from "@dabeng/react-orgchart";
-import { Box, Divider, Stack } from "@mui/material";
+import { Box, Button, Divider, Stack } from "@mui/material";
 import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
@@ -10,6 +10,7 @@ import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import { dataTema } from "@/app/executive-summary/dataTema";
 import { grey } from "@mui/material/colors";
+import DialogComponent from "@/app/components/dialog";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  const isAssistant = nodeData.isAssistant === true;
@@ -88,21 +89,43 @@ const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
 };
 
 export default function CascadingOrgChart({ project }: { project: string }) {
+ const [modalOpenImg, setModalOpenImg] = React.useState(false);
+
+ const handleModalClose = () => {
+  setModalOpenImg(false);
+ };
+
+ const handleModalImg = () => {
+  setModalOpenImg(true);
+ };
+
  const ds = {
-  name: `Nomenklatur ${project === "5" ? "PN" : "PP"}`,
-  title: `Nomenklatur ${project === "5" ? "PN" : "PP"}`,
+  name: `Nomenklatur PN`,
+  title: `Nomenklatur PN`,
   children: [
    {
-    name: "Nomenklatur KP",
-    title: "Nomenklatur KP",
+    name: `Nomenklatur PP`,
+    title: `Nomenklatur PP`,
     children: [
      {
-      name: "Nomenklatur IKU + KL Pengampu",
-      title: "Nomenklatur IKU + KL Pengampu",
+      name: "Nomenklatur KP",
+      title: "Nomenklatur KP",
       children: [
-       { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
-       { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
-       { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
+       {
+        name: "Sasaran",
+        title: "Sasaran",
+        children: [
+         {
+          name: "Nomenklatur IKU + KL Pengampu",
+          title: "Nomenklatur IKU + KL Pengampu",
+          children: [
+           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
+           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
+           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
+          ],
+         },
+        ],
+       },
       ],
      },
     ],
@@ -112,34 +135,47 @@ export default function CascadingOrgChart({ project }: { project: string }) {
 
  return (
   <>
-   <Box p={2}>
-    {dataTema.map((itemFund) => (
-     <>
-      {project === itemFund.temaId && (
-       <>
-        {itemFund.pendanaan.map((listFund) => (
-         <>
-          {listFund.source.length < 1 ? (
-           <EmptyState
-            dense
-            icon={<IconEmptyData width={70} />}
-            title="Data Kosong"
-           />
-          ) : (
-           <>
-            {listFund.source.map((itemSource, index) => (
-             <FundSource key={index} value={`Rp. ${itemSource.value}`} />
-            ))}
-           </>
-          )}
-         </>
-        ))}
-       </>
-      )}
-     </>
-    ))}
-   </Box>
-   <Box sx={styleOrgChart}>
+   <Stack gap={2} direction="row">
+    <Box>
+     {dataTema.map((itemFund) => (
+      <>
+       {project === itemFund.temaId && (
+        <>
+         {itemFund.pendanaan.map((listFund) => (
+          <>
+           {listFund.source.length < 1 ? (
+            <EmptyState
+             dense
+             icon={<IconEmptyData width={70} />}
+             title="Data Kosong"
+            />
+           ) : (
+            <>
+             {listFund.source.map((itemSource, index) => (
+              <FundSource key={index} value={`Rp. ${itemSource.value}`} />
+             ))}
+            </>
+           )}
+          </>
+         ))}
+        </>
+       )}
+      </>
+     ))}
+    </Box>
+    <Box>
+     <Button
+      variant="contained"
+      color="primary"
+      startIcon={<IconFA name="magnifying-glass-plus" size={14} />}
+      sx={{ height: 45, px: 3 }}
+      onClick={handleModalImg}
+     >
+      Perbesar Chart
+     </Button>
+    </Box>
+   </Stack>
+   <Box sx={styleOrgChart} mt={4}>
     <OrgChart
      datasource={ds}
      NodeTemplate={NodeTemplate}
@@ -147,6 +183,20 @@ export default function CascadingOrgChart({ project }: { project: string }) {
      chartClass="chartClass"
     />
    </Box>
+   <DialogComponent
+    width="80%"
+    dialogOpen={modalOpenImg}
+    dialogClose={handleModalClose}
+   >
+    <Box sx={styleOrgChart}>
+     <OrgChart
+      datasource={ds}
+      NodeTemplate={NodeTemplate}
+      containerClass="containerClass"
+      chartClass="chartClass"
+     />
+    </Box>
+   </DialogComponent>
   </>
  );
 }

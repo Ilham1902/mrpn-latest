@@ -1,25 +1,16 @@
 import React, { Fragment } from "react";
 import {
- Box,
- FormControl,
  Stack,
  Table,
  TableBody,
  TableCell,
  TableHead,
  TableRow,
- Typography,
 } from "@mui/material";
 import { blue, green, grey, orange, red, yellow } from "@mui/material/colors";
-import { dataMatriks } from "../../kriteria/dataMatriks";
+import { dataMatriks } from "../dataMatriks";
 
-export default function FormatBP({
- form,
- levelId,
-}: {
- form: React.ReactNode;
- levelId: number;
-}) {
+export default function Matriks({ levelId }: { levelId?: number }) {
  const colorMap: { [key: string]: string } = {
   blue: blue[400],
   green: green[400],
@@ -162,15 +153,9 @@ export default function FormatBP({
  );
 
  return (
-  <Stack gap={2}>
-   <Typography fontStyle="italic">Tuliskan pernyataan selera risiko</Typography>
-   <Box>
-    <FormControl sx={{ width: "50%" }}>{form}</FormControl>
-   </Box>
-   {/* <Stack display="grid" gridTemplateColumns="2.75fr 1.25fr" gap={2}>
-    {matriksFive}
-    {levelMatriks}
-   </Stack> */}
+  <Stack display="grid" gridTemplateColumns="2.75fr 1.25fr" gap={2}>
+   {matriksFive}
+   {levelMatriks}
   </Stack>
  );
 }

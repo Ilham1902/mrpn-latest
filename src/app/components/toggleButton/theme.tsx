@@ -1,12 +1,11 @@
 import React from "react";
-import { Box, ToggleButton, Typography, alpha } from "@mui/material";
+import { ToggleButton, Typography, alpha } from "@mui/material";
 import theme from "@/theme";
-import { green, grey, red, yellow } from "@mui/material/colors";
+import { green, red, yellow } from "@mui/material/colors";
 
 export default function ThemeToggleButton({
  value,
  label,
- code,
  variant,
  disabled,
  onClick,
@@ -34,7 +33,7 @@ export default function ThemeToggleButton({
    value={value}
    aria-label={label}
    sx={{
-    minHeight: "auto",
+    minHeight: 160,
     p: 0,
     bgcolor: "white",
     justifyContent: "flex-start",
@@ -61,33 +60,18 @@ export default function ThemeToggleButton({
     },
    }}
   >
-   {/* {code && (
-    <Box
-     component="span"
-     px={2}
-     py={1.5}
-     bgcolor={grey[200]}
-     sx={{
-      borderStartStartRadius: "12px",
-      borderEndStartRadius: "12px",
-     }}
-    >
-     {code}
-    </Box>
-   )} */}
    <Typography
     px={3}
     component="span"
     fontWeight={700}
     fontSize="2em"
     textTransform="capitalize"
-    // maxWidth={260}
+    maxWidth={260}
     lineHeight={1.1}
     textAlign="left"
    >
     {label}
    </Typography>
-   {/* {code} */}
   </ToggleButton>
  );
 }

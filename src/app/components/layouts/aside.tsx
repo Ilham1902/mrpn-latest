@@ -17,6 +17,8 @@ import {
  IconProfil,
 } from "../icons";
 import { IconFA } from "../icons/icon-fa";
+import { IconSupport } from "../icons/support";
+import { IconApproval } from "../icons/approval";
 
 export default function Aside({
  isExpanded,
@@ -74,6 +76,8 @@ export default function Aside({
  const subMenuKonteks = "penetapan";
  const subMenuProfil = "profil-risiko";
  const subMenuMitigasi = "pemantauan";
+ const subMenuSupport = "support";
+ const subMenuApproval = "approval";
 
  const Sidemenu = (
   <Stack
@@ -94,6 +98,12 @@ export default function Aside({
      <Stack direction="column" gap={1}>
       <MenuItem
        isExpanded={isExpanded}
+       label="Dashboard"
+       icon={<IconDashboard />}
+       url="dashboard"
+      />
+      <MenuItem
+       isExpanded={isExpanded}
        label="Executive Summary"
        icon={<IconExecutive />}
        url="executive-summary"
@@ -110,27 +120,18 @@ export default function Aside({
          : false
        }
       >
+       <SubmenuItem label="Objek & UPR" url={subMenuKonteks} urlLv2="objek" />
        <SubmenuItem
-        label="Penetapan Objek"
-        url={subMenuKonteks}
-        urlLv2="objek"
-       />
-       <SubmenuItem
-        label="Konteks Strategis"
+        label="Eksplorasi Konteks"
         url={subMenuKonteks}
         urlLv2="konteks-strategis"
        />
-       {/* Pedoman 8 di submenu selera */}
        <SubmenuItem
         label="Selera Risiko"
         url={subMenuKonteks}
         urlLv2="selera-risiko"
        />
-       <SubmenuItem
-        label="Penetapan Kriteria"
-        url={subMenuKonteks}
-        urlLv2="kriteria"
-       />
+       <SubmenuItem label="Kriteria" url={subMenuKonteks} urlLv2="kriteria" />
       </MenuItem>
       <MenuItem
        hasChild
@@ -149,21 +150,48 @@ export default function Aside({
         url={subMenuProfil}
         urlLv2="registrasi-risiko"
        />
-       {/* Pedoman 6 & 7 di submenu analisis */}
        <SubmenuItem
-        label="Analisis Risiko"
+        label="Analisis & Evaluasi"
         url={subMenuProfil}
         urlLv2="analisis-risiko"
        />
-       <SubmenuItem
+       {/* <SubmenuItem
         label="Evaluasi Risiko"
         url={subMenuProfil}
         urlLv2="evaluasi-risiko"
-       />
+       /> */}
        <SubmenuItem
         label="Perlakuan Risiko"
         url={subMenuProfil}
         urlLv2="perlakuan-risiko"
+       />
+      </MenuItem>
+      <MenuItem
+       hasChild
+       isExpanded={isExpanded}
+       label="Approval"
+       icon={<IconApproval />}
+       url={subMenuApproval}
+       menuParentActive={
+        typeof window !== "undefined"
+         ? window.location.pathname.includes(subMenuMitigasi)
+         : false
+       }
+      >
+       <SubmenuItem
+        label="Nota Dinas"
+        url={subMenuMitigasi}
+        urlLv2="nota-dinas"
+       />
+       <SubmenuItem
+        label="Selera Risiko"
+        url={subMenuMitigasi}
+        urlLv2="selera-risiko"
+       />
+       <SubmenuItem
+        label="Profil Risiko"
+        url={subMenuMitigasi}
+        urlLv2="profil-risiko"
        />
       </MenuItem>
       <MenuItem
@@ -189,15 +217,37 @@ export default function Aside({
         urlLv2="pemantauan"
        />
        <SubmenuItem
-        label="Maturitas"
-        url={subMenuMitigasi}
-        urlLv2="maturitas"
-       />
-       <SubmenuItem
         label="Pelaporan"
         url={subMenuMitigasi}
         urlLv2="pelaporan"
        />
+       <SubmenuItem
+        label="Lost Event Database"
+        url={subMenuMitigasi}
+        urlLv2="led"
+       />
+      </MenuItem>
+      <MenuItem
+       isExpanded={isExpanded}
+       label="Kepatuhan"
+       icon={<IconFA name="hourglass-start" size={18} />}
+       url="kepatuhan"
+      />
+      <MenuItem
+       hasChild
+       isExpanded={isExpanded}
+       label="Support"
+       icon={<IconSupport />}
+       url={subMenuSupport}
+       menuParentActive={
+        typeof window !== "undefined"
+         ? window.location.pathname.includes(subMenuSupport)
+         : false
+       }
+      >
+       <SubmenuItem label="Peraturan" url={subMenuSupport} urlLv2="dashboard" />
+       <SubmenuItem label="Q & A" url={subMenuSupport} urlLv2="dashboard" />
+       <SubmenuItem label="Helpdesk" url={subMenuSupport} urlLv2="dashboard" />
       </MenuItem>
      </Stack>
     </MenuGroup>

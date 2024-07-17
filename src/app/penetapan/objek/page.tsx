@@ -13,6 +13,8 @@ import {
  Button,
  DialogActions,
  Collapse,
+ Chip,
+ Stack,
 } from "@mui/material";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
@@ -26,11 +28,14 @@ import ThemeToggleButton from "@/app/components/toggleButton/theme";
 import { usePathname } from "next/navigation";
 import { styleToggleButton } from "./style";
 import TabObject from "./partials/tab";
+import { IconFA } from "@/app/components/icons/icon-fa";
 
 export default function PageTema({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenCollapse, setModalOpenCollapse] = React.useState(false);
  const [openTab, setOpenTab] = React.useState(false);
+ const [objectVisible, setObjectVisible] = React.useState(true);
+ const [toggleSelectedTopic, setToggleSelectedTopic] = React.useState(false);
 
  const {
   activeTab,
@@ -56,6 +61,14 @@ export default function PageTema({}) {
  const handleOpenTab = () => {
   setModalOpenCollapse(false);
   setOpenTab(true);
+  setObjectVisible(false);
+  setToggleSelectedTopic(true);
+ };
+
+ const handleChangeTopic = () => {
+  setToggleSelectedTopic(false);
+  setOpenTab(false);
+  setObjectVisible(true);
  };
 
  const dialogActionFooter = (
@@ -101,77 +114,140 @@ export default function PageTema({}) {
    <DashboardLayout noOverflow>
     <LoadingPage />
     <ContentPage
-     title="Penetapan Objek"
+     title="Objek MRPN & UPR Linsek"
      noMinusMargin
      heightNoSet
      withCard={false}
+     selectedTopic={
+      <Collapse in={toggleSelectedTopic}>
+       <Chip
+        variant="outlined"
+        label={
+         <Stack direction="row" alignItems="center">
+          <Stack
+           direction="row"
+           bgcolor={grey[800]}
+           px={2}
+           alignItems="center"
+           height="34px"
+           sx={{
+            borderTopLeftRadius: 24,
+            borderBottomLeftRadius: 24,
+            [theme.breakpoints.down("sm")]: {
+             minWidth: 133,
+            },
+           }}
+          >
+           <Typography
+            fontSize={14}
+            color="white"
+            fontWeight={600}
+            lineHeight={1}
+           >
+            Objek Terpilih
+           </Typography>
+          </Stack>
+          <Typography px={2} fontSize={16} fontWeight={600}>
+           Penurunan Stunting
+          </Typography>
+         </Stack>
+        }
+        sx={{
+         height: "34px",
+         bgcolor: "white",
+         fontWeight: 600,
+         lineHeight: 1,
+         cursor: "default",
+         ".MuiChip-label": {
+          px: 0,
+         },
+        }}
+       />
+      </Collapse>
+     }
      addButton={
-      <AddButton
-       title="Tambah Tema"
-       filled
-       noMargin
-       onclick={handleModalOpenAdd}
-      />
+      <>
+       <Collapse in={toggleSelectedTopic}>
+        <AddButton
+         title="Ganti Objek"
+         filled
+         noMargin
+         startIcon={<IconFA name="pencil" size={14} />}
+         onclick={handleChangeTopic}
+        />
+       </Collapse>
+       {!toggleSelectedTopic && (
+        <AddButton
+         title="Tambah Topik"
+         filled
+         noMargin
+         onclick={handleModalOpenAdd}
+        />
+       )}
+      </>
      }
     >
      {isEmpty ? (
       <EmptyState
        icon={<IconEmptyPage />}
-       title="Halaman Tema Kosong"
+       title="Halaman Topik Kosong"
        description="Silahkan isi konten halaman ini"
       />
      ) : (
       <>
-       <Typography color={grey[600]} fontSize={14} fontStyle="italic">
-        Pilih salah satu objek
-       </Typography>
-       <Box>
-        <ToggleButtonGroup
-         value={activeTab}
-         exclusive
-         onChange={handleAlignment}
-         aria-label="text alignment"
-         sx={styleToggleButton}
-        >
-         <ThemeToggleButton
-          // code="01.01.02"
-          value="penurunan-stunting"
-          label="Penurunan Stunting"
-          onClick={handleModalOpenCollapse}
-         />
-         <ThemeToggleButton
-          //  code="01.01.03"
-          value="penurunan-kemiskinan"
-          label="Penurunan Kemiskinan"
-          onClick={handleModalOpenCollapse}
-         />
-         <ThemeToggleButton
-          //  code="01.01.04"
-          value="percepatan-transisi-energi"
-          label="Percepatan Transisi Energi"
-          disabled
-         />
-         <ThemeToggleButton
-          //  code="01.01.05"
-          value="peningkatan-pariwisata"
-          label="Peningkatan Pariwisata"
-          disabled
-         />
-         <ThemeToggleButton
-          //  code="01.01.06"
-          value="ketahanan-pangan"
-          label="Ketahanan Pangan"
-          disabled
-         />
-         <ThemeToggleButton
-          //  code="01.01.07"
-          value="sistem-persampahan"
-          label="Sistem Persampahan"
-          disabled
-         />
-        </ToggleButtonGroup>
-       </Box>
-
+       {objectVisible && (
+        <>
+         <Typography color={grey[600]} fontSize={14} fontStyle="italic">
+          Pilih salah satu objek
+         </Typography>
+         <Box>
+          <ToggleButtonGroup
+           value={activeTab}
+           exclusive
+           onChange={handleAlignment}
+           aria-label="text alignment"
+           sx={styleToggleButton}
+          >
+           <ThemeToggleButton
+            // code="01.01.02"
+            value="penurunan-stunting"
+            label="Penurunan Stunting"
+            onClick={handleModalOpenCollapse}
+           />
+           <ThemeToggleButton
+            //  code="01.01.03"
+            value="penurunan-kemiskinan"
+            label="Penurunan Kemiskinan"
+            onClick={handleModalOpenCollapse}
+           />
+           <ThemeToggleButton
+            //  code="01.01.04"
+            value="percepatan-transisi-energi"
+            label="Percepatan Transisi Energi"
+            disabled
+           />
+           <ThemeToggleButton
+            //  code="01.01.05"
+            value="peningkatan-pariwisata"
+            label="Peningkatan Pariwisata"
+            disabled
+           />
+           <ThemeToggleButton
+            //  code="01.01.06"
+            value="ketahanan-pangan"
+            label="Ketahanan Pangan"
+            disabled
+           />
+           <ThemeToggleButton
+            //  code="01.01.07"
+            value="sistem-persampahan"
+            label="Sistem Persampahan"
+            disabled
+           />
+          </ToggleButtonGroup>
+         </Box>
+        </>
+       )}
        <Collapse in={openTab}>
         <TabObject />
        </Collapse>
@@ -183,7 +259,7 @@ export default function PageTema({}) {
     width={1000}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Tema"
+    title="Tambah Topik"
     dialogFooter={dialogActionFooterAdd}
    >
     <FormTable />

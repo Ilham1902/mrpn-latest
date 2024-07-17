@@ -5,8 +5,9 @@ export const styleToggleButton = [
  {
   display: "grid",
   gridTemplateColumns: "1fr 1fr 1fr",
-  gap: 2,
+  gap: 1,
   mt: 2,
+  mb: 2,
   p: "1px",
   button: {
    //  bgcolor: "white",
