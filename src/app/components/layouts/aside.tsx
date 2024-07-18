@@ -75,7 +75,7 @@ export default function Aside({
 
  const subMenuKonteks = "penetapan";
  const subMenuProfil = "profil-risiko";
- const subMenuMitigasi = "pemantauan";
+ const subMenuPemantauan = "pemantauan";
  const subMenuSupport = "support";
  const subMenuApproval = "approval";
 
@@ -174,23 +174,23 @@ export default function Aside({
        url={subMenuApproval}
        menuParentActive={
         typeof window !== "undefined"
-         ? window.location.pathname.includes(subMenuMitigasi)
+         ? window.location.pathname.includes(subMenuApproval)
          : false
        }
       >
        <SubmenuItem
         label="Nota Dinas"
-        url={subMenuMitigasi}
+        url={subMenuApproval}
         urlLv2="nota-dinas"
        />
        <SubmenuItem
         label="Selera Risiko"
-        url={subMenuMitigasi}
+        url={subMenuApproval}
         urlLv2="selera-risiko"
        />
        <SubmenuItem
         label="Profil Risiko"
-        url={subMenuMitigasi}
+        url={subMenuApproval}
         urlLv2="profil-risiko"
        />
       </MenuItem>
@@ -199,31 +199,31 @@ export default function Aside({
        isExpanded={isExpanded}
        label="Pemantauan MRPN"
        icon={<IconPemantauan />}
-       url={subMenuMitigasi}
+       url={subMenuPemantauan}
        menuParentActive={
         typeof window !== "undefined"
-         ? window.location.pathname.includes(subMenuMitigasi)
+         ? window.location.pathname.includes(subMenuPemantauan)
          : false
        }
       >
        <SubmenuItem
         label="Peringatan Dini"
-        url={subMenuMitigasi}
+        url={subMenuPemantauan}
         urlLv2="peringatan-dini"
        />
        <SubmenuItem
         label="Pemantauan"
-        url={subMenuMitigasi}
+        url={subMenuPemantauan}
         urlLv2="pemantauan"
        />
        <SubmenuItem
         label="Pelaporan"
-        url={subMenuMitigasi}
+        url={subMenuPemantauan}
         urlLv2="pelaporan"
        />
        <SubmenuItem
         label="Lost Event Database"
-        url={subMenuMitigasi}
+        url={subMenuPemantauan}
         urlLv2="led"
        />
       </MenuItem>

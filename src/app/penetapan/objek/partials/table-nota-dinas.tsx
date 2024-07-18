@@ -8,62 +8,16 @@ import {
  TableBody,
  TableCell,
  TableContainer,
- TableHead,
  TableRow,
  TextField,
  Typography,
 } from "@mui/material";
-import theme from "@/theme";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyData } from "@/app/components/icons";
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import { VisuallyHiddenInput } from "@/app/utils/constant";
 import TextareaComponent from "@/app/components/textarea";
 
-export default function TableProfile({ mode }: { mode?: string }) {
- const rows = [
-  {
-   object: "Kegiatan Pembangunan: Reformasi Tata Kelola Pengelolan Sampah",
-   sasaran: "Peningkatan tata kelola sampah",
-   indicator: [
-    "Indeks Kinerja Pengelolaan Sampah (IKPS) yang berbasis Waste Management Leader (WML platform persampahan) (nilai) (Baseline 2621- 50,06)",
-   ],
-   target: ["58,16"],
-   kemenko: "Kementerian Koordinator Bidang Kemaritiman dan Investasi",
-   entitasUtama:
-    "Kementerian Lingkungan Hidup dan Kehutanan Cq. Direktorat Penanganan Sampah",
-   entitasPendukung:
-    "1. Direktorat Lingkungan Hidup, Kementerian PPN/Bappenas, 2. Direktorat Perumahan dan Kawasan Permukiman, Kementerian PPN/Bappenas, 3. Direktorat Pengurangan Sampah, Kementerian Lingkungan Hidup dan Kehutanan, 4. Direktorat Sanitasi, Kementerian Pekerjaan Umum dan Perumahan Rakyat, 5. Direktorat Sinkronisasi Urusan Pemerintah, Daerah 1, Kementerian Dalam Negeri, 6. Direktorat Pembangunan Daerah, Kementerian PPN/Bappenas, 7. Pemerintah Daerah",
-  },
-  {
-   object:
-    "Kegiatan Pembangunan: Peningkatan sampah terolah di TPST konservasi TPA, dan landfill mining",
-   sasaran: "Peningkatan persentase sampah terolah di TPST dan TPA/LUR",
-   indicator: [
-    "Jumlah TPA/LUR yang beroperasi secara sanitary landfill (unit)",
-    "Jumlah sampah yang diolah menjadi RDF (perlu dikonfirmasi data jumlah sampah atau jumlah fasilitas) (hektare) (Baseline 2022: 2525,62)",
-   ],
-   target: ["20", "4425"],
-   kemenko: "(akan dindentifikasi lebih lanjut)",
-   entitasUtama: "(akan dindentifikasi lebih lanjut)",
-   entitasPendukung: "(akan dindentifikasi lebih lanjut)",
-  },
-  {
-   object:
-    "Kegiatan Pembangunan: Pengurangan dan pemilahan sampah di sumber serta pengumpulan pengangkutan terpilah jadwal",
-   sasaran: "Peningkatan jumlah sampah yang dipilah dan dikurangi",
-   indicator: [
-    "Persentase Pengurangan Sampah (%)",
-    " Proporsi rumah tangga yang sudah mendapatkan akses terhadap layanan penuh pengumpulan",
-   ],
-   target: ["18", "78"],
-   kemenko: "(akan dindentifikasi lebih lanjut)",
-   entitasUtama: "(akan dindentifikasi lebih lanjut)",
-   entitasPendukung: "(akan dindentifikasi lebih lanjut)",
-  },
- ];
-
+export default function TableNotaDinas() {
  return (
   <>
    <Stack gap={2}>

@@ -7,10 +7,9 @@ import CardItem from "@/app/components/cardTabItem";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import TableShortlist from "./table-short";
-import TableProfile from "./table-profile";
-import TableLonglist from "./table-long-step-2";
 import TableLonglistStepper from "./table-long-stepper";
 import TableProposal from "./table-proposal";
+import TableNotaDinas from "./table-nota-dinas";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -154,7 +153,7 @@ export default function TabObject({}) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableProfile />
+      <TableNotaDinas />
      )}
     </CardItem>
    </CustomTabPanel>
