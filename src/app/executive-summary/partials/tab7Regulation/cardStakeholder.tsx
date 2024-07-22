@@ -22,7 +22,7 @@ export default function CardStakeholder({ project }: { project: string }) {
 
  return (
   <CardItem
-   title="Stakeholder Mapping"
+   title="Kerangka Kelembagaan"
    setting
    settingEditOnclick={handleModalOpenStakeholder}
   >

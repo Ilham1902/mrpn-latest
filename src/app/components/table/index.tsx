@@ -9,9 +9,6 @@ export const advancedTable: ColumnsType = {
  layoutMode: "grid",
  positionActionsColumn: "last",
  paginationDisplayMode: "pages",
- initialState: {
-  showGlobalFilter: true,
- },
  muiTopToolbarProps: {
   sx: {
    minHeight: "68.5px",

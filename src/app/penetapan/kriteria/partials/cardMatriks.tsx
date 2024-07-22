@@ -27,11 +27,7 @@ export default function CardMatriks() {
 
  return (
   <>
-   <CardItem
-    title="Matriks dengan Selera Risiko Konservatif"
-    setting
-    settingEditOnclick={handleModalOpenAdd}
-   >
+   <CardItem title="Matriks dengan Selera Risiko Konservatif">
     <Matriks levelId={2} />
    </CardItem>
    <DialogComponent

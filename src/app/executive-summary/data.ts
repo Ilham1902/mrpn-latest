@@ -190,37 +190,37 @@ export const listSelectKp = [
  {
   id: "4",
   value: "4",
-  name: "AP.01 - Transformasi Sosial",
+  name: "01 - Transformasi Sosial",
   group: "AP",
  },
  {
   id: "5",
   value: "5",
-  name: "PP.01.01 - Peningkatan Kesehatan dan Gizi Masyarakat",
+  name: "01.01 - Peningkatan Kesehatan dan Gizi Masyarakat",
   group: "PP",
  },
  {
   id: "1",
   value: "1",
-  name: "KP.01.01.01 - Penurunan Stunting",
+  name: "01.01.01.01.01 - Penurunan Stunting",
   group: "KP",
  },
  {
   id: "2",
   value: "2",
-  name: "KP.01.01.02 - Penyelesaian Destinasi Pariwisata",
+  name: "01.01.01.01.02 - Penyelesaian Destinasi Pariwisata",
   group: "KP",
  },
  {
   id: "3",
   value: "3",
-  name: "KP.01.01.03 - Kawasan Sentra Produksi Pangan Kalimantan Tengah",
+  name: "01.01.01.01.03 - Kawasan Sentra Produksi Pangan Kalimantan Tengah",
   group: "KP",
  },
  {
   id: "7",
   value: "7",
-  name: "KP.01.01.04 - Reformasi Tata Kelola Persampahan",
+  name: "01.01.01.01.04 - Reformasi Tata Kelola Persampahan",
   group: "KP",
  },
 ];

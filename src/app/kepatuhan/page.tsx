@@ -145,6 +145,9 @@ export default function PagePeringatanDiniSaran({}) {
     ),
    },
   },
+  initialState: {
+   showGlobalFilter: true,
+  },
  });
 
  const dialogActionFooter = (
@@ -168,7 +171,7 @@ export default function PagePeringatanDiniSaran({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Maturitas" chooseProject withCard={false}>
+    <ContentPage title="Kepatuhan" chooseProject withCard={false}>
      <MaterialReactTable table={table} />
     </ContentPage>
    </DashboardLayout>

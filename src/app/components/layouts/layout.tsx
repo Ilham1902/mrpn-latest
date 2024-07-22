@@ -148,6 +148,42 @@ export default function DashboardLayout({
   gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
   height: "100vh",
   transition: "grid-template-columns 600ms ease",
+  ".table-sticky-actions-column": {
+   maxWidth: "calc(100vw - 348px)",
+   overflowX: "auto",
+   transition: "max-width 300ms ease-in-out",
+   "&::-webkit-scrollbar": {
+    height: "5px",
+   },
+   "&.scroll": {
+    ".box-shadow-scroll": {
+     position: "relative",
+     boxShadow: "none",
+     "&:after": {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      width: "30px",
+      transition: "box-shadow 5s ease-in-out",
+      transform: "translateX(-100%)",
+      content: "''",
+      pointerEvents: "none",
+      boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+     },
+    },
+   },
+  },
+  ".collapse-active": {
+   ".table-sticky-actions-column": {
+    maxWidth: "calc(100vw - 132px)",
+   },
+   ".table-sticky-horizontal": {
+    ".MuiTableContainer-root": {
+     maxWidth: "calc(100vw - 132px)",
+    },
+   },
+  },
   [theme.breakpoints.down("md")]: {
    gridTemplateColumns: "1fr",
    gridTemplateAreas: `'header' 'main' 'footer'`,

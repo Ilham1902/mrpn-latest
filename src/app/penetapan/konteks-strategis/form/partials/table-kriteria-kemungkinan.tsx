@@ -23,6 +23,7 @@ import DialogComponent from "@/app/components/dialog";
 import FormPeraturan from "./form-peraturan";
 import FormKemungkinan from "./form-kemungkinan";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import CardItem from "@/app/components/cardTabItem";
 
 export default function TableKemungkinan({ mode }: { mode?: string }) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -39,29 +40,47 @@ export default function TableKemungkinan({ mode }: { mode?: string }) {
   id: number,
   level: string,
   persentase: string,
-  jumlah: string
+  jumlah: string,
+  lfe: string
  ) {
-  return { id, level, persentase, jumlah };
+  return { id, level, persentase, jumlah, lfe };
  }
 
  const rows = [
   createData(
    1,
-   "1 - Hampir Tidak Terjadi",
-   "X ≤ 10 %",
-   "Jarang : < 2 kali dalam 1 Tahun"
+   "Hampir tidak terjadi (1)",
+   "P ≤ 10%",
+   "< 2 kali dalam 12 bulan terakhir",
+   "≤ 1 kejadian dalam lebih dari 5 tahun terakhir"
   ),
   createData(
    2,
-   "2 - Kadang Terjadi",
-   "10 < X < 30 % C",
-   "Cukup Sering : 2 kali s.d 5 kali dalam 1 Tahun"
+   "Jarang terjadi (2)",
+   "10% <p ≤ 25%",
+   "2 kali s.d 5 kali dalam 12 bulan terakhir",
+   "Minimal 1 kejadian dalam 4 tahun terakhir"
   ),
   createData(
    3,
-   "3 - Sering Terjadi",
-   "X ≥ 30 %",
-   "Sering : > 5 kali dalam 1 Tahun"
+   "Kadang terjadi (3)",
+   "25% < p ≤ 50%",
+   "6 kali s.d 9 kali dalam 12 bulan terkahir",
+   "Minimal 1 kejadian dalam 3 tahun terakhir"
+  ),
+  createData(
+   4,
+   "Sering terjadi (4)",
+   "50% < p ≤ 75%",
+   "10 kali s.d 12 kali dalam 12 bulan terakhir",
+   "Minimal 1 kejadian dalam 2 tahun terakhir"
+  ),
+  createData(
+   5,
+   "Hampir pasti terjadi (5)",
+   "P > 75%",
+   "> 12 kali dalam 12 bulan terakhir",
+   "Minimal 1 kejadian dalam 1 tahun terakhir"
   ),
  ];
 
@@ -76,86 +95,98 @@ export default function TableKemungkinan({ mode }: { mode?: string }) {
 
  return (
   <>
-   <Stack
-    mb={2}
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
-   >
-    <FieldLabelInfo
-     titleSection
-     title="Kriteria Kemungkinan"
-     information="Kriteria Kemungkinan"
-    />
-    {mode === "add" || mode === "edit" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Tambah Kriteria Kemungkinan
-     </Button>
-    ) : null}
-   </Stack>
-   <TableContainer component={Paper} elevation={0} variant="outlined">
-    <Table sx={{ minWidth: 650 }} size="small">
-     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
-       <TableCell width="70px"></TableCell>
-       <TableCell>Level Kemungkinan</TableCell>
-       <TableCell>Persentase Kemungkinan Terjadi dalam 1 Periode</TableCell>
-       <TableCell>
-        Jumlah Frekuensi Kemungkinan Terjadi dalam 1 Periode
-       </TableCell>
-      </TableRow>
-     </TableHead>
-     <TableBody>
-      {mode === "add" ? (
+   <CardItem title="Kriteria Kemungkinan">
+    {/* <Stack
+     mb={2}
+     direction="row"
+     justifyContent="space-between"
+     alignItems="center"
+    >
+     <FieldLabelInfo
+      titleSection
+      title="Kriteria Kemungkinan"
+      information="Kriteria Kemungkinan"
+     />
+     {mode === "add" || mode === "edit" ? (
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<AddCircle />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenAdd}
+      >
+       Tambah Kriteria Kemungkinan
+      </Button>
+     ) : null}
+    </Stack> */}
+    <TableContainer component={Paper} elevation={0} variant="outlined">
+     <Table sx={{ minWidth: 650 }} size="small">
+      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
        <TableRow>
-        <TableCell colSpan={4}>
-         <EmptyState
-          icon={<IconEmptyData />}
-          title="Data Kosong"
-          description="Silahkan isi konten tabel ini"
-         />
+        {/* <TableCell width="70px"></TableCell> */}
+        <TableCell rowSpan={3}>Level Kemungkinan</TableCell>
+        <TableCell colSpan={3} align="center">
+         Kriteria Kemungkinan
         </TableCell>
        </TableRow>
-      ) : (
-       <>
-        {rows.map((row) => (
-         <TableRow
-          key={row.id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-         >
-          <TableCell sx={{ textAlign: "center" }}>
-           <Tooltip title="Delete" placement="top">
-            <IconButton
-             aria-label="delete"
-             color="error"
-             disabled={mode === "view"}
-            >
-             <Icon
-              baseClassName="fas"
-              className={`fa-trash-alt`}
-              sx={{
-               fontSize: "14px",
-              }}
-             />
-            </IconButton>
-           </Tooltip>
-          </TableCell>
-          <TableCell>{row.level}</TableCell>
-          <TableCell>{row.persentase}</TableCell>
-          <TableCell>{row.jumlah}</TableCell>
-         </TableRow>
-        ))}
-       </>
-      )}
-     </TableBody>
-    </Table>
-   </TableContainer>
+       <TableRow>
+        <TableCell colSpan={2} align="center">
+         Non low frequency event dalam 1 periode analisis
+        </TableCell>
+        <TableCell rowSpan={2}>Low frequency event</TableCell>
+       </TableRow>
+       <TableRow>
+        <TableCell>Probabilitias</TableCell>
+        <TableCell>Jumlah Frekuensi</TableCell>
+       </TableRow>
+      </TableHead>
+      <TableBody>
+       {mode === "add" ? (
+        <TableRow>
+         <TableCell colSpan={4}>
+          <EmptyState
+           icon={<IconEmptyData />}
+           title="Data Kosong"
+           description="Silahkan isi konten tabel ini"
+          />
+         </TableCell>
+        </TableRow>
+       ) : (
+        <>
+         {rows.map((row) => (
+          <TableRow
+           key={row.id}
+           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+          >
+           {/* <TableCell sx={{ textAlign: "center" }}>
+            <Tooltip title="Delete" placement="top">
+             <IconButton
+              aria-label="delete"
+              color="error"
+              disabled={mode === "view"}
+             >
+              <Icon
+               baseClassName="fas"
+               className={`fa-trash-alt`}
+               sx={{
+                fontSize: "14px",
+               }}
+              />
+             </IconButton>
+            </Tooltip>
+           </TableCell> */}
+           <TableCell>{row.level}</TableCell>
+           <TableCell>{row.persentase}</TableCell>
+           <TableCell>{row.jumlah}</TableCell>
+           <TableCell>{row.lfe}</TableCell>
+          </TableRow>
+         ))}
+        </>
+       )}
+      </TableBody>
+     </Table>
+    </TableContainer>
+   </CardItem>
    <DialogComponent
     width={800}
     dialogOpen={modalOpenAdd}

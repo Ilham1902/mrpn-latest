@@ -67,6 +67,10 @@ export default function TabObject({}) {
   setValue(newValue);
  };
 
+ const handleOpenShortlist = () => {
+  setValue(1);
+ };
+
  const isEmpty = false;
 
  return (
@@ -111,7 +115,7 @@ export default function TabObject({}) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableLonglistStepper />
+      <TableLonglistStepper handleOpenShortlist={handleOpenShortlist} />
      )}
     </CardItem>
    </CustomTabPanel>

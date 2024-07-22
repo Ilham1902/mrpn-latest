@@ -24,6 +24,7 @@ import FormTable from "./form-table";
 import FormSasaran from "./form-identifikasi";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import FormRegulation from "./form-regulasi";
+import CardItem from "@/app/components/cardTabItem";
 
 export default function TableRegulation({
  variant,
@@ -42,14 +43,11 @@ export default function TableRegulation({
   setModalOpenAdd(false);
  };
 
- function createData(id: number, daftarSasaran: string, keterangan: string) {
-  return { id, daftarSasaran, keterangan };
+ function createData(id: number, regulasi: string, keterangan: string) {
+  return { id, regulasi, keterangan };
  }
 
- const rows = [
-  createData(1, "Pertumbuhan ekspor produk industri berteknologi tinggi", "-"),
-  createData(2, "Pertumbuhan ekspor industri pengolahan", "-"),
- ];
+ const rows = [createData(1, "-", "-")];
 
  const dialogActionFooter = (
   <DialogActions sx={{ p: 2, px: 3 }}>
@@ -62,84 +60,67 @@ export default function TableRegulation({
 
  return (
   <>
-   <Stack
-    mb={2}
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
+   <CardItem
+    title="Daftar Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
+    setting
+    settingEditOnclick={handleModalOpenAdd}
    >
-    <FieldLabelInfo
-     titleSection
-     title="Daftar Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
-     information="Daftar Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
-    />
-    {mode === "add" || mode === "edit" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Tambah Regulasi
-     </Button>
-    ) : null}
-   </Stack>
-   <TableContainer component={Paper} elevation={0} variant="outlined">
-    <Table size="small">
-     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
-       <TableCell width="70px"></TableCell>
-       <TableCell>
-        Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait
-       </TableCell>
-       <TableCell>Keterangan</TableCell>
-      </TableRow>
-     </TableHead>
-     <TableBody>
-      {mode === "add" ? (
+    <TableContainer component={Paper} elevation={0} variant="outlined">
+     <Table size="small">
+      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
        <TableRow>
-        <TableCell colSpan={4}>
-         <EmptyState
-          icon={<IconEmptyData />}
-          title="Data Kosong"
-          description="Silahkan isi konten tabel ini"
-         />
+        {/* <TableCell width="70px"></TableCell> */}
+        <TableCell>
+         Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait
         </TableCell>
+        <TableCell>Keterangan</TableCell>
        </TableRow>
-      ) : (
-       <>
-        {rows.map((row) => (
-         <TableRow
-          key={row.id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-         >
-          <TableCell sx={{ textAlign: "center" }}>
-           <Tooltip title="Delete" placement="top">
-            <IconButton
-             aria-label="delete"
-             color="error"
-             disabled={mode === "view"}
-            >
-             <Icon
-              baseClassName="fas"
-              className={`fa-trash-alt`}
-              sx={{
-               fontSize: "14px",
-              }}
-             />
-            </IconButton>
-           </Tooltip>
-          </TableCell>
-          <TableCell>{row.daftarSasaran}</TableCell>
-          <TableCell>{row.keterangan}</TableCell>
-         </TableRow>
-        ))}
-       </>
-      )}
-     </TableBody>
-    </Table>
-   </TableContainer>
+      </TableHead>
+      <TableBody>
+       {mode === "add" ? (
+        <TableRow>
+         <TableCell colSpan={4}>
+          <EmptyState
+           icon={<IconEmptyData />}
+           title="Data Kosong"
+           description="Silahkan isi konten tabel ini"
+          />
+         </TableCell>
+        </TableRow>
+       ) : (
+        <>
+         {rows.map((row) => (
+          <TableRow
+           key={row.id}
+           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+          >
+           {/* <TableCell sx={{ textAlign: "center" }}>
+            <Tooltip title="Delete" placement="top">
+             <IconButton
+              aria-label="delete"
+              color="error"
+              disabled={mode === "view"}
+             >
+              <Icon
+               baseClassName="fas"
+               className={`fa-trash-alt`}
+               sx={{
+                fontSize: "14px",
+               }}
+              />
+             </IconButton>
+            </Tooltip>
+           </TableCell> */}
+           <TableCell>{row.regulasi}</TableCell>
+           <TableCell>{row.keterangan}</TableCell>
+          </TableRow>
+         ))}
+        </>
+       )}
+      </TableBody>
+     </Table>
+    </TableContainer>
+   </CardItem>
    <DialogComponent
     width={320}
     dialogOpen={modalOpenAdd}

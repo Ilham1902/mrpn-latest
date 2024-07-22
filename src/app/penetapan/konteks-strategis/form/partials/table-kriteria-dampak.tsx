@@ -24,6 +24,7 @@ import FormPeraturan from "./form-peraturan";
 import FormKemungkinan from "./form-kemungkinan";
 import FormDampak from "./form-dampak";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import CardItem from "@/app/components/cardTabItem";
 
 export default function TableDampak({ mode }: { mode?: string }) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -38,54 +39,37 @@ export default function TableDampak({ mode }: { mode?: string }) {
 
  function createData(
   id: number,
+  area: string,
   level: string,
-  beban: string,
-  penurunan: any,
-  tuntutan: string,
-  lingkungan: string,
-  capaian: string
+  ld1: string,
+  ld2: string,
+  ld3: string,
+  ld4: string,
+  ld5: string
  ) {
-  return { id, level, beban, penurunan, tuntutan, lingkungan, capaian };
+  return { id, area, level, ld1, ld2, ld3, ld4, ld5 };
  }
 
  const rows = [
   createData(
    1,
-   "Rendah",
-   "x ≤ 0,1 permil",
-   <>
-    Pemberitaan negatif di media <em>mainstream</em> (<em>daring</em> dan
-    <em>luring</em>), sampai dengan 3 kali dalam setahun. : {"<"} 2 kali dalam 1
-    Tahun
-   </>,
-   "Teguran lisan/tulisan",
-   "Proper Hijau",
-   "Tidak tercapai < 5%"
+   "Capaian Sasaran dan Indikator",
+   "RKP",
+   "Kinerja > 90 %",
+   "80% < Kinerja < 90%",
+   "70% < Kinerja < 80%",
+   "60% < Kinerja < 70%",
+   "Kinerja < 60%"
   ),
   createData(
    2,
-   "Sedang",
-   "0,1 permil < x ≤ 10 permil",
-   <>
-    Pemberitaan negatif di media <em>mainstream</em> (<em>daring</em> dan
-    <em>luring</em>), sampai dengan 12 kali dalam setahun. : {"<"} 2 kali dalam
-    1 Tahun
-   </>,
-   "Tuntutan denda administratif kepada satu atau lebih entitas di UPR Lintas Sektor",
-   "Proper Biru",
-   "Tidak tercapai antara 5% s.d 20%"
-  ),
-  createData(
-   3,
-   "Tinggi",
-   "> 10 permil",
-   <>
-    Pemberitaan negatif di media <em>mainstream</em> (<em>daring</em> dan
-    <em>luring</em>) yang masuk kategori viral
-   </>,
-   "PTUN dan perdata. ",
-   "Proper Merah ",
-   "Tidak tercapai di atas 20%"
+   "Capaian Sasaran dan Indikator",
+   "IKU",
+   "Kinerja > 95 %",
+   "90% < Kinerja < 95%",
+   "85% < Kinerja < 90%",
+   "80% < Kinerja < 85%",
+   "Kinerja < 80%"
   ),
  ];
 
@@ -100,194 +84,98 @@ export default function TableDampak({ mode }: { mode?: string }) {
 
  return (
   <>
-   <Stack
-    mb={2}
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
-   >
-    <FieldLabelInfo
-     titleSection
-     title="Kriteria Dampak"
-     information="Kriteria Dampak"
-    />
-    {mode === "add" || mode === "edit" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Tambah Kriteria Dampak
-     </Button>
-    ) : null}
-   </Stack>
-   <Paper sx={{ overflowX: "auto" }} elevation={0} variant="outlined">
-    {/* <TableContainer
-     component={Paper}
-     elevation={0}
-     variant="outlined"
-     sx={{ maxWidth: "100%" }}
-    > */}
-    <Table size="small">
-     {/* <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
-       <TableCell width="70px"></TableCell>
-       <TableCell>Level Kemungkinan</TableCell>
-       <TableCell>Persentase Kemungkinan Terjadi dalam 1 Periode</TableCell>
-       <TableCell>
-        Jumlah Frekuensi Kemungkinan Terjadi dalam 1 Periode
-       </TableCell>
-      </TableRow>
-      <TableRow>
-       <TableCell>Level Kemungkinan</TableCell>
-      </TableRow>
-     </TableHead>
-     <TableBody>
-      {mode === "add" ? (
-       <TableCell colSpan={4}>
-        <EmptyState
-         icon={<IconEmptyData />}
-         title="Data Kosong"
-         description="Silahkan isi konten tabel ini"
-        />
-       </TableCell>
-      ) : (
-       <>
-        {rows.map((row) => (
-         <TableRow
-          key={row.id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-         >
-          <TableCell sx={{ textAlign: "center" }}>
-           <Tooltip title="Delete" placement="top">
-            <IconButton
-             aria-label="delete"
-             color="error"
-             disabled={mode === "view"}
-            >
-             <Icon
-              baseClassName="fas"
-              className={`fa-trash-alt`}
-              sx={{
-               fontSize: "14px",
-              }}
-             />
-            </IconButton>
-           </Tooltip>
-          </TableCell>
-          <TableCell>{row.level}</TableCell>
-          <TableCell>{row.persentase}</TableCell>
-          <TableCell>{row.jumlah}</TableCell>
-         </TableRow>
-        ))}
-       </>
-      )}
-     </TableBody> */}
-
-     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
-       <TableCell width="70px" rowSpan={2}></TableCell>
-       <TableCell colSpan={2} rowSpan={2}>
-        Level Kemungkinan
-       </TableCell>
-       <TableCell colSpan={5} align="center">
-        Area Dampak Risiko
-       </TableCell>
-      </TableRow>
-      <TableRow>
-       <TableCell>Beban Keuangan Negara/Daerah</TableCell>
-       <TableCell>Penurunan Reputasi</TableCell>
-       <TableCell>
-        Tuntutan Hukum (Sanksi Pidana, Perdata, dan/atau administratif)
-       </TableCell>
-       <TableCell>Lingkungan</TableCell>
-       <TableCell>Capaian Kinerja</TableCell>
-      </TableRow>
-     </TableHead>
-     <TableBody>
-      {mode === "add" ? (
+   <CardItem title="Kriteria Dampak">
+    {/* <Stack
+     mb={2}
+     direction="row"
+     justifyContent="space-between"
+     alignItems="center"
+    >
+     <FieldLabelInfo
+      titleSection
+      title="Kriteria Dampak"
+      information="Kriteria Dampak"
+     />
+     {mode === "add" || mode === "edit" ? (
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<AddCircle />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenAdd}
+      >
+       Tambah Kriteria Dampak
+      </Button>
+     ) : null}
+    </Stack> */}
+    <Paper sx={{ overflowX: "auto" }} elevation={0} variant="outlined">
+     <Table size="small">
+      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
        <TableRow>
-        <TableCell colSpan={8}>
-         <EmptyState
-          icon={<IconEmptyData />}
-          title="Data Kosong"
-          description="Silahkan isi konten tabel ini"
-         />
+        <TableCell rowSpan={2}>Area Dampak</TableCell>
+        <TableCell rowSpan={2}>Level</TableCell>
+        <TableCell colSpan={5} align="center">
+         Level Dampak
         </TableCell>
        </TableRow>
-      ) : (
-       <>
-        {rows.map((row) => (
-         <TableRow
-          key={row.id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-         >
-          <TableCell sx={{ textAlign: "center" }}>
-           <Tooltip title="Delete" placement="top">
-            <IconButton
-             aria-label="delete"
-             color="error"
-             disabled={mode === "view"}
-            >
-             <Icon
-              baseClassName="fas"
-              className={`fa-trash-alt`}
-              sx={{
-               fontSize: "14px",
-              }}
-             />
-            </IconButton>
-           </Tooltip>
-          </TableCell>
-          <TableCell component="th" scope="row">
-           {row.id}
-          </TableCell>
-          <TableCell>{row.level}</TableCell>
-          <TableCell>{row.beban}</TableCell>
-          <TableCell>{row.penurunan}</TableCell>
-          <TableCell>{row.tuntutan}</TableCell>
-          <TableCell>{row.lingkungan}</TableCell>
-          <TableCell>{row.capaian}</TableCell>
-         </TableRow>
-        ))}
-       </>
-      )}
-     </TableBody>
-    </Table>
-    {/* </TableContainer> */}
-    {/* <table>
-     <thead>
-      <tr>
-       <th style={{ width: 70 }} rowSpan={2}></th>
-       <th colSpan={2} rowSpan={2}>
-        Level Kemungkinan
-       </th>
-       <th colSpan={5}>Area Dampak Risiko</th>
-      </tr>
-      <tr>
-       <th>Beban Keuangan Negara/Daerah</th>
-       <th>Penurunan Reputasi</th>
-       <th>Tuntutan Hukum (Sanksi Pidana, Perdata, dan/atau administratif)</th>
-       <th>Lingkungan</th>
-       <th>Capaian Kinerja</th>
-      </tr>
-     </thead>
-     <tbody>
-      <tr>
-       <td scope="row"></td>
-       <td></td>
-       <td></td>
-      </tr>
-      <tr>
-       <td scope="row"></td>
-       <td></td>
-       <td></td>
-      </tr>
-     </tbody>
-    </table> */}
-   </Paper>
+       <TableRow>
+        <TableCell>Tidak Signifikan (1)</TableCell>
+        <TableCell>Minor (2)</TableCell>
+        <TableCell>Moderat (3)</TableCell>
+        <TableCell>Signifikan (4)</TableCell>
+        <TableCell>Sangat Signifikan (5)</TableCell>
+       </TableRow>
+      </TableHead>
+      <TableBody>
+       {mode === "add" ? (
+        <TableRow>
+         <TableCell colSpan={8}>
+          <EmptyState
+           icon={<IconEmptyData />}
+           title="Data Kosong"
+           description="Silahkan isi konten tabel ini"
+          />
+         </TableCell>
+        </TableRow>
+       ) : (
+        <>
+         {rows.map((row) => (
+          <TableRow
+           key={row.id}
+           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+          >
+           {/* <TableCell sx={{ textAlign: "center" }}>
+            <Tooltip title="Delete" placement="top">
+             <IconButton
+              aria-label="delete"
+              color="error"
+              disabled={mode === "view"}
+             >
+              <Icon
+               baseClassName="fas"
+               className={`fa-trash-alt`}
+               sx={{
+                fontSize: "14px",
+               }}
+              />
+             </IconButton>
+            </Tooltip>
+           </TableCell> */}
+           <TableCell>{row.area}</TableCell>
+           <TableCell>{row.level}</TableCell>
+           <TableCell>{row.ld1}</TableCell>
+           <TableCell>{row.ld2}</TableCell>
+           <TableCell>{row.ld3}</TableCell>
+           <TableCell>{row.ld4}</TableCell>
+           <TableCell>{row.ld5}</TableCell>
+          </TableRow>
+         ))}
+        </>
+       )}
+      </TableBody>
+     </Table>
+    </Paper>
+   </CardItem>
    <DialogComponent
     width={1200}
     dialogOpen={modalOpenAdd}

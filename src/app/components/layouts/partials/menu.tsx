@@ -261,9 +261,10 @@ export const MenuItem = ({
    {MenuIconText}
    <Icon
     baseClassName="fas"
-    className={`fa-chevron-${
-     openSubmenu || activeSubmenuCollapse ? "down" : "right"
-    }`}
+    // className={`fa-chevron-${
+    //  openSubmenu || activeSubmenuCollapse ? "down" : "right"
+    // }`}
+    className="fa-chevron-down"
     sx={{
      fontSize: "15px",
      color: isExpanded
@@ -271,7 +272,15 @@ export const MenuItem = ({
       : theme.palette.primary.light,
      width: "auto",
      height: "auto",
-     transition: "all 1s ease",
+     transition: "transform 0.3s ease-in-out",
+
+     ...(openSubmenu || activeSubmenuCollapse
+      ? {
+         transform: "rotate(-90deg)",
+        }
+      : {
+         transform: "rotate(0deg)",
+        }),
     }}
    />
   </>

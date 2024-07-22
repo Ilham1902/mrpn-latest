@@ -14,6 +14,7 @@ export default function DialogComponent({
  headerAction,
  noDivider,
  closeButton,
+ onFocus,
 }: {
  title?: React.ReactNode;
  dialogOpen: boolean;
@@ -25,12 +26,14 @@ export default function DialogComponent({
  headerAction?: React.ReactNode;
  noDivider?: boolean;
  closeButton?: boolean;
+ onFocus?: any;
 }) {
  return (
   <Dialog
    open={dialogOpen}
    keepMounted
    onClose={dialogClose}
+   onFocus={onFocus}
    sx={{
     ".MuiPaper-root": {
      minWidth: width ? width : 800,

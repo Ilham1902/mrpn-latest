@@ -1,6 +1,9 @@
 import React from "react";
 import {
+ Box,
+ Chip,
  Paper,
+ Stack,
  Table,
  TableBody,
  TableCell,
@@ -24,8 +27,16 @@ export default function TableShortlist({ mode }: { mode?: string }) {
    kemenko: "Kementerian Koordinator Bidang Kemaritiman dan Investasi",
    entitasUtama:
     "Kementerian Lingkungan Hidup dan Kehutanan Cq. Direktorat Penanganan Sampah",
-   entitasPendukung:
-    "1. Direktorat Lingkungan Hidup, Kementerian PPN/Bappenas, 2. Direktorat Perumahan dan Kawasan Permukiman, Kementerian PPN/Bappenas, 3. Direktorat Pengurangan Sampah, Kementerian Lingkungan Hidup dan Kehutanan, 4. Direktorat Sanitasi, Kementerian Pekerjaan Umum dan Perumahan Rakyat, 5. Direktorat Sinkronisasi Urusan Pemerintah, Daerah 1, Kementerian Dalam Negeri, 6. Direktorat Pembangunan Daerah, Kementerian PPN/Bappenas, 7. Pemerintah Daerah",
+   entitasPendukung: [
+    "Direktorat Lingkungan Hidup, Kementerian PPN/Bappenas",
+    "Direktorat Perumahan dan Kawasan Permukiman, Kementerian PPN/Bappenas",
+    "Direktorat Pengurangan Sampah, Kementerian Lingkungan Hidup dan Kehutanan",
+    "Direktorat Sanitasi, Kementerian Pekerjaan Umum dan Perumahan Rakyat",
+    "Direktorat Sinkronisasi Urusan Pemerintah, Daerah 1, Kementerian Dalam Negeri",
+    "Direktorat Pembangunan Daerah, Kementerian PPN/Bappenas",
+    "Pemerintah Daerah",
+   ],
+   // "1. Direktorat Lingkungan Hidup, Kementerian PPN/Bappenas, 2. Direktorat Perumahan dan Kawasan Permukiman, Kementerian PPN/Bappenas, 3. Direktorat Pengurangan Sampah, Kementerian Lingkungan Hidup dan Kehutanan, 4. Direktorat Sanitasi, Kementerian Pekerjaan Umum dan Perumahan Rakyat, 5. Direktorat Sinkronisasi Urusan Pemerintah, Daerah 1, Kementerian Dalam Negeri, 6. Direktorat Pembangunan Daerah, Kementerian PPN/Bappenas, 7. Pemerintah Daerah",
   },
   {
    object:
@@ -38,7 +49,7 @@ export default function TableShortlist({ mode }: { mode?: string }) {
    target: ["20", "4425"],
    kemenko: "(akan dindentifikasi lebih lanjut)",
    entitasUtama: "(akan dindentifikasi lebih lanjut)",
-   entitasPendukung: "(akan dindentifikasi lebih lanjut)",
+   entitasPendukung: [],
   },
   {
    object:
@@ -51,7 +62,7 @@ export default function TableShortlist({ mode }: { mode?: string }) {
    target: ["18", "78"],
    kemenko: "(akan dindentifikasi lebih lanjut)",
    entitasUtama: "(akan dindentifikasi lebih lanjut)",
-   entitasPendukung: "(akan dindentifikasi lebih lanjut)",
+   entitasPendukung: [],
   },
  ];
 
@@ -67,7 +78,7 @@ export default function TableShortlist({ mode }: { mode?: string }) {
        <TableCell>Target</TableCell>
        <TableCell>Kementerian Koordinator</TableCell>
        <TableCell>Entitas MRPN Sektor Utama</TableCell>
-       <TableCell>Entitas MRPN Pendukung</TableCell>
+       <TableCell width={500}>Entitas MRPN Pendukung</TableCell>
       </TableRow>
      </TableHead>
      <TableBody>
@@ -87,24 +98,57 @@ export default function TableShortlist({ mode }: { mode?: string }) {
          row.indicator.map((subItem, subIndex) => (
           <TableRow key={`${rowIndex}-${subIndex}`}>
            {subIndex === 0 && (
-            <TableCell rowSpan={row.indicator.length}>{row.object}</TableCell>
+            <TableCell
+             rowSpan={row.indicator.length}
+             sx={{ verticalAlign: "top" }}
+            >
+             {row.object}
+            </TableCell>
            )}
            {subIndex === 0 && (
-            <TableCell rowSpan={row.indicator.length}>{row.sasaran}</TableCell>
+            <TableCell
+             rowSpan={row.indicator.length}
+             sx={{ verticalAlign: "top" }}
+            >
+             {row.sasaran}
+            </TableCell>
            )}
-           <TableCell>{subItem}</TableCell>
-           <TableCell>{row.target[subIndex]}</TableCell>
+           <TableCell sx={{ verticalAlign: "top" }}>{subItem}</TableCell>
+           <TableCell sx={{ verticalAlign: "top" }}>
+            {row.target[subIndex]}
+           </TableCell>
            {subIndex === 0 && (
-            <TableCell rowSpan={row.indicator.length}>{row.kemenko}</TableCell>
+            <TableCell
+             rowSpan={row.indicator.length}
+             sx={{ verticalAlign: "top" }}
+            >
+             {row.kemenko}
+            </TableCell>
            )}
            {subIndex === 0 && (
-            <TableCell rowSpan={row.indicator.length}>
+            <TableCell
+             rowSpan={row.indicator.length}
+             sx={{ verticalAlign: "top" }}
+            >
              {row.entitasUtama}
             </TableCell>
            )}
            {subIndex === 0 && (
-            <TableCell rowSpan={row.indicator.length}>
-             {row.entitasPendukung}
+            <TableCell
+             rowSpan={row.indicator.length}
+             sx={{ verticalAlign: "top" }}
+            >
+             {row.entitasPendukung.length < 1 ? (
+              "(akan dindentifikasi lebih lanjut)"
+             ) : (
+              <Stack gap={0.7} direction="row" flexWrap="wrap">
+               {row.entitasPendukung.map((itemEntitas, index) => (
+                <Box key={index}>
+                 <Chip label={itemEntitas} />
+                </Box>
+               ))}
+              </Stack>
+             )}
             </TableCell>
            )}
           </TableRow>

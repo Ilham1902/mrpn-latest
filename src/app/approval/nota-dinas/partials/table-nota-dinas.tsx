@@ -15,7 +15,6 @@ import {
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
-import { reject } from "lodash";
 
 export default function TableNotaDinas() {
  const [approvalLeft, setApprovalLeft] = React.useState(false);
@@ -235,7 +234,7 @@ export default function TableNotaDinas() {
           <Box position="relative" width="auto" display="inline-block">
            <Box position="relative" zIndex={1}>
             <Image
-             alt="Dibuat oleh"
+             alt="Disetujui oleh"
              src="https://res.cloudinary.com/caturteguh/image/upload/v1721259946/mrpn/ttd/ttd-stempel_sxlgr4.png"
              width={0}
              height={0}
@@ -246,7 +245,7 @@ export default function TableNotaDinas() {
            <Box position="absolute" top={-70} left={-70} zIndex={0}>
             {rejectRight && (
              <Image
-              alt="Dibuat oleh"
+              alt="Disetujui oleh"
               src="https://res.cloudinary.com/caturteguh/image/upload/v1721266419/mrpn/ttd/stamp-rejected_aycnhk.jpg"
               width={0}
               height={0}
@@ -256,7 +255,7 @@ export default function TableNotaDinas() {
             )}
             {approvalRight && (
              <Image
-              alt="Dibuat oleh"
+              alt="Disetujui oleh"
               src="https://res.cloudinary.com/caturteguh/image/upload/v1721266420/mrpn/ttd/stamp-approved_yhgva3.jpg"
               width={0}
               height={0}
@@ -283,7 +282,7 @@ export default function TableNotaDinas() {
          <TableCell sx={{ verticalAlign: "top" }}>
           <Stack gap="4px" maxWidth={300} m="0 auto">
            <Typography textAlign="center" fontWeight={500}>
-            Dr.Agung Indrajit, ST, M.Sc
+            Dr. Agung Indrajit, ST, M.Sc
            </Typography>
            <Divider />
            <Typography textAlign="center" fontSize={14} color={grey[700]}>

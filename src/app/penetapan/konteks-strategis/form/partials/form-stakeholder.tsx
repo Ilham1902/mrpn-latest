@@ -35,8 +35,9 @@ export default function FormStakeholder({
             {detailStakeholder.label}
            </Typography>
            <ImageGalleryStakeholder />
-           <Typography variant="body2" mb={1}>
-            <strong>{detailStakeholder.tag}</strong>
+           <Typography gutterBottom>
+            {/* <strong>{detailStakeholder.tag}</strong> */}
+            Keterangan
            </Typography>
            <TextareaComponent
             label={`Deskripsi ${detailStakeholder.label}`}

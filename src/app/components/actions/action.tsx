@@ -4,7 +4,7 @@ import theme from "@/theme";
 import { blue, green, red } from "@mui/material/colors";
 import { IconFA } from "../icons/icon-fa";
 
-const ActionIcon = ({
+export const ActionIcon = ({
  icon,
  onclick,
  color,
@@ -59,35 +59,14 @@ export default function ActionColumn({
  editClick,
  viewClick,
  deleteClick,
-}: //  table,
-//  row,
-{
+}: {
  editUrl?: string;
  viewUrl?: string;
  deleteUrl?: string;
  editClick?: () => void;
  viewClick?: () => void;
  deleteClick?: () => void;
- //  table: string;
- //  row: string;
 }) {
- const iconView = (
-  <IconButton
-   aria-label="edit"
-   color="primary"
-   sx={{
-    bgcolor: green[600],
-    color: "white",
-    transition: "all 300ms",
-    "&:hover": {
-     bgcolor: green[800],
-    },
-   }}
-  >
-   <IconFA size={14} name="eye" />
-  </IconButton>
- );
-
  return (
   <Stack direction="row" justifyContent="flex-end" width="100%" gap={1}>
    {viewUrl && (

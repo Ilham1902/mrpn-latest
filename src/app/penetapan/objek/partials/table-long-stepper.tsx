@@ -13,7 +13,11 @@ const steps = [
  "Rangking Pemilihan Prioritas Objek MRPN Linsek",
 ];
 
-export default function TableLonglistStepper() {
+export default function TableLonglistStepper({
+ handleOpenShortlist,
+}: {
+ handleOpenShortlist?: () => void;
+}) {
  const [activeStep, setActiveStep] = React.useState(0);
  const [skipped, setSkipped] = React.useState(new Set<number>());
 
@@ -116,7 +120,7 @@ export default function TableLonglistStepper() {
       )}
 
       <Box sx={{ flex: "1 1 auto" }} />
-      {isStepOptional(activeStep) && (
+      {/* {isStepOptional(activeStep) && (
        <Button
         color="inherit"
         onClick={handleSkip}
@@ -125,14 +129,25 @@ export default function TableLonglistStepper() {
        >
         Lewati
        </Button>
-      )}
+      )} */}
       <Button
-       onClick={handleNext}
+       onClick={
+        activeStep === steps.length - 1 ? handleOpenShortlist : handleNext
+       }
        variant="contained"
        sx={{ borderRadius: 24 }}
       >
        {activeStep === steps.length - 1 ? "Selesai" : "Simpan"}
       </Button>
+      {/* {activeStep === steps.length - 1 && (
+       <Button
+        onClick={handleOpenShortlist}
+        variant="contained"
+        sx={{ borderRadius: 24 }}
+       >
+        Simpan
+       </Button>
+      )} */}
      </Box>
     </React.Fragment>
    )}

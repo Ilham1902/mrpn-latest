@@ -6,6 +6,7 @@ import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import FormStakeholder from "./form-stakeholder";
+import CardItem from "@/app/components/cardTabItem";
 
 export default function TableStakeholderInternal({
  mode,
@@ -34,7 +35,7 @@ export default function TableStakeholderInternal({
   createData(3, "-", "-"),
  ];
 
- const isEmpty = false;
+ const isEmpty = true;
 
  const dialogActionFooter = (
   <DialogActions sx={{ p: 2, px: 3 }}>
@@ -47,58 +48,63 @@ export default function TableStakeholderInternal({
 
  return (
   <>
-   <Stack
-    mb={2}
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
+   <CardItem
+    title="Daftar Pemangku Kepentingan Internal (Stakeholder Internal)"
+    setting
+    settingEditOnclick={handleModalOpenAdd}
    >
-    <FieldLabelInfo
-     titleSection
-     title="Daftar Pemangku Kepentingan Internal (Stakeholder Internal)"
-     information="Daftar Pemangku Kepentingan Internal (Stakeholder Internal)"
-    />
-    {mode === "add" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Tambah Stakeholder Internal
-     </Button>
-    ) : mode === "edit" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<EditSharp />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Ubah Stakeholder Internal
-     </Button>
-    ) : null}
-   </Stack>
-   {isEmpty ? (
-    <EmptyState
-     icon={<IconEmptyData />}
-     title="Data tidak tersedia"
-     description="Silahkan isi konten seksi ini"
-    />
-   ) : (
-    <>
+    {/* <Stack
+     mb={2}
+     direction="row"
+     justifyContent="space-between"
+     alignItems="center"
+    >
+     <FieldLabelInfo
+      titleSection
+      title="Daftar Pemangku Kepentingan Internal (Stakeholder Internal)"
+      information="Daftar Pemangku Kepentingan Internal (Stakeholder Internal)"
+     />
      {mode === "add" ? (
-      <Paper variant="outlined">
-       <EmptyState
-        icon={<IconEmptyData />}
-        title="Data tidak tersedia"
-        description="Silahkan isi konten seksi ini"
-       />
-      </Paper>
-     ) : (
-      <Stack direction="row" flexWrap="wrap" gap={2}>
-       {/* {dataTema.map((itemStakeholder, index) => (
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<AddCircle />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenAdd}
+      >
+       Tambah Stakeholder Internal
+      </Button>
+     ) : mode === "edit" ? (
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<EditSharp />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenAdd}
+      >
+       Ubah Stakeholder Internal
+      </Button>
+     ) : null}
+    </Stack> */}
+    {isEmpty ? (
+     <EmptyState
+      icon={<IconEmptyData />}
+      title="Data tidak tersedia"
+      description="Silahkan isi konten seksi ini"
+     />
+    ) : (
+     <>
+      {mode === "add" ? (
+       <Paper variant="outlined">
+        <EmptyState
+         icon={<IconEmptyData />}
+         title="Data tidak tersedia"
+         description="Silahkan isi konten seksi ini"
+        />
+       </Paper>
+      ) : (
+       <Stack direction="row" flexWrap="wrap" gap={2}>
+        {/* {dataTema.map((itemStakeholder, index) => (
         <Fragment key={index}>
          {project === itemStakeholder.temaId && (
           <>
@@ -113,14 +119,15 @@ export default function TableStakeholderInternal({
          )}
         </Fragment>
        ))} */}
-      </Stack>
-     )}
-    </>
-   )}
+       </Stack>
+      )}
+     </>
+    )}
+   </CardItem>
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Stakeholder Mapping"
+    title="Stakeholder Internal"
     dialogFooter={dialogActionFooter}
    >
     <FormStakeholder mode="add" project="1" />

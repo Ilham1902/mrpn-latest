@@ -18,7 +18,7 @@ import { IconFA } from "@/app/components/icons/icon-fa";
 import { grey, red } from "@mui/material/colors";
 import theme from "@/theme";
 
-const ListItemDropdownMenu = ({ label }: { label: string }) => {
+export const ListItemDropdownMenu = ({ label }: { label: string }) => {
  return (
   <>
    <ListItemIcon sx={{ minWidth: "0 !important" }}>
@@ -42,7 +42,7 @@ export default function CardItem({
  settingEditOutputClick,
  settingEditBisnisClick,
 }: {
- title: React.ReactNode;
+ title?: React.ReactNode;
  children: React.ReactNode;
  addButton?: React.ReactNode;
  setting?: React.ReactNode;
@@ -192,28 +192,30 @@ export default function CardItem({
     },
    }}
   >
-   <CardHeader
-    action={<>{addButton ? addButton : setting ? settingButton : null}</>}
-    title={
-     <Stack direction="row" alignItems="center" gap={1}>
-      <Typography fontWeight={500}>{title}</Typography>
-      <Tooltip title={title} followCursor TransitionComponent={Grow}>
-       <Typography
-        lineHeight={1}
-        sx={{
-         span: {
-          position: "relative",
-          top: 1,
-         },
-        }}
-       >
-        <IconFA name="circle-info" size={17} />
-       </Typography>
-      </Tooltip>
-     </Stack>
-    }
-    sx={{ bgcolor: grey[300] }}
-   />
+   {title && (
+    <CardHeader
+     action={<>{addButton ? addButton : setting ? settingButton : null}</>}
+     title={
+      <Stack direction="row" alignItems="center" gap={1}>
+       <Typography fontWeight={500}>{title}</Typography>
+       <Tooltip title={title} followCursor TransitionComponent={Grow}>
+        <Typography
+         lineHeight={1}
+         sx={{
+          span: {
+           position: "relative",
+           top: 1,
+          },
+         }}
+        >
+         <IconFA name="circle-info" size={17} />
+        </Typography>
+       </Tooltip>
+      </Stack>
+     }
+     sx={{ bgcolor: grey[300] }}
+    />
+   )}
    <CardContent
     sx={{
      p: contentNoPadding ? "0 !important" : 2,

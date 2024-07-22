@@ -49,9 +49,9 @@ export default function PageTema({}) {
   setModalOpenAdd(true);
  };
 
- const handleModalOpenCollapse = () => {
-  setModalOpenCollapse(true);
- };
+ //  const handleModalOpenCollapse = () => {
+ //   setModalOpenCollapse(true);
+ //  };
 
  const handleModalClose = () => {
   setModalOpenAdd(false);
@@ -212,13 +212,13 @@ export default function PageTema({}) {
             // code="01.01.02"
             value="penurunan-stunting"
             label="Penurunan Stunting"
-            onClick={handleModalOpenCollapse}
+            onClick={handleOpenTab}
            />
            <ThemeToggleButton
             //  code="01.01.03"
             value="penurunan-kemiskinan"
             label="Penurunan Kemiskinan"
-            onClick={handleModalOpenCollapse}
+            onClick={handleOpenTab}
            />
            <ThemeToggleButton
             //  code="01.01.04"

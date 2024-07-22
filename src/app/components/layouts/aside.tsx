@@ -148,12 +148,12 @@ export default function Aside({
        <SubmenuItem
         label="Identifikasi Risiko"
         url={subMenuProfil}
-        urlLv2="registrasi-risiko"
+        urlLv2="identifikasi"
        />
        <SubmenuItem
         label="Analisis & Evaluasi"
         url={subMenuProfil}
-        urlLv2="analisis-risiko"
+        urlLv2="analisis-evaluasi"
        />
        {/* <SubmenuItem
         label="Evaluasi Risiko"
@@ -163,7 +163,12 @@ export default function Aside({
        <SubmenuItem
         label="Perlakuan Risiko"
         url={subMenuProfil}
-        urlLv2="perlakuan-risiko"
+        urlLv2="perlakuan"
+       />
+       <SubmenuItem
+        label="Overview Profil"
+        url={subMenuProfil}
+        urlLv2="overview"
        />
       </MenuItem>
       <MenuItem
@@ -222,6 +227,11 @@ export default function Aside({
         urlLv2="pelaporan"
        />
        <SubmenuItem
+        label="Kepatuhan"
+        url={subMenuPemantauan}
+        urlLv2="kepatuhan"
+       />
+       <SubmenuItem
         label="Lost Event Database"
         url={subMenuPemantauan}
         urlLv2="led"
@@ -229,9 +239,9 @@ export default function Aside({
       </MenuItem>
       <MenuItem
        isExpanded={isExpanded}
-       label="Kepatuhan"
-       icon={<IconFA name="hourglass-start" size={18} />}
-       url="kepatuhan"
+       label="Maturitas"
+       icon={<IconFA name="seedling" size={18} />}
+       url="maturitas"
       />
       <MenuItem
        hasChild
@@ -245,9 +255,9 @@ export default function Aside({
          : false
        }
       >
-       <SubmenuItem label="Peraturan" url={subMenuSupport} urlLv2="dashboard" />
-       <SubmenuItem label="Q & A" url={subMenuSupport} urlLv2="dashboard" />
-       <SubmenuItem label="Helpdesk" url={subMenuSupport} urlLv2="dashboard" />
+       <SubmenuItem label="Peraturan" url={subMenuSupport} urlLv2="peraturan" />
+       <SubmenuItem label="FAQ" url={subMenuSupport} urlLv2="faq" />
+       <SubmenuItem label="Helpdesk" url={subMenuSupport} urlLv2="helpdesk" />
       </MenuItem>
      </Stack>
     </MenuGroup>
