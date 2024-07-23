@@ -5,15 +5,12 @@ import {
  TableCell,
  TableHead,
  TableRow,
- TableSortLabel,
 } from "@mui/material";
-// import { makeStyles } from "@mui/styles";
 import TableMui from "@/app/components/table/table";
 import { red } from "@mui/material/colors";
 import ActionColumn from "@/app/components/actions/action";
 
 const columns = [
- //  { Header: "ID", accessor: "id" },
  { Header: "Peristiwa Risiko", accessor: "peristiwa" },
  { Header: "Kategori Risiko", accessor: "kategori" },
  { Header: "Penyebab", accessor: "penyebab" },
@@ -23,7 +20,6 @@ const columns = [
  { Header: "BR", accessor: "br" },
  { Header: "Level Risiko", accessor: "level", renderAsChip: true },
  { Header: "Prioritas Risiko", accessor: "prioritas" },
- //  { Header: "", accessor: "actions" },
 ];
 
 const data = [

@@ -171,7 +171,7 @@ export default function PagePeringatanDiniSaran({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Kepatuhan" chooseProject withCard={false}>
+    <ContentPage title="Maturitas" chooseProject>
      <MaterialReactTable table={table} />
     </ContentPage>
    </DashboardLayout>

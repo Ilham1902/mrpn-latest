@@ -210,7 +210,7 @@ export default function TableNotaDinas() {
             {rejectLeft && (
              <Image
               alt="Dibuat oleh"
-              src="https://res.cloudinary.com/caturteguh/image/upload/v1721266419/mrpn/ttd/stamp-rejected_aycnhk.jpg"
+              src="https://res.cloudinary.com/caturteguh/image/upload/v1721703228/mrpn/ttd/stamp-rejected_gdzucv.png"
               width={0}
               height={0}
               sizes="100vw"
@@ -220,7 +220,7 @@ export default function TableNotaDinas() {
             {approvalLeft && (
              <Image
               alt="Dibuat oleh"
-              src="https://res.cloudinary.com/caturteguh/image/upload/v1721266420/mrpn/ttd/stamp-approved_yhgva3.jpg"
+              src="https://res.cloudinary.com/caturteguh/image/upload/v1721703223/mrpn/ttd/stamp-approved_dduusw.png"
               width={0}
               height={0}
               sizes="100vw"
@@ -246,7 +246,7 @@ export default function TableNotaDinas() {
             {rejectRight && (
              <Image
               alt="Disetujui oleh"
-              src="https://res.cloudinary.com/caturteguh/image/upload/v1721266419/mrpn/ttd/stamp-rejected_aycnhk.jpg"
+              src="https://res.cloudinary.com/caturteguh/image/upload/v1721703228/mrpn/ttd/stamp-rejected_gdzucv.png"
               width={0}
               height={0}
               sizes="100vw"
@@ -256,7 +256,7 @@ export default function TableNotaDinas() {
             {approvalRight && (
              <Image
               alt="Disetujui oleh"
-              src="https://res.cloudinary.com/caturteguh/image/upload/v1721266420/mrpn/ttd/stamp-approved_yhgva3.jpg"
+              src="https://res.cloudinary.com/caturteguh/image/upload/v1721703223/mrpn/ttd/stamp-approved_dduusw.png"
               width={0}
               height={0}
               sizes="100vw"

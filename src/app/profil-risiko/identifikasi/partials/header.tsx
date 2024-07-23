@@ -1,120 +1,122 @@
 import React from "react";
 import {
- Autocomplete,
- Button,
- Checkbox,
- Chip,
- Divider,
  FormControl,
- FormControlLabel,
  Grid,
- Icon,
- IconButton,
- MenuItem,
- Paper,
- Stack,
  Table,
  TableBody,
  TableCell,
- TableHead,
  TableRow,
- TextField,
- Tooltip,
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
-import {
- SxAutocompleteTextField,
- SxAutocomplete,
-} from "@/app/components/dropdownKp";
-import EmptyState from "@/app/components/empty";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
-import { IconEmptyData } from "@/app/components/icons";
-import SelectCustomTheme from "@/app/components/select";
-import TextareaComponent from "@/app/components/textarea";
-import { red } from "@mui/material/colors";
-import { riskCategory, listPeristiwaRisiko } from "../setting";
 
 export default function HeaderIdentifikasi({
  noPadding,
  asTable,
+ viewOnly,
 }: {
  noPadding?: boolean;
  asTable?: boolean;
+ viewOnly?: boolean;
 }) {
  return (
   <>
    {asTable ? (
-    <Table size="small" sx={{ td: { py: noPadding ? 0.5 : 1.5 } }}>
+    <Table
+     size="small"
+     sx={{
+      td: {
+       py: noPadding ? 0.5 : 1.5,
+      },
+     }}
+    >
      <TableBody>
       <TableRow>
-       <TableCell width={250} sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        width={250}
+        sx={{
+         bgcolor: viewOnly ? "unset" : theme.palette.primary.light,
+        }}
+       >
         Topik MRPN
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         Sistem Persampahan
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : Sistem Persampahan
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Objek MRPN Lintas Sektor
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         KP: Reformasi Tata Kelola Pengelolaan Sampah
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : KP: Reformasi Tata Kelola Pengelolaan Sampah
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Sasaran
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         Terciptanya reformasi sistem pengelolaan sampah dalam hal perencanaan,
-         kelembagaan, dan pendanaan
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : Terciptanya reformasi sistem pengelolaan sampah dalam hal
+         perencanaan, kelembagaan, dan pendanaan
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Indikator
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         Indeks Kinerja Pengelolaan Sampah (IKPS)
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : Indeks Kinerja Pengelolaan Sampah (IKPS)
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Target
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         55
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : 55
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Periode
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         2025
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : 2025
         </Typography>
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableCell
+        sx={{ bgcolor: viewOnly ? "unset" : theme.palette.primary.light }}
+       >
         Direktorat
        </TableCell>
        <TableCell>
-        <Typography fontWeight={500} fontSize={14}>
-         Dit. LH
+        <Typography fontWeight={viewOnly ? 600 : 500} fontSize={14}>
+         : Dit. LH
         </Typography>
        </TableCell>
       </TableRow>

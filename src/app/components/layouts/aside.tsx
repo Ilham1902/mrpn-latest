@@ -196,7 +196,7 @@ export default function Aside({
        <SubmenuItem
         label="Profil Risiko"
         url={subMenuApproval}
-        urlLv2="profil-risiko"
+        urlLv2="profil"
        />
       </MenuItem>
       <MenuItem

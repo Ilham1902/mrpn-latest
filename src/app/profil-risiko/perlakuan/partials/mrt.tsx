@@ -1,10 +1,6 @@
-"use client";
-
-import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
-import DashboardLayout from "@/app/components/layouts/layout";
 import { advancedTable } from "@/app/components/table";
-import { Box, Button, Chip, DialogActions } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
@@ -12,39 +8,25 @@ import {
 } from "material-react-table";
 import ActionColumn from "@/app/components/actions/action";
 import AddButton from "@/app/components/buttonAdd";
-import { data, type PemantauanType } from "./setting";
-import DialogComponent from "@/app/components/dialog";
-import FormTable from "./partials/form-table";
+import { data, type PerlakuanType } from "../setting";
 import { green, grey, orange, red } from "@mui/material/colors";
-import { IconFA } from "@/app/components/icons/icon-fa";
 
-export default function PagePemantauan({}) {
- const [modalOpenView, setModalOpenView] = React.useState(false);
- const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
- const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
- const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
-
- const handleModalOpenView = () => {
-  setModalOpenView(true);
- };
- const handleModalOpenDelete = () => {
-  setModalOpenDelete(true);
- };
- const handleModalOpenAdd = () => {
-  setModalOpenAdd(true);
- };
- const handleModalOpenEdit = () => {
-  setModalOpenEdit(true);
- };
-
- const handleModalClose = () => {
-  setModalOpenView(false);
-  setModalOpenDelete(false);
-  setModalOpenAdd(false);
-  setModalOpenEdit(false);
- };
-
- const columns = useMemo<MRT_ColumnDef<PemantauanType>[]>(
+export default function MRTPerlakuan({
+ handleModalOpenView,
+ handleModalOpenDelete,
+ handleModalOpenAdd,
+ handleModalOpenEdit,
+ viewOnly,
+ renderCaption,
+}: {
+ handleModalOpenView?: () => void;
+ handleModalOpenDelete?: () => void;
+ handleModalOpenAdd?: () => void;
+ handleModalOpenEdit?: () => void;
+ viewOnly?: boolean;
+ renderCaption?: React.ReactNode;
+}) {
+ const columns = useMemo<MRT_ColumnDef<PerlakuanType>[]>(
   () => [
    {
     id: "penilaian_risiko",
@@ -108,12 +90,6 @@ export default function PagePemantauan({}) {
         accessorKey: "level",
         header: "Level Risiko",
         enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
         Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
          <Chip
           color={
@@ -232,81 +208,33 @@ export default function PagePemantauan({}) {
      },
     ],
    },
-   {
-    accessorKey: "status",
-    header: "Status Pelaksanaan",
-    enableColumnActions: false,
-    size: 220,
-    Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
-     <Chip
-      icon={
-       renderedCellValue === "Belum" ? (
-        <IconFA name="xmark" size={12} />
-       ) : renderedCellValue === "Proses" ? (
-        <IconFA name="hourglass-start" size={12} />
-       ) : (
-        <IconFA name="check" size={12} />
-       )
-      }
-      color={
-       renderedCellValue === "Belum"
-        ? "error"
-        : renderedCellValue === "Proses"
-        ? "warning"
-        : "success"
-      }
-      sx={{
-       minWidth: 80,
-       borderWidth: "2px",
-       borderStyle: "solid",
-       "&.MuiChip-root": { gap: 1, px: 1.5 },
-       "& .MuiChip-label": {
-        fontWeight: 600,
-        px: 0,
-       },
-       "&.MuiChip-colorWarning": {
-        bgcolor: orange[100],
-        borderColor: orange[600],
-        color: orange[900],
-       },
-       "&.MuiChip-colorError": {
-        bgcolor: red[100],
-        borderColor: red[400],
-        color: red[900],
-       },
-       "&.MuiChip-colorSuccess": {
-        bgcolor: green[100],
-        borderColor: green[400],
-        color: green[900],
-       },
-      }}
-      label={renderedCellValue}
-     />
-    ),
-    muiTableHeadCellProps: {
-     align: "center",
-     sx: {
-      border: "none",
-      "&:before": {
-       bgcolor: `${grey[100]} !important`,
-      },
-     },
-    },
-    muiTableBodyCellProps: {
-     align: "center",
-    },
-   },
   ],
   []
  );
 
+ type ColumnsType = {};
+
+ const renderTopToolbar: ColumnsType = {
+  renderTopToolbarCustomActions: () => (
+   <AddButton onclick={handleModalOpenAdd} title="Tambah Perlakuan" />
+  ),
+ };
+
+ const actionRight = {
+  initialState: {
+   columnPinning: { right: ["mrt-row-actions"] },
+   showGlobalFilter: true,
+  },
+ };
+
  const table = useMaterialReactTable({
   columns,
   data,
+  ...(viewOnly ? null : renderTopToolbar),
   ...advancedTable,
   muiTableContainerProps: {
    sx: {
-    maxWidth: "calc(100vw - 348px)",
+    maxWidth: viewOnly ? "calc(100vw - 148px)" : "calc(100vw - 348px)",
     overflowX: "auto",
     transition: "max-width 500ms ease-in-out",
     "&::-webkit-scrollbar": {
@@ -317,24 +245,14 @@ export default function PagePemantauan({}) {
   muiTableHeadCellProps: {
    sx: {
     bgcolor: grey[100],
+    border: `1px solid ${grey[300]}`,
     justifyContent: "center",
-    borderLeft: `1px solid ${grey[300]}`,
-    borderBottom: "none",
    },
   },
   displayColumnDefOptions: {
    "mrt-row-actions": {
-    header: "Aksi",
-    muiTableHeadCellProps: {
-     align: "center",
-     sx: {
-      borderLeft: `1px solid ${grey[300]}`,
-      "&:before": {
-       bgcolor: `${grey[100]} !important`,
-      },
-     },
-    },
-    size: 150,
+    header: "",
+    size: viewOnly ? 0 : 150,
     Cell: () => (
      <ActionColumn
       viewClick={handleModalOpenView}
@@ -344,73 +262,25 @@ export default function PagePemantauan({}) {
     ),
    },
   },
-  enableColumnPinning: true,
+  enableColumnPinning: viewOnly ? false : true,
   layoutMode: "grid-no-grow",
-  initialState: {
-   columnPinning: { right: ["status", "mrt-row-actions"] },
-   showGlobalFilter: true,
-  },
+  ...(viewOnly ? null : actionRight),
+  renderCaption: () => renderCaption,
  });
 
- const dialogActionFooter = (
-  <DialogActions sx={{ p: 2, px: 3 }}>
-   <Button onClick={handleModalClose}>Batal</Button>
-   <Button variant="contained" type="submit">
-    Simpan
-   </Button>
-  </DialogActions>
- );
-
- const dialogActionDeleteFooter = (
-  <DialogActions sx={{ p: 2, px: 3 }}>
-   <Button onClick={handleModalClose}>Batal</Button>
-   <Button variant="contained" color="error" type="submit">
-    Hapus
-   </Button>
-  </DialogActions>
- );
-
  return (
-  <>
-   <DashboardLayout>
-    <ContentPage title="Pemantauan" chipKp>
-     <Box className="table-sticky-horizontal">
-      <MaterialReactTable table={table} />
-     </Box>
-    </ContentPage>
-   </DashboardLayout>
-   <DialogComponent
-    dialogOpen={modalOpenView}
-    dialogClose={handleModalClose}
-    title="Detail Identifikasi Risiko"
-   >
-    <FormTable mode="view" />
-   </DialogComponent>
-   <DialogComponent
-    dialogOpen={modalOpenAdd}
-    dialogClose={handleModalClose}
-    title="Tambah Identifikasi Risiko"
-    dialogFooter={dialogActionFooter}
-   >
-    <FormTable mode="add" />
-   </DialogComponent>
-   <DialogComponent
-    dialogOpen={modalOpenEdit}
-    dialogClose={handleModalClose}
-    title="Ubah Identifikasi Risiko"
-    dialogFooter={dialogActionFooter}
-   >
-    <FormTable mode="edit" />
-   </DialogComponent>
-   <DialogComponent
-    width={240}
-    dialogOpen={modalOpenDelete}
-    dialogClose={handleModalClose}
-    title="Hapus Data"
-    dialogFooter={dialogActionDeleteFooter}
-   >
-    Anda yakin akan menghapus data ini?
-   </DialogComponent>
-  </>
+  <Box
+   sx={{
+    ".MuiPaper-root": {
+     "& > .MuiBox-root": {
+      "&:first-of-type": {
+       display: viewOnly ? "none" : "inherit",
+      },
+     },
+    },
+   }}
+  >
+   <MaterialReactTable table={table} />
+  </Box>
  );
 }

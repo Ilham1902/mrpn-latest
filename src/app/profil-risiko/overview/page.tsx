@@ -3,30 +3,41 @@
 import ContentPage from "@/app/components/contents";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
-import { SelectChangeEvent } from "@mui/material";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyPage } from "@/app/components/icons";
+import MRTAnalisis from "../analisis-evaluasi/partials/mrt";
+import { Stack, Typography } from "@mui/material";
+import MRTPerlakuan from "../perlakuan/partials/mrt";
+import MRTIdentifikasi from "../identifikasi/partials/mrt";
 
 export default function PageOverview() {
- const [project, setProject] = React.useState("");
-
- const handleChangeProject = (event: SelectChangeEvent) => {
-  setProject(event.target.value);
- };
-
  return (
   <DashboardLayout>
-   <ContentPage
-    title="Overview Risiko"
-    withCard
-    project={project}
-    handleChangeProject={handleChangeProject}
-   >
-    <EmptyState
-     icon={<IconEmptyPage />}
-     title="Halaman Overview Risiko Kosong"
-     description="Silahkan isi konten halaman ini"
-    />
+   <ContentPage title="Overview Risiko" chipKp>
+    <Stack gap={1}>
+     <MRTIdentifikasi
+      viewOnly
+      renderCaption={
+       <Typography fontWeight={600} fontSize={17} px={1}>
+        Identifikasi Risiko
+       </Typography>
+      }
+     />
+     <MRTAnalisis
+      viewOnly
+      renderCaption={
+       <Typography fontWeight={600} fontSize={17} px={1}>
+        Analisis & Evaluasi Risiko
+       </Typography>
+      }
+     />
+     <MRTPerlakuan
+      viewOnly
+      renderCaption={
+       <Typography fontWeight={600} fontSize={17} px={1}>
+        Perlakuan Risiko
+       </Typography>
+      }
+     />
+    </Stack>
    </ContentPage>
   </DashboardLayout>
  );

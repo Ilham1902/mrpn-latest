@@ -35,7 +35,7 @@ export const data: PemantauanType[] = [
    "1. Penyusunan regulasi untuk menjadikan persampahan sebagai SPM sehingga berpotensi mendapatkan pendanaan yang lebih besar, 2. earmarking anggaran untuk persampahan, 3. mewajibkan pemda melakukan implementasi Permendagri 7/2021, 4. membuka seluas-luasnya opsi kerjasama dan investasi untuk meningkatkan pendanaan pengelolaan sampah (blended finance)",
   waktu: "2025",
   penanggungjawab: "Kementerian Dalam Negeri, Kementerian PUPR dan KLHK",
-  status: "Sedang",
+  status: "Proses",
  },
  {
   id: 2,
@@ -55,7 +55,7 @@ export const data: PemantauanType[] = [
    "1. Pengusulan revisi peraturan berkaitan dengan: a. Pembagian tugas yang jelas dalam pengawasan dan penegakan hukum sektor persampahan, b. Penyusunan mekanisme alur penegakan hukum di sektor persampahan",
   waktu: "2025",
   penanggungjawab: "KLHK",
-  status: "Sudah",
+  status: "Selesai",
  },
 ];
 
