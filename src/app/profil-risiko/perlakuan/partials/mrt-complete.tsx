@@ -218,6 +218,46 @@ export default function MRTPerlakuanComplete({
        align: "center",
       },
      },
+     {
+      accessorKey: "levelRRH",
+      header: "Level Risiko",
+      enableColumnActions: false,
+      Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
+       <Chip
+        color={
+         renderedCellValue === "Sangat Tinggi"
+          ? "error"
+          : renderedCellValue === "Tinggi"
+          ? "warning"
+          : "success"
+        }
+        sx={{
+         minWidth: 80,
+         borderWidth: "2px",
+         borderStyle: "solid",
+         "& .MuiChip-label": {
+          fontWeight: 600,
+         },
+         "&.MuiChip-colorWarning": {
+          bgcolor: orange[100],
+          borderColor: orange[600],
+          color: orange[900],
+         },
+         "&.MuiChip-colorError": {
+          bgcolor: red[100],
+          borderColor: red[400],
+          color: red[900],
+         },
+         "&.MuiChip-colorSuccess": {
+          bgcolor: green[100],
+          borderColor: green[400],
+          color: green[900],
+         },
+        }}
+        label={renderedCellValue}
+       />
+      ),
+     },
     ],
    },
   ],

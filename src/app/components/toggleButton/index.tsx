@@ -2,6 +2,7 @@ import React from "react";
 import { Box, ToggleButton, Typography } from "@mui/material";
 import theme from "@/theme";
 import { green, grey, red, yellow } from "@mui/material/colors";
+import { IconFA } from "../icons/icon-fa";
 
 export default function CustomToggleButton({
  value,
@@ -11,6 +12,7 @@ export default function CustomToggleButton({
  disabled,
  valueLabel,
  minheight,
+ approvalPage,
 }: {
  value: string;
  valueLabel?: string;
@@ -19,6 +21,7 @@ export default function CustomToggleButton({
  variant?: string;
  disabled?: boolean;
  minheight?: number;
+ approvalPage?: boolean;
 }) {
  const conditionColor =
   variant === "danger"
@@ -78,28 +81,38 @@ export default function CustomToggleButton({
    <Typography px={3} component="span" fontWeight={600}>
     {label}
    </Typography>
-   {!disabled && (
+   {!disabled && approvalPage && (
     <Box
      position="absolute"
      right={0}
      top="50%"
-     bgcolor={theme.palette.primary.main}
-     px={1.2}
-     py={0.5}
-     sx={{
-      borderTopLeftRadius: 6,
-      borderBottomLeftRadius: 6,
-      transform: "translateY(-50%)",
-     }}
+     //  bgcolor={theme.palette.primary.main}
+     //  px={1.2}
+     //  py={0.5}
+     //  sx={{
+     //   borderTopLeftRadius: 6,
+     //   borderBottomLeftRadius: 6,
+     //   transform: "translateY(-50%)",
+     //  }}
     >
-     <Typography
+     <IconFA
+      name="check-circle"
+      size={20}
+      sx={{
+       position: "absolute",
+       right: 10,
+       top: "50%",
+       transform: "translateY(-50%)",
+      }}
+     />
+     {/* <Typography
       fontSize={11}
       color="white"
       textTransform="capitalize"
       letterSpacing={0.5}
      >
       Selera Risiko Terpilih
-     </Typography>
+     </Typography> */}
     </Box>
    )}
   </ToggleButton>

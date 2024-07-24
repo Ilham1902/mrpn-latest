@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import SelectCustomTheme from "@/app/components/select";
 import {
+ listKeputusan,
  listPenanggungjawab,
  listPeristiwaRisiko,
  riskCategory,
@@ -37,6 +38,9 @@ export default function FormTable({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
  const [columns, setColumns] = React.useState<Option[]>([]);
  const [columnsRspn, setColumnsRspn] = React.useState<OptionRspn[]>([]);
+ const [columnsKeputusan, setColumnsKeputusan] = React.useState<OptionRspn[]>(
+  []
+ );
  const [selectAll, setSelectAll] = React.useState<boolean>(false);
 
  const handleChangeProject = (event: SelectChangeEvent) => {
@@ -226,9 +230,38 @@ export default function FormTable({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <FieldLabelInfo title="Keputusan" information="Keputusan" />
      {mode === "add" || mode === "edit" ? (
-      <TextareaComponent
-       label={`Deskripsi Keputusan`}
-       placeholder={`Deskripsi Keputusan`}
+      <Autocomplete
+       multiple
+       disableCloseOnSelect
+       filterSelectedOptions
+       freeSolo={false}
+       size="small"
+       value={columnsKeputusan}
+       options={listKeputusan}
+       getOptionLabel={(option) => option.label}
+       onChange={(_e, value, reason) => {
+        if (reason === "clear" || reason === "removeOption")
+         setSelectAll(false);
+        if (reason === "selectOption" && value.length === listKeputusan.length)
+         setSelectAll(true);
+        setColumnsKeputusan(value);
+       }}
+       renderInput={(params) => (
+        <TextField
+         {...params}
+         InputLabelProps={{
+          shrink: true,
+         }}
+         placeholder="Pilih keputusan"
+         sx={SxAutocompleteTextField}
+        />
+       )}
+       sx={{
+        ...SxAutocomplete,
+        ".MuiInputBase-root": {
+         borderRadius: 1,
+        },
+       }}
       />
      ) : (
       <Typography fontWeight={600}>-</Typography>
@@ -237,9 +270,9 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Deskripsi" information="Deskripsi" />
+     <FieldLabelInfo title="Keterangan" information="Keterangan" />
      {mode === "add" || mode === "edit" ? (
-      <TextareaComponent label={`Deskripsi`} placeholder={`Deskripsi`} />
+      <TextareaComponent label={`Keterangan`} placeholder={`Keterangan`} />
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}
@@ -263,7 +296,6 @@ export default function FormTable({ mode }: { mode?: string }) {
    <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
-
      {mode === "add" || mode === "edit" ? (
       <Autocomplete
        multiple
@@ -311,7 +343,7 @@ export default function FormTable({ mode }: { mode?: string }) {
      <Chip label="Risiko Residual Harapan" size="small" />
     </Divider>
    </Grid>
-   <Grid item xs={12} sm={4}>
+   <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Level Kemungkinan (LK)"
@@ -340,7 +372,7 @@ export default function FormTable({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12} sm={4}>
+   <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Level Dampak (LD)"
@@ -369,7 +401,7 @@ export default function FormTable({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12} sm={4}>
+   <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Besaran Risiko (BR)"
@@ -378,6 +410,30 @@ export default function FormTable({ mode }: { mode?: string }) {
      <Stack sx={{ height: 40 }} direction="row" alignItems="center">
       <Typography fontWeight={600}>22</Typography>
      </Stack>
+    </FormControl>
+   </Grid>
+   <Grid item xs={12} sm={6}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Level Risiko" information="Level Risiko" />
+     <Box>
+      <Chip
+       color="error"
+       sx={{
+        minWidth: 80,
+        borderWidth: "2px",
+        borderStyle: "solid",
+        "& .MuiChip-label": {
+         fontWeight: 600,
+        },
+        "&.MuiChip-colorError": {
+         bgcolor: red[100],
+         borderColor: red[400],
+         color: red[900],
+        },
+       }}
+       label="Sangat Tinggi"
+      />
+     </Box>
     </FormControl>
    </Grid>
   </Grid>

@@ -16,6 +16,7 @@ export type PerlakuanType = {
  lkRRH: number;
  ldRRH: number;
  brRRH: number;
+ levelRRH: string;
 };
 
 export const data: PerlakuanType[] = [
@@ -29,7 +30,7 @@ export const data: PerlakuanType[] = [
    "1. Anggaran dalam pengelolaan sampah di Pemda rata-rata dibawah 1%, 2. Pengelolaan sampah belum menjadi prioritas karena merupakan urusan wajib non layanan dasar, 3. penyelenggaraan pengelolaan sampah tidak optimal, 4. fasilitas pengelolaan sampah tidak optimal, 5. opsi teknologi pengelolaan sampah yang advance tidak bisa diimplmentasikan",
   lk: 5,
   ld: 4,
-  br: 22,
+  br: 11,
   level: "Sangat Tinggi",
   prioritas: 1,
   keputusan: "Mengurangi kemungkinan terjadinya risiko ",
@@ -40,6 +41,7 @@ export const data: PerlakuanType[] = [
   lkRRH: 5,
   ldRRH: 4,
   brRRH: 22,
+  levelRRH: "Sangat Tinggi",
  },
  {
   id: 2,
@@ -51,7 +53,7 @@ export const data: PerlakuanType[] = [
   dampak: "Perbaikan kebijakan tidak dapat dilakukan dengan optimal",
   lk: 4,
   ld: 4,
-  br: 19,
+  br: 18,
   level: "Tinggi",
   prioritas: 3,
   keputusan: "Mengurangi kemungkinan terjadinya risiko ",
@@ -62,6 +64,7 @@ export const data: PerlakuanType[] = [
   lkRRH: 4,
   ldRRH: 4,
   brRRH: 19,
+  levelRRH: "Tinggi",
  },
 ];
 
@@ -139,4 +142,12 @@ export const listPenanggungjawab = [
  { id: 1, label: "Kementerian Dalam Negeri" },
  { id: 2, label: "Kementerian PUPR" },
  { id: 3, label: "KLHK" },
+];
+
+export const listKeputusan = [
+ { id: 1, label: "Mengurangi kemungkinan terjadinya risiko" },
+ { id: 2, label: "Mengurangi dampak risiko" },
+ { id: 3, label: "Transfer Risiko" },
+ { id: 3, label: "Menghindari Risiko" },
+ { id: 3, label: "Menerima Risiko" },
 ];

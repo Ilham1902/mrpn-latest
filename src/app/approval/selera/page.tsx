@@ -124,7 +124,12 @@ export default function PageApprovalSelera() {
         minheight={60}
         disabled
        />
-       <CustomToggleButton value="2" label="Konservatif" minheight={60} />
+       <CustomToggleButton
+        value="2"
+        label="Konservatif"
+        minheight={60}
+        approvalPage
+       />
        <CustomToggleButton value="3" label="Moderat" minheight={60} disabled />
        <CustomToggleButton value="4" label="Agresif" minheight={60} disabled />
       </ToggleButtonGroup>
