@@ -16,6 +16,7 @@ export default function MRTIdentifikasi({
  handleModalOpenAdd,
  handleModalOpenEdit,
  viewOnly,
+ headerOnly,
  renderCaption,
 }: {
  handleModalOpenView?: () => void;
@@ -23,6 +24,7 @@ export default function MRTIdentifikasi({
  handleModalOpenAdd?: () => void;
  handleModalOpenEdit?: () => void;
  viewOnly?: boolean;
+ headerOnly?: boolean;
  renderCaption?: React.ReactNode;
 }) {
  const columns = useMemo(
@@ -124,34 +126,55 @@ export default function MRTIdentifikasi({
  });
 
  return (
-  <Stack gap={viewOnly ? 3 : 2}>
-   {viewOnly ? (
-    <Paper
-     elevation={2}
-     sx={{
-      borderRadius: "1.25rem",
-      p: 0,
-      m: 1,
-     }}
-    >
-     <HeaderIdentifikasi asTable viewOnly />
-    </Paper>
+  <Stack gap={viewOnly ? 1 : 2}>
+   {headerOnly ? (
+    <>
+     {viewOnly ? (
+      <Paper
+       elevation={2}
+       sx={{
+        borderRadius: "1.25rem",
+        p: 0,
+        m: 1,
+       }}
+      >
+       <HeaderIdentifikasi asTable viewOnly />
+      </Paper>
+     ) : (
+      <HeaderIdentifikasi asTable />
+     )}
+    </>
    ) : (
-    <HeaderIdentifikasi asTable />
-   )}
-   <Box
-    sx={{
-     ".MuiPaper-root": {
-      "& > .MuiBox-root": {
-       "&:first-of-type": {
-        display: viewOnly ? "none" : "inherit",
+    <>
+     {viewOnly ? (
+      <Paper
+       elevation={2}
+       sx={{
+        borderRadius: "1.25rem",
+        p: 0,
+        m: 1,
+       }}
+      >
+       <HeaderIdentifikasi asTable viewOnly />
+      </Paper>
+     ) : (
+      <HeaderIdentifikasi asTable />
+     )}
+     <Box
+      sx={{
+       ".MuiPaper-root": {
+        "& > .MuiBox-root": {
+         "&:first-of-type": {
+          display: viewOnly ? "none" : "inherit",
+         },
+        },
        },
-      },
-     },
-    }}
-   >
-    <MaterialReactTable table={table} />
-   </Box>
+      }}
+     >
+      <MaterialReactTable table={table} />
+     </Box>
+    </>
+   )}
   </Stack>
  );
 }

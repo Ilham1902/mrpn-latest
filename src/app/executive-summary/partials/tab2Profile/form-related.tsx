@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
  Autocomplete,
  Box,
@@ -30,6 +30,22 @@ import {
  SxAutocompleteTextField,
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
+import { grey } from "@mui/material/colors";
+
+const FCLItem = ({ keyIndex, item }: { keyIndex: any; item: string }) => {
+ return (
+  <FormControlLabel
+   key={keyIndex}
+   control={<Checkbox name={item} sx={{ py: 0 }} />}
+   label={
+    <Stack direction="row" alignItems="flex-start" gap={1}>
+     <Typography color={grey[600]}>{keyIndex + 1}.</Typography> {item}
+    </Stack>
+   }
+   sx={{ alignItems: "flex-start" }}
+  />
+ );
+};
 
 const MultiCheckbox = ({
  title,
@@ -52,7 +68,13 @@ const MultiCheckbox = ({
      <FormGroup
       sx={{
        mt: 2,
+       gap: 1,
+       overflowY: "auto",
+       flexWrap: "nowrap",
        maxHeight: maxHeight ? maxHeight : 150,
+       "&::-webkit-scrollbar": {
+        width: "3px",
+       },
        ".MuiCheckbox-root": {
         p: "2px 10px",
        },
@@ -82,18 +104,6 @@ export default function FormRelated({ mode }: { mode?: string }) {
   setSelectedOptions(value ?? []);
  };
 
- const quickWins = (
-  <>
-   {[...new Array(8)].map((_, i) => (
-    <FormControlLabel
-     key={i}
-     control={<Checkbox name="gilad" />}
-     label={`${i} Quick Wins`}
-    />
-   ))}
-  </>
- );
-
  const gameChangers = (
   <>
    {[...new Array(10)].map((_, i) => (
@@ -121,7 +131,7 @@ export default function FormRelated({ mode }: { mode?: string }) {
  return (
   <>
    <Grid container spacing={2}>
-    <Grid item lg={12}>
+    <Grid item xs={12}>
      <FormControl fullWidth>
       <Typography gutterBottom>Kebijakan</Typography>
       {mode === "add" || mode === "edit" ? (
@@ -168,7 +178,7 @@ export default function FormRelated({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={12}>
+    <Grid item xs={12}>
      <FormControl fullWidth>
       <Typography gutterBottom>Keterangan</Typography>
       {mode === "add" ? (
@@ -188,8 +198,24 @@ export default function FormRelated({ mode }: { mode?: string }) {
         />
         {selectedOptions.map((option: OptionKebijakan, index: number) => (
          <Box key={index}>
-          {option.value === "13" ? (
-           <MultiCheckbox title="8 Quick Wins">{quickWins}</MultiCheckbox>
+          {option.value === "10" ? (
+           <>
+            <MultiCheckbox title="Astacita" maxHeight={200}>
+             {option.list?.map((item, index) => (
+              <Fragment key={index}>
+               <FCLItem keyIndex={index} item={item} />
+              </Fragment>
+             ))}
+            </MultiCheckbox>
+           </>
+          ) : option.value === "13" ? (
+           <MultiCheckbox title="8 Quick Wins" maxHeight={200}>
+            {option.list?.map((item, index) => (
+             <Fragment key={index}>
+              <FCLItem keyIndex={index} item={item} />
+             </Fragment>
+            ))}
+           </MultiCheckbox>
           ) : option.value === "14" ? (
            <MultiCheckbox title="10 Game Changer" maxHeight={200}>
             {gameChangers}

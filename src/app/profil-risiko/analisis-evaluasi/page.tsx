@@ -69,14 +69,14 @@ export default function PageAnalisisEvaluasi({}) {
    <DialogComponent
     dialogOpen={modalOpenView}
     dialogClose={handleModalClose}
-    title="Detail Identifikasi Risiko"
+    title="Detail Analisis & Evaluasi Risiko"
    >
     <FormTable mode="view" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Identifikasi Risiko"
+    title="Tambah Analisis & Evaluasi Risiko"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
@@ -84,7 +84,7 @@ export default function PageAnalisisEvaluasi({}) {
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Ubah Identifikasi Risiko"
+    title="Ubah Analisis & Evaluasi Risiko"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />

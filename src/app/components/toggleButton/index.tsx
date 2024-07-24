@@ -78,6 +78,30 @@ export default function CustomToggleButton({
    <Typography px={3} component="span" fontWeight={600}>
     {label}
    </Typography>
+   {!disabled && (
+    <Box
+     position="absolute"
+     right={0}
+     top="50%"
+     bgcolor={theme.palette.primary.main}
+     px={1.2}
+     py={0.5}
+     sx={{
+      borderTopLeftRadius: 6,
+      borderBottomLeftRadius: 6,
+      transform: "translateY(-50%)",
+     }}
+    >
+     <Typography
+      fontSize={11}
+      color="white"
+      textTransform="capitalize"
+      letterSpacing={0.5}
+     >
+      Selera Risiko Terpilih
+     </Typography>
+    </Box>
+   )}
   </ToggleButton>
  );
 }

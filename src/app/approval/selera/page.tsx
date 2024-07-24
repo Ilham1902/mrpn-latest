@@ -1,0 +1,184 @@
+"use client";
+
+import ContentPage from "@/app/components/contents";
+import React from "react";
+import DashboardLayout from "@/app/components/layouts/layout";
+import {
+ Box,
+ Button,
+ ListItem,
+ Paper,
+ Stack,
+ TextField,
+ ToggleButtonGroup,
+ Typography,
+ alpha,
+} from "@mui/material";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import theme from "@/theme";
+import CustomToggleButton from "@/app/components/toggleButton";
+import FormatKL from "@/app/penetapan/selera-risiko/partials/formatKl";
+import { CardWithStamp } from "@/app/components/card-w-stamp";
+import { LabelRadio } from "@/app/components/labelRadio";
+
+export default function PageApprovalSelera() {
+ const [approvalStamp, setApprovalStamp] = React.useState(false);
+ const [rejectStamp, setRejectStamp] = React.useState(false);
+ const [buttonStamp, setButtonStamp] = React.useState(true);
+
+ const handleApprovalStamp = () => {
+  setApprovalStamp(true);
+  setButtonStamp(false);
+ };
+
+ const handleRejectStamp = () => {
+  setRejectStamp(true);
+  setButtonStamp(false);
+ };
+
+ return (
+  <DashboardLayout>
+   <ContentPage
+    title="Approval Selera Risiko"
+    chipKp
+    addButton={
+     buttonStamp ? (
+      <Stack direction="row" gap={1}>
+       <Button
+        variant="outlined"
+        color="error"
+        startIcon={<IconFA name="thumbs-down" size={14} />}
+        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+        onClick={handleRejectStamp}
+       >
+        Reject
+       </Button>
+       <Button
+        variant="contained"
+        color="success"
+        startIcon={<IconFA name="thumbs-up" size={14} />}
+        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+        onClick={handleApprovalStamp}
+       >
+        Approve
+       </Button>
+      </Stack>
+     ) : (
+      false
+     )
+    }
+   >
+    <CardWithStamp rejectStamp={rejectStamp} approvalStamp={approvalStamp}>
+     <Paper
+      elevation={2}
+      sx={{
+       p: "1.5rem",
+       borderRadius: "1.25rem",
+       m: approvalStamp || rejectStamp ? 0 : 1,
+      }}
+     >
+      <Box mb={2} p={2} bgcolor={theme.palette.primary.light} borderRadius={3}>
+       <Typography component="p">
+        Selera risiko adalah jenis/jumlah (nilai absolut) dari risiko yang siap
+        diambil dalam proses pencapaian sasaran PKPPR, dengan pilihan sebagai
+        berikut.
+       </Typography>
+      </Box>
+      <ToggleButtonGroup
+       exclusive
+       aria-label="text alignment"
+       sx={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+        [theme.breakpoints.down("md")]: {
+         gridTemplateColumns: "1fr 1fr",
+        },
+        [theme.breakpoints.down("sm")]: {
+         gridTemplateColumns: "1fr",
+        },
+        gap: 2,
+        mt: 2,
+        button: {
+         "&:hover": {
+          bgcolor: alpha(theme.palette.primary.main, 0.1),
+         },
+         "&.Mui-selected": {
+          bgcolor: theme.palette.primary.main,
+          color: "white",
+          ".MuiBox-root": {
+           bgcolor: theme.palette.primary.main,
+           color: "white",
+           borderRight: "1px solid white",
+          },
+          "&:hover": {
+           bgcolor: theme.palette.primary.main,
+           color: "white",
+          },
+         },
+        },
+       }}
+      >
+       <CustomToggleButton
+        value="1"
+        label="Tidak Toleran"
+        minheight={60}
+        disabled
+       />
+       <CustomToggleButton value="2" label="Konservatif" minheight={60} />
+       <CustomToggleButton value="3" label="Moderat" minheight={60} disabled />
+       <CustomToggleButton value="4" label="Agresif" minheight={60} disabled />
+      </ToggleButtonGroup>
+      <Box mt={2}>
+       <LabelRadio
+        heading="KONSERVATIF"
+        rangeValue={"7-12"}
+        description={
+         <Stack gap={1}>
+          <FormatKL
+           listItem={
+            <>
+             <ListItem sx={{ display: "list-item" }}>
+              Toleransi terbatas atas hasil yang tidak pasti dalam pencapaian
+              visi, misi, atau tujuan strategis Pembangunan Nasional.
+             </ListItem>
+             <ListItem sx={{ display: "list-item" }}>
+              Akan menerima risiko jika pencapaian hasil sangat penting untuk
+              visi, misi, atau tujuan strategis Pembangunan Nasional.
+             </ListItem>
+            </>
+           }
+          />
+         </Stack>
+        }
+       />
+      </Box>
+     </Paper>
+    </CardWithStamp>
+    {buttonStamp && (
+     <Stack mt={3} direction="row" justifyContent="flex-end">
+      <Stack direction="row" gap={1}>
+       <Button
+        variant="outlined"
+        color="error"
+        startIcon={<IconFA name="thumbs-down" size={14} />}
+        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+        onClick={handleRejectStamp}
+       >
+        Reject
+       </Button>
+       <Button
+        variant="contained"
+        color="success"
+        startIcon={<IconFA name="thumbs-up" size={14} />}
+        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+        onClick={handleApprovalStamp}
+       >
+        Approve
+       </Button>
+      </Stack>
+     </Stack>
+    )}
+   </ContentPage>
+  </DashboardLayout>
+ );
+}

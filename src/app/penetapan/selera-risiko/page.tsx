@@ -22,52 +22,9 @@ import theme from "@/theme";
 import CustomToggleButton from "@/app/components/toggleButton";
 import DialogComponent from "@/app/components/dialog";
 import TextareaComponent from "@/app/components/textarea";
-import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import FormatBP from "./partials/formatBp";
 import FormatKL from "./partials/formatKl";
-
-const LabelRadio = ({
- heading,
- description,
- value,
- rangeValue,
-}: {
- heading: string;
- description: any;
- value?: string | any;
- rangeValue?: string | any;
-}) => {
- return (
-  <Stack direction="column" justifyContent="flex-start">
-   <Stack direction="row" alignItems="center" gap={1}>
-    <Typography
-     component="h2"
-     fontSize="18px"
-     fontWeight={600}
-     textTransform="none"
-    >
-     {heading} {value && `(Nilai ${value})`}{" "}
-     {rangeValue && `(Rentang Nilai ${rangeValue})`}
-    </Typography>
-    <FieldLabelInfo
-     iconOnly
-     titleSection
-     title={heading}
-     information={heading}
-    />
-   </Stack>
-   <Typography
-    component="div"
-    color={grey[700]}
-    textTransform="none"
-    fontSize={15}
-    mt={1}
-   >
-    {description}
-   </Typography>
-  </Stack>
- );
-};
+import { LabelRadio } from "@/app/components/labelRadio";
 
 export default function PageSeleraRisiko({}) {
  const [value, setValue] = React.useState("");

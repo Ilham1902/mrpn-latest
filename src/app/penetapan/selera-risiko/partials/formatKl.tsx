@@ -7,7 +7,7 @@ export default function FormatKL({
  form,
 }: {
  listItem: React.ReactNode;
- form: React.ReactNode;
+ form?: React.ReactNode;
 }) {
  return (
   <>

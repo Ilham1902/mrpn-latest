@@ -13,6 +13,9 @@ export type PerlakuanType = {
  deskripsi: string;
  waktu: string;
  penanggungjawab: string;
+ lkRRH: number;
+ ldRRH: number;
+ brRRH: number;
 };
 
 export const data: PerlakuanType[] = [
@@ -34,6 +37,9 @@ export const data: PerlakuanType[] = [
    "1. Penyusunan regulasi untuk menjadikan persampahan sebagai SPM sehingga berpotensi mendapatkan pendanaan yang lebih besar, 2. earmarking anggaran untuk persampahan, 3. mewajibkan pemda melakukan implementasi Permendagri 7/2021, 4. membuka seluas-luasnya opsi kerjasama dan investasi untuk meningkatkan pendanaan pengelolaan sampah (blended finance)",
   waktu: "2025",
   penanggungjawab: "Kementerian Dalam Negeri, Kementerian PUPR dan KLHK",
+  lkRRH: 5,
+  ldRRH: 4,
+  brRRH: 22,
  },
  {
   id: 2,
@@ -53,6 +59,9 @@ export const data: PerlakuanType[] = [
    "1. Pengusulan revisi peraturan berkaitan dengan: a. Pembagian tugas yang jelas dalam pengawasan dan penegakan hukum sektor persampahan, b. Penyusunan mekanisme alur penegakan hukum di sektor persampahan",
   waktu: "2025",
   penanggungjawab: "KLHK",
+  lkRRH: 4,
+  ldRRH: 4,
+  brRRH: 19,
  },
 ];
 
@@ -124,4 +133,10 @@ export const listSasaran = [
   target:
    "Penanganan sampah rumah tangga dan sampah sejenis sampah rumah tangga (hilir) & Berkurangnya jumlah sampah yang diangkut ke Landfill",
  },
+];
+
+export const listPenanggungjawab = [
+ { id: 1, label: "Kementerian Dalam Negeri" },
+ { id: 2, label: "Kementerian PUPR" },
+ { id: 3, label: "KLHK" },
 ];

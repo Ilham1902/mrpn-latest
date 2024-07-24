@@ -153,8 +153,6 @@ export default function PageKonteksStrategis({}) {
       <TableStakeholderInternal mode="view" project="1" />
       <TableStakeholderEksternal mode="view" project="1" />
       <TableRincianOutput mode="view" />
-      <TableKemungkinan mode="view" />
-      <TableDampak mode="view" />
      </Stack>
     </ContentPage>
    </DashboardLayout>

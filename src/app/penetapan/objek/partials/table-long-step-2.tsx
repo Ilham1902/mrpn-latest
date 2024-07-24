@@ -23,7 +23,7 @@ export default function TableLonglistStepTwo({ mode }: { mode?: string }) {
        <TableCell width={70}>No.</TableCell>
        <TableCell>Uraian Objek MRPN Linsek</TableCell>
        <TableCell align="center">Prioritas</TableCell>
-       <TableCell align="center">Rangking</TableCell>
+       <TableCell align="center">Pilih sebagai Objek</TableCell>
       </TableRow>
      </TableHead>
      <TableBody>

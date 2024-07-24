@@ -13,6 +13,8 @@ export default function PageIdentifikasi({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [modalOpenAddPeristiwa, setModalOpenAddPeristiwa] =
+  React.useState(false);
 
  const handleModalOpenView = () => {
   setModalOpenView(true);
@@ -26,12 +28,19 @@ export default function PageIdentifikasi({}) {
  const handleModalOpenEdit = () => {
   setModalOpenEdit(true);
  };
+ const handleModalOpenAddPeristiwa = () => {
+  setModalOpenAddPeristiwa(true);
+ };
 
  const handleModalClose = () => {
   setModalOpenView(false);
   setModalOpenDelete(false);
   setModalOpenAdd(false);
   setModalOpenEdit(false);
+ };
+
+ const handleModalClosePeristiwa = () => {
+  setModalOpenAddPeristiwa(false);
  };
 
  const dialogActionFooter = (
@@ -52,11 +61,21 @@ export default function PageIdentifikasi({}) {
   </DialogActions>
  );
 
+ const dialogActionFooterPeristiwa = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClosePeristiwa}>Batal</Button>
+   <Button variant="contained" type="submit">
+    Simpan
+   </Button>
+  </DialogActions>
+ );
+
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Identifikasi Risiko" chipKp withCard>
+    <ContentPage title="Identifikasi Risiko" chipKp>
      <MRTIdentifikasi
+      viewOnly
       handleModalOpenView={handleModalOpenView}
       handleModalOpenDelete={handleModalOpenDelete}
       handleModalOpenAdd={handleModalOpenAdd}
@@ -85,7 +104,19 @@ export default function PageIdentifikasi({}) {
     title="Ubah Identifikasi Risiko"
     dialogFooter={dialogActionFooter}
    >
-    <FormTable mode="edit" />
+    <FormTable
+     mode="edit"
+     handleModalOpenAddPeristiwa={handleModalOpenAddPeristiwa}
+    />
+   </DialogComponent>
+   <DialogComponent
+    width={600}
+    dialogOpen={modalOpenAddPeristiwa}
+    dialogClose={handleModalClosePeristiwa}
+    title="Tambah Peristiwa Risiko Baru"
+    dialogFooter={dialogActionFooterPeristiwa}
+   >
+    <FormTable mode="addPeristiwa" />
    </DialogComponent>
    <DialogComponent
     width={240}

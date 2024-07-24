@@ -155,11 +155,6 @@ export default function Aside({
         url={subMenuProfil}
         urlLv2="analisis-evaluasi"
        />
-       {/* <SubmenuItem
-        label="Evaluasi Risiko"
-        url={subMenuProfil}
-        urlLv2="evaluasi-risiko"
-       /> */}
        <SubmenuItem
         label="Perlakuan Risiko"
         url={subMenuProfil}
@@ -191,7 +186,7 @@ export default function Aside({
        <SubmenuItem
         label="Selera Risiko"
         url={subMenuApproval}
-        urlLv2="selera-risiko"
+        urlLv2="selera"
        />
        <SubmenuItem
         label="Profil Risiko"

@@ -169,7 +169,7 @@ export default function PageTema({}) {
       <>
        <Collapse in={toggleSelectedTopic}>
         <AddButton
-         title="Ganti Objek"
+         title="Ganti Topik"
          filled
          noMargin
          startIcon={<IconFA name="pencil" size={14} />}

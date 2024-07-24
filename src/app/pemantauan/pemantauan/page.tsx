@@ -300,10 +300,19 @@ export default function PagePemantauan({}) {
   []
  );
 
+ //  type ColumnsType = {};
+
+ //  const renderTopToolbar: ColumnsType = {
+ //   renderTopToolbarCustomActions: () => (
+ //    <AddButton onclick={handleModalOpenAdd} title="Tambah Pemantauan" />
+ //   ),
+ //  };
+
  const table = useMaterialReactTable({
   columns,
   data,
   ...advancedTable,
+  // ...renderTopToolbar,
   muiTableContainerProps: {
    sx: {
     maxWidth: "calc(100vw - 348px)",
@@ -382,14 +391,14 @@ export default function PagePemantauan({}) {
    <DialogComponent
     dialogOpen={modalOpenView}
     dialogClose={handleModalClose}
-    title="Detail Identifikasi Risiko"
+    title="Detail Pemantauan"
    >
     <FormTable mode="view" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Identifikasi Risiko"
+    title="Tambah Pemantauan"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
@@ -397,7 +406,7 @@ export default function PagePemantauan({}) {
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Ubah Identifikasi Risiko"
+    title="Ubah Pemantauan"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />

@@ -1,7 +1,10 @@
 import React from "react";
 import {
+ Box,
+ Button,
  Checkbox,
  Paper,
+ Stack,
  Table,
  TableBody,
  TableCell,
@@ -82,6 +85,13 @@ export default function TableProposal({ mode }: { mode?: string }) {
      </TableBody>
     </Table>
    </TableContainer>
+   <Stack direction="row" justifyContent="flex-end">
+    <Box mt={2}>
+     <Button variant="contained" sx={{ borderRadius: 24 }}>
+      Simpan
+     </Button>
+    </Box>
+   </Stack>
   </>
  );
 }
