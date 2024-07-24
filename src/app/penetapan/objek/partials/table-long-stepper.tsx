@@ -113,7 +113,7 @@ export default function TableLonglistStepper({
         disabled={activeStep === 0}
         onClick={handleBack}
         variant="outlined"
-        sx={{ borderRadius: 24, mr: 1 }}
+        sx={{ borderRadius: 24, mr: 1, px: 4 }}
        >
         Kembali
        </Button>
@@ -135,7 +135,7 @@ export default function TableLonglistStepper({
         activeStep === steps.length - 1 ? handleOpenShortlist : handleNext
        }
        variant="contained"
-       sx={{ borderRadius: 24 }}
+       sx={{ borderRadius: 24, px: 4 }}
       >
        {activeStep === steps.length - 1 ? "Selesai" : "Simpan"}
       </Button>

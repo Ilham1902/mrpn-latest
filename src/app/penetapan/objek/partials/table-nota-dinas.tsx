@@ -246,8 +246,8 @@ export default function TableNotaDinas() {
     </TableContainer>
     <Stack width="100%" direction="row" justifyContent="flex-end">
      <Box>
-      <Button color="success" variant="contained" size="large">
-       Simpan Profil
+      <Button variant="contained" sx={{ borderRadius: 24, px: 4 }}>
+       Simpan
       </Button>
      </Box>
     </Stack>

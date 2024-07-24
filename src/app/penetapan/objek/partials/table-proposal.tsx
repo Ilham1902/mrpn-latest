@@ -87,7 +87,7 @@ export default function TableProposal({ mode }: { mode?: string }) {
    </TableContainer>
    <Stack direction="row" justifyContent="flex-end">
     <Box mt={2}>
-     <Button variant="contained" sx={{ borderRadius: 24 }}>
+     <Button variant="contained" sx={{ borderRadius: 24, px: 4 }}>
       Simpan
      </Button>
     </Box>
