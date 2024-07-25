@@ -3,7 +3,7 @@
 import ContentPage from "@/app/components/contents";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import MRTIdentifikasi from "../identifikasi/partials/mrt";
 import MRTPerlakuanComplete from "../perlakuan/partials/mrt-complete";
 
@@ -21,14 +21,16 @@ export default function PageOverview() {
        </Typography>
       }
      />
-     <MRTPerlakuanComplete
-      viewOnly
-      renderCaption={
-       <Typography fontWeight={600} fontSize={17} px={1}>
-        Perlakuan Risiko
-       </Typography>
-      }
-     />
+     <Box className="table-sticky-horizontal">
+      <MRTPerlakuanComplete
+       viewOnly
+       renderCaption={
+        <Typography fontWeight={600} fontSize={17} px={1}>
+         Perlakuan Risiko
+        </Typography>
+       }
+      />
+     </Box>
     </Stack>
    </ContentPage>
   </DashboardLayout>

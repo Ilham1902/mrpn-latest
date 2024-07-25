@@ -322,6 +322,7 @@ export default function MRTPerlakuanComplete({
 
  return (
   <Box
+   className="table-sticky-horizontal"
    sx={{
     ".MuiPaper-root": {
      "& > .MuiBox-root": {

@@ -174,13 +174,18 @@ export default function DashboardLayout({
     },
    },
   },
+  ".table-sticky-horizontal": {
+   ".MuiTableContainer-root": {
+    maxWidth: "calc(100vw - 368px)",
+   },
+  },
   ".collapse-active": {
    ".table-sticky-actions-column": {
     maxWidth: "calc(100vw - 132px)",
    },
    ".table-sticky-horizontal": {
     ".MuiTableContainer-root": {
-     maxWidth: "calc(100vw - 132px)",
+     maxWidth: "calc(100vw - 152px)",
     },
    },
   },
