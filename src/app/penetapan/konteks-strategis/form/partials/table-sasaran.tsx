@@ -150,7 +150,7 @@ export default function TableSasaran({
     width={320}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Sasaran"
+    title="Tambah Sasaran, Indikator, dan Target Kinerja UPR Linsek"
     dialogFooter={dialogActionFooter}
    >
     <FormSasaran mode="add" />

@@ -88,7 +88,7 @@ const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
  );
 };
 
-export default function CascadingOrgChart({ project }: { project: string }) {
+export default function CascadingOrgChart({ project }: { project?: string }) {
  const [modalOpenImg, setModalOpenImg] = React.useState(false);
 
  const handleModalClose = () => {
@@ -101,7 +101,7 @@ export default function CascadingOrgChart({ project }: { project: string }) {
 
  const ds = {
   name: `Nomenklatur PN`,
-  title: `Nomenklatur PN`,
+  title: `Sasaran & Indikator`,
   children: [
    {
     name: `Nomenklatur PP`,
@@ -136,39 +136,37 @@ export default function CascadingOrgChart({ project }: { project: string }) {
  return (
   <>
    <Stack gap={2} direction="row">
-    <Box>
-     {dataTema.map((itemFund) => (
-      <>
-       {project === itemFund.temaId && (
-        <>
-         {itemFund.pendanaan.map((listFund) => (
-          <>
-           {listFund.source.length < 1 ? (
-            <EmptyState
-             dense
-             icon={<IconEmptyData width={70} />}
-             title="Data Kosong"
-            />
-           ) : (
-            <>
-             {listFund.source.map((itemSource, index) => (
-              <FundSource key={index} value={`Rp. ${itemSource.value}`} />
-             ))}
-            </>
-           )}
-          </>
-         ))}
-        </>
-       )}
-      </>
-     ))}
-    </Box>
+    {dataTema.map((itemFund) => (
+     <>
+      {project === itemFund.temaId && (
+       <>
+        {itemFund.pendanaan.map((listFund) => (
+         <>
+          {listFund.source.length < 1 ? (
+           <EmptyState
+            dense
+            icon={<IconEmptyData width={70} />}
+            title="Data Kosong"
+           />
+          ) : (
+           <>
+            {listFund.source.map((itemSource, index) => (
+             <FundSource key={index} value={`Rp. ${itemSource.value}`} />
+            ))}
+           </>
+          )}
+         </>
+        ))}
+       </>
+      )}
+     </>
+    ))}
     <Box>
      <Button
       variant="contained"
       color="primary"
       startIcon={<IconFA name="magnifying-glass-plus" size={14} />}
-      sx={{ height: 45, px: 3 }}
+      sx={{ height: 45, px: 3, borderRadius: 2 }}
       onClick={handleModalImg}
      >
       Perbesar Chart

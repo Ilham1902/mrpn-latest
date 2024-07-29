@@ -3,13 +3,12 @@ import { Box, Tab, Tabs } from "@mui/material";
 import theme from "@/theme";
 import { IconFA } from "@/components/icons/icon-fa";
 import { styleTab } from "@/app/executive-summary/style";
-import CardItem from "@/app/components/cardTabItem";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
-import CardKategori from "./cardKategori";
-import CardKemungkinan from "./cardKemungkinan";
-import CardDampak from "./cardDampak";
-import CardMatriks from "./cardMatriks";
+import CardKategori from "./tab1Category/cardKategori";
+import CardKemungkinan from "./tab2Possibility/cardKemungkinan";
+import CardDampak from "./tab3Impact/cardDampak";
+import CardMatriks from "./tab4Matriks/cardMatriks";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -77,27 +76,25 @@ export default function TabCriteria({}) {
       label="Kategori Risiko"
       {...a11yProps(0)}
       iconPosition="start"
-      icon={
-       <IconFA size={16} name="arrow-down-short-wide" sx={{ width: "auto" }} />
-      }
+      icon={<IconFA size={16} name="gauge-high" />}
      />
      <Tab
       label="Kriteria Kemungkinan"
       {...a11yProps(1)}
       iconPosition="start"
-      icon={<IconFA size={16} name="arrow-down-wide-short" />}
+      icon={<IconFA size={16} name="maximize" />}
      />
      <Tab
       label="Kriteria Dampak"
       {...a11yProps(2)}
       iconPosition="start"
-      icon={<IconFA size={16} name="scroll" />}
+      icon={<IconFA size={16} name="minimize" />}
      />
      <Tab
       label="Matriks Risiko Konservatif"
       {...a11yProps(3)}
       iconPosition="start"
-      icon={<IconFA size={16} name="newspaper" sx={{ width: "auto" }} />}
+      icon={<IconFA size={16} name="arrow-up-right-dots" />}
      />
     </Tabs>
    </Box>

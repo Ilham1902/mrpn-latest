@@ -10,6 +10,7 @@ import TableShortlist from "./table-short";
 import TableLonglistStepper from "./table-long-stepper";
 import TableProposal from "./table-proposal";
 import TableNotaDinas from "./table-nota-dinas";
+import CascadingOrgChart from "@/app/executive-summary/partials/tab4Cascading/partials/org-chart";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -92,14 +93,20 @@ export default function TabObject({}) {
       icon={<IconFA size={16} name="arrow-down-wide-short" />}
      />
      <Tab
-      label="Usulan UPR Linsek"
+      label="Cascading Objek Terpilih"
       {...a11yProps(2)}
+      iconPosition="start"
+      icon={<IconFA size={16} name="list-check" />}
+     />
+     <Tab
+      label="Usulan UPR Linsek"
+      {...a11yProps(3)}
       iconPosition="start"
       icon={<IconFA size={16} name="scroll" />}
      />
      <Tab
       label="Nota Dinas Objek MRPN & UPR Linsek"
-      {...a11yProps(3)}
+      {...a11yProps(4)}
       iconPosition="start"
       icon={<IconFA size={16} name="newspaper" sx={{ width: "auto" }} />}
      />
@@ -134,6 +141,20 @@ export default function TabObject({}) {
     </CardItem>
    </CustomTabPanel>
    <CustomTabPanel value={value} index={2}>
+    <CardItem title="Cascading Objek Terpilih">
+     {isEmpty ? (
+      <EmptyState
+       dense
+       icon={<IconEmptyData width={100} />}
+       title="Data Kosong"
+       description="Silahkan isi konten halaman ini"
+      />
+     ) : (
+      <CascadingOrgChart />
+     )}
+    </CardItem>
+   </CustomTabPanel>
+   <CustomTabPanel value={value} index={3}>
     <CardItem title="Usulan UPR Linsek">
      {isEmpty ? (
       <EmptyState
@@ -147,7 +168,7 @@ export default function TabObject({}) {
      )}
     </CardItem>
    </CustomTabPanel>
-   <CustomTabPanel value={value} index={3}>
+   <CustomTabPanel value={value} index={4}>
     <CardItem title="Nota Dinas Objek MRPN & UPR Linsek">
      {isEmpty ? (
       <EmptyState

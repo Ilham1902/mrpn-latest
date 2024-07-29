@@ -2,6 +2,7 @@ import React from "react";
 import {
  Box,
  Button,
+ DialogActions,
  Divider,
  Paper,
  Stack,
@@ -15,6 +16,8 @@ import {
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
+import DialogComponent from "@/app/components/dialog";
+import FormReject from "./form-reject";
 
 export default function TableNotaDinas() {
  const [approvalLeft, setApprovalLeft] = React.useState(false);
@@ -24,15 +27,32 @@ export default function TableNotaDinas() {
  const [approvalRight, setApprovalRight] = React.useState(false);
  const [rejectRight, setRejectRight] = React.useState(false);
  const [buttonRight, setButtonRight] = React.useState(true);
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+ const [modalOpenRejectRight, setModalOpenRejectRight] = React.useState(false);
+
+ const handleModalOpen = () => {
+  setModalOpenAdd(true);
+ };
+ const handleModalOpenRejectRight = () => {
+  setModalOpenRejectRight(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenAdd(false);
+  setModalOpenRejectRight(false);
+ };
 
  const handleApprovalLeft = () => {
   setApprovalLeft(true);
   setButtonLeft(false);
+  setModalOpenAdd(false);
  };
 
  const handleRejectLeft = () => {
   setButtonLeft(false);
   setRejectLeft(true);
+  setModalOpenAdd(false);
+  setModalOpenRejectRight(false);
  };
 
  const handleApprovalRight = () => {
@@ -43,7 +63,37 @@ export default function TableNotaDinas() {
  const handleRejectRight = () => {
   setButtonRight(false);
   setRejectRight(true);
+  setModalOpenAdd(false);
+  setModalOpenRejectRight(false);
  };
+
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button
+    variant="contained"
+    type="submit"
+    color="error"
+    onClick={handleRejectLeft}
+   >
+    Reject
+   </Button>
+  </DialogActions>
+ );
+
+ const dialogActionFooterRight = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button
+    variant="contained"
+    type="submit"
+    color="error"
+    onClick={handleRejectRight}
+   >
+    Reject
+   </Button>
+  </DialogActions>
+ );
 
  return (
   <>
@@ -302,7 +352,7 @@ export default function TableNotaDinas() {
               variant="outlined"
               sx={{ borderRadius: 24, px: 3 }}
               startIcon={<IconFA name="thumbs-down" size={14} />}
-              onClick={handleRejectLeft}
+              onClick={handleModalOpen}
              >
               Reject
              </Button>
@@ -332,7 +382,7 @@ export default function TableNotaDinas() {
               variant="outlined"
               sx={{ borderRadius: 24, px: 3 }}
               startIcon={<IconFA name="thumbs-down" size={14} />}
-              onClick={handleRejectRight}
+              onClick={handleModalOpenRejectRight}
              >
               Reject
              </Button>
@@ -358,6 +408,24 @@ export default function TableNotaDinas() {
      </TableContainer>
     </Paper>
    </Stack>
+   <DialogComponent
+    width={480}
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tuliskan Alasan Reject"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormReject mode="add" />
+   </DialogComponent>
+   <DialogComponent
+    width={480}
+    dialogOpen={modalOpenRejectRight}
+    dialogClose={handleModalClose}
+    title="Tuliskan Alasan Reject"
+    dialogFooter={dialogActionFooterRight}
+   >
+    <FormReject mode="add" />
+   </DialogComponent>
   </>
  );
 }

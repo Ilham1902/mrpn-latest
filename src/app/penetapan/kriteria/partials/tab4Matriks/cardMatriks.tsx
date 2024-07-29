@@ -2,10 +2,10 @@ import React from "react";
 import { Button, DialogActions } from "@mui/material";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
-import TableKemungkinan from "./table-kriteria-kemungkinan";
-import FormKemungkinan from "./form-kemungkinan";
+import FormDampak from "../tab3Impact/form-dampak";
+import Matriks from "./matriks";
 
-export default function CardKemungkinan() {
+export default function CardMatriks() {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
 
  const handleModalOpenAdd = () => {
@@ -27,12 +27,8 @@ export default function CardKemungkinan() {
 
  return (
   <>
-   <CardItem
-    title="Kriteria Kemungkinan"
-    setting
-    settingEditOnclick={handleModalOpenAdd}
-   >
-    <TableKemungkinan mode="view" />
+   <CardItem title="Matriks dengan Selera Risiko Konservatif">
+    <Matriks levelId={2} />
    </CardItem>
    <DialogComponent
     width={1200}
@@ -41,7 +37,7 @@ export default function CardKemungkinan() {
     title="Tambah Kriteria Dampak"
     dialogFooter={dialogActionFooter}
    >
-    <FormKemungkinan mode="add" />
+    <FormDampak mode="add" />
    </DialogComponent>
   </>
  );

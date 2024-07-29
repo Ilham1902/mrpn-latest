@@ -6,6 +6,7 @@ import DashboardLayout from "@/app/components/layouts/layout";
 import {
  Box,
  Button,
+ DialogActions,
  ListItem,
  Paper,
  Stack,
@@ -20,11 +21,14 @@ import CustomToggleButton from "@/app/components/toggleButton";
 import FormatKL from "@/app/penetapan/selera-risiko/partials/formatKl";
 import { CardWithStamp } from "@/app/components/card-w-stamp";
 import { LabelRadio } from "@/app/components/labelRadio";
+import DialogComponent from "@/app/components/dialog";
+import FormReject from "../nota-dinas/partials/form-reject";
 
 export default function PageApprovalSelera() {
  const [approvalStamp, setApprovalStamp] = React.useState(false);
  const [rejectStamp, setRejectStamp] = React.useState(false);
  const [buttonStamp, setButtonStamp] = React.useState(true);
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
 
  const handleApprovalStamp = () => {
   setApprovalStamp(true);
@@ -34,156 +38,190 @@ export default function PageApprovalSelera() {
  const handleRejectStamp = () => {
   setRejectStamp(true);
   setButtonStamp(false);
+  setModalOpenAdd(false);
  };
 
- return (
-  <DashboardLayout>
-   <ContentPage
-    title="Approval Selera Risiko"
-    chipKp
-    addButton={
-     buttonStamp ? (
-      <Stack direction="row" gap={1}>
-       <Button
-        variant="outlined"
-        color="error"
-        startIcon={<IconFA name="thumbs-down" size={14} />}
-        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
-        onClick={handleRejectStamp}
-       >
-        Reject
-       </Button>
-       <Button
-        variant="contained"
-        color="success"
-        startIcon={<IconFA name="thumbs-up" size={14} />}
-        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
-        onClick={handleApprovalStamp}
-       >
-        Approve
-       </Button>
-      </Stack>
-     ) : (
-      false
-     )
-    }
+ const handleModalOpen = () => {
+  setModalOpenAdd(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenAdd(false);
+ };
+
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button
+    variant="contained"
+    type="submit"
+    color="error"
+    onClick={handleRejectStamp}
    >
-    <CardWithStamp rejectStamp={rejectStamp} approvalStamp={approvalStamp}>
-     <Paper
-      elevation={2}
-      sx={{
-       p: "1.5rem",
-       borderRadius: "1.25rem",
-       m: approvalStamp || rejectStamp ? 0 : 1,
-      }}
-     >
-      <Box mb={2} p={2} bgcolor={theme.palette.primary.light} borderRadius={3}>
-       <Typography component="p">
-        Selera risiko adalah jenis/jumlah (nilai absolut) dari risiko yang siap
-        diambil dalam proses pencapaian sasaran PKPPR, dengan pilihan sebagai
-        berikut.
-       </Typography>
-      </Box>
-      <ToggleButtonGroup
-       exclusive
-       aria-label="text alignment"
+    Reject
+   </Button>
+  </DialogActions>
+ );
+
+ return (
+  <>
+   <DashboardLayout>
+    <ContentPage
+     title="Approval Selera Risiko"
+     chipKp
+     addButton={
+      buttonStamp ? (
+       <Stack direction="row" gap={1}>
+        <Button
+         variant="outlined"
+         color="error"
+         startIcon={<IconFA name="thumbs-down" size={14} />}
+         sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+         onClick={handleModalOpen}
+        >
+         Reject
+        </Button>
+        <Button
+         variant="contained"
+         color="success"
+         startIcon={<IconFA name="thumbs-up" size={14} />}
+         sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+         onClick={handleApprovalStamp}
+        >
+         Approve
+        </Button>
+       </Stack>
+      ) : (
+       false
+      )
+     }
+    >
+     <CardWithStamp rejectStamp={rejectStamp} approvalStamp={approvalStamp}>
+      <Paper
+       elevation={2}
        sx={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        [theme.breakpoints.down("md")]: {
-         gridTemplateColumns: "1fr 1fr",
-        },
-        [theme.breakpoints.down("sm")]: {
-         gridTemplateColumns: "1fr",
-        },
-        gap: 2,
-        mt: 2,
-        button: {
-         "&:hover": {
-          bgcolor: alpha(theme.palette.primary.main, 0.1),
-         },
-         "&.Mui-selected": {
-          bgcolor: theme.palette.primary.main,
-          color: "white",
-          ".MuiBox-root": {
-           bgcolor: theme.palette.primary.main,
-           color: "white",
-           borderRight: "1px solid white",
-          },
-          "&:hover": {
-           bgcolor: theme.palette.primary.main,
-           color: "white",
-          },
-         },
-        },
+        p: "1.5rem",
+        borderRadius: "1.25rem",
+        m: approvalStamp || rejectStamp ? 0 : 1,
        }}
       >
-       <CustomToggleButton
-        value="1"
-        label="Tidak Toleran"
-        minheight={60}
-        disabled
-       />
-       <CustomToggleButton
-        value="2"
-        label="Konservatif"
-        minheight={60}
-        approvalPage
-       />
-       <CustomToggleButton value="3" label="Moderat" minheight={60} disabled />
-       <CustomToggleButton value="4" label="Agresif" minheight={60} disabled />
-      </ToggleButtonGroup>
-      <Box mt={2}>
-       <LabelRadio
-        heading="KONSERVATIF"
-        rangeValue={"7-12"}
-        description={
-         <Stack gap={1}>
-          <FormatKL
-           listItem={
-            <>
-             <ListItem sx={{ display: "list-item" }}>
-              Toleransi terbatas atas hasil yang tidak pasti dalam pencapaian
-              visi, misi, atau tujuan strategis Pembangunan Nasional.
-             </ListItem>
-             <ListItem sx={{ display: "list-item" }}>
-              Akan menerima risiko jika pencapaian hasil sangat penting untuk
-              visi, misi, atau tujuan strategis Pembangunan Nasional.
-             </ListItem>
-            </>
-           }
-          />
-         </Stack>
-        }
-       />
-      </Box>
-     </Paper>
-    </CardWithStamp>
-    {buttonStamp && (
-     <Stack mt={3} direction="row" justifyContent="flex-end">
-      <Stack direction="row" gap={1}>
-       <Button
-        variant="outlined"
-        color="error"
-        startIcon={<IconFA name="thumbs-down" size={14} />}
-        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
-        onClick={handleRejectStamp}
+       <Box mb={2} p={2} bgcolor={theme.palette.primary.light} borderRadius={3}>
+        <Typography component="p">
+         Selera risiko adalah jenis/jumlah (nilai absolut) dari risiko yang siap
+         diambil dalam proses pencapaian sasaran PKPPR, dengan pilihan sebagai
+         berikut.
+        </Typography>
+       </Box>
+       <ToggleButtonGroup
+        exclusive
+        aria-label="text alignment"
+        sx={{
+         display: "grid",
+         gridTemplateColumns: "1fr 1fr 1fr 1fr",
+         [theme.breakpoints.down("md")]: {
+          gridTemplateColumns: "1fr 1fr",
+         },
+         [theme.breakpoints.down("sm")]: {
+          gridTemplateColumns: "1fr",
+         },
+         gap: 2,
+         mt: 2,
+         button: {
+          "&:hover": {
+           bgcolor: alpha(theme.palette.primary.main, 0.1),
+          },
+          "&.Mui-selected": {
+           bgcolor: theme.palette.primary.main,
+           color: "white",
+           ".MuiBox-root": {
+            bgcolor: theme.palette.primary.main,
+            color: "white",
+            borderRight: "1px solid white",
+           },
+           "&:hover": {
+            bgcolor: theme.palette.primary.main,
+            color: "white",
+           },
+          },
+         },
+        }}
        >
-        Reject
-       </Button>
-       <Button
-        variant="contained"
-        color="success"
-        startIcon={<IconFA name="thumbs-up" size={14} />}
-        sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
-        onClick={handleApprovalStamp}
-       >
-        Approve
-       </Button>
+        <CustomToggleButton
+         value="1"
+         label="Tidak Toleran"
+         minheight={60}
+         disabled
+        />
+        <CustomToggleButton
+         value="2"
+         label="Konservatif"
+         minheight={60}
+         approvalPage
+        />
+        <CustomToggleButton value="3" label="Moderat" minheight={60} disabled />
+        <CustomToggleButton value="4" label="Agresif" minheight={60} disabled />
+       </ToggleButtonGroup>
+       <Box mt={2}>
+        <LabelRadio
+         heading="KONSERVATIF"
+         rangeValue={"7-12"}
+         description={
+          <Stack gap={1}>
+           <FormatKL
+            listItem={
+             <>
+              <ListItem sx={{ display: "list-item" }}>
+               Toleransi terbatas atas hasil yang tidak pasti dalam pencapaian
+               visi, misi, atau tujuan strategis Pembangunan Nasional.
+              </ListItem>
+              <ListItem sx={{ display: "list-item" }}>
+               Akan menerima risiko jika pencapaian hasil sangat penting untuk
+               visi, misi, atau tujuan strategis Pembangunan Nasional.
+              </ListItem>
+             </>
+            }
+           />
+          </Stack>
+         }
+        />
+       </Box>
+      </Paper>
+     </CardWithStamp>
+     {buttonStamp && (
+      <Stack mt={3} direction="row" justifyContent="flex-end">
+       <Stack direction="row" gap={1}>
+        <Button
+         variant="outlined"
+         color="error"
+         startIcon={<IconFA name="thumbs-down" size={14} />}
+         sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+         onClick={handleRejectStamp}
+        >
+         Reject
+        </Button>
+        <Button
+         variant="contained"
+         color="success"
+         startIcon={<IconFA name="thumbs-up" size={14} />}
+         sx={{ px: 3, borderRadius: 12, whiteSpace: "nowrap" }}
+         onClick={handleApprovalStamp}
+        >
+         Approve
+        </Button>
+       </Stack>
       </Stack>
-     </Stack>
-    )}
-   </ContentPage>
-  </DashboardLayout>
+     )}
+    </ContentPage>
+   </DashboardLayout>
+   <DialogComponent
+    width={480}
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tuliskan Alasan Reject"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormReject mode="add" />
+   </DialogComponent>
+  </>
  );
 }

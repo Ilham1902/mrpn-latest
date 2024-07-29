@@ -20,7 +20,7 @@ import { AddCircle } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
-import FormKemungkinan from "./form-kemungkinan";
+import FormKemungkinan from "../tab2Possibility/form-kemungkinan";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 
 export default function TableKategori({ mode }: { mode?: string }) {
@@ -70,6 +70,13 @@ export default function TableKategori({ mode }: { mode?: string }) {
    sub: ["Ketidakpatuhan", "Manajemen Kinerja", "Kinerja Strategis"],
    uraian:
     "Risiko ancaman dari kepatuhan terhadap peraturan yang ada dan yang akan datang, serta keputusan manajemen strategis dan taktis. Contoh: perkembangan regulasi, korupsi internal & fraud, kegagalan manajemen, salah kelola eksekutif",
+  },
+
+  {
+   category: "Reputasi",
+   sub: ["Reputasi"],
+   uraian:
+    "Risiko akibat menurunnya tingkat kepercayaan pemangku kepentingan (stakeholder) yang bersumber dari persepsi negatif terhadap kebijakan dan/atau kegiatan. Contoh: Pemberitaan negatif oleh media dan organisasi kemasyarakatan",
   },
  ];
 

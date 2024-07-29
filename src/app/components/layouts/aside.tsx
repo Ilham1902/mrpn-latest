@@ -131,7 +131,11 @@ export default function Aside({
         url={subMenuKonteks}
         urlLv2="selera-risiko"
        />
-       <SubmenuItem label="Kriteria" url={subMenuKonteks} urlLv2="kriteria" />
+       <SubmenuItem
+        label="Kriteria Risiko"
+        url={subMenuKonteks}
+        urlLv2="kriteria"
+       />
       </MenuItem>
       <MenuItem
        hasChild

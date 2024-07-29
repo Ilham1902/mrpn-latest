@@ -63,7 +63,7 @@ export default function CardUrgent({ project }: { project: string }) {
    <DialogComponent
     dialogOpen={modalOpenSegment}
     dialogClose={handleModalClose}
-    title="Segment Penerima Manfaat"
+    title="Urgensi Proyek"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>

@@ -125,7 +125,7 @@ export default function TableRegulation({
     width={320}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Sasaran"
+    title="Tambah Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
     dialogFooter={dialogActionFooter}
    >
     <FormRegulation mode="add" />

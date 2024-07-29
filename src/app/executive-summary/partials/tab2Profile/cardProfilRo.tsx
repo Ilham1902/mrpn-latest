@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, DialogActions } from "@mui/material";
+import {
+ Box,
+ Button,
+ DialogActions,
+ Tab,
+ Tabs,
+ Typography,
+} from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
@@ -7,9 +14,66 @@ import AddButton from "@/app/components/buttonAdd";
 import DialogComponent from "@/app/components/dialog";
 import FormProfilRo from "./form-profil-ro";
 import TableProfilOutput from "./table-profil-output";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import { styleTab } from "../../style";
+import theme from "@/theme";
+
+interface TabPanelProps {
+ children?: React.ReactNode;
+ index: number;
+ value: number;
+ project?: string;
+}
+
+function a11yProps(index: number) {
+ return {
+  id: `simple-tab-${index}`,
+  "aria-controls": `simple-tabpanel-${index}`,
+ };
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+ const { children, value, index, project, ...other } = props;
+
+ return (
+  <div
+   role="tabpanel"
+   hidden={value !== index}
+   id={`simple-tabpanel-${index}`}
+   aria-labelledby={`simple-tab-${index}`}
+   {...other}
+   style={{ display: project === "5" ? "none" : "block" }}
+  >
+   {value === index && (
+    <Box
+     sx={{
+      p: 0,
+      mt: 2,
+      //   height: "calc(100vh - 344px)",
+      //   height: "calc(100vh - 800px)",
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+       width: "3px",
+      },
+      [theme.breakpoints.down("sm")]: {
+       //    height: "calc(100vh - 366px)",
+      },
+     }}
+    >
+     {children}
+    </Box>
+   )}
+  </div>
+ );
+}
 
 export default function CardProfilRo({ project }: { project: string }) {
  const [modalOpenProfilRo, setModalOpenProfilRo] = React.useState(false);
+ const [value, setValue] = React.useState(0);
+
+ const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  setValue(newValue);
+ };
 
  const handleModalOpenProfilRo = () => {
   setModalOpenProfilRo(true);
@@ -42,7 +106,54 @@ export default function CardProfilRo({ project }: { project: string }) {
     />
    ) : (
     <>
-     <TableProfilOutput project={project} />
+     <Tabs value={value} onChange={handleChange} sx={styleTab}>
+      <Tab label="RPJMN" {...a11yProps(0)} />
+      <Tab label="RKP" {...a11yProps(1)} />
+      <Tab label="DAK" {...a11yProps(2)} />
+     </Tabs>
+     <CustomTabPanel value={value} index={0}>
+      {isEmpty ? (
+       <EmptyState
+        dense
+        icon={<IconEmptyData width={100} />}
+        title="Data Kosong"
+        description="Silahkan isi konten halaman ini"
+       />
+      ) : (
+       <>
+        <TableProfilOutput project={project} />
+       </>
+      )}
+     </CustomTabPanel>
+     <CustomTabPanel value={value} index={1}>
+      {isEmpty ? (
+       <EmptyState
+        dense
+        icon={<IconEmptyData width={100} />}
+        title="Data Kosong"
+        description="Silahkan isi konten halaman ini"
+       />
+      ) : (
+       <>
+        <TableProfilOutput project={project} />
+       </>
+      )}
+     </CustomTabPanel>
+     <CustomTabPanel value={value} index={2}>
+      {isEmpty ? (
+       <EmptyState
+        dense
+        icon={<IconEmptyData width={100} />}
+        title="Data Kosong"
+        description="Silahkan isi konten halaman ini"
+       />
+      ) : (
+       <>
+        <TableProfilOutput project={project} />
+       </>
+      )}
+     </CustomTabPanel>
+
      <DialogComponent
       dialogOpen={modalOpenProfilRo}
       dialogClose={handleModalClose}

@@ -2,10 +2,11 @@ import React from "react";
 import { Button, DialogActions } from "@mui/material";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
-import TableKategori from "./table-kategori";
-import FormKategori from "./form-kategori";
+// import TableKemungkinan from "./table-kriteria-kemungkinan";
+import FormKemungkinan from "./form-kemungkinan";
+import TableKemungkinan from "@/app/penetapan/konteks-strategis/form/partials/table-kriteria-kemungkinan";
 
-export default function CardKategori() {
+export default function CardKemungkinan() {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
 
  const handleModalOpenAdd = () => {
@@ -27,13 +28,7 @@ export default function CardKategori() {
 
  return (
   <>
-   <CardItem
-    title="Kategori Risiko"
-    setting
-    settingEditOnclick={handleModalOpenAdd}
-   >
-    <TableKategori mode="view" />
-   </CardItem>
+   <TableKemungkinan mode="view" />
    <DialogComponent
     width={1200}
     dialogOpen={modalOpenAdd}
@@ -41,7 +36,7 @@ export default function CardKategori() {
     title="Tambah Kriteria Dampak"
     dialogFooter={dialogActionFooter}
    >
-    <FormKategori mode="add" />
+    <FormKemungkinan mode="add" />
    </DialogComponent>
   </>
  );

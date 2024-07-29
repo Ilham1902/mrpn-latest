@@ -8,7 +8,7 @@ import {
  TableRow,
 } from "@mui/material";
 import { blue, green, grey, orange, red, yellow } from "@mui/material/colors";
-import { dataMatriks } from "../dataMatriks";
+import { dataMatriks } from "../../dataMatriks";
 
 export default function Matriks({ levelId }: { levelId?: number }) {
  const colorMap: { [key: string]: string } = {
