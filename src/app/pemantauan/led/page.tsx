@@ -1,33 +1,231 @@
 "use client";
 
 import ContentPage from "@/app/components/contents";
-import React from "react";
+import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
-import { SelectChangeEvent } from "@mui/material";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyPage } from "@/app/components/icons";
+import { advancedTable } from "@/app/components/table";
+import { Box, Button, Chip, DialogActions, Grow, Tooltip } from "@mui/material";
+import {
+ useMaterialReactTable,
+ MaterialReactTable,
+ MRT_ColumnDef,
+} from "material-react-table";
+import ActionColumn from "@/app/components/actions/action";
+import { data, type PemantauanType } from "./setting";
+import DialogComponent from "@/app/components/dialog";
+import FormTable from "./partials/form-table";
+import { green, grey, orange, red } from "@mui/material/colors";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import Image from "next/image";
+import AddButton from "@/app/components/buttonAdd";
 
-export default function PageLostEventDatabase() {
- const [project, setProject] = React.useState("");
+export default function PagePemantauan({}) {
+ const [modalOpenView, setModalOpenView] = React.useState(false);
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+ const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
+ const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [modalOpenBukti, setModalOpenBukti] = React.useState(false);
 
- const handleChangeProject = (event: SelectChangeEvent) => {
-  setProject(event.target.value);
+ const handleModalOpenView = () => {
+  setModalOpenView(true);
+ };
+ const handleModalOpenDelete = () => {
+  setModalOpenDelete(true);
+ };
+ const handleModalOpenAdd = () => {
+  setModalOpenAdd(true);
+ };
+ const handleModalOpenEdit = () => {
+  setModalOpenEdit(true);
+ };
+ const handleModalOpenBukti = () => {
+  setModalOpenBukti(true);
  };
 
+ const handleModalClose = () => {
+  setModalOpenView(false);
+  setModalOpenDelete(false);
+  setModalOpenAdd(false);
+  setModalOpenEdit(false);
+  setModalOpenBukti(false);
+ };
+
+ const columns = useMemo<MRT_ColumnDef<PemantauanType>[]>(
+  () => [
+   {
+    accessorKey: "peristiwa",
+    header: "Peristiwa Kerugian",
+    size: 250,
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "sebab",
+    header: "Sebab Kerugian",
+    size: 250,
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "tanggal",
+    header: "Tanggal",
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "lokasi",
+    header: "Lokasi",
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "klbubl",
+    header: "KLBUBL yang Terlibat",
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "dampak_keuangan",
+    header: "Dampak Keuangan (Rp)",
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "dampak_non_keuangan",
+    header: "Dampak Non-keuangan",
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "tindakan",
+    header: "Tindakan Korektif",
+    size: 250,
+    enableColumnActions: false,
+   },
+   {
+    accessorKey: "keterangan",
+    header: "Keterangan",
+    size: 250,
+    enableColumnActions: false,
+   },
+  ],
+  []
+ );
+
+ type ColumnsType = {};
+
+ const renderTopToolbar: ColumnsType = {
+  renderTopToolbarCustomActions: () => (
+   <AddButton onclick={handleModalOpenAdd} title="Tambah LED" />
+  ),
+ };
+
+ const table = useMaterialReactTable({
+  columns,
+  data,
+  ...advancedTable,
+  ...renderTopToolbar,
+  muiTableContainerProps: {
+   sx: {
+    maxWidth: "calc(100vw - 348px)",
+    overflowX: "auto",
+    transition: "max-width 500ms ease-in-out",
+    "&::-webkit-scrollbar": {
+     height: "10px",
+    },
+   },
+  },
+  muiTableHeadCellProps: {
+   sx: {
+    bgcolor: grey[100],
+    justifyContent: "center",
+    borderLeft: `1px solid ${grey[300]}`,
+    borderBottom: "none",
+   },
+  },
+  displayColumnDefOptions: {
+   "mrt-row-actions": {
+    header: "Aksi",
+    muiTableHeadCellProps: {
+     align: "center",
+     sx: {
+      borderLeft: `1px solid ${grey[300]}`,
+      "&:before": {
+       bgcolor: `${grey[100]} !important`,
+      },
+     },
+    },
+    size: 150,
+    Cell: () => (
+     <ActionColumn
+      viewClick={handleModalOpenView}
+      editClick={handleModalOpenEdit}
+      deleteClick={handleModalOpenDelete}
+     />
+    ),
+   },
+  },
+  enableColumnPinning: true,
+  layoutMode: "grid-no-grow",
+  initialState: {
+   columnPinning: { right: ["buktiDukung", "status", "mrt-row-actions"] },
+   showGlobalFilter: true,
+  },
+ });
+
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button variant="contained" type="submit">
+    Simpan
+   </Button>
+  </DialogActions>
+ );
+
+ const dialogActionDeleteFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button variant="contained" color="error" type="submit">
+    Hapus
+   </Button>
+  </DialogActions>
+ );
+
  return (
-  <DashboardLayout>
-   <ContentPage
-    title="Lost Event Database"
-    withCard
-    project={project}
-    handleChangeProject={handleChangeProject}
+  <>
+   <DashboardLayout>
+    <ContentPage title="Lost Event Database" chipKp>
+     <Box className="table-sticky-horizontal">
+      <MaterialReactTable table={table} />
+     </Box>
+    </ContentPage>
+   </DashboardLayout>
+   <DialogComponent
+    dialogOpen={modalOpenView}
+    dialogClose={handleModalClose}
+    title="Detail Lost Event Database"
    >
-    <EmptyState
-     icon={<IconEmptyPage />}
-     title="Halaman Lost Event Database Kosong"
-     description="Silahkan isi konten halaman ini"
-    />
-   </ContentPage>
-  </DashboardLayout>
+    <FormTable mode="view" />
+   </DialogComponent>
+   <DialogComponent
+    width={600}
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tambah Lost Event Database"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormTable mode="add" />
+   </DialogComponent>
+   <DialogComponent
+    dialogOpen={modalOpenEdit}
+    dialogClose={handleModalClose}
+    title="Ubah Lost Event Database"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormTable mode="edit" />
+   </DialogComponent>
+   <DialogComponent
+    width={240}
+    dialogOpen={modalOpenDelete}
+    dialogClose={handleModalClose}
+    title="Hapus Data"
+    dialogFooter={dialogActionDeleteFooter}
+   >
+    Anda yakin akan menghapus data ini?
+   </DialogComponent>
+  </>
  );
 }

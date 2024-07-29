@@ -1,6 +1,7 @@
 import React from "react";
 import {
  Box,
+ Button,
  Chip,
  Divider,
  FormControl,
@@ -11,13 +12,16 @@ import {
  ToggleButtonGroup,
  Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { green, red } from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import { IconFA } from "@/app/components/icons/icon-fa";
+import { VisuallyHiddenInput } from "@/app/utils/constant";
 
 export default function FormTable({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
- const [userLevel, setUserLevel] = React.useState<string | null>("left");
+ const [progressStatus, setProgressStatus] = React.useState<string | null>(
+  "left"
+ );
 
  const handleChangeProject = (event: SelectChangeEvent) => {
   setProject(event.target.value);
@@ -27,7 +31,7 @@ export default function FormTable({ mode }: { mode?: string }) {
   event: React.MouseEvent<HTMLElement>,
   newUserLevel: string | null
  ) => {
-  setUserLevel(newUserLevel);
+  setProgressStatus(newUserLevel);
  };
 
  return (
@@ -182,26 +186,30 @@ export default function FormTable({ mode }: { mode?: string }) {
    <Grid item xs={12}>
     <Divider />
    </Grid>
-   <Grid item xs={12} sm={4}>
+   <Grid item xs={12} sm={8}>
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Status Pelaksanaan"
       information="Status Pelaksanaan"
      />
-     <ToggleButtonGroup value={userLevel} exclusive onChange={handleUserLevel}>
-      <ToggleButton value="belum" sx={{ px: 3 }}>
+     <ToggleButtonGroup
+      value={progressStatus}
+      exclusive
+      onChange={handleUserLevel}
+     >
+      <ToggleButton value="belum" sx={{ px: 3 }} color="primary">
        <Stack direction="row" alignItems="center" gap={1}>
         <IconFA name="xmark" size={12} />
         <Typography>Belum</Typography>
        </Stack>
       </ToggleButton>
-      <ToggleButton value="proses" sx={{ px: 3 }}>
+      <ToggleButton value="proses" sx={{ px: 3 }} color="warning">
        <Stack direction="row" alignItems="center" gap={1}>
         <IconFA name="hourglass-start" size={12} />
         <Typography>Proses</Typography>
        </Stack>
       </ToggleButton>
-      <ToggleButton value="selesai" sx={{ px: 3 }}>
+      <ToggleButton value="selesai" sx={{ px: 3 }} color="success">
        <Stack direction="row" alignItems="center" gap={1}>
         <IconFA name="check" size={12} />
         <Typography>Selesai</Typography>
@@ -210,6 +218,25 @@ export default function FormTable({ mode }: { mode?: string }) {
      </ToggleButtonGroup>
     </FormControl>
    </Grid>
+   {progressStatus === "selesai" ? (
+    <Grid item xs={12} sm={4}>
+     <FormControl fullWidth>
+      <FieldLabelInfo title="Bukti Dukung" information="Bukti Dukung" />
+      <Box>
+       <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        startIcon={<IconFA name="upload" size={14} />}
+       >
+        Upload file
+        <VisuallyHiddenInput type="file" />
+       </Button>
+      </Box>
+     </FormControl>
+    </Grid>
+   ) : null}
   </Grid>
  );
 }

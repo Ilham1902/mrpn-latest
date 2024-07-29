@@ -185,7 +185,7 @@ export default function DashboardLayout({
    },
    ".table-sticky-horizontal": {
     ".MuiTableContainer-root": {
-     maxWidth: "calc(100vw - 152px)",
+     maxWidth: "calc(100vw - 148px)",
     },
    },
   },

@@ -4,25 +4,26 @@ import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import { advancedTable } from "@/app/components/table";
-import { Box, Button, Chip, DialogActions } from "@mui/material";
+import { Box, Button, Chip, DialogActions, Grow, Tooltip } from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
  MRT_ColumnDef,
 } from "material-react-table";
 import ActionColumn from "@/app/components/actions/action";
-import AddButton from "@/app/components/buttonAdd";
 import { data, type PemantauanType } from "./setting";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./partials/form-table";
 import { green, grey, orange, red } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
+import Image from "next/image";
 
 export default function PagePemantauan({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [modalOpenBukti, setModalOpenBukti] = React.useState(false);
 
  const handleModalOpenView = () => {
   setModalOpenView(true);
@@ -36,12 +37,16 @@ export default function PagePemantauan({}) {
  const handleModalOpenEdit = () => {
   setModalOpenEdit(true);
  };
+ const handleModalOpenBukti = () => {
+  setModalOpenBukti(true);
+ };
 
  const handleModalClose = () => {
   setModalOpenView(false);
   setModalOpenDelete(false);
   setModalOpenAdd(false);
   setModalOpenEdit(false);
+  setModalOpenBukti(false);
  };
 
  const columns = useMemo<MRT_ColumnDef<PemantauanType>[]>(
@@ -153,9 +158,17 @@ export default function PagePemantauan({}) {
        {
         accessorKey: "prioritas",
         header: "Prioritas Risiko",
+        size: 150,
         enableColumnActions: false,
         muiTableHeadCellProps: {
          align: "center",
+         sx: {
+          bgcolor: `${grey[100]} !important`,
+          ".Mui-TableHeadCell-Content-Wrapper": {
+           whiteSpace: "wrap",
+           textAlign: "left",
+          },
+         },
         },
         muiTableBodyCellProps: {
          align: "center",
@@ -233,10 +246,52 @@ export default function PagePemantauan({}) {
     ],
    },
    {
+    accessorKey: "buktiDukung",
+    header: "Bukti Dukung",
+    enableColumnActions: false,
+    size: 180,
+    Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
+     <>
+      {renderedCellValue ? (
+       <Tooltip
+        title="Klik untuk lihat Bukti Dukung"
+        TransitionComponent={Grow}
+       >
+        <IconFA
+         name={"check-circle"}
+         size={24}
+         color={green[700]}
+         onclick={handleModalOpenBukti}
+         sx={{ cursor: "pointer" }}
+        />
+       </Tooltip>
+      ) : (
+       <IconFA name="xmark-circle" size={24} color={red[700]} />
+      )}
+     </>
+    ),
+    muiTableHeadCellProps: {
+     align: "center",
+     sx: {
+      borderLeft: `1px solid ${grey[300]}`,
+      ".Mui-TableHeadCell-Content-Wrapper": {
+       whiteSpace: "wrap",
+       textAlign: "left",
+      },
+      "&:before": {
+       bgcolor: `${grey[100]} !important`,
+      },
+     },
+    },
+    muiTableBodyCellProps: {
+     align: "center",
+    },
+   },
+   {
     accessorKey: "status",
     header: "Status Pelaksanaan",
     enableColumnActions: false,
-    size: 220,
+    size: 180,
     Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
      <Chip
       icon={
@@ -286,7 +341,11 @@ export default function PagePemantauan({}) {
     muiTableHeadCellProps: {
      align: "center",
      sx: {
-      border: "none",
+      borderLeft: `1px solid ${grey[300]}`,
+      ".Mui-TableHeadCell-Content-Wrapper": {
+       whiteSpace: "wrap",
+       textAlign: "left",
+      },
       "&:before": {
        bgcolor: `${grey[100]} !important`,
       },
@@ -356,7 +415,7 @@ export default function PagePemantauan({}) {
   enableColumnPinning: true,
   layoutMode: "grid-no-grow",
   initialState: {
-   columnPinning: { right: ["status", "mrt-row-actions"] },
+   columnPinning: { right: ["buktiDukung", "status", "mrt-row-actions"] },
    showGlobalFilter: true,
   },
  });
@@ -419,6 +478,22 @@ export default function PagePemantauan({}) {
     dialogFooter={dialogActionDeleteFooter}
    >
     Anda yakin akan menghapus data ini?
+   </DialogComponent>
+   <DialogComponent
+    width={240}
+    dialogOpen={modalOpenBukti}
+    dialogClose={handleModalClose}
+    title="Bukti Dukung"
+   >
+    <Image
+     width={0}
+     height={0}
+     sizes="100vw"
+     style={{ width: "100%", height: "auto" }}
+     src="https://res.cloudinary.com/caturteguh/image/upload/v1722221300/mrpn/buktidukung_wo09q4.png"
+     alt="MRPN 2024"
+     priority
+    />
    </DialogComponent>
   </>
  );

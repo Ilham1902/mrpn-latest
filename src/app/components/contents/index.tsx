@@ -47,6 +47,7 @@ export default function ContentPage({
  sxHeaderCard,
  heightNoSet,
  selectedTopic,
+ identificationInfo,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -74,6 +75,7 @@ export default function ContentPage({
  sxHeaderCard?: React.CSSProperties;
  heightNoSet?: boolean;
  selectedTopic?: React.ReactNode | boolean;
+ identificationInfo?: React.ReactNode;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -520,6 +522,7 @@ export default function ContentPage({
       />
      )}
      {addButton && addButton}
+     {identificationInfo && identificationInfo}
     </Stack>
    </Stack>
    {hasAlert && hasAlert}
