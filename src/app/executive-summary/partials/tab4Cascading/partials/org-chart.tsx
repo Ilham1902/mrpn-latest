@@ -105,7 +105,7 @@ export default function CascadingOrgChart({ project }: { project?: string }) {
   children: [
    {
     name: `Nomenklatur PP`,
-    title: `Nomenklatur PP`,
+    title: `Sasaran & Indikator`,
     children: [
      {
       name: "Nomenklatur KP",

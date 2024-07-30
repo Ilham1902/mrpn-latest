@@ -121,7 +121,7 @@ export default function PageApprovalProfil() {
        />
       </CardWithStamp>
      </Stack>
-     {buttonStamp && (
+     {/* {buttonStamp && (
       <Stack mt={3} direction="row" justifyContent="flex-end">
        <Stack direction="row" gap={1}>
         <Button
@@ -144,7 +144,7 @@ export default function PageApprovalProfil() {
         </Button>
        </Stack>
       </Stack>
-     )}
+     )} */}
     </ContentPage>
    </DashboardLayout>
    <DialogComponent

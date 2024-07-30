@@ -4,7 +4,16 @@ import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import { advancedTable } from "@/app/components/table";
-import { Box, Button, Chip, DialogActions, Grow, Tooltip } from "@mui/material";
+import {
+ Box,
+ Button,
+ Chip,
+ DialogActions,
+ Grow,
+ Stack,
+ Tooltip,
+ Typography,
+} from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
@@ -17,6 +26,91 @@ import FormTable from "./partials/form-table";
 import { green, grey, orange, red } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
+import theme from "@/theme";
+
+const CustomChip = ({ title, value }: { title: string; value: string }) => {
+ return (
+  <Chip
+   variant="outlined"
+   label={
+    <>
+     <Stack direction="row" alignItems="center">
+      <Stack
+       direction="row"
+       bgcolor={grey[700]}
+       px={2}
+       alignItems="center"
+       height="34px"
+       sx={{
+        borderTopLeftRadius: 24,
+        borderBottomLeftRadius: 24,
+       }}
+      >
+       <Typography fontSize={13} color="white" fontWeight={600} lineHeight={1}>
+        {title}
+       </Typography>
+      </Stack>
+      <Box
+       sx={{
+        [theme.breakpoints.up("sm")]: {
+         display: "none",
+        },
+        [theme.breakpoints.down("sm")]: {
+         display: "block",
+        },
+       }}
+      >
+       {/* {nameOfKp.length >= 35 ? (
+             <Tooltip title={nameOfKp} followCursor TransitionComponent={Grow}>
+              <Typography
+               aria-owns={open ? "mouse-over-popover" : undefined}
+               aria-haspopup="true"
+               onMouseEnter={handlePopoverOpen}
+               onMouseLeave={handlePopoverClose}
+               px={1.5}
+               fontSize={13}
+               fontWeight={600}
+              >
+               {nameOfKp.substring(0, 35) + "..."}
+              </Typography>
+             </Tooltip>
+            ) : (
+             <Typography px={1.5} fontSize={13} fontWeight={600}>
+              {nameOfKp}
+             </Typography>
+            )} */}
+      </Box>
+      <Box
+       sx={{
+        [theme.breakpoints.up("sm")]: {
+         display: "block",
+        },
+        [theme.breakpoints.down("sm")]: {
+         display: "none",
+        },
+       }}
+      >
+       <Typography px={3} fontSize={13} fontWeight={800}>
+        {value}
+       </Typography>
+      </Box>
+     </Stack>
+    </>
+   }
+   sx={{
+    height: "34px",
+    bgcolor: "white",
+    fontWeight: 600,
+    lineHeight: 1,
+    cursor: "default",
+
+    ".MuiChip-label": {
+     px: 0,
+    },
+   }}
+  />
+ );
+};
 
 export default function PagePemantauan({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
@@ -441,7 +535,17 @@ export default function PagePemantauan({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Pemantauan" chipKp>
+    <ContentPage
+     title="Pemantauan"
+     chipKp
+     identificationInfo={
+      <Stack direction="row" gap={1}>
+       <CustomChip title="Risiko" value="4" />
+       <CustomChip title="Perlakuan" value="8" />
+       <CustomChip title="Realisasi Perlakuan" value="37,5%" />
+      </Stack>
+     }
+    >
      <Box className="table-sticky-horizontal">
       <MaterialReactTable table={table} />
      </Box>

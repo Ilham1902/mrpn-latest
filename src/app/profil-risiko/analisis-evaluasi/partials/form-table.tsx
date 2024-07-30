@@ -23,6 +23,7 @@ import {
  SxAutocompleteTextField,
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
+import TextareaComponent from "@/app/components/textarea";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 
@@ -142,6 +143,30 @@ export default function FormTable({ mode }: { mode?: string }) {
         </MenuItem>
        ))}
       </SelectCustomTheme>
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   <Grid item xs={12}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Penyebab" information="Penyebab" />
+     {mode === "add" ? (
+      <TextareaComponent label="Penyebab" placeholder="Penyebab" />
+     ) : mode === "edit" ? (
+      <TextareaComponent label="Penyebab" placeholder="Penyebab" value="-" />
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   <Grid item xs={12}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Dampak" information="Dampak" />
+     {mode === "add" ? (
+      <TextareaComponent label="Dampak" placeholder="Dampak" />
+     ) : mode === "edit" ? (
+      <TextareaComponent label="Dampak" placeholder="Dampak" value="-" />
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}

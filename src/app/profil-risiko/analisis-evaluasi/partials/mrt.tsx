@@ -39,26 +39,26 @@ export default function MRTAnalisis({
        {
         accessorKey: "peristiwa",
         header: "Peristiwa Risiko",
-        size: 250,
         enableColumnActions: false,
+        // size: 350,
        },
        {
         accessorKey: "kategori",
         header: "Kategori Risiko",
         enableColumnActions: false,
        },
-       {
-        accessorKey: "penyebab",
-        header: "Penyebab",
-        size: 250,
-        enableColumnActions: false,
-       },
-       {
-        accessorKey: "dampak",
-        header: "Dampak",
-        size: 250,
-        enableColumnActions: false,
-       },
+       //  {
+       //   accessorKey: "penyebab",
+       //   header: "Penyebab",
+       //   size: 250,
+       //   enableColumnActions: false,
+       //  },
+       //  {
+       //   accessorKey: "dampak",
+       //   header: "Dampak",
+       //   size: 250,
+       //   enableColumnActions: false,
+       //  },
       ],
      },
      {
@@ -167,7 +167,7 @@ export default function MRTAnalisis({
 
  const actionRight = {
   initialState: {
-   columnPinning: { right: ["mrt-row-actions"] },
+   //  columnPinning: { right: ["mrt-row-actions"] },
    showGlobalFilter: true,
   },
  };

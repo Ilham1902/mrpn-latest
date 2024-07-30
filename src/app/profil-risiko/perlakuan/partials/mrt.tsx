@@ -49,96 +49,96 @@ export default function MRTPerlakuan({
        },
       ],
      },
-     {
-      id: "analisis_evaluasi_risiko",
-      header: "Analisis & Evaluasi Risiko",
-      columns: [
-       {
-        accessorKey: "lk",
-        header: "LK",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "ld",
-        header: "LD",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "br",
-        header: "BR",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "level",
-        header: "Level Risiko",
-        enableColumnActions: false,
-        Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
-         <Chip
-          color={
-           renderedCellValue === "Sangat Tinggi"
-            ? "error"
-            : renderedCellValue === "Tinggi"
-            ? "warning"
-            : "success"
-          }
-          sx={{
-           minWidth: 80,
-           borderWidth: "2px",
-           borderStyle: "solid",
-           "& .MuiChip-label": {
-            fontWeight: 600,
-           },
-           "&.MuiChip-colorWarning": {
-            bgcolor: orange[100],
-            borderColor: orange[600],
-            color: orange[900],
-           },
-           "&.MuiChip-colorError": {
-            bgcolor: red[100],
-            borderColor: red[400],
-            color: red[900],
-           },
-           "&.MuiChip-colorSuccess": {
-            bgcolor: green[100],
-            borderColor: green[400],
-            color: green[900],
-           },
-          }}
-          label={renderedCellValue}
-         />
-        ),
-       },
-       {
-        accessorKey: "prioritas",
-        header: "Prioritas Risiko",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-      ],
-     },
+     //  {
+     //   id: "analisis_evaluasi_risiko",
+     //   header: "Analisis & Evaluasi Risiko",
+     //   columns: [
+     //    {
+     //     accessorKey: "lk",
+     //     header: "LK",
+     //     enableColumnActions: false,
+     //     muiTableHeadCellProps: {
+     //      align: "center",
+     //     },
+     //     muiTableBodyCellProps: {
+     //      align: "center",
+     //     },
+     //    },
+     //    {
+     //     accessorKey: "ld",
+     //     header: "LD",
+     //     enableColumnActions: false,
+     //     muiTableHeadCellProps: {
+     //      align: "center",
+     //     },
+     //     muiTableBodyCellProps: {
+     //      align: "center",
+     //     },
+     //    },
+     //    {
+     //     accessorKey: "br",
+     //     header: "BR",
+     //     enableColumnActions: false,
+     //     muiTableHeadCellProps: {
+     //      align: "center",
+     //     },
+     //     muiTableBodyCellProps: {
+     //      align: "center",
+     //     },
+     //    },
+     //    {
+     //     accessorKey: "level",
+     //     header: "Level Risiko",
+     //     enableColumnActions: false,
+     //     Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
+     //      <Chip
+     //       color={
+     //        renderedCellValue === "Sangat Tinggi"
+     //         ? "error"
+     //         : renderedCellValue === "Tinggi"
+     //         ? "warning"
+     //         : "success"
+     //       }
+     //       sx={{
+     //        minWidth: 80,
+     //        borderWidth: "2px",
+     //        borderStyle: "solid",
+     //        "& .MuiChip-label": {
+     //         fontWeight: 600,
+     //        },
+     //        "&.MuiChip-colorWarning": {
+     //         bgcolor: orange[100],
+     //         borderColor: orange[600],
+     //         color: orange[900],
+     //        },
+     //        "&.MuiChip-colorError": {
+     //         bgcolor: red[100],
+     //         borderColor: red[400],
+     //         color: red[900],
+     //        },
+     //        "&.MuiChip-colorSuccess": {
+     //         bgcolor: green[100],
+     //         borderColor: green[400],
+     //         color: green[900],
+     //        },
+     //       }}
+     //       label={renderedCellValue}
+     //      />
+     //     ),
+     //    },
+     //    {
+     //     accessorKey: "prioritas",
+     //     header: "Prioritas Risiko",
+     //     enableColumnActions: false,
+     //     muiTableHeadCellProps: {
+     //      align: "center",
+     //     },
+     //     muiTableBodyCellProps: {
+     //      align: "center",
+     //     },
+     //    },
+     //   ],
+     //  },
     ],
    },
    {
