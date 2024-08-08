@@ -110,6 +110,7 @@ export default function CardProfilRo({ project }: { project: string }) {
       <Tab label="RPJMN" {...a11yProps(0)} />
       <Tab label="RKP" {...a11yProps(1)} />
       <Tab label="DAK" {...a11yProps(2)} />
+      <Tab label="Renja KL" {...a11yProps(3)} />
      </Tabs>
      <CustomTabPanel value={value} index={0}>
       {isEmpty ? (
@@ -140,6 +141,20 @@ export default function CardProfilRo({ project }: { project: string }) {
       )}
      </CustomTabPanel>
      <CustomTabPanel value={value} index={2}>
+      {isEmpty ? (
+       <EmptyState
+        dense
+        icon={<IconEmptyData width={100} />}
+        title="Data Kosong"
+        description="Silahkan isi konten halaman ini"
+       />
+      ) : (
+       <>
+        <TableProfilOutput project={project} />
+       </>
+      )}
+     </CustomTabPanel>
+     <CustomTabPanel value={value} index={3}>
       {isEmpty ? (
        <EmptyState
         dense

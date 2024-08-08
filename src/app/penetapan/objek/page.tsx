@@ -17,7 +17,7 @@ import {
  Stack,
 } from "@mui/material";
 import theme from "@/theme";
-import { grey } from "@mui/material/colors";
+import { green, grey, orange, red } from "@mui/material/colors";
 import AddButton from "@/app/components/buttonAdd";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./partials/form-table";
@@ -104,10 +104,104 @@ export default function PageTema({}) {
 
  const isEmpty = false;
 
- const pathname = usePathname();
- const flagPathnameTheme = [pathname === "/", pathname === "/tema"].includes(
-  true
- );
+ //  const flagPathnameTheme = [
+ //   pathname === "/test",
+ //   pathname === "/tesst",
+ //  ].includes(true);
+
+ const flagToggleButton =
+  activeTab === "penurunan-stunting"
+   ? theme.palette.primary.main
+   : activeTab === "penurunan-kemiskinan"
+   ? green[500]
+   : activeTab === "percepatan-transisi-energi"
+   ? red[500]
+   : orange[500];
+
+ const flagChip =
+  activeTab === "penurunan-stunting"
+   ? theme.palette.primary.main
+   : activeTab === "penurunan-kemiskinan"
+   ? green[800]
+   : activeTab === "percepatan-transisi-energi"
+   ? red[800]
+   : orange[800];
+
+ const flagChipText =
+  activeTab === "penurunan-stunting"
+   ? "Penurunan Stunting"
+   : activeTab === "penurunan-kemiskinan"
+   ? "Penurunan Kemiskinan"
+   : activeTab === "percepatan-transisi-energi"
+   ? "Percepatan Transisi Energi"
+   : activeTab === "peningkatan-pariwisata"
+   ? "Peningkatan Pariwisata"
+   : activeTab === "ketahanan-pangan"
+   ? "Ketahanan Pangan"
+   : "Sistem Persampahan";
+
+ const styleToggleButton = [
+  {
+   display: "grid",
+   gridTemplateColumns: "1fr 1fr 1fr",
+   gap: 1,
+   mt: 2,
+   mb: 2,
+   p: "1px",
+   button: {
+    //  bgcolor: "white",
+    transition: "all 500ms ease-in-out",
+    border: `1px solid ${theme.palette.primary.main}`,
+    span: {
+     //   lineHeight: 1.2,
+     py: 2,
+     height: "100%",
+     //   display: "inline-flex",
+     //   alignItems: "center",
+    },
+    "&:hover": {
+     //   bgcolor: alpha(theme.palette.primary.main, 0.1),
+     color: alpha(theme.palette.secondary.dark, 0.8),
+     background: `linear-gradient(135deg, ${alpha(
+      theme.palette.primary.main,
+      0.3
+     )} 100%, rgba(255, 255, 255, 0.2) 100%),url(https://res.cloudinary.com/caturteguh/image/upload/v1715510168/mrpn/bg-button-theme_cxwxph.jpg)`,
+     //   backgroundSize: "140%",
+     //   backgroundPosition: "-240px -125px",
+     backgroundSize: "100%",
+     backgroundPosition: "right 45.5%",
+    },
+    "&.Mui-selected": {
+     // bgcolor: theme.palette.primary.main,
+     // color: "white",
+     color: "white",
+     background: `linear-gradient(135deg, ${alpha(
+      flagToggleButton,
+      1
+     )} 40%, rgba(255, 255, 255, 0.2) 100%),url(https://res.cloudinary.com/caturteguh/image/upload/v1715510168/mrpn/bg-button-theme_cxwxph.jpg)`,
+     backgroundSize: "120%",
+     backgroundPosition: "right center",
+     border: `1px solid ${flagToggleButton}`,
+     borderLeftColor: `${flagToggleButton} !important`,
+     ".MuiBox-root": {
+      bgcolor: theme.palette.primary.main,
+      color: "white",
+      borderRight: "1px solid white",
+     },
+     "&:hover": {
+      bgcolor: theme.palette.primary.main,
+      color: "white",
+     },
+    },
+   },
+   [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "1fr 1fr",
+   },
+   [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+   },
+  },
+ ];
 
  return (
   <>
@@ -126,7 +220,7 @@ export default function PageTema({}) {
          <Stack direction="row" alignItems="center">
           <Stack
            direction="row"
-           bgcolor={grey[800]}
+           bgcolor={flagChip}
            px={2}
            alignItems="center"
            height="34px"
@@ -144,11 +238,11 @@ export default function PageTema({}) {
             fontWeight={600}
             lineHeight={1}
            >
-            Objek Terpilih
+            Topik Terpilih
            </Typography>
           </Stack>
           <Typography px={2} fontSize={16} fontWeight={600}>
-           Penurunan Stunting
+           {flagChipText}
           </Typography>
          </Stack>
         }
@@ -224,13 +318,13 @@ export default function PageTema({}) {
             //  code="01.01.04"
             value="percepatan-transisi-energi"
             label="Percepatan Transisi Energi"
-            disabled
+            onClick={handleOpenTab}
            />
            <ThemeToggleButton
             //  code="01.01.05"
             value="peningkatan-pariwisata"
             label="Peningkatan Pariwisata"
-            disabled
+            onClick={handleOpenTab}
            />
            <ThemeToggleButton
             //  code="01.01.06"

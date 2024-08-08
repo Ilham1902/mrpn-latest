@@ -67,6 +67,7 @@ export default function PagePerlakuan({}) {
     </ContentPage>
    </DashboardLayout>
    <DialogComponent
+    width={800}
     dialogOpen={modalOpenView}
     dialogClose={handleModalClose}
     title="Detail Perlakuan Risiko"
@@ -74,6 +75,7 @@ export default function PagePerlakuan({}) {
     <FormTable mode="view" />
    </DialogComponent>
    <DialogComponent
+    width={800}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
     title="Tambah Perlakuan Risiko"
@@ -82,6 +84,7 @@ export default function PagePerlakuan({}) {
     <FormTable mode="add" />
    </DialogComponent>
    <DialogComponent
+    width={800}
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
     title="Ubah Perlakuan Risiko"

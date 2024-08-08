@@ -35,9 +35,11 @@ export default function FormatKL({
      {listItem}
     </List>
    </Stack>
-   <Stack display="grid" gridTemplateColumns="repeat(4, 1fr)" gap={2}>
-    <FormControl sx={{ mt: 1 }}>{form}</FormControl>
-   </Stack>
+   {form && (
+    <Stack display="grid" gridTemplateColumns="repeat(4, 1fr)" gap={2}>
+     <FormControl sx={{ mt: 1 }}>{form}</FormControl>
+    </Stack>
+   )}
   </>
  );
 }

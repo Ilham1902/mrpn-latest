@@ -100,7 +100,7 @@ export default function CustomToggleButton({
       size={20}
       sx={{
        position: "absolute",
-       right: 10,
+       right: 20,
        top: "50%",
        transform: "translateY(-50%)",
       }}

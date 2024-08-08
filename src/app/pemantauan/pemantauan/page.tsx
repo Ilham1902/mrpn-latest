@@ -9,7 +9,9 @@ import {
  Button,
  Chip,
  DialogActions,
+ Divider,
  Grow,
+ Paper,
  Stack,
  Tooltip,
  Typography,
@@ -112,6 +114,13 @@ const CustomChip = ({ title, value }: { title: string; value: string }) => {
  );
 };
 
+function convertDaysToMonthsAndDays(days: any) {
+ const daysInMonth = 30.44;
+ const months = Math.floor(days / daysInMonth);
+ const remainingDays = Math.round(days % daysInMonth);
+ return { months, remainingDays };
+}
+
 export default function PagePemantauan({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -143,135 +152,145 @@ export default function PagePemantauan({}) {
   setModalOpenBukti(false);
  };
 
+ const days = 70;
+ const result = convertDaysToMonthsAndDays(days);
+ const printResult = `${days} days is approximately ${result.months} months and ${result.remainingDays} days.`;
+
  const columns = useMemo<MRT_ColumnDef<PemantauanType>[]>(
   () => [
    {
-    id: "penilaian_risiko",
-    header: "Penilaian Risiko",
-    columns: [
-     {
-      id: "identifikasi_risiko",
-      header: "Identifikasi Risiko",
-      columns: [
-       {
-        accessorKey: "peristiwa",
-        header: "Peristiwa Risiko",
-        size: 250,
-        enableColumnActions: false,
-       },
-       {
-        accessorKey: "kategori",
-        header: "Kategori Risiko",
-        enableColumnActions: false,
-       },
-      ],
-     },
-     {
-      id: "analisis_evaluasi_risiko",
-      header: "Analisis & Evaluasi Risiko",
-      columns: [
-       {
-        accessorKey: "lk",
-        header: "LK",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "ld",
-        header: "LD",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "br",
-        header: "BR",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-       {
-        accessorKey: "level",
-        header: "Level Risiko",
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-        Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
-         <Chip
-          color={
-           renderedCellValue === "Sangat Tinggi"
-            ? "error"
-            : renderedCellValue === "Tinggi"
-            ? "warning"
-            : "success"
-          }
-          sx={{
-           minWidth: 80,
-           borderWidth: "2px",
-           borderStyle: "solid",
-           "& .MuiChip-label": {
-            fontWeight: 600,
-           },
-           "&.MuiChip-colorWarning": {
-            bgcolor: orange[100],
-            borderColor: orange[600],
-            color: orange[900],
-           },
-           "&.MuiChip-colorError": {
-            bgcolor: red[100],
-            borderColor: red[400],
-            color: red[900],
-           },
-           "&.MuiChip-colorSuccess": {
-            bgcolor: green[100],
-            borderColor: green[400],
-            color: green[900],
-           },
-          }}
-          label={renderedCellValue}
-         />
-        ),
-       },
-       {
-        accessorKey: "prioritas",
-        header: "Prioritas Risiko",
-        size: 150,
-        enableColumnActions: false,
-        muiTableHeadCellProps: {
-         align: "center",
-         sx: {
-          bgcolor: `${grey[100]} !important`,
-          ".Mui-TableHeadCell-Content-Wrapper": {
-           whiteSpace: "wrap",
-           textAlign: "left",
-          },
-         },
-        },
-        muiTableBodyCellProps: {
-         align: "center",
-        },
-       },
-      ],
-     },
-    ],
+    accessorKey: "peristiwa",
+    header: "Peristiwa Risiko",
+    size: 250,
+    enableColumnActions: false,
    },
+   //  {
+   //   id: "penilaian_risiko",
+   //   header: "Penilaian Risiko",
+   //   columns: [
+   //    {
+   //     id: "identifikasi_risiko",
+   //     header: "Identifikasi Risiko",
+   //     columns: [
+   //      {
+   //       accessorKey: "peristiwa",
+   //       header: "Peristiwa Risiko",
+   //       size: 250,
+   //       enableColumnActions: false,
+   //      },
+   //      //  {
+   //      //   accessorKey: "kategori",
+   //      //   header: "Kategori Risiko",
+   //      //   enableColumnActions: false,
+   //      //  },
+   //     ],
+   //    },
+   //  {
+   //   id: "analisis_evaluasi_risiko",
+   //   header: "Analisis & Evaluasi Risiko",
+   //   columns: [
+   //    {
+   //     accessorKey: "lk",
+   //     header: "LK",
+   //     enableColumnActions: false,
+   //     muiTableHeadCellProps: {
+   //      align: "center",
+   //     },
+   //     muiTableBodyCellProps: {
+   //      align: "center",
+   //     },
+   //    },
+   //    {
+   //     accessorKey: "ld",
+   //     header: "LD",
+   //     enableColumnActions: false,
+   //     muiTableHeadCellProps: {
+   //      align: "center",
+   //     },
+   //     muiTableBodyCellProps: {
+   //      align: "center",
+   //     },
+   //    },
+   //    {
+   //     accessorKey: "br",
+   //     header: "BR",
+   //     enableColumnActions: false,
+   //     muiTableHeadCellProps: {
+   //      align: "center",
+   //     },
+   //     muiTableBodyCellProps: {
+   //      align: "center",
+   //     },
+   //    },
+   //    {
+   //     accessorKey: "level",
+   //     header: "Level Risiko",
+   //     enableColumnActions: false,
+   //     muiTableHeadCellProps: {
+   //      align: "center",
+   //     },
+   //     muiTableBodyCellProps: {
+   //      align: "center",
+   //     },
+   //     Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
+   //      <Chip
+   //       color={
+   //        renderedCellValue === "Sangat Tinggi"
+   //         ? "error"
+   //         : renderedCellValue === "Tinggi"
+   //         ? "warning"
+   //         : "success"
+   //       }
+   //       sx={{
+   //        minWidth: 80,
+   //        borderWidth: "2px",
+   //        borderStyle: "solid",
+   //        "& .MuiChip-label": {
+   //         fontWeight: 600,
+   //        },
+   //        "&.MuiChip-colorWarning": {
+   //         bgcolor: orange[100],
+   //         borderColor: orange[600],
+   //         color: orange[900],
+   //        },
+   //        "&.MuiChip-colorError": {
+   //         bgcolor: red[100],
+   //         borderColor: red[400],
+   //         color: red[900],
+   //        },
+   //        "&.MuiChip-colorSuccess": {
+   //         bgcolor: green[100],
+   //         borderColor: green[400],
+   //         color: green[900],
+   //        },
+   //       }}
+   //       label={renderedCellValue}
+   //      />
+   //     ),
+   //    },
+   //    {
+   //     accessorKey: "prioritas",
+   //     header: "Prioritas Risiko",
+   //     size: 150,
+   //     enableColumnActions: false,
+   //     muiTableHeadCellProps: {
+   //      align: "center",
+   //      sx: {
+   //       bgcolor: `${grey[100]} !important`,
+   //       ".Mui-TableHeadCell-Content-Wrapper": {
+   //        whiteSpace: "wrap",
+   //        textAlign: "left",
+   //       },
+   //      },
+   //     },
+   //     muiTableBodyCellProps: {
+   //      align: "center",
+   //     },
+   //    },
+   //   ],
+   //  },
+   //   ],
+   //  },
    {
     id: "perlakuan_risiko",
     header: "Perlakuan Risiko",
@@ -283,9 +302,39 @@ export default function PagePemantauan({}) {
      },
      {
       accessorKey: "deskripsi",
-      header: "Deskripsi Perlakuan Risiko",
+      header: "Keterangan Perlakuan Risiko",
       enableColumnActions: false,
       size: 300,
+      Cell: ({ cell }: { cell: any }) => (
+       <Paper
+        elevation={0}
+        sx={{
+         overflow: "auto",
+         maxHeight: 160,
+         backgroundColor: "transparent",
+         "&::-webkit-scrollbar": {
+          width: "3px",
+         },
+        }}
+       >
+        <Stack gap={1}>
+         {cell.getValue().map((itemDesc: any, index: any) => (
+          <Chip
+           key={index}
+           sx={{
+            height: "auto",
+            py: 1,
+            "& .MuiChip-label": {
+             overflow: "unset",
+             whiteSpace: "wrap",
+            },
+           }}
+           label={itemDesc}
+          />
+         ))}
+        </Stack>
+       </Paper>
+      ),
      },
      {
       accessorKey: "waktu",
@@ -305,7 +354,7 @@ export default function PagePemantauan({}) {
     header: "Risiko Residual Harapan",
     columns: [
      {
-      accessorKey: "lk",
+      accessorKey: "lkRRH",
       header: "LK",
       enableColumnActions: false,
       muiTableHeadCellProps: {
@@ -316,7 +365,7 @@ export default function PagePemantauan({}) {
       },
      },
      {
-      accessorKey: "ld",
+      accessorKey: "ldRRH",
       header: "LD",
       enableColumnActions: false,
       muiTableHeadCellProps: {
@@ -327,7 +376,7 @@ export default function PagePemantauan({}) {
       },
      },
      {
-      accessorKey: "br",
+      accessorKey: "brRRH",
       header: "BR",
       enableColumnActions: false,
       muiTableHeadCellProps: {
@@ -366,19 +415,40 @@ export default function PagePemantauan({}) {
     ),
     muiTableHeadCellProps: {
      align: "center",
-     sx: {
-      borderLeft: `1px solid ${grey[300]}`,
-      ".Mui-TableHeadCell-Content-Wrapper": {
-       whiteSpace: "wrap",
-       textAlign: "left",
-      },
-      "&:before": {
-       bgcolor: `${grey[100]} !important`,
-      },
-     },
     },
     muiTableBodyCellProps: {
      align: "center",
+    },
+   },
+   {
+    accessorKey: "updateStatus",
+    header: "Update Penilaian",
+    enableColumnActions: false,
+    size: 250,
+    Cell: ({ renderedCellValue }: { renderedCellValue: any }) => {
+     const result = convertDaysToMonthsAndDays(renderedCellValue);
+     return (
+      <Box>
+       {renderedCellValue >= 90 ? (
+        <Stack gap={1}>
+         <Button
+          color="error"
+          variant="contained"
+          size="small"
+          sx={{ borderRadius: 50, mb: 0.5 }}
+         >
+          Update Sekarang
+         </Button>
+         <Divider />
+         <Typography fontSize={14} color={red[700]}>
+          {`Terakhir update ${result.months} bulan & ${result.remainingDays} hari yang lalu`}
+         </Typography>
+        </Stack>
+       ) : (
+        `Terakhir update ${result.months} bulan & ${result.remainingDays} hari yang lalu`
+       )}
+      </Box>
+     );
     },
    },
    {
@@ -509,7 +579,7 @@ export default function PagePemantauan({}) {
   enableColumnPinning: true,
   layoutMode: "grid-no-grow",
   initialState: {
-   columnPinning: { right: ["buktiDukung", "status", "mrt-row-actions"] },
+   columnPinning: { right: ["status", "mrt-row-actions"] },
    showGlobalFilter: true,
   },
  });
@@ -549,6 +619,7 @@ export default function PagePemantauan({}) {
      <Box className="table-sticky-horizontal">
       <MaterialReactTable table={table} />
      </Box>
+     {printResult}
     </ContentPage>
    </DashboardLayout>
    <DialogComponent

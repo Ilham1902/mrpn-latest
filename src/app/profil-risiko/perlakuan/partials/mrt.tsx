@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { advancedTable } from "@/app/components/table";
-import { Box, Chip } from "@mui/material";
+import { Box, Chip, Paper, Stack } from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
@@ -152,9 +152,39 @@ export default function MRTPerlakuan({
      },
      {
       accessorKey: "deskripsi",
-      header: "Deskripsi Perlakuan Risiko",
+      header: "Keterangan Perlakuan Risiko",
       enableColumnActions: false,
       size: 300,
+      Cell: ({ cell }: { cell: any }) => (
+       <Paper
+        elevation={0}
+        sx={{
+         overflow: "auto",
+         maxHeight: 160,
+         backgroundColor: "transparent",
+         "&::-webkit-scrollbar": {
+          width: "3px",
+         },
+        }}
+       >
+        <Stack gap={1}>
+         {cell.getValue().map((itemDesc: any, index: any) => (
+          <Chip
+           key={index}
+           sx={{
+            height: "auto",
+            py: 1,
+            "& .MuiChip-label": {
+             overflow: "unset",
+             whiteSpace: "wrap",
+            },
+           }}
+           label={itemDesc}
+          />
+         ))}
+        </Stack>
+       </Paper>
+      ),
      },
      {
       accessorKey: "waktu",
@@ -177,6 +207,7 @@ export default function MRTPerlakuan({
       accessorKey: "lk",
       header: "LK",
       enableColumnActions: false,
+      size: 120,
       muiTableHeadCellProps: {
        align: "center",
       },
@@ -188,6 +219,7 @@ export default function MRTPerlakuan({
       accessorKey: "ld",
       header: "LD",
       enableColumnActions: false,
+      size: 120,
       muiTableHeadCellProps: {
        align: "center",
       },
@@ -199,6 +231,7 @@ export default function MRTPerlakuan({
       accessorKey: "br",
       header: "BR",
       enableColumnActions: false,
+      size: 120,
       muiTableHeadCellProps: {
        align: "center",
       },

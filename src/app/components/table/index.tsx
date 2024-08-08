@@ -83,9 +83,12 @@ export const advancedTable: ColumnsType = {
   shape: "rounded",
   showRowsPerPage: true,
   variant: "outlined",
-  labelRowsPerPage: "new label for rows per page",
-  enableRowNumbers: true,
-  rowNumberDisplayMode: "static", // default
+  //   labelRowsPerPage
+  labelrowsperpage: "new label for rows per page",
+  //   enableRowNumbers
+  enablerownumbers: true,
+  //   rowNumberDisplayMode
+  rownumberdisplaymode: "static",
  },
  renderToolbarInternalActions: ({ table }: any) => (
   <Box>

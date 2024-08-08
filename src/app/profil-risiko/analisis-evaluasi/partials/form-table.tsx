@@ -51,27 +51,27 @@ export default function FormTable({ mode }: { mode?: string }) {
      />
      {mode === "add" || mode === "edit" ? (
       <Autocomplete
-       multiple
+       //    multiple
        disableCloseOnSelect
        filterSelectedOptions
-       freeSolo={false}
+       //    freeSolo={false}
        size="small"
-       value={columns}
+       //    value={columns}
        options={listPeristiwaRisiko}
        getOptionLabel={(option) => option.risk}
        noOptionsText={
         "Pencarian Anda tidak ada di list? Klik tombol Tambah Peristiwa Risiko Baru"
        }
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (
-         reason === "selectOption" &&
-         value.length === listPeristiwaRisiko.length
-        )
-         setSelectAll(true);
-        setColumns(value);
-       }}
+       //    onChange={(_e, value, reason) => {
+       //     if (reason === "clear" || reason === "removeOption")
+       //      setSelectAll(false);
+       //     if (
+       //      reason === "selectOption" &&
+       //      value.length === listPeristiwaRisiko.length
+       //     )
+       //      setSelectAll(true);
+       //     setColumns(value);
+       //    }}
        renderInput={(params) => (
         <TextField
          {...params}
@@ -82,31 +82,31 @@ export default function FormTable({ mode }: { mode?: string }) {
          sx={SxAutocompleteTextField}
         />
        )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          {children}
-          <Divider />
-          <Stack width="100%">
-           <Button
-            fullWidth
-            startIcon={
-             <Icon
-              baseClassName="fas"
-              className={`fa-plus-circle`}
-              sx={{
-               fontSize: "18px",
-              }}
-             />
-            }
-           >
-            Tambah Peristiwa Risiko Baru
-           </Button>
-          </Stack>
-         </Paper>
-        );
-       }}
+       //    PaperComponent={(paperProps) => {
+       //     const { children, ...restPaperProps } = paperProps;
+       //     return (
+       //      <Paper {...restPaperProps}>
+       //       {children}
+       //       <Divider />
+       //       <Stack width="100%">
+       //        <Button
+       //         fullWidth
+       //         startIcon={
+       //          <Icon
+       //           baseClassName="fas"
+       //           className={`fa-plus-circle`}
+       //           sx={{
+       //            fontSize: "18px",
+       //           }}
+       //          />
+       //         }
+       //        >
+       //         Tambah Peristiwa Risiko Baru
+       //        </Button>
+       //       </Stack>
+       //      </Paper>
+       //     );
+       //    }}
        sx={{
         ...SxAutocomplete,
         ".MuiInputBase-root": {

@@ -39,7 +39,7 @@ export default function ThemeToggleButton({
     justifyContent: "flex-start",
     color: alpha(theme.palette.primary.main, 0.8),
     borderRadius: "12px !important",
-    border: `1px solid ${theme.palette.primary.main}`,
+    // border: `1px solid ${theme.palette.primary.main}`,
     borderLeftColor: `${theme.palette.primary.main} !important`,
     background:
      "linear-gradient(90deg, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.8) 100%),url(https://res.cloudinary.com/caturteguh/image/upload/v1715510168/mrpn/bg-button-theme_cxwxph.jpg)",

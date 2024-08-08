@@ -58,24 +58,24 @@ export default function PagePeringatanDiniSaran({}) {
     enableColumnActions: false,
     enableSorting: false,
    },
-   {
-    id: "nilai_risiko",
-    header: "Nilai Risiko",
-    columns: [
-     {
-      accessorKey: "nr_sebelum",
-      header: "Sebelum",
-      size: 120,
-      enableColumnActions: false,
-     },
-     {
-      accessorKey: "nr_sesudah",
-      header: "Sesudah",
-      size: 120,
-      enableColumnActions: false,
-     },
-    ],
-   },
+   //    {
+   //     id: "nilai_risiko",
+   //     header: "Nilai Risiko",
+   //     columns: [
+   //      {
+   //       accessorKey: "nr_sebelum",
+   //       header: "Sebelum",
+   //       size: 120,
+   //       enableColumnActions: false,
+   //      },
+   //      {
+   //       accessorKey: "nr_sesudah",
+   //       header: "Sesudah",
+   //       size: 120,
+   //       enableColumnActions: false,
+   //      },
+   //     ],
+   //    },
    {
     id: "maturitas",
     header: "Maturitas MRPN",

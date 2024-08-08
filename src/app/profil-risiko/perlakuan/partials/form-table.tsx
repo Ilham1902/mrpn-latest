@@ -3,6 +3,7 @@ import {
  Autocomplete,
  Box,
  Button,
+ Checkbox,
  Chip,
  Divider,
  FormControl,
@@ -12,6 +13,12 @@ import {
  Paper,
  SelectChangeEvent,
  Stack,
+ Table,
+ TableBody,
+ TableCell,
+ TableContainer,
+ TableHead,
+ TableRow,
  TextField,
  Typography,
 } from "@mui/material";
@@ -22,7 +29,7 @@ import {
  listPeristiwaRisiko,
  riskCategory,
 } from "../setting";
-import { red } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
  SxAutocompleteTextField,
@@ -30,9 +37,149 @@ import {
 } from "@/app/components/dropdownKp";
 import TextareaComponent from "@/app/components/textarea";
 import DateRangePicker from "@/app/components/dateRange";
+import theme from "@/theme";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 type OptionRspn = (typeof listPenanggungjawab)[number];
+
+const data = [
+ {
+  id: 1,
+  ro: "Suplementasi gizi mikro pada balita",
+  target: "72,42",
+  satuan: "poin",
+  anggaran: "Kemen PUPR",
+ },
+ {
+  id: 2,
+  ro: "	Tata laksana balita gizi buruk",
+  target: "33",
+  satuan: "%",
+  anggaran: "Kemen PPN",
+ },
+ {
+  id: 3,
+  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
+  target: "moderat",
+  satuan: "indeks",
+  anggaran: "Kemenkeu",
+ },
+ {
+  id: 4,
+  ro: "Suplementasi gizi mikro pada balita",
+  target: "72,42",
+  satuan: "poin",
+  anggaran: "Kemen PUPR",
+ },
+ {
+  id: 5,
+  ro: "	Tata laksana balita gizi buruk",
+  target: "33",
+  satuan: "%",
+  anggaran: "Kemen PPN",
+ },
+ {
+  id: 6,
+  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
+  target: "moderat",
+  satuan: "indeks",
+  anggaran: "Kemenkeu",
+ },
+ {
+  id: 7,
+  ro: "Suplementasi gizi mikro pada balita",
+  target: "72,42",
+  satuan: "poin",
+  anggaran: "Kemen PUPR",
+ },
+ {
+  id: 8,
+  ro: "	Tata laksana balita gizi buruk",
+  target: "33",
+  satuan: "%",
+  anggaran: "Kemen PPN",
+ },
+ {
+  id: 9,
+  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
+  target: "moderat",
+  satuan: "indeks",
+  anggaran: "Kemenkeu",
+ },
+];
+
+const highlightText = (text: any, highlight: any) => {
+ if (!highlight.trim()) {
+  return text;
+ }
+ const regex = new RegExp(`(${highlight})`, "gi");
+ const parts = text.split(regex);
+ return parts.map((part: any, index: any) =>
+  regex.test(part) ? (
+   <span key={index} style={{ backgroundColor: "yellow" }}>
+    {part}
+   </span>
+  ) : (
+   part
+  )
+ );
+};
+
+const TablePerlakuanMultiCheck = () => {
+ const [search, setSearch] = React.useState("");
+
+ const handleSearchChange = (event: any) => {
+  setSearch(event.target.value);
+ };
+
+ const filteredData = data.filter(
+  (row: any) => row.ro.toLowerCase().includes(search.toLowerCase())
+  //    || row.email.toLowerCase().includes(search.toLowerCase())
+ );
+
+ return (
+  <Paper elevation={0} variant="outlined" sx={{ minWidth: "100% !important" }}>
+   <TextField
+    InputLabelProps={{
+     shrink: true,
+    }}
+    variant="outlined"
+    fullWidth
+    placeholder="Cari nomenklatur RO"
+    value={search}
+    onChange={handleSearchChange}
+    sx={SxAutocompleteTextField}
+    size="small"
+   />
+   <TableContainer sx={{ maxHeight: 200 }}>
+    <Table stickyHeader size="small">
+     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
+      <TableRow>
+       <TableCell sx={{ width: 30 }}></TableCell>
+       <TableCell>Nomenklatur RO</TableCell>
+       <TableCell>Target</TableCell>
+       <TableCell>Satuan</TableCell>
+       <TableCell>Anggaran</TableCell>
+      </TableRow>
+     </TableHead>
+     <TableBody>
+      {filteredData.map((row) => (
+       <TableRow key={row.id}>
+        <TableCell>
+         <Checkbox size="small" />
+        </TableCell>
+        <TableCell>{highlightText(row.ro, search)}</TableCell>
+        <TableCell>{highlightText(row.target, search)}</TableCell>
+        <TableCell>{highlightText(row.satuan, search)}</TableCell>
+        <TableCell>{highlightText(row.anggaran, search)}</TableCell>
+       </TableRow>
+      ))}
+     </TableBody>
+    </Table>
+   </TableContainer>
+  </Paper>
+ );
+};
 
 export default function FormTable({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
@@ -62,27 +209,15 @@ export default function FormTable({ mode }: { mode?: string }) {
      />
      {mode === "add" || mode === "edit" ? (
       <Autocomplete
-       multiple
        disableCloseOnSelect
        filterSelectedOptions
        freeSolo={false}
        size="small"
-       value={columns}
        options={listPeristiwaRisiko}
        getOptionLabel={(option) => option.risk}
        noOptionsText={
         "Pencarian Anda tidak ada di list? Klik tombol Tambah Peristiwa Risiko Baru"
        }
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (
-         reason === "selectOption" &&
-         value.length === listPeristiwaRisiko.length
-        )
-         setSelectAll(true);
-        setColumns(value);
-       }}
        renderInput={(params) => (
         <TextField
          {...params}
@@ -93,31 +228,6 @@ export default function FormTable({ mode }: { mode?: string }) {
          sx={SxAutocompleteTextField}
         />
        )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          {children}
-          <Divider />
-          <Stack width="100%">
-           <Button
-            fullWidth
-            startIcon={
-             <Icon
-              baseClassName="fas"
-              className={`fa-plus-circle`}
-              sx={{
-               fontSize: "18px",
-              }}
-             />
-            }
-           >
-            Tambah Peristiwa Risiko Baru
-           </Button>
-          </Stack>
-         </Paper>
-        );
-       }}
        sx={{
         ...SxAutocomplete,
         ".MuiInputBase-root": {
@@ -270,12 +380,11 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Keterangan" information="Keterangan" />
-     {mode === "add" || mode === "edit" ? (
-      <TextareaComponent label={`Keterangan`} placeholder={`Keterangan`} />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <FieldLabelInfo
+      title="Keterangan Perlakuan Risiko"
+      information="Keterangan Perlakuan Risiko"
+     />
+     <TablePerlakuanMultiCheck />
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={6}>

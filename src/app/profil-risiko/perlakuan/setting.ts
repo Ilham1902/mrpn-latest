@@ -3,14 +3,14 @@ export type PerlakuanType = {
  peristiwa: string;
  kategori: string;
  penyebab: string;
- dampak: string;
+ dampak: string[];
  lk: number;
  ld: number;
  br: number;
  level: string;
  prioritas: number;
  keputusan: string;
- deskripsi: string;
+ deskripsi: string[];
  waktu: string;
  penanggungjawab: string;
  lkRRH: number;
@@ -26,16 +26,25 @@ export const data: PerlakuanType[] = [
   kategori: "Risiko Ekonomi",
   penyebab:
    "Komitmen kepala daerah berkaitan dengan anggaran yang rendah terhadap sektor pengelolaan persampahan (Jakstranas tidak dipatuhi oleh Pemda)",
-  dampak:
-   "1. Anggaran dalam pengelolaan sampah di Pemda rata-rata dibawah 1%, 2. Pengelolaan sampah belum menjadi prioritas karena merupakan urusan wajib non layanan dasar, 3. penyelenggaraan pengelolaan sampah tidak optimal, 4. fasilitas pengelolaan sampah tidak optimal, 5. opsi teknologi pengelolaan sampah yang advance tidak bisa diimplmentasikan",
+  dampak: [
+   "Anggaran dalam pengelolaan sampah di Pemda rata-rata dibawah 1%",
+   "Pengelolaan sampah belum menjadi prioritas karena merupakan urusan wajib non layanan dasar",
+   "penyelenggaraan pengelolaan sampah tidak optimal",
+   "fasilitas pengelolaan sampah tidak optimal",
+   "opsi teknologi pengelolaan sampah yang advance tidak bisa diimplmentasikan",
+  ],
   lk: 5,
   ld: 4,
   br: 11,
   level: "Sangat Tinggi",
   prioritas: 1,
   keputusan: "Mengurangi kemungkinan terjadinya risiko ",
-  deskripsi:
-   "1. Penyusunan regulasi untuk menjadikan persampahan sebagai SPM sehingga berpotensi mendapatkan pendanaan yang lebih besar, 2. earmarking anggaran untuk persampahan, 3. mewajibkan pemda melakukan implementasi Permendagri 7/2021, 4. membuka seluas-luasnya opsi kerjasama dan investasi untuk meningkatkan pendanaan pengelolaan sampah (blended finance)",
+  deskripsi: [
+   "Penyusunan regulasi untuk menjadikan persampahan sebagai SPM sehingga berpotensi mendapatkan pendanaan yang lebih besar, earmarking anggaran untuk persampahan",
+   "earmarking anggaran untuk persampahan",
+   "mewajibkan pemda melakukan implementasi Permendagri 7/2021",
+   "membuka seluas-luasnya opsi kerjasama dan investasi untuk meningkatkan pendanaan pengelolaan sampah (blended finance)",
+  ],
   waktu: "2025",
   penanggungjawab: "Kementerian Dalam Negeri, Kementerian PUPR dan KLHK",
   lkRRH: 5,
@@ -50,15 +59,16 @@ export const data: PerlakuanType[] = [
   kategori: "Risiko Tata Kelola",
   penyebab:
    "1. Belum adanya pihak yang bertanggungjawab dalam pengawasan, 2. belum optimalnya fungsi penegakan hukum di sektor persampahan",
-  dampak: "Perbaikan kebijakan tidak dapat dilakukan dengan optimal",
+  dampak: ["Perbaikan kebijakan tidak dapat dilakukan dengan optimal"],
   lk: 4,
   ld: 4,
   br: 18,
   level: "Tinggi",
   prioritas: 3,
   keputusan: "Mengurangi kemungkinan terjadinya risiko ",
-  deskripsi:
+  deskripsi: [
    "1. Pengusulan revisi peraturan berkaitan dengan: a. Pembagian tugas yang jelas dalam pengawasan dan penegakan hukum sektor persampahan, b. Penyusunan mekanisme alur penegakan hukum di sektor persampahan",
+  ],
   waktu: "2025",
   penanggungjawab: "KLHK",
   lkRRH: 4,
