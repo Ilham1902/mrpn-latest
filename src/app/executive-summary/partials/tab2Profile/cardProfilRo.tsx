@@ -1,12 +1,5 @@
 import React from "react";
-import {
- Box,
- Button,
- DialogActions,
- Tab,
- Tabs,
- Typography,
-} from "@mui/material";
+import { Box, Button, DialogActions, Tab, Tabs } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
@@ -14,7 +7,6 @@ import AddButton from "@/app/components/buttonAdd";
 import DialogComponent from "@/app/components/dialog";
 import FormProfilRo from "./form-profil-ro";
 import TableProfilOutput from "./table-profil-output";
-import { IconFA } from "@/app/components/icons/icon-fa";
 import { styleTab } from "../../style";
 import theme from "@/theme";
 
@@ -109,8 +101,8 @@ export default function CardProfilRo({ project }: { project: string }) {
      <Tabs value={value} onChange={handleChange} sx={styleTab}>
       <Tab label="RPJMN" {...a11yProps(0)} />
       <Tab label="RKP" {...a11yProps(1)} />
-      <Tab label="DAK" {...a11yProps(2)} />
-      <Tab label="Renja KL" {...a11yProps(3)} />
+      <Tab label="Renja KL" {...a11yProps(2)} />
+      <Tab label="DAK" {...a11yProps(3)} />
      </Tabs>
      <CustomTabPanel value={value} index={0}>
       {isEmpty ? (

@@ -3,19 +3,7 @@
 import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
-import {
- Box,
- Button,
- Checkbox,
- Chip,
- DialogActions,
- Table,
- TableBody,
- TableCell,
- TableContainer,
- TableHead,
- TableRow,
-} from "@mui/material";
+import { Button, Chip, DialogActions } from "@mui/material";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./partials/form-table";
 import MRTAnalisis from "./partials/mrt";
@@ -29,84 +17,8 @@ import ActionColumn from "@/app/components/actions/action";
 import { advancedTable } from "@/app/components/table";
 import { orange, red, green } from "@mui/material/colors";
 import { IdentifikasiType, data } from "./setting";
-import search from "@/app/penetapan/objek/partials/search";
-import theme from "@/theme";
 
 type ColumnsType = {};
-
-const dataSub = [
- {
-  id: 1,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
-  fisik: "Kemen PUPR",
- },
- {
-  id: 2,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
-  fisik: "Kemen PPN",
- },
- {
-  id: 3,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
-  fisik: "Kemenkeu",
- },
- {
-  id: 4,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
-  fisik: "Kemen PUPR",
- },
- {
-  id: 5,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
-  fisik: "Kemen PPN",
- },
- {
-  id: 6,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
-  fisik: "Kemenkeu",
- },
- {
-  id: 7,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
- },
- {
-  id: 8,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
-  fisik: "Kemen PPN",
- },
- {
-  id: 9,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
-  fisik: "Kemenkeu",
- },
-];
 
 export default function PageAnalisisEvaluasi({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
@@ -314,67 +226,13 @@ export default function PageAnalisisEvaluasi({}) {
     ),
    },
   },
-  filterFromLeafRows: true,
-  enableExpanding: true,
-  // enableExpandAll: false,
-  renderDetailPanel: ({ row }) => (
-   <Box bgcolor={theme.palette.primary.light}>
-    <TableContainer
-     sx={{
-      maxHeight: 200,
-      "&::-webkit-scrollbar": {
-       width: "3px",
-      },
-     }}
-    >
-     <Table stickyHeader size="small">
-      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-       <TableRow>
-        <TableCell sx={{ width: 30 }}></TableCell>
-        <TableCell>Nomenklatur RO</TableCell>
-        <TableCell>Target</TableCell>
-        <TableCell>Satuan</TableCell>
-        <TableCell>Realisasi Anggaran</TableCell>
-        <TableCell>Realisasi Fisik</TableCell>
-       </TableRow>
-      </TableHead>
-      <TableBody>
-       {dataSub.map((row) => (
-        <TableRow key={row.id}>
-         <TableCell>
-          <Checkbox size="small" />
-         </TableCell>
-         <TableCell>{row.ro}</TableCell>
-         <TableCell>{row.target}</TableCell>
-         <TableCell>{row.satuan}</TableCell>
-         <TableCell>{row.anggaran}</TableCell>
-         <TableCell>{row.fisik}</TableCell>
-        </TableRow>
-       ))}
-      </TableBody>
-     </Table>
-    </TableContainer>
-   </Box>
-  ),
  });
 
  return (
   <>
    <DashboardLayout>
     <ContentPage title="Analisis & Evaluasi Risiko" chipKp>
-     <Box
-      sx={{
-       ".MuiTableRow-root": {
-        ".MuiTableCell-root": {
-         ".MuiCollapse-root": {
-          width: "100%",
-         },
-        },
-       },
-      }}
-     >
-      <MaterialReactTable table={table} />
-     </Box>
+     <MaterialReactTable table={table} />
     </ContentPage>
    </DashboardLayout>
    <DialogComponent

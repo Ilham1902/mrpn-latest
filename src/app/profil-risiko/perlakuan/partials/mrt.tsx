@@ -1,6 +1,18 @@
 import React, { useMemo } from "react";
 import { advancedTable } from "@/app/components/table";
-import { Box, Chip, Paper, Stack } from "@mui/material";
+import {
+ Box,
+ Checkbox,
+ Chip,
+ Paper,
+ Stack,
+ Table,
+ TableBody,
+ TableCell,
+ TableContainer,
+ TableHead,
+ TableRow,
+} from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
@@ -10,6 +22,8 @@ import ActionColumn from "@/app/components/actions/action";
 import AddButton from "@/app/components/buttonAdd";
 import { data, type PerlakuanType } from "../setting";
 import { green, grey, orange, red } from "@mui/material/colors";
+import theme from "@/theme";
+import { dataSub } from "../../analisis-evaluasi/setting";
 
 export default function MRTPerlakuan({
  handleModalOpenView,
@@ -339,6 +353,47 @@ export default function MRTPerlakuan({
   layoutMode: "grid-no-grow",
   ...(viewOnly ? null : actionRight),
   renderCaption: () => renderCaption,
+  filterFromLeafRows: true,
+  enableExpanding: true,
+  renderDetailPanel: () => (
+   <Box bgcolor={theme.palette.primary.light}>
+    <TableContainer
+     sx={{
+      maxHeight: 200,
+      "&::-webkit-scrollbar": {
+       width: "3px",
+      },
+     }}
+    >
+     <Table stickyHeader size="small">
+      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableRow>
+        <TableCell sx={{ width: 30 }}></TableCell>
+        <TableCell>Nomenklatur RO</TableCell>
+        <TableCell>Target</TableCell>
+        <TableCell>Satuan</TableCell>
+        <TableCell>Realisasi Anggaran</TableCell>
+        <TableCell>Realisasi Fisik</TableCell>
+       </TableRow>
+      </TableHead>
+      <TableBody>
+       {dataSub.map((row) => (
+        <TableRow key={row.id}>
+         <TableCell>
+          <Checkbox size="small" />
+         </TableCell>
+         <TableCell>{row.ro}</TableCell>
+         <TableCell>{row.target}</TableCell>
+         <TableCell>{row.satuan}</TableCell>
+         <TableCell>{row.anggaran}</TableCell>
+         <TableCell>{row.fisik}</TableCell>
+        </TableRow>
+       ))}
+      </TableBody>
+     </Table>
+    </TableContainer>
+   </Box>
+  ),
  });
 
  return (

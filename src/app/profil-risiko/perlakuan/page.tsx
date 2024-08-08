@@ -56,7 +56,18 @@ export default function PagePerlakuan({}) {
   <>
    <DashboardLayout>
     <ContentPage title="Perlakuan Risiko" chipKp>
-     <Box className="table-sticky-horizontal">
+     <Box
+      className="table-sticky-horizontal"
+      sx={{
+       ".MuiTableRow-root": {
+        ".MuiTableCell-root": {
+         ".MuiCollapse-root": {
+          width: "100%",
+         },
+        },
+       },
+      }}
+     >
       <MRTPerlakuan
        handleModalOpenView={handleModalOpenView}
        handleModalOpenDelete={handleModalOpenDelete}

@@ -7,12 +7,19 @@ import { advancedTable } from "@/app/components/table";
 import {
  Box,
  Button,
+ Checkbox,
  Chip,
  DialogActions,
  Divider,
  Grow,
  Paper,
  Stack,
+ Table,
+ TableBody,
+ TableCell,
+ TableContainer,
+ TableHead,
+ TableRow,
  Tooltip,
  Typography,
 } from "@mui/material";
@@ -29,6 +36,7 @@ import { green, grey, orange, red } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import Image from "next/image";
 import theme from "@/theme";
+import { dataSub } from "@/app/profil-risiko/analisis-evaluasi/setting";
 
 const CustomChip = ({ title, value }: { title: string; value: string }) => {
  return (
@@ -582,6 +590,47 @@ export default function PagePemantauan({}) {
    columnPinning: { right: ["status", "mrt-row-actions"] },
    showGlobalFilter: true,
   },
+  filterFromLeafRows: true,
+  enableExpanding: true,
+  renderDetailPanel: () => (
+   <Box bgcolor={theme.palette.primary.light}>
+    <TableContainer
+     sx={{
+      maxHeight: 200,
+      "&::-webkit-scrollbar": {
+       width: "3px",
+      },
+     }}
+    >
+     <Table stickyHeader size="small">
+      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
+       <TableRow>
+        <TableCell sx={{ width: 30 }}></TableCell>
+        <TableCell>Nomenklatur RO</TableCell>
+        <TableCell>Target</TableCell>
+        <TableCell>Satuan</TableCell>
+        <TableCell>Realisasi Anggaran</TableCell>
+        <TableCell>Realisasi Fisik</TableCell>
+       </TableRow>
+      </TableHead>
+      <TableBody>
+       {dataSub.map((row) => (
+        <TableRow key={row.id}>
+         <TableCell>
+          <Checkbox size="small" />
+         </TableCell>
+         <TableCell>{row.ro}</TableCell>
+         <TableCell>{row.target}</TableCell>
+         <TableCell>{row.satuan}</TableCell>
+         <TableCell>{row.anggaran}</TableCell>
+         <TableCell>{row.fisik}</TableCell>
+        </TableRow>
+       ))}
+      </TableBody>
+     </Table>
+    </TableContainer>
+   </Box>
+  ),
  });
 
  const dialogActionFooter = (
@@ -616,7 +665,18 @@ export default function PagePemantauan({}) {
       </Stack>
      }
     >
-     <Box className="table-sticky-horizontal">
+     <Box
+      className="table-sticky-horizontal"
+      sx={{
+       ".MuiTableRow-root": {
+        ".MuiTableCell-root": {
+         ".MuiCollapse-root": {
+          width: "100%",
+         },
+        },
+       },
+      }}
+     >
       <MaterialReactTable table={table} />
      </Box>
      {printResult}
