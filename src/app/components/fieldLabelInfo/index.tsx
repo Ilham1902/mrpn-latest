@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Grow, Stack, Tooltip, Typography } from "@mui/material";
 import { IconFA } from "../icons/icon-fa";
+import { grey } from "@mui/material/colors";
 
 export default function FieldLabelInfo({
  title,
@@ -52,7 +53,9 @@ export default function FieldLabelInfo({
      {titleSection ? (
       <Typography fontWeight={600}>{title}</Typography>
      ) : (
-      <Typography gutterBottom>{title}</Typography>
+      <Typography gutterBottom fontSize={14} color={grey[600]}>
+       {title}
+      </Typography>
      )}
      {buttonInfo ? buttonInfoContent : tooltipContent}
     </Stack>

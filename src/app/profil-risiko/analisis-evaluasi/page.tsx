@@ -166,7 +166,7 @@ export default function PageAnalisisEvaluasi({}) {
         accessorKey: "peristiwa",
         header: "Peristiwa Risiko",
         enableColumnActions: false,
-        size: 350,
+        // size: 350,
        },
        {
         accessorKey: "kategori",
@@ -322,7 +322,6 @@ export default function PageAnalisisEvaluasi({}) {
     <TableContainer
      sx={{
       maxHeight: 200,
-      width: "100%",
       "&::-webkit-scrollbar": {
        width: "3px",
       },
