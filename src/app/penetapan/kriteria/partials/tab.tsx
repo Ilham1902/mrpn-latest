@@ -17,6 +17,10 @@ interface TabPanelProps {
  project?: string;
 }
 
+interface SxParams {
+ variant?: string;
+}
+
 function a11yProps(index: number) {
  return {
   id: `simple-tab-${index}`,
@@ -67,11 +71,12 @@ export default function TabCriteria({}) {
  };
 
  const isEmpty = false;
+ const sxParams: SxParams = { variant: "default" };
 
  return (
   <Box width="100%">
    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-    <Tabs value={value} onChange={handleChange} sx={styleTab}>
+    <Tabs value={value} onChange={handleChange} sx={styleTab(sxParams)}>
      <Tab
       label="Kategori Risiko"
       {...a11yProps(0)}

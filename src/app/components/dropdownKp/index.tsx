@@ -11,38 +11,39 @@ import {
 import { listSelectKp } from "@/app/executive-summary/data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
+import { SxParams } from "@/app/executive-summary/types";
 
-export const SxAutocompleteTextField = () => {
+export const SxAutocompleteTextField = (params: SxParams) => {
  return {
   "input::-webkit-input-placeholder": {
-   //  color: "white",
-   color: grey[600],
+   color: params.variant === "primary" ? "white" : grey[600],
    opacity: 1,
    fontStyle: "italic",
-   //  fontSize: 13,
   },
  };
 };
 
-export const SxAutocomplete = () => {
+export const SxAutocomplete = (params: SxParams) => {
  return {
   minWidth: 300,
-  color: theme.palette.primary.dark,
+  color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
   ".MuiInputBase-root": {
    height: "38px",
    fontWeight: 600,
    fontSize: 14,
    py: 0,
    borderRadius: 6,
-   bgcolor: "white",
-   //   bgcolor: theme.palette.primary.main,
+   bgcolor: params.variant === "primary" ? theme.palette.primary.main : "white",
    [theme.breakpoints.down("md")]: {
     fontSize: 12,
    },
   },
+  ".MuiInputBase-input": {
+   color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
+  },
   ".MuiSvgIcon-root": {
    //   fill: "white",
-   fill: grey[600],
+   fill: params.variant === "primary" ? "white" : grey[600],
   },
   [theme.breakpoints.down("md")]: {
    minWidth: 200,
@@ -53,9 +54,11 @@ export const SxAutocomplete = () => {
 export default function DropdownKp({
  //  project,
  handleChangeProject,
+ variant,
 }: {
  //  project?: any;
  handleChangeProject?: any;
+ variant?: string;
 }) {
  const [value, setValue] = React.useState<string | null>("");
  const [inputValue, setInputValue] = React.useState("");
@@ -63,6 +66,8 @@ export default function DropdownKp({
  const optionsListKp = listSelectKp.map((item) => {
   return item["name"];
  });
+
+ const sxParams: SxParams = { variant: variant };
 
  return (
   <FormControl size="small">
@@ -92,11 +97,11 @@ export default function DropdownKp({
         shrink: true,
        }}
        placeholder="Pilih kegiatan pembangunan"
-       sx={SxAutocompleteTextField}
+       sx={SxAutocompleteTextField(sxParams)}
       />
      </Tooltip>
     )}
-    sx={SxAutocomplete}
+    sx={SxAutocomplete(sxParams)}
    />
    {/*  */}
    {/* <SelectCustomTheme

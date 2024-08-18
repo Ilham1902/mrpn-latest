@@ -437,6 +437,7 @@ export const dataTema = [
    //  },
    {
     format: "",
+    ketInt: 1,
     entUtama: "Kemkes",
     entKontributor: "",
     rincianOutput: "Suplementasi gizi mikro pada balita",
@@ -446,6 +447,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "Kemkes",
     entKontributor: "",
     rincianOutput:
@@ -456,6 +458,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "Kemkes",
     entKontributor: "",
     rincianOutput: "Tata laksana balita gizi buruk",
@@ -465,6 +468,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "Kemkes",
     entKontributor: "",
     rincianOutput: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
@@ -474,6 +478,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "Kemkes",
     entKontributor: "",
     rincianOutput: "Keluarga 1000 HPK mendapatkan pendampingan",
@@ -483,6 +488,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "PUPR",
     entKontributor: "",
     rincianOutput: "Infrakstruktur air minum berbasis Masyarakat",
@@ -492,6 +498,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 1,
     entUtama: "Kemensos",
     entKontributor: "",
     rincianOutput: "Bantuan pangan bagi keluarga 1000 HPK",
@@ -501,6 +508,7 @@ export const dataTema = [
    },
    {
     format: "",
+    ketInt: 0,
     entUtama: "BKKBN",
     entKontributor: "",
     rincianOutput:

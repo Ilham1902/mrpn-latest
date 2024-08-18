@@ -1,5 +1,6 @@
 import React from "react";
 import {
+ Chip,
  Grow,
  Paper,
  Table,
@@ -13,9 +14,7 @@ import {
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
-import { CheckBox } from "@mui/icons-material";
 import { dataTema } from "../../dataTema";
-import page from "../../page";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 
@@ -83,12 +82,12 @@ export default function TableProfilIntervensi({
              </TableCell>
              <TableCell>
               <Typography variant="body1" fontWeight={600}>
-               Entitas Utama
+               Keterangan Intervensi
               </Typography>
              </TableCell>
              <TableCell>
               <Typography variant="body1" fontWeight={600}>
-               Entitas Kontributor
+               Penanggungjawab
               </Typography>
              </TableCell>
              <TableCell>
@@ -132,18 +131,31 @@ export default function TableProfilIntervensi({
                    </TableCell>
                    <TableCell>
                     <Typography variant="body1">
+                     {detailProfil.ketInt === 1 ? (
+                      <Chip
+                       label="Intervensi Kunci"
+                       size="small"
+                       color="primary"
+                      />
+                     ) : (
+                      <Chip label="Reguler" size="small" />
+                     )}
+                    </Typography>
+                   </TableCell>
+                   <TableCell>
+                    <Typography variant="body1">
                      {detailProfil.entUtama === ""
                       ? "-"
                       : detailProfil.entUtama}
                     </Typography>
                    </TableCell>
-                   <TableCell>
+                   {/* <TableCell>
                     <Typography variant="body1">
                      {detailProfil.entKontributor === ""
                       ? "-"
                       : detailProfil.entKontributor}
                     </Typography>
-                   </TableCell>
+                   </TableCell> */}
                    <TableCell>
                     <Typography variant="body1">
                      {detailProfil.rincianOutput.length >= 60 ? (

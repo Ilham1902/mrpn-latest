@@ -24,6 +24,7 @@ import {
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
 import TextareaComponent from "@/app/components/textarea";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 
@@ -79,7 +80,7 @@ export default function FormTable({ mode }: { mode?: string }) {
           shrink: true,
          }}
          placeholder="Pilih peristiwa risiko"
-         sx={SxAutocompleteTextField}
+         sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
        //    PaperComponent={(paperProps) => {

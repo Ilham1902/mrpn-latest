@@ -112,8 +112,8 @@ export default function TableProfilRoKunci() {
    <Table sx={{ minWidth: 650 }} size="small">
     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
      <TableRow>
-      <TableCell></TableCell>
       <TableCell>Format Kode</TableCell>
+      <TableCell>Keterangan Intervensi</TableCell>
       <TableCell>KL</TableCell>
       <TableCell>Rincian Output (RO)</TableCell>
       <TableCell>Target</TableCell>
@@ -127,6 +127,7 @@ export default function TableProfilRoKunci() {
        key={row.id}
        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
+       <TableCell>{row.formatKode}</TableCell>
        <TableCell>
         {row.checked === false ? (
          <Checkbox />
@@ -134,7 +135,6 @@ export default function TableProfilRoKunci() {
          <Checkbox checked={row.checked} />
         )}
        </TableCell>
-       <TableCell>{row.formatKode}</TableCell>
        <TableCell>{row.klUtama}</TableCell>
        <TableCell>{row.nomenklatur}</TableCell>
        <TableCell>{row.target}</TableCell>

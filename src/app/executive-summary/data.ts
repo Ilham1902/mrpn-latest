@@ -322,3 +322,143 @@ export const dataCritical1 = [
   '<div style="padding:10px;"><strong>Project 2014-2016</strong><br><b>Start:</b> 2014<br><b>End:</b> 2016</div>',
  ],
 ];
+
+export const listSwotSo = [
+ // Strength
+ {
+  id: "1",
+  description:
+   "Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan stunting",
+ },
+ {
+  id: "2",
+  description:
+   "Komitmen nasional: Perpres 72/2021 tentang percepatan penurunan stunting",
+ },
+ //  Opportunity
+ {
+  id: "3",
+  description:
+   "Prevalensi stunting merupakan salah satu indikator dalam Human Capital Index (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+ },
+];
+
+export const listSwotSt = [
+ // Strength
+ {
+  id: "1",
+  description:
+   "Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan stunting",
+ },
+ {
+  id: "2",
+  description:
+   "Komitmen nasional: Perpres 72/2021 tentang percepatan penurunan stunting",
+ },
+ //  Threats
+ {
+  id: "3",
+  description: "Pemahaman di lapangan yang bervariasi",
+ },
+];
+
+export const listSwotWo = [
+ // Weakness
+ {
+  id: "1",
+  description:
+   "Capaian indikator intervensi spesifik dan sensitif belum mencapai target",
+ },
+ {
+  id: "2",
+  description:
+   "Pemahaman intervensi stunting belum fokus pada upaya pencegahan",
+ },
+ {
+  id: "3",
+  description: "Tata kelola program belum berjalan optimal",
+ },
+ //  Opportunity
+ {
+  id: "4",
+  description:
+   "Prevalensi stunting merupakan salah satu indikator dalam Human Capital Index (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+ },
+];
+
+export const listSwotWt = [
+ // Weakness
+ {
+  id: "1",
+  description:
+   "Capaian indikator intervensi spesifik dan sensitif belum mencapai target",
+ },
+ {
+  id: "2",
+  description:
+   "Pemahaman intervensi stunting belum fokus pada upaya pencegahan",
+ },
+ {
+  id: "3",
+  description: "Tata kelola program belum berjalan optimal",
+ },
+ //  Threats
+ {
+  id: "4",
+  description: "Pemahaman di lapangan yang bervariasi",
+ },
+];
+
+export const listTagProP = [
+ {
+  id: "1",
+  description:
+   "Pembinaan dan penyadartahuan masyarakat terkait pengelolaan sampah",
+ },
+ {
+  id: "2",
+  description: "Peningkatan Kapasitas Bank Sampah dan Mitra 3R",
+ },
+ {
+  id: "3",
+  description: "Pengumpulan sampah terpilah dan terjadwal",
+ },
+ {
+  id: "4",
+  description:
+   "Pembangunan Fasilitas Pengolahan Sampah berbasis 3R oleh Pemerintah Pusat",
+ },
+ {
+  id: "5",
+  description:
+   "Pembangunan Fasilitas Pengolahan Sampah Berbasis 3R oleh Pemerintah Daerah",
+ },
+ {
+  id: "6",
+  description:
+   "Peningkatan kapasitas pengelolaan sampah oleh pemerintah daerah",
+ },
+];
+
+export const listEntity = [
+ {
+  id: "1",
+  instance: "Kementerian KKP",
+ },
+ {
+  id: "2",
+  instance: "Kementerian PPN/Bappenas",
+ },
+ {
+  id: "3",
+  instance: "Kementerian Keuangan",
+ },
+ {
+  id: "4",
+  instance: "Kementerian PUPR",
+ },
+ {
+  id: "6",
+  instance: "Kementerian Sosial",
+ },
+];

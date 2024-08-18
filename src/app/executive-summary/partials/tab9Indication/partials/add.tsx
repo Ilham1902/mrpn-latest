@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
 import {
  Autocomplete,
+ Box,
+ Checkbox,
  Chip,
  Divider,
  FormControl,
+ FormControlLabel,
  Grid,
  IconButton,
  Paper,
@@ -16,6 +19,11 @@ import {
  SxAutocomplete,
  SxAutocompleteTextField,
 } from "@/app/components/dropdownKp";
+import { paramVariantDefault } from "@/app/utils/constant";
+import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import { listEntity } from "@/app/executive-summary/data";
+
+type Option = (typeof listEntity)[number];
 
 const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
  return (
@@ -48,7 +56,7 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
          shrink: true,
         }}
         placeholder="Tambah instansi"
-        sx={SxAutocompleteTextField}
+        sx={SxAutocompleteTextField(paramVariantDefault)}
        />
       )}
       renderTags={(value, props) =>
@@ -71,8 +79,10 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
  );
 };
 
-export default function FormTable({ mode }: { mode?: string }) {
+export default function AddEntity({ mode }: { mode?: string }) {
  const [itemsPP, setItemPP] = React.useState([{ id: 1 }]);
+ const [columns, setColumns] = React.useState<Option[]>([]);
+ const [selectAll, setSelectAll] = React.useState<boolean>(false);
 
  const addPP = () => {
   let arr = [...itemsPP];
@@ -97,10 +107,18 @@ export default function FormTable({ mode }: { mode?: string }) {
   setItemPP(newArr);
  };
 
+ const handleToggleSelectAll = () => {
+  setSelectAll((prev) => {
+   if (!prev) setColumns([...listEntity]);
+   else setColumns([]);
+   return !prev;
+  });
+ };
+
  return (
   <>
    <Grid container spacing={2}>
-    <Grid item lg={4}>
+    {/* <Grid item lg={4}>
      <FormControl fullWidth>
       <Typography gutterBottom>Entitas</Typography>
       <TextField
@@ -112,32 +130,58 @@ export default function FormTable({ mode }: { mode?: string }) {
        }}
       />
      </FormControl>
-    </Grid>
-    <Grid item lg={8}>
+    </Grid> */}
+    <Grid item xs={12}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Instansi</Typography>
+      <FieldLabelInfo
+       title="Kementerian Koordinator"
+       information="Kementerian Koordinator"
+      />
       <Autocomplete
        multiple
+       disableCloseOnSelect
+       filterSelectedOptions
        size="small"
-       freeSolo
-       options={[]}
+       freeSolo={false}
+       value={columns}
+       options={listEntity}
+       getOptionLabel={(option) => option.instance}
+       onChange={(_e, value, reason) => {
+        if (reason === "clear" || reason === "removeOption")
+         setSelectAll(false);
+        if (reason === "selectOption" && value.length === listEntity.length)
+         setSelectAll(true);
+        setColumns(value);
+       }}
        renderInput={(params) => (
         <TextField
          {...params}
          InputLabelProps={{
           shrink: true,
          }}
-         placeholder="Tambah instansi"
-         sx={SxAutocompleteTextField}
+         placeholder="Pilih tagging ProP"
+         sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
-       renderTags={(value, props) =>
-        value.map((option, index) => (
-         <Fragment key={index}>
-          <Chip size="small" label={option} {...props({ index })} />
-         </Fragment>
-        ))
-       }
+       PaperComponent={(paperProps) => {
+        const { children, ...restPaperProps } = paperProps;
+        return (
+         <Paper {...restPaperProps}>
+          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+           <FormControlLabel
+            onClick={(e) => {
+             e.preventDefault();
+             handleToggleSelectAll();
+            }}
+            label="Pilih semua tagging"
+            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+           />
+          </Box>
+          <Divider />
+          {children}
+         </Paper>
+        );
+       }}
        sx={{
         ...SxAutocomplete,
         ".MuiInputBase-root": {
@@ -147,10 +191,67 @@ export default function FormTable({ mode }: { mode?: string }) {
       />
      </FormControl>
     </Grid>
-    <Grid item lg={12}>
+    <Grid item xs={12}>
+     <FormControl fullWidth>
+      <FieldLabelInfo title="Entitas Utama" information="Entitas Utama" />
+      <Autocomplete
+       multiple
+       disableCloseOnSelect
+       filterSelectedOptions
+       size="small"
+       freeSolo={false}
+       value={columns}
+       options={listEntity}
+       getOptionLabel={(option) => option.instance}
+       onChange={(_e, value, reason) => {
+        if (reason === "clear" || reason === "removeOption")
+         setSelectAll(false);
+        if (reason === "selectOption" && value.length === listEntity.length)
+         setSelectAll(true);
+        setColumns(value);
+       }}
+       renderInput={(params) => (
+        <TextField
+         {...params}
+         InputLabelProps={{
+          shrink: true,
+         }}
+         placeholder="Pilih entitas utama"
+         sx={SxAutocompleteTextField(paramVariantDefault)}
+        />
+       )}
+       PaperComponent={(paperProps) => {
+        const { children, ...restPaperProps } = paperProps;
+        return (
+         <Paper {...restPaperProps}>
+          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+           <FormControlLabel
+            onClick={(e) => {
+             e.preventDefault();
+             handleToggleSelectAll();
+            }}
+            label="Pilih semua entitas"
+            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+           />
+          </Box>
+          <Divider />
+          {children}
+         </Paper>
+        );
+       }}
+       sx={{
+        ...SxAutocomplete,
+        ".MuiInputBase-root": {
+         borderRadius: 1,
+        },
+       }}
+      />
+     </FormControl>
+    </Grid>
+    <Grid item xs={12}>
      <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
       <Grid container spacing={2}>
-       <Grid item lg={12}>
+       <Grid item xs={12}>
         <Divider>
          <Chip label="Tambah entitas" size="small" />
         </Divider>

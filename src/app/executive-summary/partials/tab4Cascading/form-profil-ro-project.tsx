@@ -1,9 +1,15 @@
 import React from "react";
 import {
+ Autocomplete,
+ Box,
+ Checkbox,
+ Divider,
  FormControl,
+ FormControlLabel,
  Grid,
  Grow,
  MenuItem,
+ Paper,
  SelectChangeEvent,
  Stack,
  TextField,
@@ -13,29 +19,49 @@ import {
 import TextareaComponent from "@/app/components/textarea";
 import SelectCustomTheme from "@/app/components/select";
 import { listEntitasUtama } from "@/app/utils/data";
+import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import TableAnggaran from "./table-anggaran";
+import { CheckBox } from "@mui/icons-material";
+import {
+ SxAutocompleteTextField,
+ SxAutocomplete,
+} from "@/app/components/dropdownKp";
+import { columns } from "@/app/manajemen-user/setting";
+import { paramVariantDefault } from "@/app/utils/constant";
+import { listProvinsi } from "@/app/utils/provinsi";
+import { listTagProP } from "../../data";
+
+type Option = (typeof listProvinsi)[number];
+type OptionProP = (typeof listTagProP)[number];
 
 export default function FormProfilRoProject({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+ const [columns, setColumns] = React.useState<Option[]>([]);
+ const [columnsProP, setColumnsProp] = React.useState<OptionProP[]>([]);
+ const [selectAll, setSelectAll] = React.useState<boolean>(false);
 
- const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-  setAnchorEl(event.currentTarget);
+ const handleToggleSelectAll = () => {
+  setSelectAll((prev) => {
+   if (!prev) setColumns([...listProvinsi]);
+   else setColumns([]);
+   return !prev;
+  });
  };
 
- const handlePopoverClose = () => {
-  setAnchorEl(null);
+ const handleToggleSelectAllProP = () => {
+  setSelectAll((prev) => {
+   if (!prev) setColumnsProp([...listTagProP]);
+   else setColumnsProp([]);
+   return !prev;
+  });
  };
 
- const open = Boolean(anchorEl);
-
- const handleChangeProject = (event: SelectChangeEvent) => {
-  setProject(event.target.value);
- };
  return (
   <Grid container spacing={2}>
-   <Grid item xs={12} md={4}>
+   <Grid item xs={12} md={5}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Format Kode</Typography>
+     <FieldLabelInfo title="Format Kode" information="Format Kode" />
      {mode === "add" ? (
       <TextField
        variant="outlined"
@@ -59,7 +85,106 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12} md={4}>
+   <Grid item xs={12} md={5}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Tagging ProP" information="Tagging ProP" />
+     {mode === "add" || mode === "edit" ? (
+      <Autocomplete
+       multiple
+       disableCloseOnSelect
+       filterSelectedOptions
+       size="small"
+       freeSolo={false}
+       value={columnsProP}
+       options={listTagProP}
+       getOptionLabel={(option) => option.description}
+       onChange={(_e, value, reason) => {
+        if (reason === "clear" || reason === "removeOption")
+         setSelectAll(false);
+        if (reason === "selectOption" && value.length === listTagProP.length)
+         setSelectAll(true);
+        setColumnsProp(value);
+       }}
+       renderInput={(params) => (
+        <TextField
+         {...params}
+         InputLabelProps={{
+          shrink: true,
+         }}
+         placeholder="Pilih tagging ProP"
+         sx={SxAutocompleteTextField(paramVariantDefault)}
+        />
+       )}
+       PaperComponent={(paperProps) => {
+        const { children, ...restPaperProps } = paperProps;
+        return (
+         <Paper {...restPaperProps}>
+          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+           <FormControlLabel
+            onClick={(e) => {
+             e.preventDefault();
+             handleToggleSelectAllProP();
+            }}
+            label="Pilih semua tagging"
+            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+           />
+          </Box>
+          <Divider />
+          {children}
+         </Paper>
+        );
+       }}
+       sx={{
+        ...SxAutocomplete,
+        ".MuiInputBase-root": {
+         borderRadius: 1,
+        },
+       }}
+      />
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   <Grid item xs={12} md={2}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Intervensi Kunci" information="Intervensi Kunci" />
+     {mode === "add" || mode === "edit" ? (
+      <Stack direction="row" alignItems="center" height="40px">
+       <CheckBox />
+      </Stack>
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   <Grid item xs={12} md={5}>
+    <FormControl fullWidth>
+     <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
+     {mode === "add" ? (
+      <TextField
+       variant="outlined"
+       size="small"
+       placeholder="Format Kode"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
+     ) : mode === "edit" ? (
+      <TextField
+       variant="outlined"
+       size="small"
+       value="-"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   {/* <Grid item xs={12} md={4}>
     <FormControl fullWidth>
      <Typography gutterBottom>Entitas Utama</Typography>
      {mode === "add" || mode === "edit" ? (
@@ -124,10 +249,13 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
       <Typography fontWeight={600}>-</Typography>
      )}
     </FormControl>
-   </Grid>
-   <Grid item xs={12}>
+   </Grid> */}
+   <Grid item xs={12} md={7}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Nomenklatur RO/Project</Typography>
+     <FieldLabelInfo
+      title="Nomenklatur RO/Project"
+      information="Nomenklatur RO/Project"
+     />
      {mode === "add" ? (
       <TextField
        variant="outlined"
@@ -151,115 +279,8 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12} md={4}>
-    <FormControl fullWidth>
-     <Typography gutterBottom>Target</Typography>
-     {mode === "add" ? (
-      <Grid container spacing={2}>
-       <Grid item xs={6}>
-        <TextField
-         fullWidth
-         variant="outlined"
-         size="small"
-         placeholder="Nilai"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
-       </Grid>
-       <Grid item xs={6}>
-        <TextField
-         fullWidth
-         variant="outlined"
-         size="small"
-         placeholder="Satuan"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
-       </Grid>
-      </Grid>
-     ) : mode === "edit" ? (
-      <Grid container spacing={2}>
-       <Grid item xs={6}>
-        <TextField
-         fullWidth
-         variant="outlined"
-         size="small"
-         value="2000"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
-       </Grid>
-       <Grid item xs={6}>
-        <TextField
-         fullWidth
-         variant="outlined"
-         size="small"
-         value="Orang"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
-       </Grid>
-      </Grid>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} md={4}>
-    <FormControl fullWidth>
-     <Typography gutterBottom>Anggaran</Typography>
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Anggaran"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} md={4}>
-    <FormControl fullWidth>
-     <Typography gutterBottom>Sumber Anggaran</Typography>
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Sumber Anggaran"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
+   <Grid item xs={12}>
+    <TableAnggaran project={project} />
    </Grid>
   </Grid>
  );

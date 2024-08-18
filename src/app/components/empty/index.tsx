@@ -1,16 +1,18 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function EmptyState({
  title,
  description,
  icon,
  dense,
+ button,
 }: {
  title?: string;
  description?: React.ReactNode;
  icon?: React.ReactNode;
  dense?: boolean;
+ button?: React.ReactNode;
 }) {
  return (
   <Stack
@@ -34,6 +36,7 @@ export default function EmptyState({
      {description}
     </Typography>
    </Stack>
+   <Box mt={2}>{button && button}</Box>
   </Stack>
  );
 }

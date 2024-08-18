@@ -1,9 +1,35 @@
 import theme from "@/theme";
-import { alpha } from "@mui/material";
+import { Tab, alpha } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { styled } from "@mui/system";
+import { SxParams } from "./types";
 
-export const styleTab = [
- {
+export const styleTabPanel = (params: SxParams) => {
+ return {
+  p: params.tabLevel === "1" ? 1 : 0,
+  mt: params.tabLevel === "1" ? 0 : 2,
+  height:
+   params.tabLevel === "0"
+    ? "calc(100vh - 330px)"
+    : params.tabLevel === "1"
+    ? "auto"
+    : params.tabLevel === "2"
+    ? "calc(100vh - 456px)"
+    : params.tabLevel === "3"
+    ? "calc(100vh - 388px)"
+    : "calc(100vh - 400px)",
+  overflow: "auto",
+  "&::-webkit-scrollbar": {
+   width: "3px",
+  },
+  [theme.breakpoints.down("sm")]: {
+   height: "calc(100vh - 366px)",
+  },
+ };
+};
+
+export const styleTab = (params: SxParams) => {
+ return {
   ".MuiTabs-flexContainer": {
    gap: 1,
    ".MuiTab-labelIcon": {
@@ -30,19 +56,69 @@ export const styleTab = [
   button: {
    p: 2,
    px: 3,
-   mb: 2,
+   mb: params.variant === "outlined" ? 0 : 2,
    gap: 1,
    minHeight: 0,
-   bgcolor: grey[300],
-   borderRadius: 2,
+   bgcolor: params.variant === "outlined" ? grey[200] : grey[300],
+   borderRadius: params.variant === "outlined" ? 0 : 2,
    lineHeight: 1,
+   borderBottom:
+    params.variant === "outlined" ? `2px solid ${grey[400]}` : "none",
    "&.Mui-selected": {
-    bgcolor: theme.palette.primary.main,
-    color: "white",
+    bgcolor:
+     params.variant === "outlined"
+      ? alpha(theme.palette.primary.main, 0.1)
+      : theme.palette.primary.main,
+    color: params.variant === "outlined" ? theme.palette.primary.main : "white",
+    ...(params.variant === "outlined" && {
+     fontWeight: 700,
+    }),
    },
   },
- },
-];
+ };
+};
+
+// export const styleTab = [
+//  {
+//   ".MuiTabs-flexContainer": {
+//    gap: 1,
+//    ".MuiTab-labelIcon": {
+//     whiteSpace: "nowrap",
+//    },
+//   },
+//   ".MuiTabs-scroller": {
+//    //   [theme.breakpoints.down("md")]: {
+//    width: "800px",
+//    overflowX: "auto !important",
+//    "&::-webkit-scrollbar": {
+//     height: "4px",
+//     bgcolor: grey[100],
+//    },
+//    "&::-webkit-scrollbar-track": {
+//     //    boxShadow: "none",
+//     //    bgcolor: grey[800],
+//    },
+//    "&::-webkit-scrollbar-thumb": {
+//     bgcolor: alpha(grey[400], 0.9),
+//    },
+//    //   },
+//   },
+//   button: {
+//    p: 2,
+//    px: 3,
+//    mb: 2,
+//    gap: 1,
+//    minHeight: 0,
+//    bgcolor: grey[300],
+//    borderRadius: 2,
+//    lineHeight: 1,
+//    "&.Mui-selected": {
+//     bgcolor: theme.palette.primary.main,
+//     color: "white",
+//    },
+//   },
+//  },
+// ];
 
 export const styleDownload = [
  {
@@ -56,17 +132,19 @@ export const styleDownload = [
  },
 ];
 
-export const styleTabPanel = [
+export const styleList = [
  {
   p: 0,
-  mt: 2,
-  height: "calc(100vh - 344px)",
-  overflow: "auto",
-  "&::-webkit-scrollbar": {
-   width: "3px",
-  },
-  [theme.breakpoints.down("sm")]: {
-   height: "calc(100vh - 366px)",
+  display: "flex",
+  flexDirection: "column",
+  maxWidth: "300px",
+  li: {
+   mt: "0 !important",
+   display: "flex !important",
+   gap: 1.5,
+   "&:before": {
+    display: "none",
+   },
   },
  },
 ];
@@ -139,3 +217,40 @@ export const styleOrgChart = [
   },
  },
 ];
+
+export const CustomTab = styled(Tab)(({ theme }) => ({
+ paddingInline: 40,
+ backgroundColor: theme.palette.grey[300],
+ color: theme.palette.grey[700],
+ overflow: "inherit",
+ position: "relative",
+ "&.Mui-selected": {
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  "&::after": {
+   borderTopColor: theme.palette.primary.main,
+  },
+ },
+ "&::after": {
+  content: '""',
+  position: "absolute",
+  zIndex: 1,
+  right: -33,
+  top: "50%",
+  transform: "translateY(-50%) rotate(270deg)",
+  width: 0,
+  height: 0,
+  borderLeft: "25px solid transparent",
+  borderRight: "25px solid transparent",
+  borderTop: `16px solid ${theme.palette.grey[300]}`,
+  filter: "drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.15))",
+ },
+ "&:last-of-type": {
+  "&::after": {
+   content: "none",
+  },
+ },
+ "&:not(:first-of-type)": {
+  paddingLeft: 50,
+ },
+}));

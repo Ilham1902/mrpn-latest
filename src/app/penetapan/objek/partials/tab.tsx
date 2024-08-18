@@ -11,6 +11,7 @@ import TableLonglistStepper from "./table-long-stepper";
 import TableProposal from "./table-proposal";
 import TableNotaDinas from "./table-nota-dinas";
 import CascadingOrgChart from "@/app/executive-summary/partials/tab4Cascading/partials/org-chart";
+import { SxParams } from "@/app/executive-summary/types";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -74,10 +75,12 @@ export default function TabObject({}) {
 
  const isEmpty = false;
 
+ const sxParams: SxParams = { variant: "default" };
+
  return (
   <Box width="100%">
    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-    <Tabs value={value} onChange={handleChange} sx={styleTab}>
+    <Tabs value={value} onChange={handleChange} sx={styleTab(sxParams)}>
      <Tab
       label="Longlist"
       {...a11yProps(0)}

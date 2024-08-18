@@ -16,7 +16,7 @@ export default function Tab2Profile({ project }: { project: string }) {
    <CardSupport project={project} />
    <CardRelated project={project} />
    <CardIndicator project={project} />
-   <CardProfilRo project={project} />
+   {/* <CardProfilRo project={project} /> */}
    <CardLocation project={project} />
   </Stack>
  );

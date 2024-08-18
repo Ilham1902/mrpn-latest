@@ -37,6 +37,7 @@ import {
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
 import HeaderIdentifikasi from "./header";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 
@@ -476,7 +477,7 @@ export default function FormTable({
              shrink: true,
             }}
             placeholder="Pilih peristiwa risiko"
-            sx={SxAutocompleteTextField}
+            sx={SxAutocompleteTextField(paramVariantDefault)}
            />
           )}
           PaperComponent={(paperProps) => {

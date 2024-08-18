@@ -64,7 +64,7 @@ export default function CardCritical({ project }: { project: string }) {
     width={320}
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
-    title="Critical Path"
+    title="Ubah Critical Path"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>

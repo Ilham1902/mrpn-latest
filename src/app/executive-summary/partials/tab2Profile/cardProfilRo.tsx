@@ -9,6 +9,7 @@ import FormProfilRo from "./form-profil-ro";
 import TableProfilOutput from "./table-profil-output";
 import { styleTab } from "../../style";
 import theme from "@/theme";
+import { SxParams } from "../../types";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -77,6 +78,8 @@ export default function CardProfilRo({ project }: { project: string }) {
 
  const isEmpty = false;
 
+ const sxParams: SxParams = { variant: "default" };
+
  return (
   <CardItem
    title="Profil Rincian Output"
@@ -98,7 +101,7 @@ export default function CardProfilRo({ project }: { project: string }) {
     />
    ) : (
     <>
-     <Tabs value={value} onChange={handleChange} sx={styleTab}>
+     <Tabs value={value} onChange={handleChange} sx={styleTab(sxParams)}>
       <Tab label="RPJMN" {...a11yProps(0)} />
       <Tab label="RKP" {...a11yProps(1)} />
       <Tab label="Renja KL" {...a11yProps(2)} />

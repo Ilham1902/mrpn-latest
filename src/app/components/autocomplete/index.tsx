@@ -1,6 +1,7 @@
 import React from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { SxAutocomplete, SxAutocompleteTextField } from "../dropdownKp";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 export default function AutocompleteSelect({
  multiple,
@@ -37,7 +38,7 @@ export default function AutocompleteSelect({
       shrink: true,
      }}
      placeholder={placeholder}
-     sx={SxAutocompleteTextField}
+     sx={SxAutocompleteTextField(paramVariantDefault)}
     />
    )}
    PaperComponent={paperComponent}

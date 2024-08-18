@@ -1,4 +1,5 @@
 import { styled } from "@mui/material";
+import { SxParams } from "../executive-summary/types";
 
 export const mainUrl = "/penetapan/konteks-strategis/";
 export const addUrl = `${mainUrl}form/add`;
@@ -15,3 +16,5 @@ export const VisuallyHiddenInput = styled("input")({
  whiteSpace: "nowrap",
  width: 1,
 });
+
+export const paramVariantDefault: SxParams = { variant: "default" };

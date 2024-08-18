@@ -48,6 +48,9 @@ export default function ContentPage({
  heightNoSet,
  selectedTopic,
  identificationInfo,
+ tabStep,
+ noMarginBotttom,
+ tabArrow,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -76,6 +79,9 @@ export default function ContentPage({
  heightNoSet?: boolean;
  selectedTopic?: React.ReactNode | boolean;
  identificationInfo?: React.ReactNode;
+ tabStep?: React.ReactNode;
+ noMarginBotttom?: boolean;
+ tabArrow?: React.ReactNode;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -129,7 +135,7 @@ export default function ContentPage({
     direction="row"
     justifyContent="space-between"
     alignItems="center"
-    mb="1.25rem"
+    mb={noMarginBotttom ? 0 : "1.25rem"}
     // mt={flagPathnameTheme ? "-180px" : 0}
     sx={{
      [theme.breakpoints.down("md")]: {
@@ -264,6 +270,7 @@ export default function ContentPage({
      </Stack>
     </Stack>
     <Stack direction="row" alignItems="center" gap={1}>
+     {tabArrow}
      {chooseProjectPage}
      {dowloadAttachmentFile}
      {chooseProject && <DropdownKp handleChangeProject={handleChangeProject} />}
@@ -548,6 +555,7 @@ export default function ContentPage({
      [theme.breakpoints.down("sm")]: { height: "auto" },
     }}
    >
+    {tabStep && tabStep}
     {withCard ? (
      <Paper
       elevation={2}

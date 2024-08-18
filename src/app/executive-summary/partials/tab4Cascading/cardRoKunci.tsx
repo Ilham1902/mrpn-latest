@@ -96,84 +96,84 @@ export default function CardRoKunci({ project }: { project: string }) {
     dialogOpen={modalOpenProfilRoKunci}
     dialogClose={handleModalClose}
     title="Tambah Profil RO Kunci"
-    headerAction={
-     <Stack direction="row" gap={1}>
-      <SelectCustomTheme
-       rounded
-       small
-       anchorRight
-       value={projectMain}
-       onChange={handleChangeProjectMain}
-       sx={{
-        ".MuiSelect-select": {
-         minHeight: 0,
-        },
-       }}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Utama
-        </Typography>
-       </MenuItem>
-       {listEntitasUtama.map((euLabel, index) => (
-        <MenuItem key={index} value={euLabel}>
-         {euLabel.length >= 35 ? (
-          <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
-           <Typography
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            sx={{ fontSize: 14 }}
-           >
-            {euLabel.substring(0, 35) + "..."}
-           </Typography>
-          </Tooltip>
-         ) : (
-          euLabel
-         )}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-      <SelectCustomTheme
-       rounded
-       small
-       anchorRight
-       value={projectSupport}
-       onChange={handleChangeProjectSupport}
-       sx={{
-        ".MuiSelect-select": {
-         minHeight: 0,
-        },
-       }}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Pendukung
-        </Typography>
-       </MenuItem>
-       {listEntitasPendukung.map((epLabel, index) => (
-        <MenuItem key={index} value={epLabel}>
-         {epLabel.length >= 35 ? (
-          <Tooltip title={epLabel} followCursor TransitionComponent={Grow}>
-           <Typography
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            sx={{ fontSize: 14 }}
-           >
-            {epLabel.substring(0, 35) + "..."}
-           </Typography>
-          </Tooltip>
-         ) : (
-          epLabel
-         )}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     </Stack>
-    }
+    // headerAction={
+    //  <Stack direction="row" gap={1}>
+    //   <SelectCustomTheme
+    //    rounded
+    //    small
+    //    anchorRight
+    //    value={projectMain}
+    //    onChange={handleChangeProjectMain}
+    //    sx={{
+    //     ".MuiSelect-select": {
+    //      minHeight: 0,
+    //     },
+    //    }}
+    //   >
+    //    <MenuItem value="" disabled>
+    //     <Typography fontSize={14} fontStyle="italic">
+    //      Pilih Entitas Utama
+    //     </Typography>
+    //    </MenuItem>
+    //    {listEntitasUtama.map((euLabel, index) => (
+    //     <MenuItem key={index} value={euLabel}>
+    //      {euLabel.length >= 35 ? (
+    //       <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
+    //        <Typography
+    //         aria-owns={open ? "mouse-over-popover" : undefined}
+    //         aria-haspopup="true"
+    //         onMouseEnter={handlePopoverOpen}
+    //         onMouseLeave={handlePopoverClose}
+    //         sx={{ fontSize: 14 }}
+    //        >
+    //         {euLabel.substring(0, 35) + "..."}
+    //        </Typography>
+    //       </Tooltip>
+    //      ) : (
+    //       euLabel
+    //      )}
+    //     </MenuItem>
+    //    ))}
+    //   </SelectCustomTheme>
+    //   <SelectCustomTheme
+    //    rounded
+    //    small
+    //    anchorRight
+    //    value={projectSupport}
+    //    onChange={handleChangeProjectSupport}
+    //    sx={{
+    //     ".MuiSelect-select": {
+    //      minHeight: 0,
+    //     },
+    //    }}
+    //   >
+    //    <MenuItem value="" disabled>
+    //     <Typography fontSize={14} fontStyle="italic">
+    //      Pilih Entitas Pendukung
+    //     </Typography>
+    //    </MenuItem>
+    //    {listEntitasPendukung.map((epLabel, index) => (
+    //     <MenuItem key={index} value={epLabel}>
+    //      {epLabel.length >= 35 ? (
+    //       <Tooltip title={epLabel} followCursor TransitionComponent={Grow}>
+    //        <Typography
+    //         aria-owns={open ? "mouse-over-popover" : undefined}
+    //         aria-haspopup="true"
+    //         onMouseEnter={handlePopoverOpen}
+    //         onMouseLeave={handlePopoverClose}
+    //         sx={{ fontSize: 14 }}
+    //        >
+    //         {epLabel.substring(0, 35) + "..."}
+    //        </Typography>
+    //       </Tooltip>
+    //      ) : (
+    //       epLabel
+    //      )}
+    //     </MenuItem>
+    //    ))}
+    //   </SelectCustomTheme>
+    //  </Stack>
+    // }
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>

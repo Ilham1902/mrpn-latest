@@ -1,15 +1,25 @@
 import React from "react";
 import OrgChart from "@dabeng/react-orgchart";
-import { Box, Button, Divider, Stack } from "@mui/material";
+import {
+ Box,
+ Button,
+ Divider,
+ List,
+ ListItem,
+ ListItemIcon,
+ ListItemText,
+ Stack,
+ Tooltip,
+} from "@mui/material";
 import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
 import { IconFA } from "@/app/components/icons/icon-fa";
-import { styleOrgChart } from "@/app/executive-summary/style";
+import { styleList, styleOrgChart } from "@/app/executive-summary/style";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import { dataTema } from "@/app/executive-summary/dataTema";
-import { grey } from "@mui/material/colors";
+import { grey, orange } from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
@@ -88,6 +98,35 @@ const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
  );
 };
 
+const ItemProP = ({
+ isKey,
+ description,
+}: {
+ isKey?: boolean;
+ description: string;
+}) => {
+ return (
+  <ListItem sx={{ p: 0, alignItems: "flex-start" }}>
+   <ListItemIcon sx={{ minWidth: 0, position: "relative", top: 5, width: 10 }}>
+    {isKey ? (
+     <IconFA name="key" size={12} color={orange[800]} />
+    ) : (
+     <IconFA name="circle" size={6} />
+    )}
+   </ListItemIcon>
+   <Tooltip title={isKey ? "Intervensi Kunci" : null} followCursor>
+    <ListItemText
+     primary={description}
+     sx={{
+      m: 0,
+      color: isKey ? orange[800] : "inherit",
+     }}
+    />
+   </Tooltip>
+  </ListItem>
+ );
+};
+
 export default function CascadingOrgChart({ project }: { project?: string }) {
  const [modalOpenImg, setModalOpenImg] = React.useState(false);
 
@@ -119,9 +158,45 @@ export default function CascadingOrgChart({ project }: { project?: string }) {
           name: "Nomenklatur IKU + KL Pengampu",
           title: "Nomenklatur IKU + KL Pengampu",
           children: [
-           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
-           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
-           { name: "Aspek Proyek/ProP", title: "Proyek/RO" },
+           {
+            name: "Aspek Proyek/ProP",
+            title: (
+             <List dense sx={styleList}>
+              <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
+              <ItemProP
+               isKey
+               description="Pendampingan balita dengan permasalahan gizi"
+              />
+              <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
+             </List>
+            ),
+           },
+           {
+            name: "Aspek Proyek/ProP",
+            title: (
+             <List dense sx={styleList}>
+              <ItemProP
+               isKey
+               description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)"
+              />
+              <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
+              <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
+             </List>
+            ),
+           },
+           {
+            name: "Aspek Proyek/ProP",
+            title: (
+             <List dense sx={styleList}>
+              <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
+              <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
+              <ItemProP
+               isKey
+               description="Pelayanan gizi masyarakat di kab/kota"
+              />
+             </List>
+            ),
+           },
           ],
          },
         ],

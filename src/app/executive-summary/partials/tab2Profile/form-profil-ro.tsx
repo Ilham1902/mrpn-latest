@@ -19,6 +19,7 @@ import {
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
 import { grey } from "@mui/material/colors";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 export default function FormProfilRo({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
@@ -125,7 +126,7 @@ export default function FormProfilRo({ mode }: { mode?: string }) {
            shrink: true,
           }}
           placeholder="Pilih kode KL"
-          sx={SxAutocompleteTextField}
+          sx={SxAutocompleteTextField(paramVariantDefault)}
          />
         )}
         //
@@ -217,7 +218,7 @@ export default function FormProfilRo({ mode }: { mode?: string }) {
            shrink: true,
           }}
           placeholder="Pilih kode PKKR"
-          sx={SxAutocompleteTextField}
+          sx={SxAutocompleteTextField(paramVariantDefault)}
          />
         )}
         sx={{

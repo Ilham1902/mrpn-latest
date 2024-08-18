@@ -135,7 +135,7 @@ const TableFundPPKP = (props: {
    <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
     <TableRow>
      <TableCell rowSpan={2}>
-      {project === "KP" ? "Rincian Output" : "Kegiatan Prioritas"}
+      {project === "KP" ? "Rincian Output Kunci" : "Kegiatan Prioritas"}
      </TableCell>
      <TableCell rowSpan={2}>
       Indikator {project === "KP" ? "RO" : "Kegiatan Prioritas"}
@@ -175,7 +175,7 @@ const TableFundPPKP = (props: {
    <TableBody>
     {row?.fund.map((fundRow, index) => (
      <TableRow key={index}>
-      {project === "KP" ? (
+      {/* {project === "KP" ? (
        <TableCell>
         {fundRow.keyRO ? (
          <Tooltip title="RO Kunci" followCursor sx={{ cursor: "help" }}>
@@ -189,7 +189,8 @@ const TableFundPPKP = (props: {
        </TableCell>
       ) : (
        <TableCell>{fundRow.ro}</TableCell>
-      )}
+      )} */}
+      <TableCell>{fundRow.ro}</TableCell>
       <TableCell>{fundRow.indicator}</TableCell>
       <TableCell align="right">{fundRow.target1}</TableCell>
       <TableCell align="right">{fundRow.target2}</TableCell>

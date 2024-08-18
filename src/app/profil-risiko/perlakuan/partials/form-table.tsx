@@ -38,6 +38,7 @@ import {
 import TextareaComponent from "@/app/components/textarea";
 import DateRangePicker from "@/app/components/dateRange";
 import theme from "@/theme";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 type OptionRspn = (typeof listPenanggungjawab)[number];
@@ -148,7 +149,7 @@ const TablePerlakuanMultiCheck = () => {
     placeholder="Cari nomenklatur RO"
     value={search}
     onChange={handleSearchChange}
-    sx={SxAutocompleteTextField}
+    sx={SxAutocompleteTextField(paramVariantDefault)}
     size="small"
    />
    <TableContainer sx={{ maxHeight: 200 }}>
@@ -225,7 +226,7 @@ export default function FormTable({ mode }: { mode?: string }) {
           shrink: true,
          }}
          placeholder="Pilih peristiwa risiko"
-         sx={SxAutocompleteTextField}
+         sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
        sx={{
@@ -363,7 +364,7 @@ export default function FormTable({ mode }: { mode?: string }) {
           shrink: true,
          }}
          placeholder="Pilih keputusan"
-         sx={SxAutocompleteTextField}
+         sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
        sx={{
@@ -432,7 +433,7 @@ export default function FormTable({ mode }: { mode?: string }) {
           shrink: true,
          }}
          placeholder="Pilih penanggungjawab"
-         sx={SxAutocompleteTextField}
+         sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
        sx={{

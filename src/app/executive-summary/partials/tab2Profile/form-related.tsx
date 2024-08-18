@@ -31,6 +31,7 @@ import {
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
 import { grey } from "@mui/material/colors";
+import { paramVariantDefault } from "@/app/utils/constant";
 
 const FCLItem = ({ keyIndex, item }: { keyIndex: any; item: string }) => {
  return (
@@ -148,7 +149,7 @@ export default function FormRelated({ mode }: { mode?: string }) {
            shrink: true,
           }}
           placeholder="Pilih kebijakan"
-          sx={SxAutocompleteTextField}
+          sx={SxAutocompleteTextField(paramVariantDefault)}
          />
         )}
         renderTags={(value: OptionKebijakan[], getTagProps) => {
