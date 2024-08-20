@@ -26,12 +26,21 @@ export const listTriwulan = [
  "Tahun 2029",
 ];
 
-export const listRisiko = [
+export const listRiskCategory = [
  "Risiko Lingkungan",
  "Risiko Sosial",
  "Risiko Geopolitik",
  "Risiko Ekonomi",
  "Risiko Teknologi",
+ "Risiko Tata Kelola",
+ "Risiko Reputasi",
+];
+
+export const listFundSource = [
+ "APBN",
+ "APBD",
+ "Hibah",
+ "Penerimaan Pembiayaan",
 ];
 
 export const listEntitasUtama = [

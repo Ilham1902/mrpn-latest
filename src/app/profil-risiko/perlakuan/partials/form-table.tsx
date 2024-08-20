@@ -27,7 +27,6 @@ import {
  listKeputusan,
  listPenanggungjawab,
  listPeristiwaRisiko,
- riskCategory,
 } from "../setting";
 import { grey, red } from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
@@ -39,6 +38,7 @@ import TextareaComponent from "@/app/components/textarea";
 import DateRangePicker from "@/app/components/dateRange";
 import theme from "@/theme";
 import { paramVariantDefault } from "@/app/utils/constant";
+import { listRiskCategory } from "@/app/utils/data";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 type OptionRspn = (typeof listPenanggungjawab)[number];
@@ -259,7 +259,7 @@ export default function FormTable({ mode }: { mode?: string }) {
          Pilih kategori risiko MRPN Linsek
         </Typography>
        </MenuItem>
-       {riskCategory.map((category, index) => (
+       {listRiskCategory.map((category, index) => (
         <MenuItem key={index} value={index} defaultChecked>
          {category}
         </MenuItem>

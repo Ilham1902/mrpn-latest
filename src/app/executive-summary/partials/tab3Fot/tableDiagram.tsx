@@ -130,7 +130,7 @@ export default function TableDiagram({ project }: { project: string }) {
              }}
             >
              <Typography variant="body1" fontWeight={600} align="center">
-              Sasaran & kegiatan prioritas
+              Kesehatan untuk Semua
              </Typography>
             </TableCell>
            </TableRow>

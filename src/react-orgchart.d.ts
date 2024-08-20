@@ -27,3 +27,8 @@ declare module "@dabeng/react-orgchart" {
  const ChartContainer: ComponentType<ChartProps>;
  export default ChartContainer;
 }
+
+declare module "*.svg" {
+ const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+ export default content;
+}

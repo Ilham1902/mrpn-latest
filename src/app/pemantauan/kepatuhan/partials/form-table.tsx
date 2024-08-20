@@ -1,42 +1,14 @@
 import React from "react";
 import {
- Autocomplete,
- Box,
- Button,
- Checkbox,
- Chip,
- Divider,
  FormControl,
- FormControlLabel,
  Grid,
- Icon,
- IconButton,
- MenuItem,
- Paper,
  SelectChangeEvent,
  Stack,
- Table,
- TableBody,
- TableCell,
- TableHead,
- TableRow,
- TextField,
- Tooltip,
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
-import SelectCustomTheme from "@/app/components/select";
-import { listPeristiwaRisiko, listSasaran, riskCategory } from "../setting";
-import { red } from "@mui/material/colors";
+import { listPeristiwaRisiko } from "../setting";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyData } from "@/app/components/icons";
-import theme from "@/theme";
-import {
- SxAutocompleteTextField,
- SxAutocomplete,
-} from "@/app/components/dropdownKp";
-import HeaderIdentifikasi from "./header";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 

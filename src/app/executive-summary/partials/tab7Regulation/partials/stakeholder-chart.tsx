@@ -94,6 +94,26 @@ const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  );
 };
 
+const InstanceLogo = ({ imgSrc, name }: { imgSrc: string; name: string }) => {
+ return (
+  <Tooltip title={name} followCursor TransitionComponent={Grow}>
+   <Image
+    alt={name}
+    src={imgSrc}
+    width={0}
+    height={0}
+    sizes="100vw"
+    style={{
+     width: "auto",
+     height: "60px",
+     userSelect: "none",
+     touchAction: "none",
+    }}
+   />
+  </Tooltip>
+ );
+};
+
 const InstanceScroll = () => {
  return (
   <DraggableScroll
@@ -135,25 +155,40 @@ const InstanceScroll = () => {
 
 export default function StakeholderChart({ project }: { project: string }) {
  const ds = {
-  name: `Kemenko Koordinator`,
-  title: <InstanceScroll />,
+  name: `Kementerian Koordinator`,
+  title: (
+   <InstanceLogo
+    imgSrc="https://res.cloudinary.com/caturteguh/image/upload/v1724063555/mrpn/kemenko-pmk_t7f7sd.png"
+    name="Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan"
+   />
+  ),
   children: [
    {
     name: "Entitas Sektor Utama",
-    title: <InstanceScroll />,
+    title: (
+     <InstanceLogo
+      imgSrc="https://res.cloudinary.com/caturteguh/image/upload/v1724064730/mrpn/bkkbn_n7g3nv.png"
+      name="BKKBN"
+     />
+    ),
     children: [
      {
       name: "Entitas Pendukung",
-      title: <InstanceScroll />,
+      title: (
+       <InstanceLogo
+        imgSrc="https://res.cloudinary.com/caturteguh/image/upload/v1724064951/mrpn/kemenkes_yqpby6.png"
+        name="Kementerian Kesehatan"
+       />
+      ),
      },
      {
       name: "Entitas Pendukung",
       title: <InstanceScroll />,
      },
-     {
-      name: "Entitas Pendukung",
-      title: <InstanceScroll />,
-     },
+     //  {
+     //   name: "Entitas Pendukung",
+     //   title: <InstanceScroll />,
+     //  },
     ],
    },
   ],

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
  Autocomplete,
  Box,
@@ -11,18 +11,13 @@ import {
  MenuItem,
  Paper,
  SelectChangeEvent,
- Stack,
  TextField,
- ToggleButton,
  Tooltip,
  Typography,
 } from "@mui/material";
-import TextareaComponent from "@/app/components/textarea";
 import SelectCustomTheme from "@/app/components/select";
-import { listRisiko } from "@/app/utils/data";
-import ReactQuill from "react-quill";
+import { listRiskCategory } from "@/app/utils/data";
 import dynamic from "next/dynamic";
-import FormTable from "./add";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
  SxAutocompleteTextField,
@@ -88,7 +83,7 @@ export default function FormIndication({
          Pilih jenis risiko
         </Typography>
        </MenuItem>
-       {listRisiko.map((risikoLabel, index) => (
+       {listRiskCategory.map((risikoLabel, index) => (
         <MenuItem key={index} value={risikoLabel}>
          {risikoLabel.length >= 35 ? (
           <Tooltip title={risikoLabel} followCursor TransitionComponent={Grow}>

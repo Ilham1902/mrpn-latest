@@ -16,7 +16,7 @@ import {
  Typography,
 } from "@mui/material";
 import SelectCustomTheme from "@/app/components/select";
-import { listPeristiwaRisiko, riskCategory } from "../setting";
+import { listPeristiwaRisiko } from "../setting";
 import { red } from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
@@ -25,6 +25,7 @@ import {
 } from "@/app/components/dropdownKp";
 import TextareaComponent from "@/app/components/textarea";
 import { paramVariantDefault } from "@/app/utils/constant";
+import { listRiskCategory } from "@/app/utils/data";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 
@@ -138,7 +139,7 @@ export default function FormTable({ mode }: { mode?: string }) {
          Pilih kategori risiko MRPN Linsek
         </Typography>
        </MenuItem>
-       {riskCategory.map((category, index) => (
+       {listRiskCategory.map((category, index) => (
         <MenuItem key={index} value={index} defaultChecked>
          {category}
         </MenuItem>

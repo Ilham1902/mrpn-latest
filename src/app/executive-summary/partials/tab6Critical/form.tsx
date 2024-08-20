@@ -51,7 +51,10 @@ export default function FormCritical({ mode }: { mode?: string }) {
   <Grid container spacing={2}>
    <Grid item xs={12}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Kegiatan" information="Kegiatan" />
+     <FieldLabelInfo
+      title="Rincian Output/Project"
+      information="Rincian Output/Project"
+     />
      {mode === "add" || mode === "edit" ? (
       <Autocomplete
        size="small"
@@ -64,7 +67,7 @@ export default function FormCritical({ mode }: { mode?: string }) {
          InputLabelProps={{
           shrink: true,
          }}
-         placeholder="Pilih kegiatan"
+         placeholder="Pilih rincian output/project"
          sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
@@ -141,56 +144,16 @@ export default function FormCritical({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Penanggungjawab"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>Kementerian PPN</Typography>
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Sumber Anggaran" information="Sumber Anggaran" />
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Sumber Anggaran"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>APBN</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12}>

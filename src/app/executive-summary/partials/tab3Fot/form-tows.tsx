@@ -8,6 +8,7 @@ import {
  FormControlLabel,
  Grid,
  Paper,
+ Stack,
  TextField,
  Typography,
 } from "@mui/material";
@@ -18,6 +19,7 @@ import {
 import { paramVariantDefault } from "@/app/utils/constant";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import { listSwotSo, listSwotSt, listSwotWo, listSwotWt } from "../../data";
+import TextareaComponent from "@/app/components/textarea";
 
 type Option = (typeof listSwotSo)[number];
 
@@ -67,245 +69,281 @@ export default function FormTows({ mode }: { mode?: string }) {
 
  return (
   <Grid container spacing={2}>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Strategi SO" information="Strategi SO" />
+     <FieldLabelInfo
+      title="Strategi Strength Opportunity (SO)"
+      information="Strategi Strength Opportunity (SO)"
+     />
      {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsSo}
-       options={listSwotSo}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotSo.length)
-         setSelectAll(true);
-        setColumnsSo(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih strategi Strength Opportunity (SO)"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllSo();
-            }}
-            label="Pilih semua strategi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+      <Stack gap={1}>
+       <TextareaComponent
+        label="Tuliskan Strategi SO"
+        placeholder="Tuliskan Strategi SO"
+       />
+       <Autocomplete
+        multiple
+        disableCloseOnSelect
+        filterSelectedOptions
+        size="small"
+        freeSolo={false}
+        value={columnsSo}
+        options={listSwotSo}
+        getOptionLabel={(option) => option.description}
+        onChange={(_e, value, reason) => {
+         if (reason === "clear" || reason === "removeOption")
+          setSelectAll(false);
+         if (reason === "selectOption" && value.length === listSwotSo.length)
+          setSelectAll(true);
+         setColumnsSo(value);
+        }}
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          InputLabelProps={{
+           shrink: true,
+          }}
+          placeholder="Pilih kata kunci SO"
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
+        )}
+        PaperComponent={(paperProps) => {
+         const { children, ...restPaperProps } = paperProps;
+         return (
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+             onClick={(e) => {
+              e.preventDefault();
+              handleToggleSelectAllSo();
+             }}
+             label="Pilih semua kata kunci"
+             control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
+         );
+        }}
+        sx={{
+         ...SxAutocomplete,
+         ".MuiInputBase-root": {
+          borderRadius: 1,
+         },
+        }}
+       />
+      </Stack>
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Strategi WO" information="Strategi WO" />
+     <FieldLabelInfo
+      title="Strategi Weakness Opportunity (WO)"
+      information="Strategi Weakness Opportunity (WO)"
+     />
      {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsWo}
-       options={listSwotWo}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotWo.length)
-         setSelectAll(true);
-        setColumnsWo(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih strategi Weakness Opportunity (WO)"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllWo();
-            }}
-            label="Pilih semua strategi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+      <Stack gap={1}>
+       <TextareaComponent
+        label="Tuliskan Strategi WO"
+        placeholder="Tuliskan Strategi WO"
+       />
+       <Autocomplete
+        multiple
+        disableCloseOnSelect
+        filterSelectedOptions
+        size="small"
+        freeSolo={false}
+        value={columnsWo}
+        options={listSwotWo}
+        getOptionLabel={(option) => option.description}
+        onChange={(_e, value, reason) => {
+         if (reason === "clear" || reason === "removeOption")
+          setSelectAll(false);
+         if (reason === "selectOption" && value.length === listSwotWo.length)
+          setSelectAll(true);
+         setColumnsWo(value);
+        }}
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          InputLabelProps={{
+           shrink: true,
+          }}
+          placeholder="Pilih strategi WO"
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
+        )}
+        PaperComponent={(paperProps) => {
+         const { children, ...restPaperProps } = paperProps;
+         return (
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+             onClick={(e) => {
+              e.preventDefault();
+              handleToggleSelectAllWo();
+             }}
+             label="Pilih semua strategi"
+             control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
+         );
+        }}
+        sx={{
+         ...SxAutocomplete,
+         ".MuiInputBase-root": {
+          borderRadius: 1,
+         },
+        }}
+       />
+      </Stack>
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Strategi ST" information="Strategi ST" />
+     <FieldLabelInfo
+      title="Strategi Strength Threats (ST)"
+      information="Strategi Strength Threats (ST)"
+     />
      {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsSt}
-       options={listSwotSt}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotSt.length)
-         setSelectAll(true);
-        setColumnsSt(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih strategi Strength Threats (ST)"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllSt();
-            }}
-            label="Pilih semua strategi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+      <Stack gap={1}>
+       <TextareaComponent
+        label="Tuliskan Strategi ST"
+        placeholder="Tuliskan Strategi ST"
+       />
+       <Autocomplete
+        multiple
+        disableCloseOnSelect
+        filterSelectedOptions
+        size="small"
+        freeSolo={false}
+        value={columnsSt}
+        options={listSwotSt}
+        getOptionLabel={(option) => option.description}
+        onChange={(_e, value, reason) => {
+         if (reason === "clear" || reason === "removeOption")
+          setSelectAll(false);
+         if (reason === "selectOption" && value.length === listSwotSt.length)
+          setSelectAll(true);
+         setColumnsSt(value);
+        }}
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          InputLabelProps={{
+           shrink: true,
+          }}
+          placeholder="Pilih strategi ST"
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
+        )}
+        PaperComponent={(paperProps) => {
+         const { children, ...restPaperProps } = paperProps;
+         return (
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+             onClick={(e) => {
+              e.preventDefault();
+              handleToggleSelectAllSt();
+             }}
+             label="Pilih semua strategi"
+             control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
+         );
+        }}
+        sx={{
+         ...SxAutocomplete,
+         ".MuiInputBase-root": {
+          borderRadius: 1,
+         },
+        }}
+       />
+      </Stack>
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
+   <Grid item xs={12} md={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Strategi WT" information="Strategi WT" />
+     <FieldLabelInfo
+      title="Strategi Weakness Threats (WT)"
+      information="Strategi Weakness Threats (WT)"
+     />
      {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsWt}
-       options={listSwotWt}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotWt.length)
-         setSelectAll(true);
-        setColumnsWt(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih strategi Weakness Threats (WT)"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllWt();
-            }}
-            label="Pilih semua strategi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+      <Stack gap={1}>
+       <TextareaComponent
+        label="Tuliskan Strategi WT"
+        placeholder="Tuliskan Strategi WT"
+       />
+       <Autocomplete
+        multiple
+        disableCloseOnSelect
+        filterSelectedOptions
+        size="small"
+        freeSolo={false}
+        value={columnsWt}
+        options={listSwotWt}
+        getOptionLabel={(option) => option.description}
+        onChange={(_e, value, reason) => {
+         if (reason === "clear" || reason === "removeOption")
+          setSelectAll(false);
+         if (reason === "selectOption" && value.length === listSwotWt.length)
+          setSelectAll(true);
+         setColumnsWt(value);
+        }}
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          InputLabelProps={{
+           shrink: true,
+          }}
+          placeholder="Pilih strategi WT"
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
+        )}
+        PaperComponent={(paperProps) => {
+         const { children, ...restPaperProps } = paperProps;
+         return (
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+             onClick={(e) => {
+              e.preventDefault();
+              handleToggleSelectAllWt();
+             }}
+             label="Pilih semua strategi"
+             control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
+         );
+        }}
+        sx={{
+         ...SxAutocomplete,
+         ".MuiInputBase-root": {
+          borderRadius: 1,
+         },
+        }}
+       />
+      </Stack>
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}

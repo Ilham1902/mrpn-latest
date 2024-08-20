@@ -21,8 +21,6 @@ import {
 import theme from "@/theme";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import { blue, green, grey, red } from "@mui/material/colors";
-// import ModalKl from "./modal-kl";
-// import ModalAction from "./modal-action";
 import { dataTema } from "../../dataTema";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
@@ -135,7 +133,7 @@ const TableFundPPKP = (props: {
    <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
     <TableRow>
      <TableCell rowSpan={2}>
-      {project === "KP" ? "Rincian Output Kunci" : "Kegiatan Prioritas"}
+      {project === "KP" ? "Intervensi Kunci" : "Kegiatan Prioritas"}
      </TableCell>
      <TableCell rowSpan={2}>
       Indikator {project === "KP" ? "RO" : "Kegiatan Prioritas"}

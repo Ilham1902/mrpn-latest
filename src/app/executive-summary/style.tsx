@@ -159,6 +159,7 @@ export const styleOrgChart = [
     p: 0,
     background: "none",
     ul: {
+     justifyContent: "center",
      pl: 0,
      li: {
       mt: 3,

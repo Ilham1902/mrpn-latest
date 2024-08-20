@@ -1,7 +1,6 @@
 import React from "react";
 import {
  Autocomplete,
- Box,
  Button,
  Checkbox,
  Chip,
@@ -10,7 +9,6 @@ import {
  FormControlLabel,
  Grid,
  Icon,
- IconButton,
  MenuItem,
  Paper,
  SelectChangeEvent,
@@ -21,12 +19,11 @@ import {
  TableHead,
  TableRow,
  TextField,
- Tooltip,
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
 import SelectCustomTheme from "@/app/components/select";
-import { listPeristiwaRisiko, listSasaran, riskCategory } from "../setting";
+import { listPeristiwaRisiko } from "../setting";
 import { red } from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import EmptyState from "@/app/components/empty";
@@ -38,6 +35,7 @@ import {
 } from "@/app/components/dropdownKp";
 import HeaderIdentifikasi from "./header";
 import { paramVariantDefault } from "@/app/utils/constant";
+import { listRiskCategory } from "@/app/utils/data";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 
@@ -413,7 +411,7 @@ export default function FormTable({
             Pilih kategori risiko MRPN Linsek
            </Typography>
           </MenuItem>
-          {riskCategory.map((category, index) => (
+          {listRiskCategory.map((category, index) => (
            <MenuItem key={index} value={index} defaultChecked>
             {category}
            </MenuItem>

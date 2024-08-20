@@ -7,8 +7,12 @@ import {
  FormControl,
  FormControlLabel,
  Grid,
+ Grow,
+ MenuItem,
  Paper,
+ SelectChangeEvent,
  TextField,
+ Tooltip,
  Typography,
 } from "@mui/material";
 import {
@@ -19,6 +23,8 @@ import { paramVariantDefault } from "@/app/utils/constant";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import { listSwotSo, listSwotSt, listSwotWo, listSwotWt } from "../../data";
 import { listProvinsi } from "@/app/utils/provinsi";
+import SelectCustomTheme from "@/app/components/select";
+import { listFundSource, listRiskCategory } from "@/app/utils/data";
 
 type Option = (typeof listSwotSo)[number];
 type OptionLoc = (typeof listProvinsi)[number];
@@ -30,6 +36,9 @@ export default function FormDiagram({ mode }: { mode?: string }) {
  const [columnsWt, setColumnsWt] = React.useState<Option[]>([]);
  const [columnsLocation, setColumnsLocation] = React.useState<OptionLoc[]>([]);
  const [selectAll, setSelectAll] = React.useState<boolean>(false);
+ const [valueSelect, setValueSelect] = React.useState("");
+ const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
  const currentDate = new Date();
 
  const minDate = new Date();
@@ -74,6 +83,18 @@ export default function FormDiagram({ mode }: { mode?: string }) {
    return !prev;
   });
  };
+ const handleChangeSelect = (event: SelectChangeEvent) => {
+  setValueSelect(event.target.value);
+ };
+ const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchorEl(event.currentTarget);
+ };
+
+ const handlePopoverClose = () => {
+  setAnchorEl(null);
+ };
+
+ const open = Boolean(anchorEl);
 
  return (
   <Grid container spacing={2}>
@@ -83,62 +104,9 @@ export default function FormDiagram({ mode }: { mode?: string }) {
       title="Nomenklatur Kegiatan Prioritas"
       information="Nomenklatur Kegiatan Prioritas"
      />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsSo}
-       options={listSwotSo}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotSo.length)
-         setSelectAll(true);
-        setColumnsSo(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih nomenklatur"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllSo();
-            }}
-            label="Pilih semua nomenklatur"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>
+      Penanggulangan kurang energi kronik (KEK) pada ibu hamil
+     </Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12}>
@@ -147,129 +115,56 @@ export default function FormDiagram({ mode }: { mode?: string }) {
       title="Sasaran & Kegiatan Prioritas"
       information="Sasaran & Kegiatan Prioritas"
      />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsWo}
-       options={listSwotWo}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotWo.length)
-         setSelectAll(true);
-        setColumnsWo(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih sasaran & kegiatan prioritas"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllWo();
-            }}
-            label="Pilih semua sasaran & kegiatan"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>Kesehatan untuk Semua</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Strategi TOWS" information="Strategi TOWS" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsSt}
-       options={listSwotSt}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listSwotSt.length)
-         setSelectAll(true);
-        setColumnsSt(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih strategi TOWS"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllSt();
-            }}
-            label="Pilih semua strategi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>
+      Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan
+      stunting
+     </Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Sumber Pendanaan" information="Sumber Pendanaan" />
-     <Typography fontWeight={600}>APBN</Typography>
+     {mode === "add" || mode === "edit" ? (
+      <SelectCustomTheme
+       defaultStyle
+       small
+       value={valueSelect}
+       onChange={handleChangeSelect}
+      >
+       <MenuItem value="" disabled>
+        <Typography fontSize={14} fontStyle="italic">
+         Pilih sumber pendanaan
+        </Typography>
+       </MenuItem>
+       {listFundSource.map((sourceItem, index) => (
+        <MenuItem key={index} value={sourceItem}>
+         {sourceItem.length >= 35 ? (
+          <Tooltip title={sourceItem} followCursor TransitionComponent={Grow}>
+           <Typography
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            sx={{ fontSize: 14 }}
+           >
+            {sourceItem.substring(0, 35) + "..."}
+           </Typography>
+          </Tooltip>
+         ) : (
+          sourceItem
+         )}
+        </MenuItem>
+       ))}
+      </SelectCustomTheme>
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
     </FormControl>
    </Grid>
    <Grid item xs={12}>

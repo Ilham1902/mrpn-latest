@@ -30,6 +30,7 @@ import { columns } from "@/app/manajemen-user/setting";
 import { paramVariantDefault } from "@/app/utils/constant";
 import { listProvinsi } from "@/app/utils/provinsi";
 import { listTagProP } from "../../data";
+import { red } from "@mui/material/colors";
 
 type Option = (typeof listProvinsi)[number];
 type OptionProP = (typeof listTagProP)[number];
@@ -150,9 +151,14 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <FieldLabelInfo title="Intervensi Kunci" information="Intervensi Kunci" />
      {mode === "add" || mode === "edit" ? (
-      <Stack direction="row" alignItems="center" height="40px">
-       <CheckBox />
-      </Stack>
+      <FormControlLabel
+       control={<Checkbox />}
+       label={
+        <Typography fontWeight={600} color={red[600]} fontSize={12}>
+         Intervensi Kunci
+        </Typography>
+       }
+      />
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}

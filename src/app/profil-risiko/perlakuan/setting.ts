@@ -78,14 +78,6 @@ export const data: PerlakuanType[] = [
  },
 ];
 
-export const riskCategory = [
- "Risiko Lingkungan",
- "Risiko Sosial",
- "Risiko Geopolitik",
- "Risiko Ekonomi",
- "Risiko Teknologi",
-];
-
 export const listPeristiwaRisiko = [
  { id: "1", risk: "Potensi peningkatan suku bunga pinjaman" },
  {
