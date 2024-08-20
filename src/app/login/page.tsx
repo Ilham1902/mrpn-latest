@@ -42,6 +42,48 @@ export default function PageLogin() {
     backgroundPosition: "center",
    }}
   >
+   <Box
+    py={2}
+    px={4}
+    bgcolor="white"
+    borderRadius="0 0 20px 20px"
+    position="fixed"
+    top={0}
+    left="50%"
+    zIndex={4}
+    boxShadow="0px 10px 15px -3px rgba(0,0,0,0.6)"
+    sx={{
+     //  transform: "translateX(-50%) skewX(-15deg)",
+     transform: "translateX(-50%)",
+    }}
+   >
+    <Stack direction="row" gap={3}>
+     <Image
+      alt="Bappenas"
+      src="https://res.cloudinary.com/caturteguh/image/upload/v1724121579/mrpn/logo-bappenas-sm_cpnfun.png"
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{ width: "auto", height: "60px" }}
+     />
+     <Image
+      alt="Indonesia Emas 2045"
+      src="https://res.cloudinary.com/caturteguh/image/upload/v1724121579/mrpn/logo-id-emas-sm_ptgbn4.png"
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{ width: "auto", height: "60px" }}
+     />
+     <Image
+      alt="79 Nusantara Baru Indonesia Maju"
+      src="https://res.cloudinary.com/caturteguh/image/upload/v1724121579/mrpn/logo-ri-79-sm_zyzbgi.png"
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{ width: "auto", height: "60px" }}
+     />
+    </Stack>
+   </Box>
    <Box position="fixed" top={0} right={0} zIndex={1}>
     <Image
      alt="Bg Box"
@@ -106,7 +148,12 @@ export default function PageLogin() {
     />
    </Box>
    <Container
-    sx={{ maxWidth: "1400px !important", position: "relative", zIndex: 2 }}
+    sx={{
+     maxWidth: "1400px !important",
+     position: "relative",
+     zIndex: 2,
+     mt: "92px",
+    }}
    >
     <Stack
      direction="row"
