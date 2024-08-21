@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import {
@@ -11,7 +13,6 @@ import {
  useTheme,
 } from "@mui/material";
 import Footer from "./footer";
-// import Aside from "./aside";
 import Header from "./header";
 import { grey } from "@mui/material/colors";
 import React from "react";
@@ -19,15 +20,14 @@ import Image from "next/image";
 import { loadCSS } from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+import { ILayout } from "../iLayout";
 
 const Aside = dynamic(() => import("./aside"), { ssr: false });
 
 export default function DashboardLayout({
  children,
- noOverflow,
 }: {
  children: React.ReactNode;
- noOverflow?: boolean;
 }) {
  const pathname = usePathname();
  const theme = useTheme();
@@ -89,7 +89,7 @@ export default function DashboardLayout({
    borderTopLeftRadius: 0,
    p: 3,
    maxWidth: "100%",
-   overflow: noOverflow ? "unset" : "auto",
+   overflow: "auto",
   },
   ".table-collapsed": {
    ".MuiTableContainer-root": {
@@ -307,7 +307,9 @@ export default function DashboardLayout({
       />
      )}
     </Stack>
-    {children}
+    <ILayout>
+     {children}
+    </ILayout>
    </Box>
    <Stack
     component="footer"

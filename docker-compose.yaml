@@ -1,0 +1,11 @@
+name: mrpn-fe
+services:
+
+    web:
+        container_name: mrpn_fe_nginx
+        image: nginx:1.21
+        working_dir: /var/www/html
+        volumes:
+            - ./out/:/var/www/html
+        ports:
+            - 80:80
