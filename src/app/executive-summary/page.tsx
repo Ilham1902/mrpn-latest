@@ -35,6 +35,7 @@ import { CustomTab, styleDownload, styleTab, styleTabPanel } from "./style";
 import DropdownKp from "../components/dropdownKp";
 import { SxParams, TabPanelProps } from "./types";
 import Tab7Stakeholder from "./partials/tab7Stakeholder";
+import Tab9Risk from "./partials/tab9Risk";
 
 function a11yProps(index: number) {
  return {
@@ -191,11 +192,11 @@ export default function PageExecutiveSummary({}) {
          sx={{ borderRadius: 2.5 }}
         >
          <CustomTab label="RPJMN" />
-         <CustomTab label="Kaji Ulang 1" />
-         <CustomTab label="Kaji Ulang 2" />
-         <CustomTab label="Kaji Ulang 3" />
-         <CustomTab label="Kaji Ulang 4" />
-         <CustomTab label="Kaji Ulang 5" />
+         <CustomTab label="RKP 2025" />
+         <CustomTab label="RKP 2026" />
+         <CustomTab label="RKP 2027" />
+         <CustomTab label="RKP 2028" />
+         <CustomTab label="RKP 2029" />
         </Tabs>
        </Box>
        {!flagProjectNoCard && (
@@ -300,7 +301,7 @@ export default function PageExecutiveSummary({}) {
             }
            />
            <Tab
-            label="Indikasi Risiko RPJMN"
+            label="Indikasi Risiko MRPN"
             {...a11yProps(8)}
             iconPosition="start"
             icon={<IconFA size={16} name="rotate" sx={{ width: "auto" }} />}
@@ -407,8 +408,33 @@ export default function PageExecutiveSummary({}) {
          <CustomTabPanel value={value} index={7} tabLevel={condTabHeightLv1}>
           <Tab8Fund project={project} />
          </CustomTabPanel>
-         <CustomTabPanel value={value} index={8} tabLevel={condTabHeightLv1}>
-          <Tab9Indication project={project} />
+         <CustomTabPanel value={value} index={8} tabLevel="1">
+          <Tabs
+           value={valueTabChild}
+           onChange={handleChangeTabChild}
+           sx={styleTab(sxParamsOutlined)}
+           variant="fullWidth"
+          >
+           <Tab
+            label="Indikasi Risiko Objek MRPN 5 Tahunan"
+            {...a11yProps(0)}
+           />
+           <Tab label="Selera Risiko" {...a11yProps(1)} />
+          </Tabs>
+          <CustomTabPanel
+           value={valueTabChild}
+           index={0}
+           tabLevel={condTabHeightLv2}
+          >
+           <Tab9Indication project={project} />
+          </CustomTabPanel>
+          <CustomTabPanel
+           value={valueTabChild}
+           index={1}
+           tabLevel={condTabHeightLv2}
+          >
+           <Tab9Risk project={project} />
+          </CustomTabPanel>
          </CustomTabPanel>
         </Box>
        </Collapse>

@@ -82,6 +82,59 @@ const TextVertical = ({ title }: { title: string }) => {
  );
 };
 
+export const StrategyTowsContent = () => {
+ return (
+  <Box bgcolor={alpha(blue[300], 0.3)} py={2}>
+   <Stack
+    justifyContent="center"
+    alignItems="center"
+    sx={{
+     "& > div": {
+      "& + div": {
+       borderTop: `1px solid ${grey[400]}`,
+       mt: 1,
+       pt: 1,
+      },
+     },
+    }}
+   >
+    <Box>
+     <Typography fontSize={14} fontWeight={600} align="center">
+      Strategi SO
+     </Typography>
+     <Typography fontSize={14} align="center">
+      Ciptakan strategi yang menggunakan kekuatan untuk memanfaatkan peluang
+     </Typography>
+    </Box>
+    <Box>
+     <Typography fontSize={14} fontWeight={600} align="center">
+      Strategi WO
+     </Typography>
+     <Typography fontSize={14} align="center">
+      Ciptakan strategi yang meminimalkan kelemahan untuk memanfaatkan peluang
+     </Typography>
+    </Box>
+    <Box>
+     <Typography fontSize={14} fontWeight={600} align="center">
+      Strategi ST
+     </Typography>
+     <Typography fontSize={14} align="center">
+      Ciptakan strategi yang menggunakan kekuatan untuk mengatasi ancaman
+     </Typography>
+    </Box>
+    <Box>
+     <Typography fontSize={14} fontWeight={600} align="center">
+      Strategi WT
+     </Typography>
+     <Typography fontSize={14} align="center">
+      Ciptakan strategi yang meminimalkan kelemahan dan menghindari ancaman
+     </Typography>
+    </Box>
+   </Stack>
+  </Box>
+ );
+};
+
 export default function TableDiagram({ project }: { project: string }) {
  return (
   <>
@@ -175,58 +228,7 @@ export default function TableDiagram({ project }: { project: string }) {
               border: `1px dashed ${green[800]}`,
              }}
             >
-             <Box bgcolor={alpha(blue[300], 0.3)} py={2}>
-              <Stack
-               justifyContent="center"
-               alignItems="center"
-               sx={{
-                "& > div": {
-                 "& + div": {
-                  borderTop: `1px solid ${grey[400]}`,
-                  mt: 1,
-                  pt: 1,
-                 },
-                },
-               }}
-              >
-               <Box>
-                <Typography fontSize={14} fontWeight={600} align="center">
-                 Strategi SO
-                </Typography>
-                <Typography fontSize={14} align="center">
-                 Ciptakan strategi yang menggunakan kekuatan untuk memanfaatkan
-                 peluang
-                </Typography>
-               </Box>
-               <Box>
-                <Typography fontSize={14} fontWeight={600} align="center">
-                 Strategi WO
-                </Typography>
-                <Typography fontSize={14} align="center">
-                 Ciptakan strategi yang meminimalkan kelemahan untuk
-                 memanfaatkan peluang
-                </Typography>
-               </Box>
-               <Box>
-                <Typography fontSize={14} fontWeight={600} align="center">
-                 Strategi ST
-                </Typography>
-                <Typography fontSize={14} align="center">
-                 Ciptakan strategi yang menggunakan kekuatan untuk mengatasi
-                 ancaman
-                </Typography>
-               </Box>
-               <Box>
-                <Typography fontSize={14} fontWeight={600} align="center">
-                 Strategi WT
-                </Typography>
-                <Typography fontSize={14} align="center">
-                 Ciptakan strategi yang meminimalkan kelemahan dan menghindari
-                 ancaman
-                </Typography>
-               </Box>
-              </Stack>
-             </Box>
+             <StrategyTowsContent />
             </TableCell>
             <TableCell
              width={50}

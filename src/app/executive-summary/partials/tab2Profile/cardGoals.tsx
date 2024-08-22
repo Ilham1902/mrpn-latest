@@ -60,6 +60,7 @@ export default function CardGoals({ project }: { project: string }) {
     </>
    )}
    <DialogComponent
+    width={520}
     dialogOpen={modalOpenGoal}
     dialogClose={handleModalClose}
     title="Tujuan Utama/Goals Proyek"

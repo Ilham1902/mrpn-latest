@@ -3,11 +3,13 @@ import {
  Autocomplete,
  Box,
  Checkbox,
+ Chip,
  Divider,
  FormControl,
  FormControlLabel,
  Grid,
  Paper,
+ Stack,
  TextField,
  Typography,
 } from "@mui/material";
@@ -46,62 +48,18 @@ export default function FormLocation({ mode }: { mode?: string }) {
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Lokasi" information="Lokasi" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columns}
-       options={listProvinsi}
-       getOptionLabel={(option) => option.nama}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listProvinsi.length)
-         setSelectAll(true);
-        setColumns(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih provinsi"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAll();
-            }}
-            label="Pilih semua provinsi"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Stack direction="row" flexWrap="wrap" gap={0.5}>
+      <Chip size="small" label="DKI Jakarta" />
+      <Chip size="small" label="Jawa Barat" />
+      <Chip size="small" label="Jawa Tengah" />
+      <Chip size="small" label="Sumatera Utara" />
+      <Chip size="small" label="Banten" />
+      <Chip size="small" label="NTT" />
+      <Chip size="small" label="Sulawesi Barat" />
+      <Chip size="small" label="Aceh" />
+      <Chip size="small" label="NTB" />
+      <Chip size="small" label="Kalimantan Selatan" />
+     </Stack>
     </FormControl>
    </Grid>
    <Grid item xs={12}>

@@ -153,7 +153,7 @@ export default function PageSeleraRisiko({}) {
        code={userLevel === "bappenas" ? "Nilai" : null}
        value="1"
        //    valueLabel="1-6"
-       label="Tidak Toleran"
+       label="Rendah"
        minheight={60}
       />
       <CustomToggleButton
@@ -177,14 +177,14 @@ export default function PageSeleraRisiko({}) {
        code={userLevel === "bappenas" ? "Nilai" : null}
        value="4"
        //    valueLabel="19-25"
-       label="Agresif"
+       label="Tinggi"
        minheight={60}
       />
      </ToggleButtonGroup>
      <Collapse in={valueTheme === "1"}>
       <Box mt={2}>
        <LabelRadio
-        heading="Tidak Toleran"
+        heading="RENDAH"
         rangeValue={userLevel === "bappenas" ? null : "1-6"}
         // value={userLevel === "bappenas" ? 3 : null}
         description={
@@ -195,7 +195,7 @@ export default function PageSeleraRisiko({}) {
             form={
              <TextareaComponent
               label="Deskripsi"
-              placeholder="Deskripsi Tidak Toleran"
+              placeholder="Deskripsi rendah"
               width="100%"
              />
             }
@@ -221,7 +221,7 @@ export default function PageSeleraRisiko({}) {
               type="number"
               variant="outlined"
               size="small"
-              placeholder="Isi nilai Tidak Toleran"
+              placeholder="Isi nilai rendah"
               InputLabelProps={{
                shrink: true,
               }}
@@ -348,7 +348,7 @@ export default function PageSeleraRisiko({}) {
      <Collapse in={valueTheme === "4"}>
       <Box mt={2}>
        <LabelRadio
-        heading="AGRESIF"
+        heading="TINGGI"
         rangeValue={userLevel === "bappenas" ? null : "19-25"}
         // value={userLevel === "bappenas" ? 25 : null}
         description={
@@ -359,7 +359,7 @@ export default function PageSeleraRisiko({}) {
             form={
              <TextareaComponent
               label="Deskripsi"
-              placeholder="Deskripsi agresif"
+              placeholder="Deskripsi tinggi"
               width="100%"
              />
             }
@@ -379,7 +379,7 @@ export default function PageSeleraRisiko({}) {
               type="number"
               variant="outlined"
               size="small"
-              placeholder="Isi nilai agresif"
+              placeholder="Isi nilai tinggi"
               InputLabelProps={{
                shrink: true,
               }}

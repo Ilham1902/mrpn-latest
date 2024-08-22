@@ -171,7 +171,7 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
       <TextField
        variant="outlined"
        size="small"
-       placeholder="Format Kode"
+       placeholder="Penanggungjawab"
        InputLabelProps={{
         shrink: true,
        }}
@@ -279,6 +279,28 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
        InputLabelProps={{
         shrink: true,
        }}
+      />
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
+   <Grid item xs={12}>
+    <FormControl fullWidth>
+     <FieldLabelInfo
+      title="Indikator Project"
+      information="Indikator Project"
+     />
+     {mode === "add" ? (
+      <TextareaComponent
+       label="Tuliskan Indikator Project"
+       placeholder="Tuliskan Indikator Project"
+      />
+     ) : mode === "edit" ? (
+      <TextareaComponent
+       label="Tuliskan Indikator Project"
+       placeholder="Tuliskan Indikator Project"
+       value="-"
       />
      ) : (
       <Typography fontWeight={600}>-</Typography>

@@ -146,12 +146,7 @@ export default function PageApprovalSelera() {
          },
         }}
        >
-        <CustomToggleButton
-         value="1"
-         label="Tidak Toleran"
-         minheight={60}
-         disabled
-        />
+        <CustomToggleButton value="1" label="Rendah" minheight={60} disabled />
         <CustomToggleButton
          value="2"
          label="Konservatif"
@@ -159,7 +154,7 @@ export default function PageApprovalSelera() {
          approvalPage
         />
         <CustomToggleButton value="3" label="Moderat" minheight={60} disabled />
-        <CustomToggleButton value="4" label="Agresif" minheight={60} disabled />
+        <CustomToggleButton value="4" label="Tinggi" minheight={60} disabled />
        </ToggleButtonGroup>
        <Box mt={2}>
         <LabelRadio

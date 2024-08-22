@@ -47,18 +47,16 @@ export default function CardLocation({ project }: { project: string }) {
         </Typography>
        </Typography>
        <Stack direction="row" flexWrap="wrap" gap={0.5}>
-        <Box>
-         <Chip size="small" label="DKI Jakarta" />
-         <Chip size="small" label="Jawa Barat" />
-         <Chip size="small" label="Jawa Tengah" />
-         <Chip size="small" label="Sumatera Utara" />
-         <Chip size="small" label="Banten" />
-         <Chip size="small" label="NTT" />
-         <Chip size="small" label="Sulawesi Barat" />
-         <Chip size="small" label="Aceh" />
-         <Chip size="small" label="NTB" />
-         <Chip size="small" label="Kalimantan Selatan" />
-        </Box>
+        <Chip size="small" label="DKI Jakarta" />
+        <Chip size="small" label="Jawa Barat" />
+        <Chip size="small" label="Jawa Tengah" />
+        <Chip size="small" label="Sumatera Utara" />
+        <Chip size="small" label="Banten" />
+        <Chip size="small" label="NTT" />
+        <Chip size="small" label="Sulawesi Barat" />
+        <Chip size="small" label="Aceh" />
+        <Chip size="small" label="NTB" />
+        <Chip size="small" label="Kalimantan Selatan" />
        </Stack>
       </Stack>
       <Stack gap={1}>
@@ -76,6 +74,7 @@ export default function CardLocation({ project }: { project: string }) {
     </Stack>
    )}
    <DialogComponent
+    width={520}
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
     title="Ubah Lokasi Proyek"

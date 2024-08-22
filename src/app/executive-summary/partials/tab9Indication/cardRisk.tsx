@@ -7,8 +7,10 @@ import DialogComponent from "@/app/components/dialog";
 import AddButton from "@/app/components/buttonAdd";
 import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
+import Matriks from "@/app/penetapan/kriteria/partials/tab4Matriks/matriks";
+import FormRisk from "./partials/formRisk";
 
-export default function CardIndication({ project }: { project: string }) {
+export default function CardRisk({ project }: { project: string }) {
  const [modalOpen, setModalOpen] = React.useState(false);
 
  const handleModalOpen = () => {
@@ -25,15 +27,9 @@ export default function CardIndication({ project }: { project: string }) {
   <>
    <Stack gap={1}>
     <CardItem
-     title="Indikasi Risiko Objek MRPN 5 Tahunan"
-     addButton={
-      <AddButton
-       filled
-       small
-       title="Tambah Indikasi"
-       onclick={handleModalOpen}
-      />
-     }
+     title="Selera Risiko"
+     setting
+     settingEditOnclick={handleModalOpen}
     >
      {isEmpty || project === "4" ? (
       <EmptyState
@@ -43,11 +39,12 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication project={project} />
+      <Matriks levelId={2} />
      )}
     </CardItem>
    </Stack>
    <DialogComponent
+    width={480}
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
     title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
@@ -62,7 +59,7 @@ export default function CardIndication({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormIndication mode="add" project={project} />
+    <FormRisk mode="add" project={project} />
    </DialogComponent>
   </>
  );

@@ -232,7 +232,7 @@ function Row(props: { row: ReturnType<typeof createData>; project: string }) {
       </TableCell>
       <TableCell component="th" scope="row" sx={{ py: 0.5, pl: 0 }}>
        <Typography component="span" color={grey[600]}>
-        Aspek Rincian Output:
+        Proyek Prioritas:
        </Typography>{" "}
        <Typography component="span">{row.aspectRo}</Typography>
       </TableCell>

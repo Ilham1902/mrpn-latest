@@ -39,7 +39,7 @@ export default function CardStakeholder({ project }: { project: string }) {
    <DialogComponent
     dialogOpen={modalOpenStakeholder}
     dialogClose={handleModalClose}
-    title="Stakeholder Mapping"
+    title="Ubah Kerangka Kelembagaan"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>

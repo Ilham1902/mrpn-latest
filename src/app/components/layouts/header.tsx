@@ -20,6 +20,7 @@ import { IconFA } from "../icons/icon-fa";
 import Image from "next/image";
 import Aside from "./aside";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Header({}) {
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -292,9 +293,11 @@ export default function Header({}) {
       <ListItemIcon>
        <IconKeluar color={red[800]} />
       </ListItemIcon>
-      <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
-       Keluar Sistem
-      </ListItemText>
+      <Link href="/">
+       <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
+        <Link href="/">Keluar Sistem</Link>
+       </ListItemText>
+      </Link>
      </MenuItem>
     </Menu>
    </Stack>

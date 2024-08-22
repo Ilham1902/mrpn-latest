@@ -152,6 +152,7 @@ export default function TablePeraturan({
     </Table>
    </TableContainer>
    <DialogComponent
+    width={520}
     dialogOpen={modalOpen}
     dialogClose={modalClose}
     title="Tambah Peraturan"

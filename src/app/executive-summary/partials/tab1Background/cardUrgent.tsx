@@ -61,6 +61,7 @@ export default function CardUrgent({ project }: { project: string }) {
     </>
    )}
    <DialogComponent
+    width={520}
     dialogOpen={modalOpenSegment}
     dialogClose={handleModalClose}
     title="Urgensi Proyek"

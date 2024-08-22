@@ -42,7 +42,7 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
   <>
    <Grid item xs={12} md={5}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Keterangan</Typography>
+     <FieldLabelInfo title="Keterangan" information="Keterangan" />
      <TextField
       variant="outlined"
       size="small"
@@ -55,7 +55,7 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
    </Grid>
    <Grid item xs={12} md={full ? 8 : 6}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Keyword SWOT</Typography>
+     <FieldLabelInfo title="Keyword SWOT" information="Keyword SWOT" />
      <Autocomplete
       multiple
       disableCloseOnSelect
@@ -156,7 +156,11 @@ export default function AddRisk({ mode }: { mode?: string }) {
      <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
       <Grid container spacing={2}>
        <Grid item xs={12}>
-        <FieldLabelInfo title="Kejadian Risiko" information="Kejadian Risiko" />
+        <FieldLabelInfo
+         titleSection
+         title="Kejadian Risiko"
+         information="Kejadian Risiko"
+        />
        </Grid>
        {itemsPP.map((tags: any) => (
         <Fragment key={`${tags.id}`}>

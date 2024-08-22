@@ -155,47 +155,53 @@ export default function CascadingOrgChart({ project }: { project?: string }) {
         title: "Sasaran",
         children: [
          {
-          name: "Nomenklatur IKU + KL Pengampu",
-          title: "Nomenklatur IKU + KL Pengampu",
+          name: "Nomenklatur IKU",
+          title: "Nomenklatur IKU",
           children: [
            {
-            name: "Aspek Proyek/ProP",
-            title: (
-             <List dense sx={styleList}>
-              <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
-              <ItemProP
-               isKey
-               description="Pendampingan balita dengan permasalahan gizi"
-              />
-              <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
-             </List>
-            ),
-           },
-           {
-            name: "Aspek Proyek/ProP",
-            title: (
-             <List dense sx={styleList}>
-              <ItemProP
-               isKey
-               description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)"
-              />
-              <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
-              <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
-             </List>
-            ),
-           },
-           {
-            name: "Aspek Proyek/ProP",
-            title: (
-             <List dense sx={styleList}>
-              <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
-              <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
-              <ItemProP
-               isKey
-               description="Pelayanan gizi masyarakat di kab/kota"
-              />
-             </List>
-            ),
+            name: "KL Pengampu",
+            title: "KL Pengampu",
+            children: [
+             {
+              name: "Nomenklatur ProP",
+              title: (
+               <List dense sx={styleList}>
+                <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
+                <ItemProP
+                 isKey
+                 description="Pendampingan balita dengan permasalahan gizi"
+                />
+                <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
+               </List>
+              ),
+             },
+             {
+              name: "Nomenklatur ProP",
+              title: (
+               <List dense sx={styleList}>
+                <ItemProP
+                 isKey
+                 description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)"
+                />
+                <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
+                <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
+               </List>
+              ),
+             },
+             {
+              name: "Nomenklatur ProP",
+              title: (
+               <List dense sx={styleList}>
+                <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
+                <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
+                <ItemProP
+                 isKey
+                 description="Pelayanan gizi masyarakat di kab/kota"
+                />
+               </List>
+              ),
+             },
+            ],
            },
           ],
          },

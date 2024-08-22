@@ -721,7 +721,7 @@ export const dataTema = [
   ],
   stakeholder: [
    {
-    label: "Kemenko Koordinator",
+    label: "Kementerian Koordinator",
     tag: "Monitor",
     desc:
      "Melakukan proses pengawasan atas penyaluran asupan gizi dan penyediaan sarpras secara berkelanjutan kepada masyarakat",
