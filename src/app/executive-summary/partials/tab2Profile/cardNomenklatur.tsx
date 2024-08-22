@@ -8,23 +8,15 @@ import DialogComponent from "@/app/components/dialog";
 // import TableDampak from "./table-dampak";
 // import FormSasaran from "./form-sasaran";
 import { dataTema } from "../../dataTema";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export default function CardNomenklatur({ project }: { project: string }) {
- const [modalOpenSasaran, setModalOpenSasaran] = React.useState(false);
 
- const handleModalOpenSasaran = () => {
-  setModalOpenSasaran(true);
- };
-
- const handleModalClose = () => {
-  setModalOpenSasaran(false);
- };
-
- const isEmpty = false;
+ const {rkpState} = useRKPContext(state => state)
 
  return (
   <CardItem title="Nomenklatur Program/Kegiatan">
-   {isEmpty || project === "4" ? (
+   {rkpState === undefined ? (
     <EmptyState
      dense
      icon={<IconEmptyData width={100} />}
@@ -32,39 +24,10 @@ export default function CardNomenklatur({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <>
-     {dataTema.map((itemSegment, index) => (
-      <Fragment key={index}>
-       {project === itemSegment.temaId && (
-        <>
-         {itemSegment.nomenklatur.map((detailNomen, index) => (
-          <Typography variant="body1" key={index}>
-           {detailNomen}
-          </Typography>
-         ))}
-        </>
-       )}
-      </Fragment>
-     ))}
-    </>
+     <Typography variant="body1">
+       {rkpState.name}
+     </Typography>
    )}
-   <DialogComponent
-    dialogOpen={modalOpenSasaran}
-    dialogClose={handleModalClose}
-    title="Tambah Sasaran"
-    dialogFooter={
-     <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button variant="outlined" onClick={handleModalClose}>
-       Batal
-      </Button>
-      <Button variant="contained" type="submit">
-       Simpan
-      </Button>
-     </DialogActions>
-    }
-   >
-    {/* <FormSasaran mode="add" /> */}
-   </DialogComponent>
   </CardItem>
  );
 }

@@ -1,25 +1,17 @@
 import React from "react";
 import { Button, DialogActions } from "@mui/material";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyData } from "@/app/components/icons";
-import CardItem from "@/app/components/cardTabItem";
-import AddButton from "@/app/components/buttonAdd";
-import DialogComponent from "@/app/components/dialog";
-import TableTagging from "./table-tagging";
+import EmptyState from "@/components/empty";
+import { IconEmptyData } from "@/components/icons";
+import CardItem from "@/components/cardTabItem";
+import AddButton from "@/components/buttonAdd";
+import DialogComponent from "@/components/dialog";
+import TableTagging from "../table-tagging";
 import FormRelated from "./form-related";
+import useCardRelatedVM from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedVM";
 
 export default function CardRelate({ project }: { project: string }) {
- const [modalOpenTag, setModalOpenTag] = React.useState(false);
 
- const handleModalOpenTag = () => {
-  setModalOpenTag(true);
- };
-
- const handleModalClose = () => {
-  setModalOpenTag(false);
- };
-
- const isEmpty = false;
+ const {data,modal,setModal} = useCardRelatedVM()
 
  return (
   <CardItem
@@ -29,11 +21,11 @@ export default function CardRelate({ project }: { project: string }) {
      filled
      small
      title="Tambah Kebijakan"
-     onclick={handleModalOpenTag}
+     onclick={() => setModal(true)}
     />
    }
   >
-   {isEmpty || project === "4" ? (
+   {data.length == 0 ? (
     <EmptyState
      dense
      icon={<IconEmptyData width={100} />}
@@ -44,12 +36,12 @@ export default function CardRelate({ project }: { project: string }) {
     <TableTagging project={project} />
    )}
    <DialogComponent
-    dialogOpen={modalOpenTag}
-    dialogClose={handleModalClose}
+    dialogOpen={modal}
+    dialogClose={() => setModal(false)}
     title="Tambah Kebijakan"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button variant="outlined" onClick={handleModalClose}>
+      <Button variant="outlined" onClick={() => setModal(false)}>
        Batal
       </Button>
       <Button variant="contained" type="submit">

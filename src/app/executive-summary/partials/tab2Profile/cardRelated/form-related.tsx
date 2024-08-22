@@ -22,16 +22,16 @@ import {
  TextField,
  Typography,
 } from "@mui/material";
-import TextareaComponent from "@/app/components/textarea";
+import TextareaComponent from "@/components/textarea";
 import dynamic from "next/dynamic";
-import { OptionKebijakan, listKebijakan } from "@/app/utils/data";
-import AutocompleteSelect from "@/app/components/autocomplete";
+import { OptionKebijakan, listKebijakan } from "@/utils/data";
+import AutocompleteSelect from "@/components/autocomplete";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdownKp";
 import { grey } from "@mui/material/colors";
-import { paramVariantDefault } from "@/app/utils/constant";
+import { paramVariantDefault } from "@/utils/constant";
 
 const FCLItem = ({ keyIndex, item }: { keyIndex: any; item: string }) => {
  return (

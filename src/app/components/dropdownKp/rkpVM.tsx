@@ -74,6 +74,7 @@ const useRkpVM = () => {
     if (params.level == "PP" || params.level == "P") {
       let req:ExsumDto = {
         id:0,
+        tahun: new Date().getFullYear(),
         level: params.level,
         ref_id: params.id
       }

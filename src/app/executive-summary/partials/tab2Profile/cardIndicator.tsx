@@ -6,7 +6,7 @@ import CardItem from "@/app/components/cardTabItem";
 import AddButton from "@/app/components/buttonAdd";
 import DialogComponent from "@/app/components/dialog";
 import TableTagging from "./table-tagging";
-import FormRelated from "./form-related";
+import FormRelated from "./cardRelated/form-related";
 import { dataTema } from "../../dataTema";
 
 export default function CardIndicator({ project }: { project: string }) {
