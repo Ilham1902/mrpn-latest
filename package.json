@@ -34,7 +34,8 @@
   "react-date-range": "^2.0.1",
   "react-dom": "^18",
   "react-highlight-words": "^0.20.0",
-  "react-quill": "^2.0.0"
+  "react-quill": "^2.0.0",
+  "zustand": "^4.5.2"
  },
  "devDependencies": {
   "@types/crypto-js": "^4.2.2",

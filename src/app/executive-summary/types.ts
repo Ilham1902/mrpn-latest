@@ -1,3 +1,5 @@
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+
 export interface TabPanelProps {
  children?: React.ReactNode;
  index: number;

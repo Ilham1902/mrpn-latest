@@ -6,6 +6,7 @@ import DashboardLayout from "@/app/components/layouts/layout";
 import { SelectChangeEvent } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export default function PageDashboard() {
  const [project, setProject] = React.useState("");
@@ -13,6 +14,9 @@ export default function PageDashboard() {
  const handleChangeProject = (event: SelectChangeEvent) => {
   setProject(event.target.value);
  };
+
+ const {rkpState} = useRKPContext((state) => state)
+ console.log(rkpState)
 
  return (
   <DashboardLayout>

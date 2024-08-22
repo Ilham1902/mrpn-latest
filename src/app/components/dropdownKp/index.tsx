@@ -12,6 +12,8 @@ import { listSelectKp } from "@/app/executive-summary/data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
+import useRkpVM from "@/components/dropdownKp/rkpVM";
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
  return {
@@ -60,12 +62,8 @@ export default function DropdownKp({
  handleChangeProject?: any;
  variant?: string;
 }) {
- const [value, setValue] = React.useState<string | null>("");
- const [inputValue, setInputValue] = React.useState("");
 
- const optionsListKp = listSelectKp.map((item) => {
-  return item["name"];
- });
+ const {options, handleChangeOptions, value} = useRkpVM();
 
  const sxParams: SxParams = { variant: variant };
 
@@ -74,23 +72,23 @@ export default function DropdownKp({
    <Autocomplete
     size="small"
     value={value}
-    // isOptionEqualToValue={(value: any) => value.value}
-    onChange={(event: any, newValue: string | null) => {
-     setValue(newValue);
+    getOptionLabel={(option:any) => option.name ? option.code+" - "+option.name : ""}
+    onChange={(event: any, newValue: any | undefined) => {
+     handleChangeOptions(newValue);
     }}
-    inputValue={inputValue}
-    onInputChange={(event, newInputValue) => {
-     setInputValue(newInputValue);
-
-     const optionVal = listSelectKp.find((res: any) => {
-      return res.name === newInputValue;
-     });
-
-     handleChangeProject(optionVal?.value || "");
-    }}
-    options={optionsListKp}
+    // inputValue={inputValue}
+    // onInputChange={(event, newInputValue) => {
+    //  setInputValue(newInputValue);
+    //
+    //  const optionVal = listSelectKp.find((res: any) => {
+    //   return res.name === newInputValue;
+    //  });
+    //
+    //  handleChangeProject(optionVal?.value || "");
+    // }}
+    options={options}
     renderInput={(params) => (
-     <Tooltip title={value} followCursor TransitionComponent={Grow}>
+     <Tooltip title={value ? value.name : ""} followCursor TransitionComponent={Grow}>
       <TextField
        {...params}
        InputLabelProps={{

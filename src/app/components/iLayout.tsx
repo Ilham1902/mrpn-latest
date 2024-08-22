@@ -7,14 +7,13 @@ import { ExsumProvider } from "@/lib/core/provider/exsumProvider";
 export const ILayout = ({ children }: {children: React.ReactNode}) =>  {
 
  return (
-  <LoadingProvider>
-    <GlobalModalProvider>
-      <RKPProvider>
         <ExsumProvider>
-          { children }
+            <LoadingProvider>
+                <GlobalModalProvider>
+                    { children }
+                </GlobalModalProvider>
+            </LoadingProvider>
         </ExsumProvider>
-      </RKPProvider>
-    </GlobalModalProvider>
-  </LoadingProvider>
  );
+
 }

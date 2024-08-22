@@ -32,25 +32,27 @@ export const ListItemDropdownMenu = ({ label }: { label: string }) => {
 };
 
 export default function CardItem({
- title,
- children,
- addButton,
- setting,
- multiEdit,
- contentNoPadding,
- settingEditOnclick,
- settingEditOutputClick,
- settingEditBisnisClick,
+  title,
+  children,
+  addButton,
+  setting,
+  multiEdit,
+  contentNoPadding,
+  settingDeleteOnclick,
+  settingEditOnclick,
+  settingEditOutputClick,
+  settingEditBisnisClick,
 }: {
- title?: React.ReactNode;
- children: React.ReactNode;
- addButton?: React.ReactNode;
- setting?: React.ReactNode;
- multiEdit?: boolean;
- contentNoPadding?: boolean;
- settingEditOnclick?: () => void;
- settingEditOutputClick?: () => void;
- settingEditBisnisClick?: () => void;
+  title?: React.ReactNode;
+  children: React.ReactNode;
+  addButton?: React.ReactNode;
+  setting?: React.ReactNode;
+  multiEdit?: boolean;
+  contentNoPadding?: boolean;
+  settingDeleteOnclick?: () => void;
+  settingEditOnclick?: () => void;
+  settingEditOutputClick?: () => void;
+  settingEditBisnisClick?: () => void;
 }) {
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const open = Boolean(anchorEl);
@@ -127,6 +129,7 @@ export default function CardItem({
     )}
 
     <MenuItem
+        onClick={settingDeleteOnclick}
      sx={{
       bgcolor: red[100],
       color: red[700],

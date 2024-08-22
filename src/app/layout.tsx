@@ -8,6 +8,8 @@ import React from "react";
 import "./globals.css";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import {RKPProvider} from "@/lib/core/provider/rkpProvider";
+import {defaultInitRkpState} from "@/lib/core/context/rkpContext";
 // import Head from "next/head";
 
 export const metadata: Metadata = {
@@ -38,7 +40,9 @@ export default function RootLayout(props: any) {
      <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
        <CssBaseline />
-       {props.children}
+       <RKPProvider state={defaultInitRkpState}>
+        {props.children}
+       </RKPProvider>
       </ThemeProvider>
      </AppRouterCacheProvider>
     </body>

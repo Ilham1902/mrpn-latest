@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { doGetExsum, doGetRKP } from "./rkpService";
 import { useExsumContext, useGlobalModalContext, useLoading, useRKPContext } from "@/lib/core/hooks/useHooks";
 import { API_CODE } from "@/lib/core/api/apiModel";
-import { RKPDto } from "@/lib/core/context/rkpContext";
-import { GetExsumServiceModel, OptionsRKP } from "./rkpModel";
+import {ProjectDefaultDto, RKPDto} from "@/lib/core/context/rkpContext";
+import { OptionsRKP } from "./rkpModel";
 import { ExsumDto } from "@/lib/core/context/exsumContext";
 
-const usePageExsumVM = () => {
+const useRkpVM = () => {
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const rkpContext = useRKPContext();
+  const rkpContext = useRKPContext(state => state);
   const exsumContext = useExsumContext();
 
-  const [options, setOptions] = useState<OptionsRKP[]>([])
+  const {rkp,setRkp, rkpOption,setRkpOption, rkpState, setRkpState} = rkpContext
 
   async function getData() {
     const response = await doGetRKP({
@@ -53,14 +53,9 @@ const usePageExsumVM = () => {
         })
       })
 
-      setOptions(opt)
-
+      setRkpOption(opt)
     }
   }
-
-  useEffect(() => {
-    getData()
-  }, [])
 
   async function getExsum(params:ExsumDto) {
     const response = await doGetExsum({
@@ -75,6 +70,7 @@ const usePageExsumVM = () => {
   }
 
   const handleChangeOptions = (params:OptionsRKP) => {
+    setRkpState(params)
     if (params.level == "PP" || params.level == "P") {
       let req:ExsumDto = {
         id:0,
@@ -85,11 +81,17 @@ const usePageExsumVM = () => {
     }
   }
 
+  useEffect(() => {
+    if (rkp.length == 0){
+      getData()
+    }
+  }, [rkpContext.rkp]);
+
   return {
-    rkpContext,
-    options,
-    handleChangeOptions
+    options:rkpOption,
+    handleChangeOptions,
+    value:rkpState,
   }
 }
 
-export default usePageExsumVM;
+export default useRkpVM;
