@@ -1,7 +1,13 @@
 import { useExsumContext, useGlobalModalContext, useLoading } from "@/lib/core/hooks/useHooks";
 import { useEffect, useState } from "react";
 import { API_CODE } from "@/lib/core/api/apiModel";
-import { ExsumSWOTDto, initExsumSWOTDto } from "./cardSwotModel";
+import {
+    ExsumSWOTRequestDto,
+    ExsumSWOTResponseDto,
+    initExsumSWOTRequestDto,
+    initExsumSWOTResponseDto,
+    LISTSWOT
+} from "./cardSwotModel";
 import { doCreate, doDelete, doGet, doUpdate } from "./cardSwotService";
 
 const useCardSWOTVM = () => {
@@ -10,8 +16,8 @@ const useCardSWOTVM = () => {
     const errorModalContext = useGlobalModalContext();
     const { exsum } = useExsumContext()
 
-    const [data, setData] = useState<ExsumSWOTDto>({ ...initExsumSWOTDto })
-    const [request, setRequest] = useState<ExsumSWOTDto>({ ...initExsumSWOTDto })
+    const [data, setData] = useState<ExsumSWOTResponseDto>({ ...initExsumSWOTResponseDto })
+    const [request, setRequest] = useState<ExsumSWOTRequestDto>({ ...initExsumSWOTRequestDto })
     const [modal, setModal] = useState(false);
 
     async function getData() {
@@ -24,13 +30,43 @@ const useCardSWOTVM = () => {
         });
 
         if (response?.code == API_CODE.sucess) {
-            let result: ExsumSWOTDto = response.result;
+            let result: ExsumSWOTResponseDto = response.result;
             if (result) {
-                setData(result)
-                setRequest(result)
+                setData(result);
+
+                let initReqState:ExsumSWOTRequestDto = {
+                    id: result.id,
+                    exsum_id: exsum.id,
+                    strength: result.strength,
+                    weakness: result.weakness,
+                    opportunity: result.opportunity,
+                    threat: result.threat,
+                    values:[]
+                }
+                LISTSWOT.map(s => {
+
+                    const swotTitle = s.toUpperCase()
+                    initReqState.values.push({type:swotTitle,values:[]})
+
+                    const group = result.values.filter(x => x.type == swotTitle)
+                    console.log(group)
+                    const getKeyIndex = initReqState.values.findIndex(x => x.type == swotTitle)
+                    if (getKeyIndex > -1){
+                        const values = [...initReqState.values]
+                        group.map(g => {
+                            values[getKeyIndex].values.push(g.value)
+                        })
+                        initReqState = {
+                            ...initReqState,
+                            values:values
+                        }
+                    }
+                })
+
+                setRequest(initReqState)
             } else {
-                setData({ ...initExsumSWOTDto })
-                setRequest({ ...initExsumSWOTDto })
+                setData({ ...initExsumSWOTResponseDto })
+                setRequest({ ...initExsumSWOTRequestDto })
             }
         }
     }
@@ -43,7 +79,8 @@ const useCardSWOTVM = () => {
 
 
     async function updateData() {
-        const req: ExsumSWOTDto = {
+
+        const req: ExsumSWOTRequestDto = {
             ...request,
             exsum_id: exsum.id
         }

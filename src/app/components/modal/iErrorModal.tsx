@@ -37,7 +37,7 @@ export const IErrorModal = () => {
         >
             <DialogContent>
                 <DialogContentText>
-                    {code + " : " + message}
+                    {`${message} (${code})`}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
