@@ -41,9 +41,10 @@ export default function DialogComponent({
       minWidth: "90%",
      },
      ".quill": {
-      height: "calc(100vh - 400px)",
+      //   height: "calc(100vh - 400px)",
       ".ql-container": {
-       height: "calc(100% - 44px)",
+       //    height: "calc(100% - 44px)",
+       minHeight: 320,
       },
      },
     },

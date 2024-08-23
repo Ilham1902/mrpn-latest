@@ -1,18 +1,9 @@
-import React, { Fragment } from "react";
-import {
- Box,
- Button,
- DialogActions,
- Table,
- Tooltip,
- styled,
-} from "@mui/material";
+import React from "react";
+import { Button, DialogActions } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
-import FormFramework from "./form";
-import TableTows from "./table";
 import TableDiagram from "./tableDiagram";
 import FormDiagram from "./form-diagram";
 

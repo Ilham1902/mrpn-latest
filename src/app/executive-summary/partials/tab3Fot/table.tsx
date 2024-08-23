@@ -158,7 +158,7 @@ export default function TableTows({ project }: { project: string }) {
    <DialogComponent
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
-    title="Ubah indikasi risiko strategis"
+    title="Ubah Indikasi Risiko Strategis"
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={handleModalClose}>

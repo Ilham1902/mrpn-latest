@@ -1,7 +1,7 @@
 export const dataMatriks = [
  {
   id: 1,
-  level: "tidak toleran",
+  level: "rendah",
   header: {
    title: "Matriks Analisis Risiko 5 X 5",
    levels: ["1", "2", "3", "4", "5"],
@@ -127,7 +127,7 @@ export const dataMatriks = [
  },
  {
   id: 4,
-  level: "agresif",
+  level: "tinggi",
   header: {
    title: "Matriks Analisis Risiko 5 X 5",
    levels: ["1", "2", "3", "4", "5"],

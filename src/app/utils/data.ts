@@ -37,10 +37,24 @@ export const listRiskCategory = [
 ];
 
 export const listFundSource = [
- "APBN",
- "APBD",
- "Hibah",
- "Penerimaan Pembiayaan",
+ { id: 1, source: "APBN" },
+ { id: 2, source: "APBD" },
+ { id: 3, source: "Hibah" },
+ { id: 4, source: "Penerimaan Pembiayaan" },
+ { id: 5, source: "BUMN" },
+ { id: 6, source: "Swasta" },
+];
+
+export const listKldBadanUsaha = [
+ { id: 1, source: "Kementerian ESDM" },
+ { id: 2, source: "Kementerian BUMN" },
+ { id: 3, source: "Kementerian Perhubungan" },
+ { id: 4, source: "Pertamina" },
+ { id: 5, source: "PLN" },
+ { id: 6, source: "KAI" },
+ { id: 6, source: "Angkasa Pura" },
+ { id: 6, source: "PT Angkutan Sungai, Danau dan Penyebrangan (ASDP)" },
+ { id: 6, source: "PT Pelabuhan Indonesia (Pelindo)" },
 ];
 
 export const listEntitasUtama = [

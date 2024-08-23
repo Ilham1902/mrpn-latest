@@ -28,9 +28,9 @@ type Option = (typeof listEntity)[number];
 const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
  return (
   <>
-   <Grid item lg={4}>
+   <Grid item xs={12} md={4}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Entitas</Typography>
+     <FieldLabelInfo title="Entitas" information="Entitas" />
      <TextField
       variant="outlined"
       size="small"
@@ -41,9 +41,9 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
      />
     </FormControl>
    </Grid>
-   <Grid item lg={full ? 8 : 7}>
+   <Grid item xs={12} md={full ? 8 : 7}>
     <FormControl fullWidth>
-     <Typography gutterBottom>Instansi</Typography>
+     <FieldLabelInfo title="Instansi" information="Instansi" />
      <Autocomplete
       multiple
       size="small"
@@ -138,50 +138,23 @@ export default function AddEntity({ mode }: { mode?: string }) {
        information="Kementerian Koordinator"
       />
       <Autocomplete
-       multiple
-       disableCloseOnSelect
+       //    multiple
+       //    disableCloseOnSelect
        filterSelectedOptions
        size="small"
        freeSolo={false}
-       value={columns}
        options={listEntity}
        getOptionLabel={(option) => option.instance}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listEntity.length)
-         setSelectAll(true);
-        setColumns(value);
-       }}
        renderInput={(params) => (
         <TextField
          {...params}
          InputLabelProps={{
           shrink: true,
          }}
-         placeholder="Pilih tagging ProP"
+         placeholder="Pilih kementerian koordinator"
          sx={SxAutocompleteTextField(paramVariantDefault)}
         />
        )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAll();
-            }}
-            label="Pilih semua tagging"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
        sx={{
         ...SxAutocomplete,
         ".MuiInputBase-root": {
@@ -252,9 +225,11 @@ export default function AddEntity({ mode }: { mode?: string }) {
      <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
       <Grid container spacing={2}>
        <Grid item xs={12}>
-        <Divider>
-         <Chip label="Tambah entitas" size="small" />
-        </Divider>
+        <FieldLabelInfo
+         titleSection
+         title="Tambah Entitas"
+         information="Tambah Entitas"
+        />
        </Grid>
        {itemsPP.map((tags: any) => (
         <Fragment key={`${tags.id}`}>

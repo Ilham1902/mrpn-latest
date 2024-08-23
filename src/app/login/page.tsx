@@ -84,7 +84,7 @@ export default function PageLogin() {
      />
     </Stack>
    </Box>
-   <Box position="fixed" top={0} right={0} zIndex={1}>
+   <Box position="fixed" top={0} right={0} zIndex={0}>
     <Image
      alt="Bg Box"
      src="https://res.cloudinary.com/caturteguh/image/upload/v1724115148/mrpn/bg-box-v2_em0i0g.png"
@@ -132,7 +132,7 @@ export default function PageLogin() {
     position="fixed"
     top="50%"
     left="50%"
-    zIndex={1}
+    zIndex={2}
     sx={{
      transform: "translate(-50%,-50%)",
      width: "90%",
