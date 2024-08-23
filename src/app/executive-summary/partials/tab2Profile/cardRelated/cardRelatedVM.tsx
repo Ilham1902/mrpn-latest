@@ -44,15 +44,13 @@ const useCardRelatedVM = () => {
     });
 
     if (response?.code == API_CODE.sucess) {
-      let result: ExsumRelatedDto = response.result;
+      let result: ExsumRelatedDto[] = response.result;
       if (result) {
         setData(result)
-        setRequest(result)
       } else {
-        setData({ ...initExsumRelatedDto })
-        setRequest({ ...initExsumRelatedDto })
+        setData([])
       }
-    }
+    }    
   }
 
   useEffect(() => {

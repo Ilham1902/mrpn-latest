@@ -27,57 +27,29 @@ export default function FormLocation(
     mode,
     options,
     request,
-    setRequest
+    setRequest,
+    columns,
+    setColumns
   }: {
     mode: string
     options: MiscMasterListProvinsiRes[]
     request: ExsumLocationUpdateDto
-    setRequest: any
+    setRequest: any,
+    columns:MiscMasterListProvinsiRes[],
+    setColumns:any
   }
 ) {
 
-  let columnsFilter:MiscMasterListProvinsiRes[] = []
-  if (request.values.length > 0) {
-    const propState = request.values[0].provinsi
-    console.log(propState)
-    columnsFilter = options.filter(x => {
-      return propState.includes(x.id)
-    })
-    console.log(columnsFilter)
-  }
-
-  const [columns, setColumns] = React.useState<MiscMasterListProvinsiRes[]>(columnsFilter);
   const [selectAll, setSelectAll] = React.useState<boolean>(false);
-
-  useEffect(() => {
-
-    if (columns.length > 0) {
-      let listProp: number[] = []
-      columns.map(x => {
-        listProp.push(x.id)
-      })
-      setRequest((prev:ExsumLocationUpdateDto) => {
-        const newVal = {
-          ...prev,
-          values:[
-            {
-              keterangan:prev.values.length > 0 ?prev.values[0].keterangan : "",
-              provinsi:listProp
-            }
-          ]
-        }
-        return newVal
-      }) 
-    }
-
-  },[columns])
 
   const handleToggleSelectAll = () => {
     setSelectAll((prev) => {
       if (!prev) {
         setColumns([...options])
       } else {
-        setColumns([])
+        if (columns.length > 0 && columns.length !== options.length) {
+          setColumns([]) 
+        }
       };
       return !prev;
     });
@@ -90,6 +62,7 @@ export default function FormLocation(
           <FieldLabelInfo title="Lokasi" information="Lokasi" />
           {mode === "add" || mode === "edit" ? (
             <Autocomplete
+              key={columns.length}
               multiple
               disableCloseOnSelect
               filterSelectedOptions
@@ -103,7 +76,7 @@ export default function FormLocation(
                   setSelectAll(false);
                 if (reason === "selectOption" && value.length === options.length)
                   setSelectAll(true);
-                setColumns(value);
+                  setColumns(value);
               }}
               renderInput={(params) => (
                 <TextField

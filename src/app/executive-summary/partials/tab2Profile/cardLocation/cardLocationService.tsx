@@ -1,4 +1,3 @@
-import {MiscMasterListKebijakanReq} from "@/app/misc/master/masterServiceModel";
 import {get, post} from "@/lib/core/api/apiBase";
 import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {

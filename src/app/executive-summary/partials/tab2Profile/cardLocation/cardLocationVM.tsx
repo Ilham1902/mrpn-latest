@@ -19,6 +19,8 @@ const useCardLocationVM = () => {
   const { exsum } = useExsumContext()
 
   const [listProvinsi, setListProvinsi] = useState<MiscMasterListProvinsiRes[]>([])
+  const [columns, setColumns] = useState<MiscMasterListProvinsiRes[]>([]);
+
   const [data, setData] = useState<ExsumLocationDto[]>([])
   const [request, setRequest] = useState<ExsumLocationUpdateDto>({ ...initExsumLocationUpdateDto })
   const [modal, setModal] = useState(false);
@@ -66,6 +68,13 @@ const useCardLocationVM = () => {
           ]
         }
         setRequest(generateRequest)
+
+        let columnsFilter:MiscMasterListProvinsiRes[] = []
+        columnsFilter = listProvinsi.filter(x => {
+          return propList.includes(x.id)
+        })
+        setColumns(columnsFilter)
+        
       } else {
         setData([])
         setRequest({ ...initExsumLocationUpdateDto })
@@ -74,10 +83,32 @@ const useCardLocationVM = () => {
   }
 
   useEffect(() => {
+
+    if (columns.length > 0) {
+      let listProp: number[] = []
+      columns.map(x => {
+        listProp.push(x.id)
+      })
+      setRequest((prev:ExsumLocationUpdateDto) => {
+        const newVal = {
+          ...prev,
+          values:[
+            {
+              keterangan:prev.values.length > 0 ?prev.values[0].keterangan : "",
+              provinsi:listProp
+            }
+          ]
+        }
+        return newVal
+      }) 
+    }
+
+  },[columns])
+
+  useEffect(() => {
     if (listProvinsi.length == 0) {
       getProvinsi()
     }
-
     if (exsum.id !== 0) {
       getData();
     }
@@ -114,7 +145,9 @@ const useCardLocationVM = () => {
     modal,
     setModal,
     listProvinsi,
-    updateData
+    updateData,
+    columns,
+    setColumns
   }
 
 }

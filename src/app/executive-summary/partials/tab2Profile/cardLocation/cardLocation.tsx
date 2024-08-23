@@ -17,7 +17,17 @@ import useCardLocationVM from "@/app/executive-summary/partials/tab2Profile/card
 
 export default function CardLocation({ project }: { project: string }) {
 
-  const {modal,setModal,data,request,setRequest,listProvinsi,updateData} = useCardLocationVM();
+  const {
+    modal,
+    setModal,
+    data,
+    request,
+    setRequest,
+    listProvinsi,
+    updateData,
+    columns,
+    setColumns
+  } = useCardLocationVM();
 
  return (
   <CardItem title="Lokasi Proyek" setting settingEditOnclick={() => setModal(true)}>
@@ -75,7 +85,13 @@ export default function CardLocation({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormLocation mode="add" options={listProvinsi} request={request} setRequest={setRequest} />
+    <FormLocation mode="add" 
+      options={listProvinsi}
+       request={request}
+        setRequest={setRequest}
+        columns={columns}
+        setColumns={setColumns}
+    />
    </DialogComponent>
   </CardItem>
  );
