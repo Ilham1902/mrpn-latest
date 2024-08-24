@@ -274,9 +274,9 @@ export default function PageLogin() {
          gap={3}
          alignItems="center"
          sx={{
-          gap: 2,
-          img: {
-           [theme.breakpoints.down("md")]: {
+          [theme.breakpoints.down("md")]: {
+           gap: 2,
+           img: {
             height: "40px !important",
            },
           },
