@@ -1,6 +1,7 @@
 import { del, post, put } from "@/lib/core/api/apiBase";
 import { ResponseBaseDto } from "@/lib/core/api/apiModel";
 import {
+  DeleteRelatedByExsumIdServiceModel,
   GetRelatedByExsumIdServiceModel, UpdateRelatedByExsumIdServiceModel
 } from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 
@@ -28,7 +29,7 @@ export async function doUpdate(param: UpdateRelatedByExsumIdServiceModel) {
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
 
-export async function doDelete(param: UpdateRelatedByExsumIdServiceModel) {
+export async function doDelete(param: DeleteRelatedByExsumIdServiceModel) {
   const resp = await del({
     ...param,
     url: "exsum/kebijakan/delete",

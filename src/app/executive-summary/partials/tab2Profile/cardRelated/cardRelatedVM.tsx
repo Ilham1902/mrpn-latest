@@ -3,12 +3,12 @@ import {useEffect, useState} from "react";
 import {
   ExsumRelatedInitState, exsumRelatedInitStateData, ExsumRelatedReqCh1Dto, ExsumRelatedReqCh2Dto,
   ExsumRelatedDto,
-  initExsumRelatedDto, UpdateRelatedByExsumIdServiceModel
+  initExsumRelatedDto, UpdateRelatedByExsumIdServiceModel, DeleteRelatedByExsumIdServiceModel
 } from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {doGetMasterListKebijakan} from "@/app/misc/master/masterService";
 import {MiscMasterListKebijakanRes} from "@/app/misc/master/masterServiceModel";
-import {doCreate, doGet} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedService";
+import {doCreate, doDelete, doGet} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedService";
 
 const useCardRelatedVM = () => {
 
@@ -97,6 +97,18 @@ const useCardRelatedVM = () => {
 
   }
 
+  const deleteData = async (id:number) => {
+    const params:DeleteRelatedByExsumIdServiceModel = {
+      body: {id:id},
+      loadingContext:loadingContext,
+      errorModalContext:errorModalContext
+    }
+    const response = await doDelete(params)
+    if (response?.code == API_CODE.sucess) {
+      getData()
+    }
+  }
+
   return {
     options,
     data,
@@ -106,7 +118,8 @@ const useCardRelatedVM = () => {
     setState,
     modal,
     setModal,
-    updateData
+    updateData,
+    deleteData
   }
 
 }

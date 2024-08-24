@@ -42,6 +42,10 @@ export type UpdateRelatedByExsumIdServiceModel = BaseAPIServiceParam & {
   body: ExsumRelatedDto;
 };
 
+export type DeleteRelatedByExsumIdServiceModel = BaseAPIServiceParam & {
+  body: { id:number };
+};
+
 export interface ExsumRelatedInitState {
   value: string
   options: MiscMasterListKebijakanRes[]

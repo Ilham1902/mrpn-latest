@@ -19,10 +19,18 @@ import { IconKeluar } from "../icons";
 import { IconFA } from "../icons/icon-fa";
 import Image from "next/image";
 import Aside from "./aside";
-import { usePathname } from "next/navigation";
+import {usePathname,useRouter} from "next/navigation";
 import Link from "next/link";
+// import { useRouter } from "next/navigation";
 
 export default function Header({}) {
+
+ const router = useRouter();
+ const doLogout = () => {
+  sessionStorage.clear()
+  router.replace("/login")
+ }
+
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const [openDrawerMobile, setOpenDrawerMobile] = React.useState(false);
 
@@ -293,11 +301,11 @@ export default function Header({}) {
       <ListItemIcon>
        <IconKeluar color={red[800]} />
       </ListItemIcon>
-      <Link href="/">
-       <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
-        <Link href="/">Keluar Sistem</Link>
-       </ListItemText>
-      </Link>
+      <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
+       <Button onClick={() => doLogout()}>
+        Keluar Sistem
+       </Button>
+      </ListItemText>
      </MenuItem>
     </Menu>
    </Stack>

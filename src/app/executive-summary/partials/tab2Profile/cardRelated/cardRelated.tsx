@@ -20,7 +20,8 @@ export default function CardRelated({ project }: { project: string }) {
    setRequest,
    state,
    setState,
-   updateData
+   updateData,
+   deleteData
  } = useCardRelatedVM()
 
  return (
@@ -43,7 +44,7 @@ export default function CardRelated({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <TableTagging project={project} data={data} />
+    <TableTagging project={project} data={data} handleDelete={deleteData} />
    )}
    <DialogComponent
     dialogOpen={modal}

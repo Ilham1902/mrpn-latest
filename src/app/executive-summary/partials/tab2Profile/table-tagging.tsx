@@ -1,53 +1,30 @@
 import React, { Fragment } from "react";
 import {
- Chip,
+ Chip, Icon, IconButton,
  Paper,
  Table,
  TableBody,
  TableCell,
  TableContainer,
  TableHead,
- TableRow,
+ TableRow, Tooltip,
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
 import { dataTema } from "../../dataTema";
 import {ExsumRelatedDto} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 
-export default function TableTagging({ project, data }: { project: string, data:ExsumRelatedDto[] }) {
- function createData(id: number, kebijakan: string, note: React.ReactNode) {
-  return {
-   id,
-   kebijakan,
-   note,
-  };
- }
-
- const rows = [
-  createData(
-   1,
-   "Janpres",
-   "Memberi makan siang dan susu gratis di sekolah dan pesantren, serta bantuan gizi untuk anak balita dan ibu hamil"
-  ),
-  createData(
-   2,
-   "RPJPN",
-   <ul>
-    <li>
-     Investasi pelayanan Kesehatan primer, penuntasan stunting, serta eliminasi
-     penyakit menular dan penyakit tropis terabaikan (terutama: tuberculosis dan
-     kusta)
-    </li>
-    <li>Prevalensi stunting (pendek dan sangat pendek) pada balita (%)</li>
-   </ul>
-  ),
- ];
-
+export default function TableTagging({ project, data, handleDelete }: { project: string, data:ExsumRelatedDto[], handleDelete:any }) {
  return (
   <TableContainer component={Paper} elevation={0}>
    <Table sx={{ minWidth: 650 }} size="small">
     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
      <TableRow>
+      <TableCell sx={{ width: 100 }}>
+       <Typography variant="body1" fontWeight={600}>
+        Action
+       </Typography>
+      </TableCell>
       <TableCell sx={{ width: 200 }}>
        <Typography variant="body1" fontWeight={600}>
         Kebijakan
@@ -66,6 +43,23 @@ export default function TableTagging({ project, data }: { project: string, data:
          key={index}
          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
        >
+        <TableCell sx={{ textAlign: "center" }}>
+         <Tooltip title="Delete" placement="top">
+          <IconButton
+            aria-label="delete"
+            color="error"
+            onClick={() => handleDelete(x.id)}
+          >
+           <Icon
+             baseClassName="fas"
+             className={`fa-trash-alt`}
+             sx={{
+              fontSize: "14px",
+             }}
+           />
+          </IconButton>
+         </Tooltip>
+        </TableCell>
         <TableCell>
          {x.kebijakan.map((y,index2) => (
            <Chip

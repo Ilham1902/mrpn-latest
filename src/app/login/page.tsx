@@ -19,6 +19,8 @@ import { grey } from "@mui/material/colors";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import theme from "@/theme";
+import useLoginVM from "@/app/login/loginVM";
+import { redirect } from 'next/navigation'
 gsap.registerPlugin(useGSAP);
 
 const glowingEffect = keyframes`
@@ -34,6 +36,9 @@ const glowingEffect = keyframes`
 `;
 
 export default function PageLogin() {
+
+  const {auth,setAuth,doLogin} = useLoginVM()
+
  const sxTextField = {
   bgcolor: "rgba(255, 255, 255, 0.5)",
   borderRadius: 3,
@@ -421,6 +426,13 @@ export default function PageLogin() {
           fullWidth
           required
           sx={sxTextField}
+          value={auth.username}
+          onChange={(e) => setAuth(prev => {
+            return {
+              ...prev,
+              username:e.target.value
+            }
+          })}
          />
          <TextField
           type="password"
@@ -432,6 +444,13 @@ export default function PageLogin() {
           fullWidth
           required
           sx={sxTextField}
+          value={auth.password}
+          onChange={(e) => setAuth(prev => {
+            return {
+              ...prev,
+              password:e.target.value
+            }
+          })}
          />
          <FormControlLabel
           control={
@@ -458,7 +477,12 @@ export default function PageLogin() {
          <Button
           type="submit"
           fullWidth
-          href="/executive-summary"
+          // href="/executive-summary"
+           onClick={() => {
+             if (doLogin()) {
+               redirect('/executive-summary')
+             }
+           }}
           className="glow-on-hover cta"
           sx={{
            mt: 2,
