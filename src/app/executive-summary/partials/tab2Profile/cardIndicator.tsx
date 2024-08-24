@@ -69,7 +69,7 @@ export default function CardIndicator({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormRelated mode="add" />
+    {/*<FormRelated mode="add" />*/}
    </DialogComponent>
   </CardItem>
  );

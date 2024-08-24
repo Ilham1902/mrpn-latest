@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import {
+ Chip,
  Paper,
  Table,
  TableBody,
@@ -11,8 +12,9 @@ import {
 } from "@mui/material";
 import theme from "@/theme";
 import { dataTema } from "../../dataTema";
+import {ExsumRelatedDto} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 
-export default function TableTagging({ project }: { project: string }) {
+export default function TableTagging({ project, data }: { project: string, data:ExsumRelatedDto[] }) {
  function createData(id: number, kebijakan: string, note: React.ReactNode) {
   return {
    id,
@@ -59,36 +61,24 @@ export default function TableTagging({ project }: { project: string }) {
      </TableRow>
     </TableHead>
     <TableBody>
-     {dataTema.map((itemRow, index) => (
-      <Fragment key={index}>
-       {project === itemRow.temaId && (
-        <>
-         {itemRow.tags.map((detailRisk, index) => (
-          <TableRow
-           key={index}
-           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-           <TableCell>
-            <Typography variant="body1">{detailRisk.policy}</Typography>
-           </TableCell>
-           <TableCell>
-            {detailRisk.description.length > 1 ? (
-             <ul>
-              {detailRisk.description.map((itemDesc, index) => (
-               <li key={index}>
-                <Typography variant="body1">{itemDesc}</Typography>
-               </li>
-              ))}
-             </ul>
-            ) : (
-             <Typography variant="body1">{detailRisk.description}</Typography>
-            )}
-           </TableCell>
-          </TableRow>
+     {data.map((x,index) => (
+       <TableRow
+         key={index}
+         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+       >
+        <TableCell>
+         {x.kebijakan.map((y,index2) => (
+           <Chip
+             key={index2}
+             size="small"
+             label={y.src_kebijakan?.name}
+           />
          ))}
-        </>
-       )}
-      </Fragment>
+        </TableCell>
+        <TableCell>
+         <Typography variant="body1">{x.value}</Typography>
+        </TableCell>
+       </TableRow>
      ))}
     </TableBody>
    </Table>

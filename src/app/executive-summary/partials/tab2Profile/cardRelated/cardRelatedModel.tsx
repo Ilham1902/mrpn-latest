@@ -1,17 +1,33 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
+import {MiscMasterListKebijakanRes} from "@/app/misc/master/masterServiceModel";
 
+export interface ExsumRelatedReqCh1Dto {
+  src_kebijakan_id:number
+  src_kebijakan?: {
+    id:number
+    name:string
+  }
+  list:ExsumRelatedReqCh2Dto[]
+}
+export interface ExsumRelatedReqCh2Dto {
+  src_kebijakan_list_id:number
+  src_kebijakan_list?:{
+    id:number
+    value:string
+  }
+}
 export interface ExsumRelatedDto {
   id: number
   exsum_id: number
-  kebijakan:string
   value: string
+  kebijakan: ExsumRelatedReqCh1Dto[]
 }
 
 export const initExsumRelatedDto:ExsumRelatedDto = {
   id: 0,
   exsum_id: 0,
-  kebijakan: "",
-  value: ""
+  value: "",
+  kebijakan: []
 }
 
 export interface GetByExsumId {
@@ -25,3 +41,13 @@ export type GetRelatedByExsumIdServiceModel = BaseAPIServiceParam & {
 export type UpdateRelatedByExsumIdServiceModel = BaseAPIServiceParam & {
   body: ExsumRelatedDto;
 };
+
+export interface ExsumRelatedInitState {
+  value: string
+  options: MiscMasterListKebijakanRes[]
+}
+
+export const exsumRelatedInitStateData:ExsumRelatedInitState = {
+  value:"",
+  options:[]
+}

@@ -1,13 +1,14 @@
 import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
 import {useEffect, useState} from "react";
 import {
+  ExsumRelatedInitState, exsumRelatedInitStateData, ExsumRelatedReqCh1Dto, ExsumRelatedReqCh2Dto,
   ExsumRelatedDto,
-  initExsumRelatedDto
+  initExsumRelatedDto, UpdateRelatedByExsumIdServiceModel
 } from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 import {API_CODE} from "@/lib/core/api/apiModel";
-import {doGet} from "@/app/executive-summary/partials/tab2Profile/cardGoals/cardGoalsService";
 import {doGetMasterListKebijakan} from "@/app/misc/master/masterService";
 import {MiscMasterListKebijakanRes} from "@/app/misc/master/masterServiceModel";
+import {doCreate, doGet} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedService";
 
 const useCardRelatedVM = () => {
 
@@ -15,9 +16,10 @@ const useCardRelatedVM = () => {
   const errorModalContext = useGlobalModalContext();
   const {exsum} = useExsumContext()
 
-  const [listKebijakan, setListKabijakan] = useState<MiscMasterListKebijakanRes[]>([])
+  const [options, setOptions] = useState<MiscMasterListKebijakanRes[]>([])
   const [data, setData] = useState<ExsumRelatedDto[]>([])
   const [request, setRequest] = useState<ExsumRelatedDto>({ ...initExsumRelatedDto })
+  const [state, setState] = useState<ExsumRelatedInitState>(exsumRelatedInitStateData)
   const [modal, setModal] = useState(false);
 
   async function getMiscMasterListKebijakan(){
@@ -29,7 +31,7 @@ const useCardRelatedVM = () => {
     if (response?.code == API_CODE.sucess) {
       let result: MiscMasterListKebijakanRes[] = response.result;
       if (result) {
-        setListKabijakan(result)
+        setOptions(result)
       }
     }
   }
@@ -50,7 +52,7 @@ const useCardRelatedVM = () => {
       } else {
         setData([])
       }
-    }    
+    }
   }
 
   useEffect(() => {
@@ -60,12 +62,51 @@ const useCardRelatedVM = () => {
     }
   }, [exsum]);
 
+  const updateData = async () => {
+    let req:ExsumRelatedDto = {
+      id: 0,
+      exsum_id: exsum.id,
+      value: state.value,
+      kebijakan: []
+    }
+
+    let opt:ExsumRelatedReqCh1Dto[] = []
+    state.options.map(x => {
+      let opt2:ExsumRelatedReqCh2Dto[] = []
+      x.list.map(y => {
+        if(y?.isCheck){
+          opt2.push({src_kebijakan_list_id:y.id})
+        }
+      })
+      opt.push({src_kebijakan_id:x.id, list:opt2})
+    })
+
+    req.kebijakan = opt
+
+    const params:UpdateRelatedByExsumIdServiceModel = {
+      body:req,
+      loadingContext:loadingContext,
+      errorModalContext:errorModalContext
+    }
+
+    const response = await doCreate(params)
+    if (response?.code == API_CODE.sucess) {
+      getData()
+      setModal(false)
+    }
+
+  }
+
   return {
-    listKebijakan,
+    options,
     data,
     request,
+    setRequest,
+    state,
+    setState,
     modal,
-    setModal
+    setModal,
+    updateData
   }
 
 }

@@ -4,8 +4,16 @@ import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
 export type MiscMasterListKebijakanReq = BaseAPIServiceParam & {
   body: {};
 };
+export interface MiscMasterListKebijakanChildRes {
+  id: number
+  src_kebijakan_id: number
+  value: string
+  isCheck?: boolean
+}
 export interface MiscMasterListKebijakanRes {
+  id:number
   name: string
+  list: MiscMasterListKebijakanChildRes[]
 }
 export const initMiscMasterListKebijakan:MiscMasterListKebijakanRes[] = []
 

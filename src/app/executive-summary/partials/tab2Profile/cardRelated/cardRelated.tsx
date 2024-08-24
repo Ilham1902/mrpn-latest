@@ -9,13 +9,23 @@ import TableTagging from "../table-tagging";
 import FormRelated from "./form-related";
 import useCardRelatedVM from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedVM";
 
-export default function CardRelate({ project }: { project: string }) {
+export default function CardRelated({ project }: { project: string }) {
 
- const {data,modal,setModal} = useCardRelatedVM()
+ const {
+   data,
+   modal,
+   setModal,
+   options,
+   request,
+   setRequest,
+   state,
+   setState,
+   updateData
+ } = useCardRelatedVM()
 
  return (
   <CardItem
-   title="Keterkaitan Program"
+   title={`Keterkaitan Program`}
    addButton={
     <AddButton
      filled
@@ -33,7 +43,7 @@ export default function CardRelate({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <TableTagging project={project} />
+    <TableTagging project={project} data={data} />
    )}
    <DialogComponent
     dialogOpen={modal}
@@ -44,13 +54,18 @@ export default function CardRelate({ project }: { project: string }) {
       <Button variant="outlined" onClick={() => setModal(false)}>
        Batal
       </Button>
-      <Button variant="contained" type="submit">
+      <Button variant="contained" type="submit" onClick={() => updateData()}>
        Simpan
       </Button>
      </DialogActions>
     }
    >
-    <FormRelated mode="add" />
+    <FormRelated
+      mode="add"
+      options={options}
+      state={state}
+      setState={setState}
+    />
    </DialogComponent>
   </CardItem>
  );

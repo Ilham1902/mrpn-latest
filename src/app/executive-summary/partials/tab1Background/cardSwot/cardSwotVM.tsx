@@ -49,7 +49,6 @@ const useCardSWOTVM = () => {
                     initReqState.values.push({type:swotTitle,values:[]})
 
                     const group = result.values.filter(x => x.type == swotTitle)
-                    console.log(group)
                     const getKeyIndex = initReqState.values.findIndex(x => x.type == swotTitle)
                     if (getKeyIndex > -1){
                         const values = [...initReqState.values]
