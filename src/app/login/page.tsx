@@ -13,10 +13,13 @@ import {
  Typography,
 } from "@mui/material";
 import { keyframes } from "@mui/system";
-import { IndonesianSvgMap } from "../components/icons";
 import Image from "next/image";
-import { paramVariantDefault } from "../utils/constant";
 import { grey } from "@mui/material/colors";
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import theme from "@/theme";
+gsap.registerPlugin(useGSAP);
 
 const glowingEffect = keyframes`
     0% {
@@ -57,6 +60,33 @@ export default function PageLogin() {
   },
  };
 
+ useGSAP(() => {
+  const handleMouseMove = (event: any) => {
+   const { clientX, clientY } = event;
+   const x = (window.innerWidth - clientX) / 20;
+   const y = (window.innerHeight - clientY) / 20;
+
+   gsap.to(".box-parallax-bg", {
+    x: x,
+    y: y,
+    ease: "power2.out",
+   });
+
+   gsap.to(".map-parallax-bg", {
+    x: x / -5,
+    y: y / -5,
+    ease: "power2.out",
+   });
+  };
+
+  document.addEventListener("mousemove", handleMouseMove);
+
+  // Cleanup function to remove the event listener
+  return () => {
+   document.removeEventListener("mousemove", handleMouseMove);
+  };
+ }, []);
+
  return (
   <Stack
    width="100%"
@@ -73,14 +103,25 @@ export default function PageLogin() {
     backgroundPosition: "center",
    }}
   >
-   <Box position="fixed" top={0} right={0} zIndex={0}>
+   <Box
+    position="fixed"
+    top={0}
+    right={0}
+    zIndex={0}
+    className="box-parallax-bg"
+   >
     <Image
      alt="Bg Box"
      src="https://res.cloudinary.com/caturteguh/image/upload/v1724115148/mrpn/bg-box-v2_em0i0g.png"
      width={0}
      height={0}
      sizes="100vw"
-     style={{ width: "auto", height: "100vh", opacity: 0.2 }}
+     style={{
+      width: "auto",
+      height: "100vh",
+      opacity: 0.2,
+      transform: "scale(1.2)",
+     }}
     />
    </Box>
    {/* <Box
@@ -126,6 +167,7 @@ export default function PageLogin() {
      transform: "translate(-50%,-50%)",
      width: "90%",
     }}
+    className="map-parallax-bg"
    >
     <Image
      alt="Indonesian Map"
@@ -142,6 +184,10 @@ export default function PageLogin() {
      position: "relative",
      zIndex: 2,
      mt: "92px",
+     [theme.breakpoints.down("md")]: {
+      px: 4,
+      mt: 5,
+     },
     }}
    >
     <Stack
@@ -149,9 +195,21 @@ export default function PageLogin() {
      justifyContent="space-between"
      alignItems="center"
      gap={5}
+     sx={{
+      [theme.breakpoints.down("md")]: { flexDirection: "column" },
+     }}
     >
      <Stack gap={4}>
-      <Box>
+      <Box
+       sx={{
+        [theme.breakpoints.down("md")]: {
+         position: "fixed",
+         top: 0,
+         left: "50%",
+         transform: "translateX(-50%)",
+        },
+       }}
+      >
        <Box
         py={2}
         px={4}
@@ -160,15 +218,35 @@ export default function PageLogin() {
         boxShadow="0px 10px 15px -3px rgba(0,0,0,0.6)"
         width="auto"
         display="inline-block"
+        sx={{
+         [theme.breakpoints.down("md")]: {
+          py: 1.5,
+          px: 3,
+          borderRadius: "0 0 20px 20px",
+         },
+        }}
        >
-        <Stack direction="row" gap={3}>
+        <Stack
+         direction="row"
+         gap={3}
+         sx={{
+          img: {
+           [theme.breakpoints.down("md")]: {
+            height: "30px !important",
+           },
+          },
+         }}
+        >
          <Image
           alt="Bappenas"
           src="https://res.cloudinary.com/caturteguh/image/upload/v1724366680/mrpn/logo-only-bappenas-cmp_vcnfqq.png"
           width={0}
           height={0}
           sizes="100vw"
-          style={{ width: "auto", height: "50px" }}
+          style={{
+           width: "auto",
+           height: "50px",
+          }}
          />
          <Image
           alt="Indonesia Emas 2045"
@@ -191,7 +269,19 @@ export default function PageLogin() {
       </Box>
       <Box>
        <Box display="inline-block">
-        <Stack direction="row" gap={3} alignItems="center">
+        <Stack
+         direction="row"
+         gap={3}
+         alignItems="center"
+         sx={{
+          gap: 2,
+          img: {
+           [theme.breakpoints.down("md")]: {
+            height: "40px !important",
+           },
+          },
+         }}
+        >
          <Image
           alt="Logo MRPN"
           src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
@@ -202,12 +292,17 @@ export default function PageLogin() {
          />
          <Typography
           fontWeight={900}
-          fontSize="clamp(1rem, 2vw, 2.5rem)"
+          fontSize="clamp(1.5rem, 2vw, 2.5rem)"
           color="white"
           component="h1"
           lineHeight={1.2}
           textTransform="uppercase"
           letterSpacing={1.7}
+          sx={{
+           [theme.breakpoints.down("md")]: {
+            fontSize: "1rem",
+           },
+          }}
          >
           Manajemen Risiko
           <br />
@@ -222,6 +317,7 @@ export default function PageLogin() {
           borderWidth: "1px",
           width: "100%",
           opacity: 0.3,
+          [theme.breakpoints.down("md")]: { my: 1 },
          }}
         />
         <Typography
@@ -231,6 +327,11 @@ export default function PageLogin() {
          fontSize="clamp(1rem, 2vw, 1.2rem)"
          lineHeight={1.4}
          textTransform="uppercase"
+         sx={{
+          [theme.breakpoints.down("md")]: {
+           fontSize: "0.9rem",
+          },
+         }}
         >
          National Risk Information System
         </Typography>
@@ -281,11 +382,19 @@ export default function PageLogin() {
         // filter: "brightness(1.2)",
         backdropFilter: "blur(10px)",
        },
+       [theme.breakpoints.down("md")]: {
+        px: 5,
+        py: 4,
+       },
       }}
-      //   className="profile"
      >
       <form>
-       <Stack gap={4}>
+       <Stack
+        gap={4}
+        sx={{
+         [theme.breakpoints.down("md")]: { gap: 2 },
+        }}
+       >
         <Typography
          variant="h2"
          gutterBottom
@@ -294,6 +403,11 @@ export default function PageLogin() {
          fontWeight={900}
          textTransform="uppercase"
          letterSpacing={1.5}
+         sx={{
+          [theme.breakpoints.down("md")]: {
+           fontSize: "1.5rem",
+          },
+         }}
         >
          Login
         </Typography>
