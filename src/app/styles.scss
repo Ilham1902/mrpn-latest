@@ -1,0 +1,105 @@
+body {
+ margin: 0;
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ background-color: rgb(22, 20, 24);
+ color: #eee;
+ user-select: none;
+}
+
+code {
+ font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.nft {
+ user-select: none;
+ max-width: 300px;
+ margin: 5rem auto;
+ border: 1px solid #ffffff22;
+ //  background-color: #282c34;
+ //  background: linear-gradient(
+ //   0deg,
+ //   rgba(40, 44, 52, 1) 0%,
+ //   rgba(17, 0, 32, 0.5) 100%
+ //  );
+ box-shadow: 0 7px 20px 5px #00000088;
+ border-radius: 0.7rem;
+ //  backdrop-filter: blur(7px);
+ //  -webkit-backdrop-filter: blur(7px);
+ overflow: hidden;
+ transition: 0.5s all;
+ hr {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #88888855;
+  margin-top: 0;
+ }
+ ins {
+  text-decoration: none;
+ }
+ ::before {
+  position: fixed;
+  content: "";
+  box-shadow: 0 0 100px 40px #ffffff08;
+  top: -10%;
+  left: -100%;
+  transform: rotate(-45deg);
+  height: 60rem;
+  transition: 0.7s all;
+ }
+ &:hover {
+  border: 1px solid #ffffff44;
+  box-shadow: 0 7px 50px 10px #000000aa;
+  transform: scale(1.015);
+  filter: brightness(1.3);
+  backdrop-filter: blur(7px);
+  ::before {
+   filter: brightness(0.5);
+   top: -100%;
+   left: 200%;
+  }
+ }
+}
+
+.profile {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ padding: 3rem;
+ width: 90%;
+ max-width: 300px;
+ background-color: #1b2028;
+ border-radius: 16px;
+ position: relative;
+ border: 3px solid transparent;
+ background-clip: padding-box;
+ text-align: center;
+ color: #f1f3f3;
+ background-image: linear-gradient(
+  135deg,
+  rgba(#752e7c, 0.35),
+  rgba(#734a58, 0.1) 15%,
+  #1b2028 20%,
+  #1b2028 100%
+ );
+ &:after {
+  content: "";
+  display: block;
+  top: -3px;
+  left: -3px;
+  bottom: -3px;
+  right: -3px;
+  z-index: -1;
+  position: absolute;
+  border-radius: 16px;
+  background-image: linear-gradient(
+   135deg,
+   #752e7c,
+   #734a58 20%,
+   #1b2028 30%,
+   #2c333e 100%
+  );
+ }
+}

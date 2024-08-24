@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { CssBaseline } from "@mui/material";
 import React from "react";
 import "./globals.css";
+import "./styles.scss";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import {RKPProvider} from "@/lib/core/provider/rkpProvider";

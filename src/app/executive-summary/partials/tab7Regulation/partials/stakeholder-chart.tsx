@@ -183,7 +183,12 @@ export default function StakeholderChart({ project }: { project: string }) {
      },
      {
       name: "Entitas Pendukung",
-      title: <InstanceScroll />,
+      title: (
+       <InstanceLogo
+        imgSrc="https://res.cloudinary.com/caturteguh/image/upload/v1711955963/mrpn/company_logo/logo_kemenhub_ivgjzh.png"
+        name="Kementerian Perhubungan"
+       />
+      ),
      },
      //  {
      //   name: "Entitas Pendukung",
