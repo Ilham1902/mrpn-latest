@@ -1,4 +1,4 @@
-import { useExsumContext, useGlobalModalContext, useLoading } from "@/lib/core/hooks/useHooks";
+import {useExsumContext, useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
 import { ExsumSegmentDto, initExsumSegmentDto } from "./cardSegmentModel";
 import { useEffect, useState } from "react";
 import { doCreate, doDelete, doGet, doUpdate } from "./cardSegmentService";
@@ -8,6 +8,7 @@ const useCardSegmentVM = () => {
 
     const loadingContext = useLoading();
     const errorModalContext = useGlobalModalContext();
+    const { rkpState } = useRKPContext(state => state)
     const { exsum } = useExsumContext()
 
     const [data, setData] = useState<ExsumSegmentDto>({ ...initExsumSegmentDto })

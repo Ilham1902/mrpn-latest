@@ -8,7 +8,7 @@ import {
   ResponseBaseDto,
 } from "./apiModel";
 
-const API_BASE = process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE = process.env.NEXT_PUBLIC_BASE_URL_API;
 const IS_ENCRYPT = false;
 const REFRESH_TOKEN = { refreshing: false };
 

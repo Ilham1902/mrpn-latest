@@ -205,7 +205,7 @@ export default function PageTema({}) {
 
  return (
   <>
-   <DashboardLayout noOverflow>
+   <DashboardLayout>
     <LoadingPage />
     <ContentPage
      title="Objek MRPN & UPR Linsek"

@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import CardTows from "./tab3Fot/cardTows";
+import CardTows from "./tab3Fot/cardTows/cardTows";
 
 export default function Tab3Fot({ project }: { project: string }) {
  return (

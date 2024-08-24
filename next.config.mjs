@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'standalone',
+    // output: "standalone",
+    output:"export",
     reactStrictMode: false,
+    crossOrigin: 'anonymous',
     images: {
+        unoptimized:true,
         remotePatterns: [
             {
                 protocol: "https",

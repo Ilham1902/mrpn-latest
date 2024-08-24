@@ -3,11 +3,12 @@
  "version": "0.1.0",
  "private": true,
  "scripts": {
-  "local": "env-cmd -f .env.local next dev",
-  "dev": "env-cmd -f .env.development next dev",
-  "build:dev": "env-cmd -f .env.development next build",
-  "build": "next build",
-  "start": "next start",
+  "dev": "env-cmd -f .env.dev next dev",
+  "prod": "env-cmd -f .env.prod next dev",
+  "build:dev": "env-cmd -f .env.dev next build",
+  "build:prod": "env-cmd -f .env.prod next build",
+  "start:dev": "env-cmd -f .env.dev npx serve@latest out",
+  "start:prod": "env-cmd -f .env.prod npx serve@latest out",
   "lint": "next lint"
  },
  "dependencies": {
@@ -38,6 +39,7 @@
   "react-highlight-words": "^0.20.0",
   "react-quill": "^2.0.0",
   "sass": "^1.77.8",
+  "sharp": "^0.33.5",
   "zustand": "^4.5.2"
  },
  "devDependencies": {

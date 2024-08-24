@@ -69,11 +69,10 @@ const useRkpVM = () => {
     }
   }
 
-  const handleChangeOptions = (params:OptionsRKP) => {
-    setRkpState(params)
+  function triggerChange(params: ProjectDefaultDto) {
     if (params.level == "PP" || params.level == "P") {
-      let req:ExsumDto = {
-        id:0,
+      let req: ExsumDto = {
+        id: 0,
         tahun: new Date().getFullYear(),
         level: params.level,
         ref_id: params.id
@@ -82,11 +81,17 @@ const useRkpVM = () => {
     }
   }
 
+  const handleChangeOptions = (params:OptionsRKP) => {
+    setRkpState(params)
+  }
+
   useEffect(() => {
     if (rkp.length == 0){
       getData()
+    } else {
+      if (rkpState) triggerChange(rkpState);
     }
-  }, [rkpContext.rkp]);
+  }, [rkp, rkpState]);
 
   return {
     options:rkpOption,
