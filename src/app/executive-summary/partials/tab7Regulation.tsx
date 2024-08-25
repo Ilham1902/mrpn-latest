@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import CardRegulation from "./tab7Regulation/cardRegulation";
+import CardRegulation from "./tab7Regulation/cardRegulation/cardRegulation";
 
 export default function Tab7Regulation({ project }: { project: string }) {
  return (

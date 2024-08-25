@@ -56,7 +56,7 @@ function CustomTabPanel(props: TabPanelProps) {
    id={`simple-tabpanel-${index}`}
    aria-labelledby={`simple-tab-${index}`}
    {...other}
-   style={{ display: (project === "") ? "none" : "block" }}
+   style={{ display: (project === "5") ? "none" : "block" }}
   >
    {value === index && <Box sx={styleTabPanel(sxParams)}>{children}</Box>}
   </div>
@@ -120,13 +120,6 @@ export default function PageExecutiveSummary({}) {
  const sxParamsFilled: SxParams = { variant: "filled" };
  const condTabHeightLv1 = btnShowTab ? "0" : "unset";
  const condTabHeightLv2 = btnShowTab ? "3" : "2";
-
- const {exsum} = useExsumContext()
-
- // useEffect(() => {
- //  console.log(rkpState)
- //  console.log(exsum)
- // }, [rkpState, exsum])
 
  return (
    <ContentPage

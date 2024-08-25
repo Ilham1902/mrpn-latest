@@ -34,7 +34,7 @@ export default function CardRoadmap({ project }: { project: string }) {
   setModalOpenBisnis(false);
  };
 
- const isEmpty = false;
+ const isEmpty = true;
 
  return (
   <CardItem

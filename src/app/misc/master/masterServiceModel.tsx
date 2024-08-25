@@ -15,7 +15,6 @@ export interface MiscMasterListKebijakanRes {
   name: string
   list: MiscMasterListKebijakanChildRes[]
 }
-export const initMiscMasterListKebijakan:MiscMasterListKebijakanRes[] = []
 
 // LIST PROVINSI
 export type MiscMasterListProvinsiReq = BaseAPIServiceParam & {
@@ -25,4 +24,13 @@ export interface MiscMasterListProvinsiRes {
   id: number
   name: string
 }
-export const initMiscMasterListProvinsi:MiscMasterListProvinsiRes[] = []
+
+// LIST PERPRES
+export type MiscMasterListPerpresReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MiscMasterListPerpresRes {
+  id: number
+  title:string
+  value: string
+}
