@@ -3,7 +3,7 @@ import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
   MiscMasterListKebijakanReq,
   MiscMasterListPerpresReq,
-  MiscMasterListProvinsiReq
+  MiscMasterListProvinsiReq, MiscMasterListStakeholderReq
 } from "@/app/misc/master/masterServiceModel";
 
 export async function doGetMasterListKebijakan(param: MiscMasterListKebijakanReq) {
@@ -26,6 +26,14 @@ export async function doGetMasterListPerpres(param: MiscMasterListPerpresReq) {
   const resp = await get({
     ...param,
     url: "misc/master/listPerpres",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetMasterListStakeholder(param: MiscMasterListStakeholderReq) {
+  const resp = await get({
+    ...param,
+    url: "misc/master/listStakeholder",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

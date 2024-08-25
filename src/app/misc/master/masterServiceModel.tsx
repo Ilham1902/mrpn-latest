@@ -34,3 +34,15 @@ export interface MiscMasterListPerpresRes {
   title:string
   value: string
 }
+
+// LIST STAKEHOLDER
+export type MiscMasterListStakeholderReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MiscMasterListStakeholderRes {
+  id: number
+  short:string
+  code:string
+  value: string
+  icon:string
+}
