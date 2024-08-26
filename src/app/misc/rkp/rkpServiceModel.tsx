@@ -11,3 +11,12 @@ export type OptionsRKP = ProjectDefaultDto
 export type GetExsumServiceModel = BaseAPIServiceParam & {
     body: ExsumDto;
 };
+
+export type RkpDefaultReqDto = {
+    level: string
+    ref_id: number
+};
+
+export type GetRkpLocationServiceModel = BaseAPIServiceParam & {
+    body: RkpDefaultReqDto;
+};

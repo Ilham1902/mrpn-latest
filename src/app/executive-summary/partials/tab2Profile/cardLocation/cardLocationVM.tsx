@@ -7,6 +7,8 @@ import { doCreate, doGet } from "@/app/executive-summary/partials/tab2Profile/ca
 import { API_CODE } from "@/lib/core/api/apiModel";
 import { doGetMasterListProvinsi } from "@/app/misc/master/masterService";
 import { MiscMasterListProvinsiRes } from "@/app/misc/master/masterServiceModel";
+import {doGetRkpLocation} from "@/app/misc/rkp/rkpService";
+import {RkpDefaultReqDto} from "@/app/misc/rkp/rkpServiceModel";
 
 const useCardLocationVM = () => {
 
@@ -32,6 +34,21 @@ const useCardLocationVM = () => {
       if (result) {
         setListProvinsi(result)
       }
+    }
+  }
+
+  async function getRkpLocation(){
+    const params:RkpDefaultReqDto = {
+      level: "KP",
+      ref_id: 1
+    }
+    const response = await doGetRkpLocation({
+      body: params,
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    })
+    if (response?.code == API_CODE.sucess){
+      console.log(response.result)
     }
   }
 
@@ -105,6 +122,7 @@ const useCardLocationVM = () => {
   useEffect(() => {
     if (listProvinsi.length == 0) {
       getProvinsi()
+      getRkpLocation()
     }
     if (exsum.id !== 0) {
       getData();

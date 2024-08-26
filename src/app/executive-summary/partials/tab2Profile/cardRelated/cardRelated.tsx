@@ -5,7 +5,7 @@ import { IconEmptyData } from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import AddButton from "@/components/buttonAdd";
 import DialogComponent from "@/components/dialog";
-import TableTagging from "../table-tagging";
+import TableTagging from "./table-tagging";
 import FormRelated from "./form-related";
 import useCardRelatedVM from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedVM";
 

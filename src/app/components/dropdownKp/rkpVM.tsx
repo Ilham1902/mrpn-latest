@@ -23,7 +23,6 @@ const useRkpVM = () => {
 
     if (response?.code == API_CODE.sucess) {
       let result: RKPDto = response.result;
-      console.log(result)
       rkpContext.setRkp(result)
 
       // generate Options
@@ -72,8 +71,6 @@ const useRkpVM = () => {
 
         })
       })
-
-      console.log(opt)
 
       setRkpOption(opt)
     }

@@ -11,7 +11,6 @@ import {
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
-import { dataTema } from "../../dataTema";
 import {ExsumRelatedDto} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 
 export default function TableTagging({ project, data, handleDelete }: { project: string, data:ExsumRelatedDto[], handleDelete:any }) {
