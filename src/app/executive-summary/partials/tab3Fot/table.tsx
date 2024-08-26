@@ -91,13 +91,13 @@ export default function TableTows(
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi SO" />
         <Typography variant="body1">
-         {data.twos?.so ?? "-"}
+         {data.tows?.so ?? "-"}
         </Typography>
        </TableCell>
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi WO" />
         <Typography variant="body1">
-         {data.twos?.wo ?? "-"}
+         {data.tows?.wo ?? "-"}
         </Typography>
        </TableCell>
       </TableRow>
@@ -118,13 +118,13 @@ export default function TableTows(
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi ST" />
         <Typography variant="body1">
-         {data.twos?.st ?? "-"}
+         {data.tows?.st ?? "-"}
         </Typography>
        </TableCell>
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi WT" />
         <Typography variant="body1">
-         {data.twos?.wt ?? "-"}
+         {data.tows?.wt ?? "-"}
         </Typography>
        </TableCell>
       </TableRow>

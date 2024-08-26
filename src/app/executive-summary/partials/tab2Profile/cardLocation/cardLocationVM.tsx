@@ -5,10 +5,6 @@ import {
 } from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationModel";
 import { doCreate, doGet } from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationService";
 import { API_CODE } from "@/lib/core/api/apiModel";
-import {
-  ExsumRelatedDto,
-  initExsumRelatedDto
-} from "@/app/executive-summary/partials/tab2Profile/cardRelated/cardRelatedModel";
 import { doGetMasterListProvinsi } from "@/app/misc/master/masterService";
 import { MiscMasterListProvinsiRes } from "@/app/misc/master/masterServiceModel";
 
@@ -50,6 +46,7 @@ const useCardLocationVM = () => {
 
     if (response?.code == API_CODE.sucess) {
       let result: ExsumLocationDto[] = response.result;
+      console.log(response.result)
       if (result.length > 0) {
         setData(result)
 

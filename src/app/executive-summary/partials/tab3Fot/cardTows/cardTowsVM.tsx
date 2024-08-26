@@ -3,10 +3,10 @@ import useCardSWOTVM from "@/app/executive-summary/partials/tab1Background/cardS
 import React, {useEffect, useState} from "react";
 import {
   ExsumTWOSResDto, ExsumTWOSOptions, ExsumTWOSReqDto,
-  initExsumTWOSRequestDto,
+  initExsumTWOSRequestDto, UpdateTOWSByExsumIdServiceModel,
 } from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsModel";
 import {API_CODE} from "@/lib/core/api/apiModel";
-import {doGet} from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsService";
+import {doCreate, doGet, doUpdate} from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsService";
 
 const useCardTOWSVM = () => {
   const loadingContext = useLoading();
@@ -31,15 +31,34 @@ const useCardTOWSVM = () => {
       if (result) {
         setData(result)
         setOptions(result.options)
-        if (result.twos){
-          setRequest(result.twos)
+        if (result.tows){
+          setRequest(result.tows)
         }
       }
     }
   }
 
   async function updateData(){
-    console.log(request)
+    const req:ExsumTWOSReqDto = {...request}
+    req.exsum_id = exsum.id
+    const params:UpdateTOWSByExsumIdServiceModel = {
+      body: req,
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    }
+
+    let response
+    if (req.id == 0){
+      response = await doCreate(params)
+    }else{
+      response = await doUpdate(params)
+    }
+
+    if (response?.code == API_CODE.sucess) {
+      getData().then(r => {
+        setModalOpen(false)
+      })
+    }
   }
 
   useEffect(() => {

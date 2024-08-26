@@ -13,7 +13,7 @@ import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
 import useRkpVM from "@/components/dropdownKp/rkpVM";
-import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+import {AllowSelect, ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
  return {
@@ -72,23 +72,18 @@ export default function DropdownKp({
    <Autocomplete
     size="small"
     value={value}
-    getOptionLabel={(option:any) => option.name ? option.code+" - "+option.name : ""}
+    getOptionLabel={(option:any) => option.value ? option.code+" - "+option.value : ""}
+    getOptionDisabled={(option:any) =>
+      options.some((selectedOption) => {
+       return !AllowSelect.includes(option.level)
+      })
+    }
     onChange={(event: any, newValue: any | undefined) => {
-     handleChangeOptions(newValue);
+      handleChangeOptions(newValue);
     }}
-    // inputValue={inputValue}
-    // onInputChange={(event, newInputValue) => {
-    //  setInputValue(newInputValue);
-    //
-    //  const optionVal = listSelectKp.find((res: any) => {
-    //   return res.name === newInputValue;
-    //  });
-    //
-    //  handleChangeProject(optionVal?.value || "");
-    // }}
     options={options}
     renderInput={(params) => (
-     <Tooltip title={value ? value.name : ""} followCursor TransitionComponent={Grow}>
+     <Tooltip title={value ? value.value : ""} followCursor TransitionComponent={Grow}>
       <TextField
        {...params}
        InputLabelProps={{

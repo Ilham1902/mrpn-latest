@@ -25,7 +25,7 @@ export default function CardNomenklatur({ project }: { project: string }) {
     />
    ) : (
      <Typography variant="body1">
-       {rkpState.name}
+       {rkpState.value}
      </Typography>
    )}
   </CardItem>

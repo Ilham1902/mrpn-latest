@@ -64,8 +64,8 @@ const InstanceLogo = (
 ) => {
  return (
   <Stack gap={2} direction={"row"} justifyContent={"center"}>
-    {data.map(item => (
-      <Tooltip title={item.value} followCursor TransitionComponent={Grow}>
+    {data.map((item, index) => (
+      <Tooltip title={item.value} followCursor TransitionComponent={Grow} key={index}>
         <Image
           alt={item.value}
           src={item.icon}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import CardRoadmap from "./tab5Roadmap/cardRoadmap";
+import CardRoadmap from "./tab5Roadmap/cardRoadmap/cardRoadmap";
 
 export default function Tab5Roadmap({ project }: { project: string }) {
  return (

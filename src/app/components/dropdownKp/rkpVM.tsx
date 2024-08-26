@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { doGetExsum, doGetRKP } from "./rkpService";
+import { doGetExsum, doGetRKP } from "../../misc/rkp/rkpService";
 import { useExsumContext, useGlobalModalContext, useLoading, useRKPContext } from "@/lib/core/hooks/useHooks";
 import { API_CODE } from "@/lib/core/api/apiModel";
-import {ProjectDefaultDto, RKPDto} from "@/lib/core/context/rkpContext";
-import { OptionsRKP } from "./rkpModel";
+import {AllowSelect, ProjectDefaultDto, RKPDto} from "@/lib/core/context/rkpContext";
+import { OptionsRKP } from "../../misc/rkp/rkpServiceModel";
 import { ExsumDto } from "@/lib/core/context/exsumContext";
 
 const useRkpVM = () => {
@@ -20,8 +20,10 @@ const useRkpVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     });
+
     if (response?.code == API_CODE.sucess) {
       let result: RKPDto = response.result;
+      console.log(result)
       rkpContext.setRkp(result)
 
       // generate Options
@@ -29,29 +31,49 @@ const useRkpVM = () => {
       result.map(pn => {
         opt.push({
           id: pn.id,
-          level: pn.level,
+          level: "PN",
           code: pn.code,
-          name: pn.name
+          value: pn.value
         })
         pn.pp.map(pp => {
           opt.push({
             id: pp.id,
-            level: pp.level,
+            level: "PP",
             code: pp.code,
-            name: pp.name
+            value: pp.value
           })
           
-          pp.p.map(p => {
+          pp.kp.map(kp => {
             opt.push({
-              id: p.id,
-              level: p.level,
-              code: p.code,
-              name: p.name
+              id: kp.id,
+              level: "KP",
+              code: kp.code,
+              value: kp.value
+            })
+
+            kp.prop.map(prop => {
+              opt.push({
+                id: prop.id,
+                level: "PROP",
+                code: prop.code,
+                value: prop.value
+              })
+
+              prop.ro.map(ro => {
+                opt.push({
+                  id: ro.id,
+                  level: "P",
+                  code: ro.code,
+                  value: ro.value
+                })
+              })
             })
           })
 
         })
       })
+
+      console.log(opt)
 
       setRkpOption(opt)
     }
@@ -70,7 +92,7 @@ const useRkpVM = () => {
   }
 
   function triggerChange(params: ProjectDefaultDto) {
-    if (params.level == "PP" || params.level == "P") {
+    if (AllowSelect.includes(params.level)) {
       let req: ExsumDto = {
         id: 0,
         tahun: new Date().getFullYear(),

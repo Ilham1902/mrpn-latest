@@ -115,12 +115,15 @@ export default function CardItem({
    >
     {multiEdit ? (
      <>
-      <MenuItem onClick={settingEditOutputClick}>
-       <ListItemDropdownMenu label="Ubah Output" />
-      </MenuItem>
+
       <MenuItem onClick={settingEditBisnisClick}>
        <ListItemDropdownMenu label="Ubah Bisnis" />
       </MenuItem>
+
+       <MenuItem onClick={settingEditOutputClick}>
+         <ListItemDropdownMenu label="Ubah Output" />
+       </MenuItem>
+
      </>
     ) : (
      <MenuItem onClick={settingEditOnclick}>

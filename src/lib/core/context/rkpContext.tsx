@@ -4,15 +4,24 @@ import {createContext} from 'react';
 import {createStore} from 'zustand/vanilla'
 import {type StoreApi, useStore} from 'zustand'
 
+export const AllowSelect = ["PP","P"];
 export interface ProjectDefaultDto {
     id: number
     level: string
     code: string
-    name: string
+    value: string
+}
+
+export type RODto = ProjectDefaultDto & {
+    ro: ProjectDefaultDto[]
+}
+
+export type KPDto = ProjectDefaultDto & {
+    prop: RODto[]
 }
 
 export type PPDto = ProjectDefaultDto & {
-    p: ProjectDefaultDto[]
+    kp: KPDto[]
 }
 
 export type PNDto = ProjectDefaultDto & {

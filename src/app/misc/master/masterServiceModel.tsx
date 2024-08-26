@@ -46,3 +46,14 @@ export interface MiscMasterListStakeholderRes {
   value: string
   icon:string
 }
+
+// RPJMN
+export type MiscMasterRPJMNReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MiscMasterRPJMNRes {
+  id: number
+  start:number
+  end:number
+  status: string
+}

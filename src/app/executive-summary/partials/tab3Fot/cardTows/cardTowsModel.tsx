@@ -23,7 +23,7 @@ export interface ExsumTWOSDto {
   wt_keyword:ExsumKeyword[]
 }
 export interface ExsumTWOSResDto {
-  twos?:ExsumTWOSDto,
+  tows?:ExsumTWOSDto,
   options:ExsumTWOSOptions
 }
 
