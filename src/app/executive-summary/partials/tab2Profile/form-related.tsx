@@ -1,23 +1,15 @@
 import React, { Fragment } from "react";
 import {
  Autocomplete,
- Box,
- Button,
  Card,
- CardActions,
  CardContent,
  Checkbox,
  Chip,
- Divider,
  FormControl,
  FormControlLabel,
  FormGroup,
- FormHelperText,
  FormLabel,
  Grid,
- List,
- ListItem,
- Paper,
  Stack,
  TextField,
  Typography,
@@ -25,7 +17,6 @@ import {
 import TextareaComponent from "@/app/components/textarea";
 import dynamic from "next/dynamic";
 import { OptionKebijakan, listKebijakan } from "@/app/utils/data";
-import AutocompleteSelect from "@/app/components/autocomplete";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
@@ -77,7 +68,7 @@ const MultiCheckbox = ({
         width: "3px",
        },
        ".MuiCheckbox-root": {
-        p: "2px 10px",
+        p: "0 10px",
        },
       }}
      >
@@ -105,30 +96,6 @@ export default function FormRelated({ mode }: { mode?: string }) {
   setSelectedOptions(value ?? []);
  };
 
- const gameChangers = (
-  <>
-   {[...new Array(10)].map((_, i) => (
-    <FormControlLabel
-     key={i}
-     control={<Checkbox name="gilad" />}
-     label={`${i} Game Changers`}
-    />
-   ))}
-  </>
- );
-
- const ffIndicator = (
-  <>
-   {[...new Array(45)].map((_, i) => (
-    <FormControlLabel
-     key={i}
-     control={<Checkbox name="gilad" />}
-     label={`${i} FF Indicator`}
-    />
-   ))}
-  </>
- );
-
  return (
   <>
    <Grid container spacing={2}>
@@ -136,53 +103,6 @@ export default function FormRelated({ mode }: { mode?: string }) {
      <FormControl fullWidth>
       <Typography gutterBottom>Kebijakan</Typography>
       {mode === "add" || mode === "edit" ? (
-       <Autocomplete
-        size="small"
-        multiple
-        disableCloseOnSelect
-        options={listKebijakan}
-        getOptionLabel={(option: OptionKebijakan) => option.label}
-        renderInput={(params) => (
-         <TextField
-          {...params}
-          InputLabelProps={{
-           shrink: true,
-          }}
-          placeholder="Pilih kebijakan"
-          sx={SxAutocompleteTextField(paramVariantDefault)}
-         />
-        )}
-        renderTags={(value: OptionKebijakan[], getTagProps) => {
-         return value.map((option: OptionKebijakan, index: number) => {
-          const { key, ...restProps } = getTagProps({ index });
-          return (
-           <Chip
-            key={option.id}
-            size="small"
-            label={option.label}
-            {...restProps}
-           />
-          );
-         });
-        }}
-        value={selectedOptions}
-        onChange={handleChange}
-        sx={{
-         ...SxAutocomplete,
-         ".MuiInputBase-root": {
-          borderRadius: 1,
-         },
-        }}
-       />
-      ) : (
-       <Typography fontWeight={600}>-</Typography>
-      )}
-     </FormControl>
-    </Grid>
-    <Grid item xs={12}>
-     <FormControl fullWidth>
-      <Typography gutterBottom>Keterangan</Typography>
-      {mode === "add" ? (
        <Stack
         gap={2}
         sx={{
@@ -191,14 +111,47 @@ export default function FormRelated({ mode }: { mode?: string }) {
          },
         }}
        >
-        <ReactQuill
-         theme="snow"
-         value={value}
-         onChange={setValue}
-         style={{ maxHeight: "300px" }}
+        <Autocomplete
+         size="small"
+         multiple
+         disableCloseOnSelect
+         options={listKebijakan}
+         getOptionLabel={(option: OptionKebijakan) => option.label}
+         renderInput={(params) => (
+          <TextField
+           {...params}
+           InputLabelProps={{
+            shrink: true,
+           }}
+           placeholder="Pilih kebijakan"
+           sx={SxAutocompleteTextField(paramVariantDefault)}
+          />
+         )}
+         renderTags={(value: OptionKebijakan[], getTagProps) => {
+          return value.map((option: OptionKebijakan, index: number) => {
+           const { key, ...restProps } = getTagProps({ index });
+           return (
+            <Chip
+             key={option.id}
+             size="small"
+             label={option.label}
+             {...restProps}
+            />
+           );
+          });
+         }}
+         value={selectedOptions}
+         onChange={handleChange}
+         sx={{
+          ...SxAutocomplete,
+          ".MuiInputBase-root": {
+           borderRadius: 1,
+          },
+         }}
         />
+
         {selectedOptions.map((option: OptionKebijakan, index: number) => (
-         <Box key={index}>
+         <Fragment key={index}>
           {option.value === "10" ? (
            <>
             <MultiCheckbox title="Astacita" maxHeight={200}>
@@ -218,20 +171,51 @@ export default function FormRelated({ mode }: { mode?: string }) {
             ))}
            </MultiCheckbox>
           ) : option.value === "14" ? (
-           <MultiCheckbox title="10 Game Changer" maxHeight={200}>
-            {gameChangers}
+           <MultiCheckbox title="20 Game Changer" maxHeight={200}>
+            {option.list?.map((item, index) => (
+             <Fragment key={index}>
+              <FCLItem keyIndex={index} item={item} />
+             </Fragment>
+            ))}
            </MultiCheckbox>
           ) : option.value === "15" ? (
            <MultiCheckbox
             title="45 Indikator Utama Pembangunan"
             maxHeight={350}
            >
-            {ffIndicator}
+            {option.list?.map((item, index) => (
+             <Fragment key={index}>
+              <FCLItem keyIndex={index} item={item} />
+             </Fragment>
+            ))}
+           </MultiCheckbox>
+          ) : option.value === "17" ? (
+           <MultiCheckbox title="17 Program Prioritas" maxHeight={350}>
+            {option.list?.map((item, index) => (
+             <Fragment key={index}>
+              <FCLItem keyIndex={index} item={item} />
+             </Fragment>
+            ))}
            </MultiCheckbox>
           ) : null}
-         </Box>
+         </Fragment>
         ))}
        </Stack>
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item xs={12}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>Keterangan</Typography>
+      {mode === "add" ? (
+       <ReactQuill
+        theme="snow"
+        value={value}
+        onChange={setValue}
+        //  style={{ maxHeight: 200, minHeight: 200 }}
+       />
       ) : mode === "edit" ? (
        <TextareaComponent
         label="Keterangan"

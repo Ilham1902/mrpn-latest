@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, DialogActions, Stack } from "@mui/material";
+import { Button, Collapse, DialogActions, Stack } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
@@ -9,9 +9,11 @@ import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
 import Matriks from "@/app/penetapan/kriteria/partials/tab4Matriks/matriks";
 import FormRisk from "./partials/formRisk";
+import RiskContent from "@/app/penetapan/selera-risiko/partials/risk";
 
 export default function CardRisk({ project }: { project: string }) {
  const [modalOpen, setModalOpen] = React.useState(false);
+ const [openMatriks, setOpenMatriks] = React.useState(false);
 
  const handleModalOpen = () => {
   setModalOpen(true);
@@ -19,6 +21,13 @@ export default function CardRisk({ project }: { project: string }) {
 
  const handleModalClose = () => {
   setModalOpen(false);
+ };
+
+ const toggleOpenMatriks = () => {
+  setOpenMatriks(true);
+ };
+ const closeMatriks = () => {
+  setOpenMatriks(false);
  };
 
  const isEmpty = false;
@@ -39,7 +48,20 @@ export default function CardRisk({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <Matriks levelId={2} />
+      <>
+       <RiskContent handleSaveButton={toggleOpenMatriks} />
+       <Collapse in={openMatriks}>
+        <Matriks levelId={2} />
+        <Button
+         color="primary"
+         variant="contained"
+         onClick={closeMatriks}
+         sx={{ borderRadius: 20, px: 3, mt: 3 }}
+        >
+         Close Matriks
+        </Button>
+       </Collapse>
+      </>
      )}
     </CardItem>
    </Stack>
