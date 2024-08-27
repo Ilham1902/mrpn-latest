@@ -9,6 +9,7 @@ import { green, grey, orange } from "@mui/material/colors";
 import theme from "@/theme";
 import DialogComponent from "@/app/components/dialog";
 import FormCritical from "./form";
+import useCardCriticalVM from "@/app/executive-summary/partials/tab6Critical/cardCriticalVM";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
  return (
@@ -22,7 +23,12 @@ const ProjectType = ({ label, color }: { label: string; color: string }) => {
 };
 
 export default function CardCritical({ project }: { project: string }) {
- const [modalOpen, setModalOpen] = React.useState(false);
+
+  const {
+    optionsRO,
+    modalOpen,
+    setModalOpen
+  } = useCardCriticalVM()
 
  const handleModalOpen = () => {
   setModalOpen(true);
@@ -76,7 +82,7 @@ export default function CardCritical({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormCritical mode="add" />
+    <FormCritical optionsRO={optionsRO} />
    </DialogComponent>
   </>
  );

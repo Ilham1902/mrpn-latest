@@ -1,5 +1,4 @@
 import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
-import useCardSWOTVM from "@/app/executive-summary/partials/tab1Background/cardSwot/cardSwotVM";
 import React, {useEffect, useState} from "react";
 import {
   ExsumTWOSResDto, ExsumTWOSOptions, ExsumTWOSReqDto,

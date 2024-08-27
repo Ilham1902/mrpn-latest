@@ -24,10 +24,17 @@ import {
 } from "@/app/components/dropdownKp";
 import { paramVariantDefault } from "@/app/utils/constant";
 import { listTagProP } from "../../data";
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 type OptionProP = (typeof listTagProP)[number];
 
-export default function FormCritical({ mode }: { mode?: string }) {
+export default function FormCritical(
+  {
+    optionsRO
+  } : {
+    optionsRO:ProjectDefaultDto[]
+  }
+) {
  const [alignment, setAlignment] = React.useState();
  const [columnsProP, setColumnsProp] = React.useState<OptionProP[]>([]);
  const [selectAll, setSelectAll] = React.useState<boolean>(false);
@@ -55,21 +62,20 @@ export default function FormCritical({ mode }: { mode?: string }) {
       title="Rincian Output/Project"
       information="Rincian Output/Project"
      />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
+     <Autocomplete
        size="small"
        freeSolo={false}
-       options={listTagProP}
-       getOptionLabel={(option) => option.description}
+       options={optionsRO}
+       getOptionLabel={(option) => option.value}
        renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih rincian output/project"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
+         <TextField
+           {...params}
+           InputLabelProps={{
+            shrink: true,
+           }}
+           placeholder="Pilih rincian output/project"
+           sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
        )}
        sx={{
         ...SxAutocomplete,
@@ -77,17 +83,13 @@ export default function FormCritical({ mode }: { mode?: string }) {
          borderRadius: 1,
         },
        }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Tagging Strategi" information="Tagging Strategi" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
+     <Autocomplete
        multiple
        disableCloseOnSelect
        filterSelectedOptions
@@ -104,32 +106,32 @@ export default function FormCritical({ mode }: { mode?: string }) {
         setColumnsProp(value);
        }}
        renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih tagging strategi"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
+         <TextField
+           {...params}
+           InputLabelProps={{
+            shrink: true,
+           }}
+           placeholder="Pilih tagging strategi"
+           sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
        )}
        PaperComponent={(paperProps) => {
         const { children, ...restPaperProps } = paperProps;
         return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllProP();
-            }}
-            label="Pilih semua tagging"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+              onClick={(e) => {
+               e.preventDefault();
+               handleToggleSelectAllProP();
+              }}
+              label="Pilih semua tagging"
+              control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
         );
        }}
        sx={{
@@ -138,10 +140,7 @@ export default function FormCritical({ mode }: { mode?: string }) {
          borderRadius: 1,
         },
        }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
    <Grid item xs={12} md={6}>
@@ -162,30 +161,25 @@ export default function FormCritical({ mode }: { mode?: string }) {
       title="Waktu Pengerjaan (Mulai - Selesai)"
       information="Waktu Pengerjaan (Mulai - Selesai)"
      />
-     {mode === "add" || mode === "edit" ? (
-      <DateRangePicker
+     <DateRangePicker
        placeholder="Pilih periode"
        sxInput={{
         backgroundColor: "red",
        }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
 
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Kategori Proyek" information="Kategori Proyek" />
-     {mode === "add" || mode === "edit" ? (
-      <ToggleButtonGroup
+     <ToggleButtonGroup
        value={alignment}
        exclusive
        onChange={handleChange}
        aria-label="time"
-      >
-       <ToggleButton
+     >
+      <ToggleButton
         value="bumn"
         sx={{
          lineHeight: 1,
@@ -194,10 +188,10 @@ export default function FormCritical({ mode }: { mode?: string }) {
           color: "white",
          },
         }}
-       >
-        Proyek BUMN
-       </ToggleButton>
-       <ToggleButton
+      >
+       Proyek BUMN
+      </ToggleButton>
+      <ToggleButton
         value="dak"
         sx={{
          lineHeight: 1,
@@ -206,10 +200,10 @@ export default function FormCritical({ mode }: { mode?: string }) {
           color: "white",
          },
         }}
-       >
-        Proyek DAK
-       </ToggleButton>
-       <ToggleButton
+      >
+       Proyek DAK
+      </ToggleButton>
+      <ToggleButton
         value="kl"
         sx={{
          lineHeight: 1,
@@ -218,13 +212,10 @@ export default function FormCritical({ mode }: { mode?: string }) {
           color: "white",
          },
         }}
-       >
-        Proyek Belanja K/L
-       </ToggleButton>
-      </ToggleButtonGroup>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+      >
+       Proyek Belanja K/L
+      </ToggleButton>
+     </ToggleButtonGroup>
     </FormControl>
    </Grid>
   </Grid>

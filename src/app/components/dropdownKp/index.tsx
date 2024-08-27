@@ -13,7 +13,6 @@ import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
 import useRkpVM from "@/components/dropdownKp/rkpVM";
-import {AllowSelect, ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
  return {
@@ -63,7 +62,12 @@ export default function DropdownKp({
  variant?: string;
 }) {
 
- const {options, handleChangeOptions, value} = useRkpVM();
+ const {
+  options,
+  handleChangeOptions,
+  value,
+   allowedSelectRKP
+ } = useRkpVM();
 
  const sxParams: SxParams = { variant: variant };
 
@@ -72,10 +76,10 @@ export default function DropdownKp({
    <Autocomplete
     size="small"
     value={value}
-    getOptionLabel={(option:any) => option.value ? option.code+" - "+option.value : ""}
+    getOptionLabel={(option:any) => option.value ? option.level+" - "+option.code+" - "+option.value : ""}
     getOptionDisabled={(option:any) =>
       options.some((selectedOption) => {
-       return !AllowSelect.includes(option.level)
+       return !allowedSelectRKP.includes(option.level)
       })
     }
     onChange={(event: any, newValue: any | undefined) => {

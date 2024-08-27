@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react"
 import { doGetExsum, doGetRKP } from "../../misc/rkp/rkpService";
 import { useExsumContext, useGlobalModalContext, useLoading, useRKPContext } from "@/lib/core/hooks/useHooks";
 import { API_CODE } from "@/lib/core/api/apiModel";
-import {AllowSelect, ProjectDefaultDto, RKPDto} from "@/lib/core/context/rkpContext";
 import { OptionsRKP } from "../../misc/rkp/rkpServiceModel";
 import { ExsumDto } from "@/lib/core/context/exsumContext";
+import {doGetSystemParamByModuleAndName} from "@/app/misc/sysparams/sysParamService";
+import {GetSysParamsServiceResModel} from "@/app/misc/sysparams/sysParamServiceModel";
+import {ProjectDefaultDto, RKPDto} from "@/lib/core/context/rkpContext";
 
 const useRkpVM = () => {
   const loadingContext = useLoading();
@@ -13,7 +15,25 @@ const useRkpVM = () => {
   const exsumContext = useExsumContext();
 
   const {rkp,setRkp, rkpOption,setRkpOption, rkpState, setRkpState} = rkpContext
+  const [allowedSelectRKP, setAllowedSelectRKP] = useState<string[]>([])
 
+  async function getAllowedSelectRKP() {
+    const response = await doGetSystemParamByModuleAndName({
+      body: {
+        module:"RKP",
+        name:"ALLOW_SELECT_LEVEL"
+      },
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    })
+
+    if (response?.code == API_CODE.sucess){
+      let result: GetSysParamsServiceResModel = response.result;
+      const allowSelect:string[] = JSON.parse(result.value);
+      setAllowedSelectRKP(allowSelect)
+    }
+
+  }
   async function getData() {
     const response = await doGetRKP({
       body: {},
@@ -89,7 +109,7 @@ const useRkpVM = () => {
   }
 
   function triggerChange(params: ProjectDefaultDto) {
-    if (AllowSelect.includes(params.level)) {
+    if (allowedSelectRKP.includes(params.level)) {
       let req: ExsumDto = {
         id: 0,
         tahun: new Date().getFullYear(),
@@ -105,14 +125,19 @@ const useRkpVM = () => {
   }
 
   useEffect(() => {
-    if (rkp.length == 0){
-      getData()
-    } else {
-      if (rkpState) triggerChange(rkpState);
+    if (allowedSelectRKP.length == 0) {
+      getAllowedSelectRKP().then(r => {
+        if (rkp.length == 0){
+          getData()
+        } else {
+          if (rkpState) triggerChange(rkpState);
+        }
+      })
     }
   }, [rkp, rkpState]);
 
   return {
+    allowedSelectRKP,
     options:rkpOption,
     handleChangeOptions,
     value:rkpState,
