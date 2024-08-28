@@ -135,9 +135,7 @@ const TableFundPPKP = (props: {
      <TableCell rowSpan={2}>
       {project === "KP" ? "Intervensi Kunci" : "Kegiatan Prioritas"}
      </TableCell>
-     <TableCell rowSpan={2}>
-      Indikator {project === "KP" ? "RO" : "Kegiatan Prioritas"}
-     </TableCell>
+     <TableCell rowSpan={2}>Indikator</TableCell>
      <TableCell colSpan={5} align="center">
       Target
      </TableCell>

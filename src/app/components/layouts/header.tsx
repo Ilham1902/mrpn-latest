@@ -115,6 +115,7 @@ export default function Header({}) {
         fontSize="20px"
         letterSpacing="0.5px"
         //   lineHeight={1.3}
+        textTransform="uppercase"
         sx={{
          [theme.breakpoints.down("md")]: {
           fontSize: "1em",
@@ -122,7 +123,8 @@ export default function Header({}) {
          },
         }}
        >
-        <Box
+        Pranala
+        {/* <Box
          component="span"
          color={theme.palette.primary.main}
          textTransform="uppercase"
@@ -171,7 +173,7 @@ export default function Header({}) {
         >
          S
         </Box>
-        ystem
+        ystem */}
        </Typography>
       </>
      )}
