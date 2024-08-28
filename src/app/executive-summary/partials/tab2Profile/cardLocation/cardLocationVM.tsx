@@ -138,8 +138,6 @@ const useCardLocationVM = () => {
       errorModalContext: errorModalContext,
     }
 
-    console.log(req)
-
     if (request.id !== 0) {
       // TODO : implement this
       console.log("not implement")

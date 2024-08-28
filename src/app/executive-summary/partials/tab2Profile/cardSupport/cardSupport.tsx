@@ -14,7 +14,7 @@ export default function CardSupport({ project }: { project: string }) {
 
 
  return (
-  <CardItem title={`Mendukung ${project === "5" ? "PN" : "PP"}`}>
+  <CardItem title={`Mendukung ${exsum.level}`}>
    {data == undefined ? (
     <EmptyState
      dense

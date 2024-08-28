@@ -57,3 +57,12 @@ export interface MiscMasterRPJMNRes {
   end:number
   status: string
 }
+
+// LIST SUMBER PENDANAAN
+export type MiscMasterListSumberPendanaanReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MiscMasterListSumberPendanaanRes {
+  id: number
+  name: string
+}

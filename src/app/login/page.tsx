@@ -38,7 +38,7 @@ const glowingEffect = keyframes`
 
 export default function PageLogin() {
 
-  const {auth,setAuth,doLogin} = useLoginVM()
+  const {auth,setAuth, doLogin} = useLoginVM()
 
  const sxTextField = {
   bgcolor: "rgba(255, 255, 255, 0.5)",
@@ -295,6 +295,15 @@ export default function PageLogin() {
        fullWidth
        required
        sx={sxTextField}
+       value={auth.username}
+       onChange={(e) => {
+         setAuth(prev => {
+           return {
+             ...prev,
+             username:e.target.value
+           }
+         })
+       }}
       />
       <TextField
        type="password"
@@ -306,6 +315,15 @@ export default function PageLogin() {
        fullWidth
        required
        sx={sxTextField}
+       value={auth.password}
+       onChange={(e) => {
+         setAuth(prev => {
+           return {
+             ...prev,
+             password:e.target.value
+           }
+         })
+       }}
       />
       <FormControlLabel
        control={
@@ -332,7 +350,8 @@ export default function PageLogin() {
       <Button
        type="submit"
        fullWidth
-       href="/executive-summary"
+       // href="/executive-summary"
+       onClick={() => doLogin()}
        className="glow-on-hover cta"
        sx={{
         mt: 2,

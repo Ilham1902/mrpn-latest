@@ -126,15 +126,23 @@ const useRkpVM = () => {
 
   useEffect(() => {
     if (allowedSelectRKP.length == 0) {
-      getAllowedSelectRKP().then(r => {
-        if (rkp.length == 0){
-          getData()
-        } else {
-          if (rkpState) triggerChange(rkpState);
-        }
-      })
+      getAllowedSelectRKP()
     }
-  }, [rkp, rkpState]);
+  }, []);
+
+  useEffect(() => {
+    if (allowedSelectRKP.length > 0) {
+      if (rkp.length == 0){
+        getData()
+      } else {
+        if (rkpState) triggerChange(rkpState);
+      }
+    }
+  }, [allowedSelectRKP]);
+
+  useEffect(() => {
+    if (rkpState) triggerChange(rkpState);
+  }, [rkpState]);
 
   return {
     allowedSelectRKP,

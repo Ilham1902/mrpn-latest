@@ -15,9 +15,6 @@ export default function PageDashboard() {
   setProject(event.target.value);
  };
 
- const {rkpState} = useRKPContext((state) => state)
- console.log(rkpState)
-
  return (
   <DashboardLayout>
    <ContentPage

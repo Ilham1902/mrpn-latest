@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TextareaComponent, { TextareaStyled } from "@/components/textarea";
+import { TextareaStyled } from "@/components/textarea";
 import {
   SxAutocompleteTextField,
   SxAutocomplete,
