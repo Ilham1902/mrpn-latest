@@ -14,13 +14,19 @@ import {
  Typography,
 } from "@mui/material";
 import { orange, red } from "@mui/material/colors";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconKeluar } from "../icons";
 import { IconFA } from "../icons/icon-fa";
 import Image from "next/image";
 import Aside from "./aside";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+
+const sliderContent = [
+ "Pranala",
+ "Pengendali\u00A0Risiko\u00A0dan\u00A0Analisis\u00A0Pembangunan",
+];
 
 export default function Header({}) {
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,6 +49,31 @@ export default function Header({}) {
   pathname === "/test",
   pathname === "/tesst",
  ].includes(true);
+
+ //  Slide-up Text
+ const [sliderCounter, setSliderCounter] = useState(0);
+ const [currentPhrase, setCurrentPhrase] = useState("");
+
+ useEffect(() => {
+  const phrase = sliderContent[sliderCounter];
+  let letterIndex = 0;
+
+  const letterInterval = setInterval(() => {
+   if (letterIndex < phrase.length) {
+    setCurrentPhrase(phrase.substring(0, letterIndex + 1));
+    letterIndex++;
+   } else {
+    clearInterval(letterInterval);
+    setTimeout(() => {
+     setSliderCounter(
+      (prevCounter) => (prevCounter + 1) % sliderContent.length
+     );
+    }, 6000); // Delay before switching to the next phrase
+   }
+  }, 50); // Interval for each letter (adjust as desired)
+
+  return () => clearInterval(letterInterval);
+ }, [sliderCounter]);
 
  return (
   <Box
@@ -115,15 +146,14 @@ export default function Header({}) {
          },
         }}
        >
-        Pranala
-        {/* <Box
+        <Box
          component="span"
          color={theme.palette.primary.main}
          textTransform="uppercase"
         >
-         Na
+         P
         </Box>
-        tional{" "}
+        engendali{" "}
         <Box
          component="span"
          color={theme.palette.primary.main}
@@ -131,15 +161,7 @@ export default function Header({}) {
         >
          R
         </Box>
-        i
-        <Box
-         component="span"
-         color={theme.palette.primary.main}
-         textTransform="uppercase"
-        >
-         s
-        </Box>
-        k{" "}
+        isiko{" "}
         <Box
          component="span"
          sx={{
@@ -150,23 +172,34 @@ export default function Header({}) {
         >
          <br />
         </Box>
+        dan{" "}
         <Box
          component="span"
          color={theme.palette.primary.main}
          textTransform="uppercase"
         >
-         I
+         Anal
         </Box>
-        nformation{" "}
+        isis Pembangun
         <Box
          component="span"
          color={theme.palette.primary.main}
          textTransform="uppercase"
         >
-         S
+         a
         </Box>
-        ystem */}
+        n
        </Typography>
+
+       {/* <Box id="slider">
+        <div className="span animation" id="sliderValue">
+         {currentPhrase.split("").map((letter, index) => (
+          <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+           {letter}
+          </span>
+         ))}
+        </div>
+       </Box> */}
       </>
      )}
 

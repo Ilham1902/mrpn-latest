@@ -229,3 +229,11 @@ export const listKebijakan: OptionKebijakan[] = [
   ],
  },
 ];
+
+export const listUser = [
+ { id: "1", user: "Kementerian PPN/Bappenas" },
+ { id: "2", user: "Kementerian/Lembaga" },
+ { id: "3", user: "Pemerintah Daerah" },
+ { id: "4", user: "Badan Usaha Milik Negara" },
+ { id: "5", user: "Badan Usaha Milik Swasta (Lainnya)" },
+];
