@@ -748,14 +748,14 @@ export default function PageLogin() {
    <Image
     alt="Bg Batik"
     src="
-    https://res.cloudinary.com/caturteguh/image/upload/v1724854158/mrpn/bg-batik-cmp_tyukw9.png"
+    https://res.cloudinary.com/caturteguh/image/upload/v1724914703/mrpn/bg-utama-cmp_ikxurp.jpg"
     width={0}
     height={0}
     sizes="100vw"
     style={{
      width: "auto",
-     height: "200vh",
-     opacity: 0.01,
+     height: "120vh",
+     opacity: 0.1,
      //  transform: "scale(1.2)",
     }}
    />
@@ -773,9 +773,8 @@ export default function PageLogin() {
    overflow="hidden"
    sx={
     {
-     // backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1017%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='rgba(31%2c 41%2c 55%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c660.47C155.06%2c655.219%2c306.935%2c756.232%2c453.737%2c706.029C613.769%2c651.302%2c774.231%2c538.363%2c826.97%2c377.665C879.27%2c218.305%2c753.409%2c60.804%2c719.392%2c-103.433C688.025%2c-254.876%2c715.487%2c-418.12%2c634.815%2c-550.07C547.131%2c-693.49%2c413.244%2c-811.167%2c253.922%2c-864.778C91.711%2c-919.361%2c-89.563%2c-910.087%2c-248.822%2c-847.411C-401.186%2c-787.449%2c-524.63%2c-667.478%2c-606.996%2c-525.965C-681.363%2c-398.195%2c-652.904%2c-242.817%2c-684.744%2c-98.451C-719.963%2c61.236%2c-843.967%2c208.604%2c-803.977%2c367.164C-762.707%2c530.799%2c-632.462%2c679.603%2c-473.924%2c737.441C-320.464%2c793.426%2c-163.259%2c665.998%2c0%2c660.47' fill='%2319212c'%3e%3c/path%3e%3cpath d='M1920 1596.9070000000002C2041.996 1604.8600000000001 2164.466 1683.1 2277.2200000000003 1635.846 2393.048 1587.304 2472.263 1469.261 2510.23 1349.549 2546.364 1235.617 2516.248 1113.2 2478.997 999.628 2446.318 899.995 2385.248 815.202 2310.763 741.402 2240.683 671.966 2155.484 626.258 2064.258 588.702 1963.448 547.2 1854.498 471.61400000000003 1753.177 511.85299999999995 1651.0140000000001 552.426 1635.237 689.45 1576.5439999999999 782.394 1528.042 859.2 1472.665 926.696 1438.146 1010.72 1393.738 1118.813 1316.868 1228.825 1346.721 1341.808 1377.089 1456.743 1482.897 1542.814 1591.508 1591.144 1693.632 1636.587 1808.459 1589.636 1920 1596.9070000000002' fill='%23253142'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1017'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e")`,
-     //    backgroundImage:
-     //     "url(https://res.cloudinary.com/caturteguh/image/upload/v1724106704/mrpn/id-line-map-cmp_hpysgm.png)",
+     // backgroundImage:
+     //  "url(https://res.cloudinary.com/caturteguh/image/upload/v1724914703/mrpn/bg-utama-cmp_ikxurp.jpg)",
      // backgroundSize: "cover",
      // backgroundRepeat: "no-repeat",
      // backgroundPosition: "center",
@@ -793,12 +792,12 @@ export default function PageLogin() {
     }
    }
   >
-   <BatikCorner position="tr" />
-   <BatikCorner position="br" />
-   {batikCenter}
+   {/* <BatikCorner position="tr" />
+   <BatikCorner position="br" /> */}
+   {/* {batikCenter} */}
    {batikBg}
-   <BatikCorner position="tl" />
-   <BatikCorner position="bl" />
+   {/* <BatikCorner position="tl" />
+   <BatikCorner position="bl" /> */}
    {/* {bgMap} */}
    {/* {bgBox} */}
    <Container
