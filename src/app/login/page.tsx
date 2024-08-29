@@ -7,16 +7,12 @@ import {
  Checkbox,
  Collapse,
  Container,
- Divider,
  FormControlLabel,
- Grow,
  IconButton,
- Input,
  MenuItem,
  SelectChangeEvent,
  Stack,
  TextField,
- Tooltip,
  Typography,
 } from "@mui/material";
 import { keyframes } from "@mui/system";
@@ -30,19 +26,8 @@ import theme from "@/theme";
 import { IconFA } from "../components/icons/icon-fa";
 import SelectCustomTheme from "../components/select";
 import { listUser } from "../utils/data";
-gsap.registerPlugin(useGSAP);
 
-const glowingEffect = keyframes`
-    0% {
-        background-position: '0 0';
-    }
-    50% {
-        background-position: '400% 0';
-    }
-    100% {
-        background-position: '0 0';
-    }
-`;
+gsap.registerPlugin(useGSAP);
 
 const BatikCorner = ({ position }: { position: string }) => {
  return (
@@ -63,8 +48,7 @@ const BatikCorner = ({ position }: { position: string }) => {
   >
    <Image
     alt="Batik Corner"
-    src="
-   https://res.cloudinary.com/caturteguh/image/upload/v1724852131/mrpn/batik-corner-cmp_u5q8cg.png"
+    src="/mrpn/batik-corner-cmp.png"
     width={0}
     height={0}
     sizes="100vw"
@@ -721,11 +705,11 @@ export default function PageLogin() {
   >
    <Image
     alt="Bg Batik"
-    src="
-    https://res.cloudinary.com/caturteguh/image/upload/v1724853315/mrpn/batik-center_dmibbn.png"
+    src="/mrpn/batik-center-cmp.png"
     width={0}
     height={0}
     sizes="100vw"
+    priority
     style={{
      width: "auto",
      height: "150vh",
@@ -747,15 +731,14 @@ export default function PageLogin() {
   >
    <Image
     alt="Bg Batik"
-    src="
-    https://res.cloudinary.com/caturteguh/image/upload/v1724914703/mrpn/bg-utama-cmp_ikxurp.jpg"
+    src="/mrpn/bg-utama-cmp.jpg"
     width={0}
     height={0}
     sizes="100vw"
     style={{
      width: "auto",
      height: "120vh",
-     opacity: 0.1,
+     opacity: 0.07,
      //  transform: "scale(1.2)",
     }}
    />
@@ -792,12 +775,12 @@ export default function PageLogin() {
     }
    }
   >
-   {/* <BatikCorner position="tr" />
-   <BatikCorner position="br" /> */}
-   {/* {batikCenter} */}
+   <BatikCorner position="tr" />
+   <BatikCorner position="br" />
+   {batikCenter}
    {batikBg}
-   {/* <BatikCorner position="tl" />
-   <BatikCorner position="bl" /> */}
+   <BatikCorner position="tl" />
+   <BatikCorner position="bl" />
    {/* {bgMap} */}
    {/* {bgBox} */}
    <Container
