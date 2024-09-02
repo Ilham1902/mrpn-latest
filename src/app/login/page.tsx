@@ -529,7 +529,6 @@ export default function PageLogin() {
      >
       Login
      </Typography>
-     {}
      <SelectCustomTheme
       rounded
       anchorRight
