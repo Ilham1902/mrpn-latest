@@ -8,7 +8,7 @@ import { API_CODE } from "@/lib/core/api/apiModel";
 import { doGetMasterListProvinsi } from "@/app/misc/master/masterService";
 import { MiscMasterListProvinsiRes } from "@/app/misc/master/masterServiceModel";
 import {doGetRkpLocation} from "@/app/misc/rkp/rkpService";
-import {RkpDefaultReqDto} from "@/app/misc/rkp/rkpServiceModel";
+import {RkpDefaultReqV1Dto} from "@/app/misc/rkp/rkpServiceModel";
 
 const useCardLocationVM = () => {
 
@@ -38,7 +38,7 @@ const useCardLocationVM = () => {
   }
 
   async function getRkpLocation(){
-    const params:RkpDefaultReqDto = {
+    const params:RkpDefaultReqV1Dto = {
       level: "KP",
       ref_id: 1
     }

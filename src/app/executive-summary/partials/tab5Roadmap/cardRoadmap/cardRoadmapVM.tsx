@@ -1,4 +1,4 @@
-import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
+import {useExsumContext, useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
 import React, {useEffect, useState} from "react";
 import {
   ExsumRoadmapDto,
@@ -14,8 +14,8 @@ const useCardRoadmapVM = () => {
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
   const { exsum } = useExsumContext()
+  const { rpjmn, setRpjmn } = useRKPContext(state => state)
 
-  const [rpjmn, setRpjmn] = useState<MiscMasterRPJMNRes>()
   const [dataOutput,setDataOutput] = useState<ExsumRoadmapDto[]>([])
   const [dataBusiness,setDataBusiness] = useState<ExsumRoadmapDto[]>([])
   const [request, setRequest] = useState<ExsumRoadmapDto>({...initExsumRoadmapReq})

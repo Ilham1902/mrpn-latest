@@ -1,288 +1,135 @@
-import React from "react";
+import React, {SetStateAction} from "react";
 import {
- Autocomplete,
- Box,
  Checkbox,
- Divider,
  FormControl,
  FormControlLabel,
  Grid,
- Grow,
- MenuItem,
- Paper,
- SelectChangeEvent,
- Stack,
  TextField,
- Tooltip,
  Typography,
 } from "@mui/material";
-import TextareaComponent from "@/app/components/textarea";
-import SelectCustomTheme from "@/app/components/select";
-import { listEntitasUtama } from "@/app/utils/data";
+import {TextareaStyled} from "@/app/components/textarea";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import TableAnggaran from "./table-anggaran";
-import { CheckBox } from "@mui/icons-material";
-import {
- SxAutocompleteTextField,
- SxAutocomplete,
-} from "@/app/components/dropdownKp";
-import { columns } from "@/app/manajemen-user/setting";
-import { paramVariantDefault } from "@/app/utils/constant";
-import { listProvinsi } from "@/app/utils/provinsi";
-import { listTagProP } from "../../data";
 import { red } from "@mui/material/colors";
+import {
+  AutocompleteSelectMultiple,
+  AutoCompleteMultipleProp,
+  AutoCompleteSingleProp,
+  AutocompleteSelectSingle
+} from "@/components/autocomplete";
+import {ProPDto} from "@/app/misc/rkp/rkpServiceModel";
+import {
+  ExsumInterventionState
+} from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
+import {MiscMasterListStakeholderRes, MiscMasterRPJMNRes} from "@/app/misc/master/masterServiceModel";
 
-type Option = (typeof listProvinsi)[number];
-type OptionProP = (typeof listTagProP)[number];
-
-export default function FormProfilRoProject({ mode }: { mode?: string }) {
- const [project, setProject] = React.useState("");
- const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
- const [columns, setColumns] = React.useState<Option[]>([]);
- const [columnsProP, setColumnsProp] = React.useState<OptionProP[]>([]);
- const [selectAll, setSelectAll] = React.useState<boolean>(false);
-
- const handleToggleSelectAll = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumns([...listProvinsi]);
-   else setColumns([]);
-   return !prev;
-  });
- };
-
- const handleToggleSelectAllProP = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumnsProp([...listTagProP]);
-   else setColumnsProp([]);
-   return !prev;
-  });
- };
+export default function FormProfilRoProject(
+  {
+    selectProP,
+    selectStakeholder,
+    state,
+    setState,
+    rpjmn
+  }: {
+    selectProP:AutoCompleteMultipleProp<ProPDto>
+    selectStakeholder:AutoCompleteSingleProp<MiscMasterListStakeholderRes>
+    state:ExsumInterventionState,
+    setState: (value: SetStateAction<ExsumInterventionState>) => void
+    rpjmn:MiscMasterRPJMNRes|undefined
+  }
+) {
 
  return (
   <Grid container spacing={2}>
    <Grid item xs={12} md={5}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Format Kode" information="Format Kode" />
-     {mode === "add" ? (
-      <TextField
+     <TextField
+       value={state.code}
+       onChange={(e) => setState(prev => {
+         return {
+           ...prev,
+           code:e.target.value
+         }
+       })}
        variant="outlined"
        size="small"
        placeholder="Format Kode"
        InputLabelProps={{
         shrink: true,
        }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
    <Grid item xs={12} md={5}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Tagging ProP" information="Tagging ProP" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsProP}
-       options={listTagProP}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listTagProP.length)
-         setSelectAll(true);
-        setColumnsProp(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih tagging ProP"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllProP();
-            }}
-            label="Pilih semua tagging"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
+      <AutocompleteSelectMultiple
+        value={selectProP.value}
+        options={selectProP.options}
+        getOptionLabel={selectProP.getOptionLabel}
+        handleChange={selectProP.handleChange}
+        placeHolder={selectProP.placeHolder}
+        labelSelectAll={selectProP.labelSelectAll}
       />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
     </FormControl>
    </Grid>
    <Grid item xs={12} md={2}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Intervensi Kunci" information="Intervensi Kunci" />
-     {mode === "add" || mode === "edit" ? (
-      <FormControlLabel
-       control={<Checkbox />}
+     <FormControlLabel
+       control={
+         <Checkbox
+           checked={state.isIntervensiKunci}
+           onChange={(checked) => setState(prevState => {
+             return {
+               ...prevState,
+               isIntervensiKunci:checked.target.checked
+             }
+           })}
+         />
+       }
        label={
         <Typography fontWeight={600} color={red[600]} fontSize={12}>
          Intervensi Kunci
         </Typography>
        }
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
    <Grid item xs={12} md={5}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Penanggungjawab"
-       InputLabelProps={{
-        shrink: true,
-       }}
+      <AutocompleteSelectSingle
+        value={selectStakeholder.value}
+        options={selectStakeholder.options}
+        handleChange={selectStakeholder.handleChange}
+        placeHolder={selectStakeholder.placeHolder}
+       getOptionLabel={selectStakeholder.getOptionLabel}
       />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
     </FormControl>
    </Grid>
-   {/* <Grid item xs={12} md={4}>
-    <FormControl fullWidth>
-     <Typography gutterBottom>Entitas Utama</Typography>
-     {mode === "add" || mode === "edit" ? (
-      <SelectCustomTheme
-       defaultStyle
-       small
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Utama
-        </Typography>
-       </MenuItem>
-       {listEntitasUtama.map((euLabel, index) => (
-        <MenuItem key={index} value={euLabel}>
-         {euLabel.length >= 35 ? (
-          <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
-           <Typography
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            sx={{ fontSize: 14 }}
-           >
-            {euLabel.substring(0, 35) + "..."}
-           </Typography>
-          </Tooltip>
-         ) : (
-          euLabel
-         )}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} md={4}>
-    <FormControl fullWidth>
-     <Typography gutterBottom>Entitas Kontributor</Typography>
-     {mode === "add" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Entitas Kontributor"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid> */}
    <Grid item xs={12} md={7}>
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Nomenklatur RO/Project"
       information="Nomenklatur RO/Project"
      />
-     {mode === "add" ? (
-      <TextField
+     <TextField
+       value={state.nomenklatur}
+       onChange={(e) => setState(prev => {
+         return {
+           ...prev,
+           nomenklatur:e.target.value
+         }
+       })}
        variant="outlined"
        size="small"
        placeholder="Nomenklatur RO/Project"
        InputLabelProps={{
         shrink: true,
        }}
-      />
-     ) : mode === "edit" ? (
-      <TextField
-       variant="outlined"
-       size="small"
-       value="-"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     />
     </FormControl>
    </Grid>
    <Grid item xs={12}>
@@ -291,24 +138,22 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
       title="Indikator Project"
       information="Indikator Project"
      />
-     {mode === "add" ? (
-      <TextareaComponent
-       label="Tuliskan Indikator Project"
-       placeholder="Tuliskan Indikator Project"
+      <TextareaStyled
+        value={state.indikator}
+        onChange={(e) => setState(prev => {
+          return {
+            ...prev,
+            indikator:e.target.value
+          }
+        })}
+        aria-label="Tuliskan Indikator Project"
+        placeholder="Tuliskan Indikator Project"
+        minRows={3}
       />
-     ) : mode === "edit" ? (
-      <TextareaComponent
-       label="Tuliskan Indikator Project"
-       placeholder="Tuliskan Indikator Project"
-       value="-"
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
     </FormControl>
    </Grid>
    <Grid item xs={12}>
-    <TableAnggaran project={project} />
+    <TableAnggaran rpjmn={rpjmn} state={state} setState={setState}/>
    </Grid>
   </Grid>
  );

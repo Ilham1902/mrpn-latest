@@ -9,6 +9,7 @@
   "build:prod": "env-cmd -f .env.prod next build",
   "start:dev": "env-cmd -f .env.dev npx serve@latest out",
   "start:prod": "env-cmd -f .env.prod npx serve@latest out",
+  "start": "env-cmd -f .env.prod npx serve@latest out",
   "lint": "next lint"
  },
  "dependencies": {

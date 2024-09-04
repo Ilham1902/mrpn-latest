@@ -1,7 +1,7 @@
 import { get, post } from "@/lib/core/api/apiBase";
 import {
   GetExsumServiceModel,
-  GetRkpLocationServiceModel,
+  GetRkpLocationServiceModel, GetRkpPROPServiceModel, GetRkpROServiceModel,
   GetRKPServiceModel
 } from "./rkpServiceModel";
 import { ResponseBaseDto } from "@/lib/core/api/apiModel";
@@ -26,6 +26,22 @@ export async function doGetRkpLocation(params: GetRkpLocationServiceModel) {
   const resp = await post({
     ...params,
     url: "misc/rkp/lokasi",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetRO(params: GetRkpROServiceModel) {
+  const resp = await post({
+    ...params,
+    url: "misc/rkp/getRO",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetPROP(params: GetRkpPROPServiceModel) {
+  const resp = await post({
+    ...params,
+    url: "misc/rkp/getProp",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

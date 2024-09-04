@@ -12,11 +12,45 @@ export type GetExsumServiceModel = BaseAPIServiceParam & {
     body: ExsumDto;
 };
 
-export type RkpDefaultReqDto = {
+export type RkpDefaultReqV1Dto = {
     level: string
     ref_id: number
 };
 
+export type RkpDefaultReqV2Dto = {
+    by: string
+    id: number[]
+};
+
 export type GetRkpLocationServiceModel = BaseAPIServiceParam & {
-    body: RkpDefaultReqDto;
+    body: RkpDefaultReqV1Dto;
+};
+
+export interface RoDto {
+    id:number
+    src_rkp_prop_id:number
+    tahun:number
+    code:string
+    value:string
+    kl:string
+    kl_code:string
+    pkkr:string
+    target:string
+    fisik:string
+    satuan:string
+    lokasi:string
+    alokasi:number
+}
+export type GetRkpROServiceModel = BaseAPIServiceParam & {
+    body: RkpDefaultReqV2Dto;
+};
+
+export interface ProPDto {
+    id:number
+    src_rkp_kp_id:number
+    code:string
+    value:string
+}
+export type GetRkpPROPServiceModel = BaseAPIServiceParam & {
+    body: RkpDefaultReqV2Dto;
 };

@@ -22,10 +22,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TextareaComponent, {TextareaStyled} from "@/app/components/textarea";
-import dynamic from "next/dynamic";
-import {OptionKebijakan, listKebijakan} from "@/app/utils/data";
-import AutocompleteSelect from "@/app/components/autocomplete";
+import {TextareaStyled} from "@/app/components/textarea";
 import {
   SxAutocompleteTextField,
   SxAutocomplete,

@@ -175,11 +175,11 @@ export default function PageExecutiveSummary({}) {
          sx={{ borderRadius: 2.5 }}
         >
          <CustomTab label="RPJMN" />
-         <CustomTab label="Kaji Ulang 1" />
-         <CustomTab label="Kaji Ulang 2" />
-         <CustomTab label="Kaji Ulang 3" />
-         <CustomTab label="Kaji Ulang 4" />
-         <CustomTab label="Kaji Ulang 5" />
+         <CustomTab label="RKP 2025" />
+         <CustomTab label="RKP 2026" />
+         <CustomTab label="RKP 2027" />
+         <CustomTab label="RKP 2028" />
+         <CustomTab label="RKP 2029" />
         </Tabs>
        </Box>
        {!(rkpState === undefined) && (
