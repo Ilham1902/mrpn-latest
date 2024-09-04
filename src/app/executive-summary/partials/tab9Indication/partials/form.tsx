@@ -27,15 +27,20 @@ import { listTagProP } from "@/app/executive-summary/data";
 import { paramVariantDefault } from "@/app/utils/constant";
 import AddEntity from "./add";
 import AddRisk from "./addRisk";
+import {ExsumIndicationDto} from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
 
 type OptionProP = (typeof listTagProP)[number];
 
 export default function FormIndication({
  mode,
  project,
+  request,
+  setRequest
 }: {
  mode?: string;
  project?: string;
+ request:ExsumIndicationDto
+ setRequest:any
 }) {
  const [value, setValue] = React.useState("");
  const [valueSelect, setValueSelect] = React.useState("");

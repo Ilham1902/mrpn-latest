@@ -22,8 +22,9 @@ import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
 import FormIndication from "./form";
 import { dataTema } from "@/app/executive-summary/dataTema";
+import {ExsumIndicationDto} from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
 
-export default function TableIndication({ project }: { project: string }) {
+export default function TableIndication({ project, data }: { project: string, data:ExsumIndicationDto[] }) {
  const [modalOpen, setModalOpen] = React.useState(false);
 
  const handleModalOpen = () => {

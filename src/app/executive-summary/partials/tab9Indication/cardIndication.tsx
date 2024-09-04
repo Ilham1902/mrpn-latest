@@ -7,8 +7,17 @@ import DialogComponent from "@/app/components/dialog";
 import AddButton from "@/app/components/buttonAdd";
 import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
+import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication/cardIndicationVM";
 
 export default function CardIndication({ project }: { project: string }) {
+
+  const {
+    data,
+    handleCreateData,
+    request,
+    setRequest
+  } = useCardIndicationVM();
+
  const [modalOpen, setModalOpen] = React.useState(false);
 
  const handleModalOpen = () => {
@@ -35,7 +44,7 @@ export default function CardIndication({ project }: { project: string }) {
       />
      }
     >
-     {isEmpty || project === "4" ? (
+     {data.length == 0 ? (
       <EmptyState
        dense
        icon={<IconEmptyData width={100} />}
@@ -43,7 +52,7 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication project={project} />
+      <TableIndication project={project} data={data} />
      )}
     </CardItem>
    </Stack>
@@ -56,13 +65,13 @@ export default function CardIndication({ project }: { project: string }) {
       <Button variant="outlined" onClick={handleModalClose}>
        Batal
       </Button>
-      <Button variant="contained" type="submit">
+      <Button variant="contained" type="submit" onClick={() => handleCreateData()}>
        Simpan
       </Button>
      </DialogActions>
     }
    >
-    <FormIndication mode="add" project={project} />
+    <FormIndication mode="add" project={project} request={request} setRequest={setRequest} />
    </DialogComponent>
   </>
  );
