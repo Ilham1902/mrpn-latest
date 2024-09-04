@@ -361,7 +361,7 @@ export default function PageLogin() {
     fullWidth
     href={showLogin ? "/executive-summary" : ""}
     className="glow-on-hover cta"
-    onClick={!showLogin ? handleShowLogin : () => {}}
+    onClick={!showLogin ? handleShowLogin : doLogin}
     sx={{
      mt: 2,
      px: 4,

@@ -10,13 +10,13 @@ const useLoginVM = () => {
   })
 
   function doLogin(){
-    if (auth.username == "admin" && auth.password == "admin654321"){
+    // if (auth.username == "admin" && auth.password == "admin654321"){
       sessionStorage.setItem("temp", "temp")
       return true
-    }
+    // }
 
-    sessionStorage.clear()
-    return true
+    // sessionStorage.clear()
+    // return true
   }
 
   function doLogout(){
