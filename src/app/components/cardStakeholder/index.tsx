@@ -160,14 +160,20 @@ const ToggleButtonLogo = (
           },
         }}
       >
-        <Image
-          alt={alt}
-          src={imgSrc}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{width: "auto", height: "50px"}}
-        />
+        {(imgSrc == null || imgSrc == "") ?
+          <IconEmptyImage
+            width={60}
+          />
+        :
+          <Image
+            alt={alt}
+            src={imgSrc}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{width: "auto", height: "50px"}}
+          />
+        }
         <IconFA name="circle" size={15} color={theme.palette.primary.main}/>
         <IconFA name="circle-check" size={15} color={theme.palette.primary.main}/>
       </ToggleButton>

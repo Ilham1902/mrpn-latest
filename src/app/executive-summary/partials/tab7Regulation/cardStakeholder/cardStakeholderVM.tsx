@@ -67,6 +67,7 @@ const useCardStakeholderVM = () => {
       ...request,
       exsum_id:exsum.id
     }
+
     let response:ResponseBaseDto|undefined
     if (req.id > 0){
       response = await doUpdate({

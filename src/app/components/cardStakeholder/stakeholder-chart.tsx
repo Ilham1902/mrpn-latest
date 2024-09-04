@@ -13,6 +13,7 @@ import {
   ExsumStakeholderResDto, ExsumStakeholderValueDto
 } from "@/app/executive-summary/partials/tab7Regulation/cardStakeholder/cardStakeholderModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {IconEmptyImage} from "@/components/icons";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  const isAssistant = nodeData.isAssistant === true;
@@ -66,19 +67,26 @@ const InstanceLogo = (
   <Stack gap={2} direction={"row"} justifyContent={"center"}>
     {data.map((item, index) => (
       <Tooltip title={item.value} followCursor TransitionComponent={Grow} key={index}>
-        <Image
-          alt={item.value}
-          src={item.icon}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{
+
+       {(item.icon == null || item.icon == "") ?
+         <IconEmptyImage
+           width={60}
+         />
+         :
+         <Image
+           alt={item.value}
+           src={item.icon}
+           width={0}
+           height={0}
+           sizes="100vw"
+           style={{
             width: "auto",
             height: "60px",
             userSelect: "none",
             touchAction: "none",
-          }}
-        />
+           }}
+         />
+       }
       </Tooltip>
     ))}
   </Stack>

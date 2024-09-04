@@ -47,7 +47,7 @@ export default function CardRegulation({ project }: { project: string }) {
     />
    }
   >
-   {isEmpty || project === "4" ? (
+   {data.length == 0 ? (
     <EmptyState
      dense
      icon={<IconEmptyData width={100} />}
