@@ -45,6 +45,8 @@ export interface RoDto {
     satuan:string
     lokasi:string
     alokasi:number
+    type:string
+    intervention:boolean
 }
 export type GetRkpROServiceModel = BaseAPIServiceParam & {
     body: RkpDefaultReqV2Dto;

@@ -1,149 +1,140 @@
-import React from "react";
+import React, {SetStateAction, useEffect, useMemo} from "react";
 import {
- Checkbox,
- Paper,
- Table,
- TableBody,
- TableCell,
- TableContainer,
- TableHead,
- TableRow,
+  Box,
+  Checkbox, Chip,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import theme from "@/theme";
+import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import {FormatIDR} from "@/lib/utils/currency";
+import {MaterialReactTable, MRT_RowSelectionState, useMaterialReactTable} from "material-react-table";
+import {
+  ExsumInterventionState
+} from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
+import {RowSelectionState} from "@tanstack/table-core";
 
-export default function TableProfilRoKunci() {
- function createData(
-  id: number,
-  checked: boolean,
-  klUtama: string,
-  formatKode: string,
-  nomenklatur: string,
-  target: string,
-  anggaran: string,
-  sumberAnggaran: string
- ) {
-  return {
-   id,
-   checked,
-   klUtama,
-   formatKode,
-   nomenklatur,
-   target,
-   anggaran,
-   sumberAnggaran,
-  };
- }
+export default function TableProfilRoKunci(
+  {
+    data,
+    setState
+  }: {
+    data: RoDto[]
+    setState:(value: SetStateAction<ExsumInterventionState>) => void
+  }
+) {
 
- const rows = [
-  createData(
-   1,
-   true,
-   "Kementerian Kesehatan",
-   "-",
-   "Pendampingan terkait Kesehatan dan gizi bagi ibu hamil di Daerah XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   2,
-   true,
-   "Kementerian Kesehatan",
-   "-",
-   "Ibu Hamil yang melahirkan di faskes Daerah XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   3,
-   true,
-   "Kementerian Kesehatan",
-   "-",
-   "Ibu Hamil yang mengkonsumsi PMT di Daerah XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   4,
-   true,
-   "Kementerian Kesehatan",
-   "-",
-   "Pembinaan pendampingan Ibu pascapersalinan di Daerahh XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   5,
-   false,
-   "Kementerian Kesehatan",
-   "-",
-   "Penyediaan konsumsi tablet tambah daerah bagi ibu melahirkan di Daerah XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   6,
-   false,
-   "Kementerian Kesehatan",
-   "-",
-   "Anak balita yang mendapat Suplementasi Gizi Mikro di Daerah XXXX",
-   "-",
-   "-",
-   "APBN"
-  ),
-  createData(
-   7,
-   false,
-   "Kementerian Kesehatan",
-   "-",
-   "Alat dan perbekalan kesehatan untuk pelayanan kesehatan ibu dan anak sesuai standar",
-   "-",
-   "-",
-   "APBN"
-  ),
- ];
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "tahun",
+        header: "Tahun",
+        size: 200,
+        enableColumnFilterModes: true,
+        filterFns: 'contains'
+      },
+      {
+        accessorKey: "code",
+        header: "Format Kode",
+        enableColumnFilterModes: true,
+        filterFns: 'contains'
+      },
+      {
+        accessorKey: "kementrian_id",
+        header: "Penanggungjawab",
+        enableColumnFilterModes: false,
+        Cell: (item: any) => {
+          return item.row.original.kementrian.value
+        },
+      },
+      {
+        accessorKey: "value",
+        header: "Nomenklatur RO/Project",
+      },
+      {
+        accessorKey: "target",
+        header: "Target",
+      },
+      {
+        accessorKey: "anggaran",
+        header: "Anggaran",
+        Cell: (item: any) => {
+          const value = FormatIDR(item.row.original.alokasi)
+          return (<div style={{textAlign: "right", width: "100%"}}>{value}</div>)
+        },
+      },
+      {
+        accessorKey: "sumber_anggaran",
+        header: "Sumber Anggaran",
+      }
+    ], []
+  );
 
- return (
-  <TableContainer component={Paper} elevation={0}>
-   <Table sx={{ minWidth: 650 }} size="small">
-    <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-     <TableRow>
-      <TableCell>Format Kode</TableCell>
-      <TableCell>Keterangan Intervensi</TableCell>
-      <TableCell>KL</TableCell>
-      <TableCell>Rincian Output (RO)</TableCell>
-      <TableCell>Target</TableCell>
-      <TableCell>Anggaran</TableCell>
-      <TableCell>Sumber Anggaran</TableCell>
-     </TableRow>
-    </TableHead>
-    <TableBody>
-     {rows.map((row) => (
-      <TableRow
-       key={row.id}
-       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-      >
-       <TableCell>{row.formatKode}</TableCell>
-       <TableCell>
-        {row.checked === false ? (
-         <Checkbox />
-        ) : (
-         <Checkbox checked={row.checked} />
-        )}
-       </TableCell>
-       <TableCell>{row.klUtama}</TableCell>
-       <TableCell>{row.nomenklatur}</TableCell>
-       <TableCell>{row.target}</TableCell>
-       <TableCell>{row.anggaran}</TableCell>
-       <TableCell>{row.sumberAnggaran}</TableCell>
-      </TableRow>
-     ))}
-    </TableBody>
-   </Table>
-  </TableContainer>
- );
+  const [rowSelection, setRowSelection] = React.useState<MRT_RowSelectionState>({});
+
+  useEffect(() => {
+    if (Object.keys(rowSelection).length === 0){
+      const initSelected:MRT_RowSelectionState = {}
+      data.map((y) => {
+        if (y.intervention){
+          initSelected[(y.id.toString())] = y.intervention
+        }
+      });
+      if (Object.keys(initSelected).length > 0) setRowSelection(initSelected)
+    }
+  }, [data.length]);
+
+  useEffect(() => {
+    setState((prev) => {
+      const newListRO = [...prev.ro]
+      for (let i = 0; i < newListRO.length; i++) {
+        newListRO[i].intervention = false
+      }
+      for (const prop in rowSelection) {
+        const index = newListRO.findIndex(x => x.id === parseInt(prop))
+        if (index > -1){
+          newListRO[index].intervention = true
+         }
+      }
+      return {
+        ...prev,
+        ro:newListRO
+      }
+    })
+  }, [rowSelection]);
+
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    state: { rowSelection },
+    getRowId: (originalRow) => originalRow.id.toString(),
+    layoutMode: "grid",
+    positionActionsColumn: "last",
+    paginationDisplayMode: "pages",
+    initialState: {
+      showGlobalFilter: true,
+      showColumnFilters: true
+    }
+  });
+
+  return (
+    <Box
+      className="table-collapsed perlakuan-risiko"
+      sx={{
+        ".MuiPaper-root": {
+          m: 0,
+          boxShadow: "none",
+        },
+      }}
+    >
+      <MaterialReactTable key={data.length} table={table}/>
+    </Box>
+  );
 }

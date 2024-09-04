@@ -1,22 +1,12 @@
-import React, {Fragment, SetStateAction} from "react";
-import {
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React, {SetStateAction} from "react";
+import {Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography,} from "@mui/material";
 import theme from "@/theme";
-import {dataTema} from "../../dataTema";
 import {MiscMasterRPJMNRes} from "@/app/misc/master/masterServiceModel";
 import {
-  ExsumInterventionState, ProjectTargetAnggaranDto
+  ExsumInterventionState,
+  ProjectTargetAnggaranDto
 } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
+import {FormatCurrency} from "@/lib/utils/currency";
 
 function GetTableRow(
   {
@@ -43,8 +33,9 @@ function GetTableRow(
         if (type == "satuan"){
           prev.list[indexData].satuan = value
         }
-        if (type == "anggaran"){
-          prev.list[indexData].anggaran = value
+        if (type == "anggaranString"){
+          prev.list[indexData].anggaranString = FormatCurrency(value)
+          prev.list[indexData].anggaran = parseInt(value.replace(/[^,\d]/g, '').toString());
         }
         if (type == "sumber_anggaran"){
           prev.list[indexData].sumber_anggaran = value
@@ -92,14 +83,15 @@ function GetTableRow(
     </TableCell>
     <TableCell>
       <TextField
-        value={data.anggaran}
-        onChange={(e) => handleStateChange(e.target.value, "anggaran")}
+        value={data.anggaranString}
+        onChange={(e) => handleStateChange(e.target.value, "anggaranString")}
         variant="outlined"
         size="small"
         placeholder="Anggaran"
         InputLabelProps={{
           shrink: true,
         }}
+        sx={{input: {textAlign: "right"}}}
       />
     </TableCell>
     <TableCell>

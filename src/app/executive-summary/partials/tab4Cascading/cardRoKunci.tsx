@@ -31,29 +31,28 @@ export default function CardRoKunci({project}: { project: string }) {
     handleChangeState,
     data,
     listProP,
-    listRo,
     listStakeholder,
     modal,
-    setModal
+    setModal,
+    handleSubmit,
   } = useCardIntervensiVM()
 
-  const selectProP:AutoCompleteMultipleProp<ProPDto> = {
+  const selectProP:AutoCompleteSingleProp<ProPDto> = {
     value:state.prop,
     options:listProP,
     getOptionLabel:(opt)=> opt.value,
-    handleChange:(value:ProPDto[]) => handleChangeState<ProPDto>(value),
+    handleChange:(value:ProPDto) => handleChangeState<ProPDto>(value),
     placeHolder:"Pilih tagging ProP",
-    labelSelectAll:"Pilih semua tagging"
   }
 
   const selectStakeholder:AutoCompleteSingleProp<MiscMasterListStakeholderRes> = {
-    value:state.pj_id,
+    value:state.kementrian,
     options:listStakeholder,
     getOptionLabel:(opt)=> opt.value,
     handleChange:(value:MiscMasterListStakeholderRes) => setState(prev => {
       return {
         ...prev,
-        pj_id:value
+        kementrian:value
       }
     }),
     placeHolder:"Pilih Penanggungjawab",
@@ -79,7 +78,7 @@ export default function CardRoKunci({project}: { project: string }) {
         </>
       }
     >
-      {data == undefined ? (
+      {data.length == 0 ? (
         <EmptyState
           dense
           icon={<IconEmptyData width={100}/>}
@@ -87,12 +86,12 @@ export default function CardRoKunci({project}: { project: string }) {
           description="Silahkan isi konten halaman ini"
         />
       ) : (
-        <TableProfilIntervensi project={project}/>
+        <TableProfilIntervensi project={project} data={data}/>
       )}
 
       <DialogComponent
         tableMode
-        width={1000}
+        width={"90%"}
         dialogOpen={(modal.type == "RO" && modal.action)}
         dialogClose={() => setModal({action: false, type: "RO"})}
         title="Tambah Profil RO Kunci"
@@ -101,13 +100,13 @@ export default function CardRoKunci({project}: { project: string }) {
             <Button variant="outlined" onClick={() => setModal({action: false, type: "RO"})}>
               Batal
             </Button>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" onClick={() => handleSubmit()}>
               Simpan
             </Button>
           </DialogActions>
         }
       >
-        <TableProfilRoKunci/>
+        <TableProfilRoKunci data={state.ro} setState={setState}/>
       </DialogComponent>
 
       <DialogComponent
@@ -120,7 +119,7 @@ export default function CardRoKunci({project}: { project: string }) {
             <Button variant="outlined" onClick={() => setModal({action: false, type: "NON_RO"})}>
               Batal
             </Button>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" onClick={() => handleSubmit()}>
               Simpan
             </Button>
           </DialogActions>
