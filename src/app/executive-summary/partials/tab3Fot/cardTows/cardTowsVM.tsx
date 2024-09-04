@@ -28,8 +28,8 @@ const useCardTOWSVM = () => {
     if (response?.code == API_CODE.sucess) {
       const result:ExsumTWOSResDto = response.result
       if (result) {
-        console.log(result)
         setData(result)
+        console.log(result)
         setOptions(result.options)
         if (result.tows){
           setRequest(result.tows)

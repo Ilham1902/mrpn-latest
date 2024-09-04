@@ -7,8 +7,11 @@ import DialogComponent from "@/components/dialog";
 import TableTows from "../table";
 import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsVM";
 import GenerateFormTWOS from "./form-tows";
+import useCardSWOTVM from "@/app/executive-summary/partials/tab1Background/cardSwot/cardSwotVM";
 
 export default function CardTows({project}: { project: string }) {
+
+  const useCardSWOT = useCardSWOTVM()
 
   const {
     options,
@@ -29,13 +32,15 @@ export default function CardTows({project}: { project: string }) {
 
   return (
     <>
-      <CardItem title="Matriks TOWS" setting settingEditOnclick={handleModalOpen}>
-        {data == undefined ? (
+      <CardItem title="Matriks TOWS"
+                setting={useCardSWOT.data.id == 0 ? undefined : true}
+                settingEditOnclick={handleModalOpen}>
+        {(data == undefined || useCardSWOT.data.id == 0) ? (
           <EmptyState
             dense
             icon={<IconEmptyData width={100}/>}
             title="Data Kosong"
-            description="Silahkan isi konten halaman ini"
+            description={useCardSWOT.data.id == 0 ? "Silahkan isi SWOT terlebih dahulu" : "Silahkan isi konten halaman ini"}
           />
         ) : (
           <TableTows data={data}/>

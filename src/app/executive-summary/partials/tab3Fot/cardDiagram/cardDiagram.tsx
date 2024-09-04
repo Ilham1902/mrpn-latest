@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, DialogActions} from "@mui/material";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
@@ -39,9 +39,15 @@ export default function CardDiagram({project}: { project: string }) {
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    console.log(useCardTOWS.data == undefined || useCardTOWS.data.tows == null)
+  }, [useCardTOWS]);
+
   return (
     <>
-      <CardItem title="Diagram" setting settingEditOnclick={handleModalOpen}>
+      <CardItem title="Diagram"
+                setting={(useCardTOWS.data == undefined || useCardTOWS.data.tows == null) ? undefined : true}
+                settingEditOnclick={(useCardTOWS.data == undefined || useCardTOWS.data.tows == null) ? undefined : handleModalOpen}>
         {useCardTOWS.data == undefined || useCardTOWS.data.tows == undefined ? (
           <EmptyState
             dense

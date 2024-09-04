@@ -57,68 +57,68 @@ export default function FormLocation(
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <FormControl fullWidth>
-          <FieldLabelInfo title="Lokasi" information="Lokasi" />
-          {mode === "add" || mode === "edit" ? (
-            <Autocomplete
-              key={columns.length}
-              multiple
-              disableCloseOnSelect
-              filterSelectedOptions
-              size="small"
-              freeSolo={false}
-              value={columns}
-              options={options}
-              getOptionLabel={(option) => option.name}
-              onChange={(_e, value, reason) => {
-                if (reason === "clear" || reason === "removeOption")
-                  setSelectAll(false);
-                if (reason === "selectOption" && value.length === options.length)
-                  setSelectAll(true);
-                  setColumns(value);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  placeholder="Pilih provinsi"
-                  sx={SxAutocompleteTextField(paramVariantDefault)}
-                />
-              )}
-              PaperComponent={(paperProps) => {
-                const { children, ...restPaperProps } = paperProps;
-                return (
-                  <Paper {...restPaperProps}>
-                    <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-                      <FormControlLabel
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleToggleSelectAll();
-                        }}
-                        label="Pilih semua provinsi"
-                        control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-                      />
-                    </Box>
-                    <Divider />
-                    {children}
-                  </Paper>
-                );
-              }}
-              sx={{
-                ...SxAutocomplete,
-                ".MuiInputBase-root": {
-                  borderRadius: 1,
-                },
-              }}
-            />
-          ) : (
-            <Typography fontWeight={600}>-</Typography>
-          )}
-        </FormControl>
-      </Grid>
+      {/*<Grid item xs={12}>*/}
+      {/*  <FormControl fullWidth>*/}
+      {/*    <FieldLabelInfo title="Lokasi" information="Lokasi" />*/}
+      {/*    {mode === "add" || mode === "edit" ? (*/}
+      {/*      <Autocomplete*/}
+      {/*        key={columns.length}*/}
+      {/*        multiple*/}
+      {/*        disableCloseOnSelect*/}
+      {/*        filterSelectedOptions*/}
+      {/*        size="small"*/}
+      {/*        freeSolo={false}*/}
+      {/*        value={columns}*/}
+      {/*        options={options}*/}
+      {/*        getOptionLabel={(option) => option.name}*/}
+      {/*        onChange={(_e, value, reason) => {*/}
+      {/*          if (reason === "clear" || reason === "removeOption")*/}
+      {/*            setSelectAll(false);*/}
+      {/*          if (reason === "selectOption" && value.length === options.length)*/}
+      {/*            setSelectAll(true);*/}
+      {/*            setColumns(value);*/}
+      {/*        }}*/}
+      {/*        renderInput={(params) => (*/}
+      {/*          <TextField*/}
+      {/*            {...params}*/}
+      {/*            InputLabelProps={{*/}
+      {/*              shrink: true,*/}
+      {/*            }}*/}
+      {/*            placeholder="Pilih provinsi"*/}
+      {/*            sx={SxAutocompleteTextField(paramVariantDefault)}*/}
+      {/*          />*/}
+      {/*        )}*/}
+      {/*        PaperComponent={(paperProps) => {*/}
+      {/*          const { children, ...restPaperProps } = paperProps;*/}
+      {/*          return (*/}
+      {/*            <Paper {...restPaperProps}>*/}
+      {/*              <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>*/}
+      {/*                <FormControlLabel*/}
+      {/*                  onClick={(e) => {*/}
+      {/*                    e.preventDefault();*/}
+      {/*                    handleToggleSelectAll();*/}
+      {/*                  }}*/}
+      {/*                  label="Pilih semua provinsi"*/}
+      {/*                  control={<Checkbox id="select-all-checkbox" checked={selectAll} />}*/}
+      {/*                />*/}
+      {/*              </Box>*/}
+      {/*              <Divider />*/}
+      {/*              {children}*/}
+      {/*            </Paper>*/}
+      {/*          );*/}
+      {/*        }}*/}
+      {/*        sx={{*/}
+      {/*          ...SxAutocomplete,*/}
+      {/*          ".MuiInputBase-root": {*/}
+      {/*            borderRadius: 1,*/}
+      {/*          },*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    ) : (*/}
+      {/*      <Typography fontWeight={600}>-</Typography>*/}
+      {/*    )}*/}
+      {/*  </FormControl>*/}
+      {/*</Grid>*/}
       <Grid item xs={12}>
         <FormControl fullWidth>
           <FieldLabelInfo title="Keterangan" information="Keterangan" />
@@ -126,22 +126,18 @@ export default function FormLocation(
             <TextareaStyled
               aria-label="Keterangan"
               placeholder="Keterangan"
-              value={request.values.length > 0 ? request.values[0].keterangan : ""}
+              minRows={3}
+              value={request.keterangan}
               onChange={(e) => setRequest((prev:ExsumLocationUpdateDto) => {
                 const newVal = {
                   ...prev,
-                  values:[
-                    {
-                      keterangan:e.target.value,
-                      provinsi: prev.values.length > 0 ? prev.values[0].provinsi : []
-                    }
-                  ]
+                  keterangan:e.target.value
                 }
                 return newVal
               })}
             />
           ) : (
-            <Typography fontWeight={600}>{request.values[0].keterangan}</Typography>
+            <Typography fontWeight={600}>{request.keterangan}</Typography>
           )}
         </FormControl>
       </Grid>

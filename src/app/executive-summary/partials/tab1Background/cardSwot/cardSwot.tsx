@@ -14,7 +14,6 @@ import {
 import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
-import {dataTema} from "../../../dataTema";
 import theme from "@/theme";
 import {grey} from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
@@ -23,7 +22,6 @@ import {ExsumSWOTRequestDto, LISTSWOT} from "./cardSwotModel";
 import {TextareaStyled} from "@/app/components/textarea";
 import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdownKp";
 import {paramVariantDefault} from "@/utils/constant";
-import {handleAction} from "next/dist/server/app-render/action-handler";
 
 export default function CardSwot({project}: { project: string }) {
   const {data, modal, setModal, updateData, deleteData, request, setRequest} = useCardSWOTVM()

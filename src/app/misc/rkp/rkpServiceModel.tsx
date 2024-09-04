@@ -22,8 +22,13 @@ export type RkpDefaultReqV2Dto = {
     id: number[]
 };
 
+export type RkpLocationReqDto = {
+    exsum_id: number[]
+    action: string
+};
+
 export type GetRkpLocationServiceModel = BaseAPIServiceParam & {
-    body: RkpDefaultReqV1Dto;
+    body: RkpLocationReqDto;
 };
 
 export interface RoDto {

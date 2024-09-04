@@ -106,7 +106,7 @@ const useCardDiagramVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.sucess && response.result != null){
       const result:ExsumDiagramState = response.result
       setData(result)
       setRequest(result)

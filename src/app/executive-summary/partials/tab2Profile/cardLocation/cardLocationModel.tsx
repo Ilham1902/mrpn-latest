@@ -15,14 +15,14 @@ interface ExsumLocationValue {
 export interface ExsumLocationUpdateDto {
   id:number
   exsum_id: number
-  values:ExsumLocationValue[]
+  keterangan:string
 }
 
 
 export const initExsumLocationUpdateDto:ExsumLocationUpdateDto = {
   id:0,
   exsum_id: 0,
-  values: []
+  keterangan: ""
 }
 
 export type GetLocationByExsumIdServiceModel = BaseAPIServiceParam & {

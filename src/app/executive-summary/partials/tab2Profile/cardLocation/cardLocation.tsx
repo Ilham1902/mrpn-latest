@@ -14,6 +14,7 @@ import DialogComponent from "@/components/dialog";
 import { grey } from "@mui/material/colors";
 import FormLocation from "./form-location";
 import useCardLocationVM from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationVM";
+import {margin} from "@mui/system";
 
 export default function CardLocation({ project }: { project: string }) {
 
@@ -23,7 +24,7 @@ export default function CardLocation({ project }: { project: string }) {
     data,
     request,
     setRequest,
-    listProvinsi,
+    locationExsum,
     updateData,
     columns,
     setColumns
@@ -50,8 +51,8 @@ export default function CardLocation({ project }: { project: string }) {
        </Typography>
        <Stack direction="row" flexWrap="wrap" gap={0.5}>
         <Box>
-          {data[0].provinsi.map((x, index) => (
-            <Chip size="small" label={x.name} key={index}/>
+          {locationExsum.map((x, index) => (
+            <Chip size="small" label={x.name} key={index} />
           ))}
         </Box>
        </Stack>
@@ -85,8 +86,8 @@ export default function CardLocation({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormLocation mode="add" 
-      options={listProvinsi}
+    <FormLocation mode="add"
+      options={locationExsum}
        request={request}
         setRequest={setRequest}
         columns={columns}
