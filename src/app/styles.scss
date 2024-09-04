@@ -70,7 +70,7 @@
 .login-page {
  background: linear-gradient(270deg, #001220, #0d344d);
  background-size: 400% 400%;
- animation: AnimationName 7s ease infinite;
+ animation: AnimationName 27s ease infinite;
 }
 
 @keyframes AnimationName {
@@ -82,5 +82,39 @@
  }
  100% {
   background-position: 0% 50%;
+ }
+}
+
+// Slide-up Text
+
+#slider {
+ //  width: 600px;
+ display: flex;
+ gap: 15px;
+ font-size: 20px;
+}
+
+#sliderValue {
+ //  color: #0077ee;
+ //  font-weight: 700;
+ overflow: hidden; /* Hide overflowing content */
+ position: relative; /* Required for absolute positioning of letters */
+}
+
+#sliderValue span {
+ display: inline-block;
+ opacity: 0;
+ transform: translateY(20px);
+ animation: fade 0.3s forwards;
+}
+
+@keyframes fade {
+ 0% {
+  opacity: 0;
+  transform: translateY(20px);
+ }
+ 100% {
+  opacity: 1;
+  transform: translateY(0);
  }
 }

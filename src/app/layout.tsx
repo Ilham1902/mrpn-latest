@@ -1,10 +1,11 @@
+import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 
 import { Metadata } from "next";
 import { CssBaseline } from "@mui/material";
-import React from "react";
+
 import "./globals.css";
 import "./styles.scss";
 import "react-date-range/dist/styles.css"; // main style file
