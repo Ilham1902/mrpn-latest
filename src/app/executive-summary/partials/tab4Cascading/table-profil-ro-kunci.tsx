@@ -108,7 +108,11 @@ export default function TableProfilRoKunci() {
  ];
 
  return (
-  <TableContainer component={Paper} elevation={0}>
+  <TableContainer
+   component={Paper}
+   elevation={0}
+   sx={{ minWidth: "0 !important" }}
+  >
    <Table sx={{ minWidth: 650 }} size="small">
     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
      <TableRow>
