@@ -28,7 +28,7 @@ const useCardRelatedVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     });
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: MiscMasterListKebijakanRes[] = response.result;
       if (result) {
         setOptions(result)
@@ -45,7 +45,7 @@ const useCardRelatedVM = () => {
       errorModalContext: errorModalContext,
     });
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: ExsumRelatedDto[] = response.result;
       if (result) {
         setData(result)
@@ -90,7 +90,7 @@ const useCardRelatedVM = () => {
     }
 
     const response = await doCreate(params)
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       getData()
       setModal(false)
     }
@@ -104,7 +104,7 @@ const useCardRelatedVM = () => {
       errorModalContext:errorModalContext
     }
     const response = await doDelete(params)
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       getData()
     }
   }

@@ -33,7 +33,7 @@ const useCardLocationVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterListProvinsiRes[] = response.result
       setLocationExsum(result)
     }
@@ -48,7 +48,7 @@ const useCardLocationVM = () => {
       errorModalContext: errorModalContext,
     });
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: ExsumLocationDto[] = response.result;
       if (result.length > 0) {
         setData(result)
@@ -80,7 +80,7 @@ const useCardLocationVM = () => {
       console.log("not implement")
     } else {
       const response = await doCreate(params);
-      if (response?.code == API_CODE.sucess) {
+      if (response?.code == API_CODE.success) {
         getData();
         setModal(false)
       }

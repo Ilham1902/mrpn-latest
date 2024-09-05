@@ -5,7 +5,6 @@ import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
 import AddButton from "@/app/components/buttonAdd";
-import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
 import Matriks from "@/app/penetapan/kriteria/partials/tab4Matriks/matriks";
 import FormRisk from "./partials/formRisk";

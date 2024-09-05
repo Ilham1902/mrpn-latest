@@ -24,7 +24,7 @@ const useCardSegmentVM = () => {
             errorModalContext: errorModalContext,
         });
 
-        if (response?.code == API_CODE.sucess) {
+        if (response?.code == API_CODE.success) {
             let result: ExsumSegmentDto = response.result;
             if (result) {
                 setData(result)
@@ -57,13 +57,13 @@ const useCardSegmentVM = () => {
 
         if (request.id !== 0) {
             const response = await doUpdate(params);
-            if (response?.code == API_CODE.sucess) {
+            if (response?.code == API_CODE.success) {
                 getData();
                 setModal(false)
             }
         } else {
             const response = await doCreate(params);
-            if (response?.code == API_CODE.sucess) {
+            if (response?.code == API_CODE.success) {
                 getData();
                 setModal(false)
             }

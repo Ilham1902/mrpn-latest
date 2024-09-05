@@ -17,7 +17,7 @@ export type BaseAPIServiceParam = {
 };
 
 export const API_CODE = {
-  sucess: 200,
+  success: 200,
 };
 
 export const API_CONSTANT = {

@@ -23,7 +23,7 @@ const useCardSupportVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:ExsumSupportProjectRes = response.result
       setData(result)
     }

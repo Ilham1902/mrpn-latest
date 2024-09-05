@@ -37,7 +37,7 @@ const useCardDiagramVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: MiscMasterListProvinsiRes[] = response.result;
       if (result) {
         setListProvinsi(result)
@@ -60,7 +60,7 @@ const useCardDiagramVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterListStakeholderRes[] = response.result
       if (result){
         setListStakeholder(result)
@@ -83,7 +83,7 @@ const useCardDiagramVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterListSumberPendanaanRes[] = response.result
       if (result){
         setListSof(result)
@@ -106,7 +106,7 @@ const useCardDiagramVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess && response.result != null){
+    if (response?.code == API_CODE.success && response.result != null){
       const result:ExsumDiagramState = response.result
       setData(result)
       setRequest(result)
@@ -151,7 +151,7 @@ const useCardDiagramVM = () => {
     } else {
       response = await doUpdate(params)
     }
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       getData()
       setModalOpen(false)
     }

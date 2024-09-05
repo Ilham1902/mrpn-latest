@@ -27,7 +27,7 @@ const useCardRoadmapVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterRPJMNRes = response.result
       setRpjmn(result)
     }
@@ -76,7 +76,7 @@ const useCardRoadmapVM = () => {
       errorModalContext: errorModalContext,
     }
     const response = await doGet(params)
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:ExsumRoadmapDto[] = response.result
 
       const outputData = result.filter(x => x.type == "OUTPUT")
@@ -98,7 +98,7 @@ const useCardRoadmapVM = () => {
       errorModalContext: errorModalContext,
     }
     const response = await doCreate(params)
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       getData().then(r => {
         setRequest({...initExsumRoadmapReq})
         handleOpenModal(false, "")

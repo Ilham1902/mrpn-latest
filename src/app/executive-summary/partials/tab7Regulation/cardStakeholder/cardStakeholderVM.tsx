@@ -29,7 +29,7 @@ const useCardStakeholderVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterListStakeholderRes[] = response.result
       if (result){
         setListStakeholder(result)
@@ -43,7 +43,7 @@ const useCardStakeholderVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:ExsumStakeholderResDto[] = response.result
       setData(result)
 
@@ -83,7 +83,7 @@ const useCardStakeholderVM = () => {
       })
     }
 
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       getData().then(r => {
         setModalOpenStakeholder(false)
       })

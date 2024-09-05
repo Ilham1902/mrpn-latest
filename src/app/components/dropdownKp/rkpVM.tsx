@@ -27,7 +27,7 @@ const useRkpVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       let result: GetSysParamsServiceResModel = response.result;
       const allowSelect:string[] = JSON.parse(result.value);
       setAllowedSelectRKP(allowSelect)
@@ -41,7 +41,7 @@ const useRkpVM = () => {
       errorModalContext: errorModalContext,
     });
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: RKPDto = response.result;
       rkpContext.setRkp(result)
 
@@ -102,7 +102,7 @@ const useRkpVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     });
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result:ExsumDto = response.result
       exsumContext.setExsum(result)
     }

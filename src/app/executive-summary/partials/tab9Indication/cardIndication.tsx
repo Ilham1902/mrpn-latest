@@ -13,12 +13,16 @@ export default function CardIndication({ project }: { project: string }) {
 
   const {
     data,
-    handleCreateData,
-    request,
-    setRequest
+    optionRiskType,
+    optionStakeholder,
+    optionStrategy,
+    optionRO,
+    state,
+    setState,
+    modalOpen,
+    setModalOpen,
+    updateData
   } = useCardIndicationVM();
-
- const [modalOpen, setModalOpen] = React.useState(false);
 
  const handleModalOpen = () => {
   setModalOpen(true);
@@ -27,8 +31,6 @@ export default function CardIndication({ project }: { project: string }) {
  const handleModalClose = () => {
   setModalOpen(false);
  };
-
- const isEmpty = false;
 
  return (
   <>
@@ -52,11 +54,12 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication project={project} data={data} />
+      <TableIndication data={data} />
      )}
     </CardItem>
    </Stack>
    <DialogComponent
+     width={"90%"}
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
     title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
@@ -65,13 +68,20 @@ export default function CardIndication({ project }: { project: string }) {
       <Button variant="outlined" onClick={handleModalClose}>
        Batal
       </Button>
-      <Button variant="contained" type="submit" onClick={() => handleCreateData()}>
+      <Button variant="contained" type="submit" onClick={() => updateData()}>
        Simpan
       </Button>
      </DialogActions>
     }
    >
-    <FormIndication mode="add" project={project} request={request} setRequest={setRequest} />
+    <FormIndication
+      state={state}
+      setState={setState}
+      optionRiskType={optionRiskType}
+      optionStrategy={optionStrategy}
+      optionStakeholder={optionStakeholder}
+      optionRO={optionRO}
+    />
    </DialogComponent>
   </>
  );

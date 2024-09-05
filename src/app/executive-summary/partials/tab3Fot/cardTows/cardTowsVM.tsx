@@ -25,11 +25,10 @@ const useCardTOWSVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     });
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result:ExsumTWOSResDto = response.result
       if (result) {
         setData(result)
-        console.log(result)
         setOptions(result.options)
         if (result.tows){
           setRequest(result.tows)
@@ -54,7 +53,7 @@ const useCardTOWSVM = () => {
       response = await doUpdate(params)
     }
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       getData().then(r => {
         setModalOpen(false)
       })

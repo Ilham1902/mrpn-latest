@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, {Fragment, SetStateAction} from "react";
 import {
  Autocomplete,
  Box,
@@ -22,6 +22,12 @@ import {
 import { paramVariantDefault } from "@/app/utils/constant";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import { listEntity } from "@/app/executive-summary/data";
+import {
+  ExsumIndicationState,
+  IndicationState, OthersEntityState
+} from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
+import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {AutocompleteSelectMultiple, AutocompleteSelectSingle} from "@/components/autocomplete";
 
 type Option = (typeof listEntity)[number];
 
@@ -79,146 +85,91 @@ const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
  );
 };
 
-export default function AddEntity({ mode }: { mode?: string }) {
- const [itemsPP, setItemPP] = React.useState([{ id: 1 }]);
- const [columns, setColumns] = React.useState<Option[]>([]);
- const [selectAll, setSelectAll] = React.useState<boolean>(false);
-
- const addPP = () => {
-  let arr = [...itemsPP];
-  if (arr.length >= 10) {
-   return;
-  } else {
-   arr.push({ id: Math.floor(Math.random() * 1000) });
+export default function AddEntity(
+  {
+   optionStakeholder,
+   state,
+   setState,
+  }: {
+   state:ExsumIndicationState
+   setState:(value:SetStateAction<ExsumIndicationState>) => void
+   optionStakeholder: MiscMasterListStakeholderRes[]
   }
-  const newItem = arr;
-  setItemPP(newItem);
- };
+) {
 
- const minusPP = (nowId: any) => {
-  let arr = [...itemsPP];
-  let newArr = arr.filter((val) => {
-   if (nowId === val.id) {
-    return false;
-   } else {
-    return true;
-   }
-  });
-  setItemPP(newArr);
- };
+  function deleteRow(index: number) {
+    setState(prevState => {
+      const prevEntity = prevState.entity
+      prevEntity.others.splice(index, 1)
 
- const handleToggleSelectAll = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumns([...listEntity]);
-   else setColumns([]);
-   return !prev;
-  });
- };
+      return {
+        ...prevState,
+        entity:prevEntity
+      }
+    })
+  }
 
- return (
+  function addRow() {
+    setState(prevState => {
+      const prevEntity = prevState.entity
+
+      const newRow:OthersEntityState = {
+        type: "",
+        entity: []
+      }
+
+      prevEntity.others.push(newRow)
+
+      return {
+        ...prevState,
+        entity:prevEntity
+      }
+    })
+  }
+
+  return (
   <>
    <Grid container spacing={2}>
-    {/* <Grid item lg={4}>
-     <FormControl fullWidth>
-      <Typography gutterBottom>Entitas</Typography>
-      <TextField
-       variant="outlined"
-       size="small"
-       placeholder="Entitas"
-       InputLabelProps={{
-        shrink: true,
-       }}
-      />
-     </FormControl>
-    </Grid> */}
     <Grid item xs={12}>
      <FormControl fullWidth>
       <FieldLabelInfo
        title="Kementerian Koordinator"
        information="Kementerian Koordinator"
       />
-      <Autocomplete
-       //    multiple
-       //    disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       options={listEntity}
-       getOptionLabel={(option) => option.instance}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih kementerian koordinator"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+       <AutocompleteSelectSingle
+         value={state.entity.coordinator}
+         options={optionStakeholder}
+         getOptionLabel={(opt) => opt.value}
+         handleChange={(val:MiscMasterListStakeholderRes) => setState(prevState => {
+           const prevEntity = prevState.entity
+           prevEntity.coordinator = val
+           return {
+             ...prevState,
+             entity:prevEntity
+           }
+         })}
+         placeHolder={"Pilih kementerian koordinator"}
+       />
      </FormControl>
     </Grid>
     <Grid item xs={12}>
      <FormControl fullWidth>
       <FieldLabelInfo title="Entitas Utama" information="Entitas Utama" />
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columns}
-       options={listEntity}
-       getOptionLabel={(option) => option.instance}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listEntity.length)
-         setSelectAll(true);
-        setColumns(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih entitas utama"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAll();
-            }}
-            label="Pilih semua entitas"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+       <AutocompleteSelectMultiple
+         value={state.entity.main}
+         options={optionStakeholder}
+         getOptionLabel={(opt) => opt.value}
+         handleChange={(val:MiscMasterListStakeholderRes[]) => setState(prevState => {
+           const prevEntity = prevState.entity
+           prevEntity.main = val
+           return {
+             ...prevState,
+             entity:prevEntity
+           }
+         })}
+         placeHolder={"Pilih entitas utama"}
+         labelSelectAll={"Pilih semua entitas"}
+       />
      </FormControl>
     </Grid>
     <Grid item xs={12}>
@@ -231,25 +182,70 @@ export default function AddEntity({ mode }: { mode?: string }) {
          information="Tambah Entitas"
         />
        </Grid>
-       {itemsPP.map((tags: any) => (
-        <Fragment key={`${tags.id}`}>
-         <ItemKP type="pp" />
-         <Grid item lg={1}>
-          <FormControl sx={{ mt: "32px" }}>
-           <IconButton
-            aria-label="delete"
-            color="error"
-            onClick={() => minusPP(tags.id)}
-           >
-            <IconFA size={18} name="trash-can" />
-           </IconButton>
-          </FormControl>
-         </Grid>
-        </Fragment>
-       ))}
+        {state.entity.others.map((row,index) =>
+          <Fragment key={`${index}`}>
+
+
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FieldLabelInfo title="Entitas" information="Entitas" />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  placeholder={`Entitas`}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={row.type}
+                  onChange={(e) => setState(prevState => {
+                    const entity = prevState.entity
+                    entity.others[index].type = e.target.value
+                    return {
+                      ...prevState,
+                      entity:entity
+                    }
+                  })}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={7}>
+              <FormControl fullWidth>
+                <FieldLabelInfo title="Instansi" information="Instansi" />
+                <AutocompleteSelectMultiple
+                  value={state.entity.others[index].entity}
+                  options={optionStakeholder}
+                  getOptionLabel={(opt) => opt.value}
+                  handleChange={(val:MiscMasterListStakeholderRes[]) => setState(prevState => {
+                    const prevEntity = prevState.entity
+                    prevEntity.others[index].entity = val
+                    return {
+                      ...prevState,
+                      entity:prevEntity
+                    }
+                  })}
+                  placeHolder={"Pilih instansi"}
+                  labelSelectAll={"Pilih semua instansi"}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item lg={1}>
+              <FormControl sx={{ mt: "32px" }}>
+                <IconButton
+                  aria-label="delete"
+                  color="error"
+                  onClick={() => deleteRow(index)}
+                >
+                  <IconFA size={18} name="trash-can" />
+                </IconButton>
+              </FormControl>
+            </Grid>
+          </Fragment>
+        )}
       </Grid>
       <FormControl sx={{ mt: 2 }}>
-       <AddButton title="Tambah entitas" noMargin onclick={addPP} />
+       <AddButton title="Tambah entitas" noMargin onclick={() => addRow()} />
       </FormControl>
      </Paper>
     </Grid>

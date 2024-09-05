@@ -125,7 +125,7 @@ const fetchAPI = async (param: APIParam) => {
         headers,
       });
       let rResponseJson = await mappingResponse(rResponse);
-      if (rResponseJson.code == API_CODE.sucess) {
+      if (rResponseJson.code == API_CODE.success) {
         sessionStorage.setItem(
           API_CONSTANT.token,
           rResponseJson.result?.token!
@@ -152,7 +152,7 @@ const fetchAPI = async (param: APIParam) => {
 
   if (response.ok || response2 != null) {
     if (param.errorModalContext != undefined) {
-      if (responseJson.code != API_CODE.sucess) {
+      if (responseJson.code != API_CODE.success) {
         // param.errorModalContext.setResponseBaseDto({
         //   code: responseJson.code,
         //   message: responseJson.message,

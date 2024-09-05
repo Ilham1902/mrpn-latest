@@ -30,7 +30,7 @@ const useCardRegulationVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:MiscMasterListPerpresRes[] = response.result
       if (result){
         setPerpres(result)
@@ -44,7 +44,7 @@ const useCardRegulationVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       const result:ExsumRegulationDto[] = response.result
       if (result){
         setData(result)
@@ -66,7 +66,7 @@ const useCardRegulationVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       getData()
       setModalOpen(false)
     }
@@ -78,7 +78,7 @@ const useCardRegulationVM = () => {
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
-    if (response?.code == API_CODE.sucess){
+    if (response?.code == API_CODE.success){
       getData()
       setModalOpen(false)
     }

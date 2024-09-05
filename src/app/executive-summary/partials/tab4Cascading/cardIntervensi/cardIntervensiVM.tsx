@@ -44,7 +44,7 @@ const useCardIntervensiVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result: MiscMasterRPJMNRes = response.result
       setRpjmn(result)
     }
@@ -56,7 +56,7 @@ const useCardIntervensiVM = () => {
       errorModalContext: errorModalContext,
       loadingContext: loadingContext
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result: ProPDto[] = response.result
       setListProP(result)
     }
@@ -68,7 +68,7 @@ const useCardIntervensiVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result: MiscMasterListSumberPendanaanRes[] = response.result
       if (result) {
         setListSof(result)
@@ -82,7 +82,7 @@ const useCardIntervensiVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result: MiscMasterListStakeholderRes[] = response.result
       if (result) {
         setListStakeholder(result)
@@ -118,7 +118,7 @@ const useCardIntervensiVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result: RoDto[] = response.result
 
       setData(result)
@@ -156,7 +156,7 @@ const useCardIntervensiVM = () => {
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     })
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       await getData()
       setModal({action:false,type:""})
     }

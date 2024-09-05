@@ -125,3 +125,51 @@ export function AutocompleteSelectSingle<T>(
     />
   );
 }
+
+export interface AutoCompleteFreeSoloProp {
+  multiple:boolean
+  value: string|undefined
+  options: string[]
+  handleChange: Function
+  placeHolder: string
+}
+
+export function AutocompleteSelectFreeSolo(
+  {
+    multiple,
+    value,
+    options,
+    handleChange,
+    placeHolder,
+  }: AutoCompleteFreeSoloProp
+) {
+  return (
+    <Autocomplete
+      multiple={multiple}
+      filterSelectedOptions
+      size="small"
+      freeSolo
+      value={value}
+      options={options}
+      onChange={(_e, value) => {
+        handleChange(value)
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={placeHolder}
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+        />
+      )}
+      sx={{
+        ...SxAutocomplete,
+        ".MuiInputBase-root": {
+          borderRadius: 1,
+        },
+      }}
+    />
+  );
+}

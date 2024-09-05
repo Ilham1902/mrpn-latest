@@ -24,7 +24,7 @@ const useCardUrgentVM = () => {
       errorModalContext: errorModalContext,
     });
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: ExsumUrgentDto = response.result;
       if (result) {
         setData(result)
@@ -57,13 +57,13 @@ const useCardUrgentVM = () => {
 
     if (request.id !== 0) {
       const response = await doUpdateUrgent(params);
-      if (response?.code == API_CODE.sucess) {
+      if (response?.code == API_CODE.success) {
         getData();
         setModal(false)
       }
     } else {
       const response = await doCreateUrgent(params);
-      if (response?.code == API_CODE.sucess) {
+      if (response?.code == API_CODE.success) {
         getData();
         setModal(false)
       }

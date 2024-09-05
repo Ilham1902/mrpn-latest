@@ -46,7 +46,7 @@ const useCardCriticalVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: RoDto[] = response.result
       setOptionRO(result)
     }
@@ -59,7 +59,7 @@ const useCardCriticalVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       let result: MiscMasterListKategoriProyekRes[] = response.result
       setOptionProjectCategory(result)
     }
@@ -72,7 +72,7 @@ const useCardCriticalVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       const result:ExsumCriticalData[] = response.result
       setData(result)
 
@@ -124,7 +124,7 @@ const useCardCriticalVM = () => {
       errorModalContext: errorModalContext,
     })
 
-    if (response?.code == API_CODE.sucess) {
+    if (response?.code == API_CODE.success) {
       getData()
       setModalOpen(false)
     }

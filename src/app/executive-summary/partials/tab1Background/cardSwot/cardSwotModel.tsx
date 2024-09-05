@@ -1,44 +1,5 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
 
-// {
-//     "code": 200,
-//   "message": "success",
-//   "result": {
-//     "id": 3,
-//       "exsum_id": 4,
-//       "strength": "Desc Strength",
-//       "weakness": "Desc Weakness",
-//       "opportunity": "Desc Opportunity",
-//       "threat": "Desc Threat",
-//       "exsum_swot_list": [
-//         {
-//             "id": 5,
-//             "exsum_swot_id": 3,
-//             "type": "STRENGTH",
-//             "value": "Strength2"
-//         },
-//         {
-//             "id": 6,
-//             "exsum_swot_id": 3,
-//             "type": "WEAKNESS",
-//             "value": "Weakness1"
-//         },
-//         {
-//             "id": 7,
-//             "exsum_swot_id": 3,
-//             "type": "OPPORTUNITY",
-//             "value": "Opportunity2"
-//         },
-//         {
-//             "id": 8,
-//             "exsum_swot_id": 3,
-//             "type": "THREAT",
-//             "value": "Threat2"
-//         }
-//     ]
-// }
-// }
-
 export const LISTSWOT = ["Strength","Weakness","Opportunity","Threat"];
 
 export interface ExsumSWOTRequestDto {
@@ -53,7 +14,11 @@ export interface ExsumSWOTRequestDto {
         values:string[]
     }[]
 }
-
+export interface ExsumSWOTValuesDto {
+    id:number
+    type:string
+    value:string
+}
 export interface ExsumSWOTResponseDto {
     id: number
     exsum_id: number
@@ -61,10 +26,7 @@ export interface ExsumSWOTResponseDto {
     weakness: string
     opportunity: string
     threat: string
-    values: {
-        type:string
-        value:string
-    }[]
+    values: ExsumSWOTValuesDto[]
 }
 
 export const initExsumSWOTRequestDto:ExsumSWOTRequestDto = {
