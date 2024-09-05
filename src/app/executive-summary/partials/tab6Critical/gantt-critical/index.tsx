@@ -1,31 +1,19 @@
-// components/GanttChart.tsx
 import React from "react";
-import { Gantt, ViewMode } from "gantt-task-react";
+import {Gantt, Task, ViewMode} from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import CustomTooltip from "./tooltip";
 import { Box } from "@mui/material";
-import {
- TasksCriticalPariwisata,
- TasksCriticalSampah,
- TasksCriticalStunting,
-} from "./data";
 import theme from "@/theme";
-import { grey } from "@mui/material/colors";
 
-export type TaskType = "task" | "milestone" | "project";
-
-export interface Task {
- start: Date;
- end: Date;
- name: string;
- id: string;
- type: TaskType;
- progress: number;
- dependencies: string[];
- styles?: React.ReactNode | any;
-}
-
-export default function GanttChart({ project }: { project?: string }) {
+export default function GanttChart(
+  {
+   project,
+    tasks
+  }: {
+   project?: string
+   tasks:Task[]
+  }
+) {
  return (
   <Box
    sx={{
@@ -33,15 +21,7 @@ export default function GanttChart({ project }: { project?: string }) {
    }}
   >
    <Gantt
-    tasks={
-     project === "1"
-      ? TasksCriticalStunting
-      : project === "2"
-      ? TasksCriticalPariwisata
-      : project === "7"
-      ? TasksCriticalSampah
-      : TasksCriticalSampah
-    }
+    tasks={tasks}
     viewMode={ViewMode.Year}
     TooltipContent={CustomTooltip}
     preStepsCount={1}

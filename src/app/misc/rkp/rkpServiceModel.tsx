@@ -1,6 +1,7 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel"
 import { ExsumDto } from "@/lib/core/context/exsumContext";
 import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 
 export type GetRKPServiceModel = BaseAPIServiceParam & {
     body: {};
@@ -37,14 +38,15 @@ export interface RoDto {
     tahun:number
     code:string
     value:string
-    kl:string
-    kl_code:string
+    kementrian_id:string
+    kementrian:MiscMasterListStakeholderRes
     pkkr:string
     target:string
     fisik:string
     satuan:string
     lokasi:string
     alokasi:number
+    sumber_anggaran:string
     type:string
     intervention:boolean
 }

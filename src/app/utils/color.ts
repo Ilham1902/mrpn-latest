@@ -1,3 +1,6 @@
+import theme from "@/theme";
+import {blue, brown, green, orange} from "@mui/material/colors";
+
 export const logoOrange = "#EA6228";
 export const logoBrown = "#CC9933";
 export const logoGreen = "#33CC33";
@@ -7,3 +10,21 @@ export const red = "#EF4444";
 export const yellow = "#FDE047";
 export const whiteRGB = "rgb(255, 255, 255)";
 export const blackRGB = "rgb(0, 0, 0)";
+
+export const GetColor = (i:number) => {
+
+  const colorArray:string[] = [
+    "#522258",
+    "#C63C51",
+    "#8C3061",
+    "#FFD35A",
+    "#FFA823",
+    "#DC0083",
+    "#D95F59",
+    "#A67B5B",
+    "#ECB176",
+    "#FED8B1",
+  ];
+
+  return colorArray[i]
+}

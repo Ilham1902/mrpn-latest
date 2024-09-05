@@ -66,3 +66,12 @@ export interface MiscMasterListSumberPendanaanRes {
   id: number
   name: string
 }
+
+// LIST KATEGORI PROYEK
+export type MiscMasterListKategoriProyekReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MiscMasterListKategoriProyekRes {
+  id: number
+  name: string
+}

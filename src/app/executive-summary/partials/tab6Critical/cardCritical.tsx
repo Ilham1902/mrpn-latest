@@ -10,6 +10,7 @@ import theme from "@/theme";
 import DialogComponent from "@/app/components/dialog";
 import FormCritical from "./form";
 import useCardCriticalVM from "@/app/executive-summary/partials/tab6Critical/cardCriticalVM";
+import {GetColor} from "@/utils/color";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
  return (
@@ -25,9 +26,16 @@ const ProjectType = ({ label, color }: { label: string; color: string }) => {
 export default function CardCritical({ project }: { project: string }) {
 
   const {
-    optionsRO,
+    optionRO,
+    optionStrategy,
+    optionProjectCategory,
     modalOpen,
-    setModalOpen
+    setModalOpen,
+    state,
+    setState,
+    handleSubmit,
+    data,
+    ganChart
   } = useCardCriticalVM()
 
  const handleModalOpen = () => {
@@ -38,12 +46,10 @@ export default function CardCritical({ project }: { project: string }) {
   setModalOpen(false);
  };
 
- const isEmpty = false;
-
  return (
   <>
    <CardItem title="Critical Path" setting settingEditOnclick={handleModalOpen}>
-    {isEmpty || project === "4" ? (
+    {data.length == 0 ? (
      <EmptyState
       dense
       icon={<IconEmptyData width={100} />}
@@ -54,14 +60,11 @@ export default function CardCritical({ project }: { project: string }) {
      <>
       <Stack gap={3}>
        <Stack direction="row" gap={1}>
-        <ProjectType color={orange[800]} label="Proyek BUMN" />
-        <ProjectType color={green[800]} label="Proyek DAK" />
-        <ProjectType
-         color={theme.palette.primary.main}
-         label="Proyek Belanja K/L"
-        />
+         {data.map((d,index) =>
+            <ProjectType key={index} color={GetColor(d.kategori_proyek.id)} label={d.kategori_proyek.name} />
+         )}
        </Stack>
-       <GanttChart project={project} />
+       <GanttChart project={project} tasks={ganChart} />
       </Stack>
      </>
     )}
@@ -76,13 +79,13 @@ export default function CardCritical({ project }: { project: string }) {
       <Button variant="outlined" onClick={handleModalClose}>
        Batal
       </Button>
-      <Button variant="contained" type="submit">
+      <Button variant="contained" type="submit" onClick={() => handleSubmit()}>
        Simpan
       </Button>
      </DialogActions>
     }
    >
-    <FormCritical optionsRO={optionsRO} />
+    <FormCritical optionsRO={optionRO} optionsStrategy={optionStrategy} optionProjectCategory={optionProjectCategory} state={state} setState={setState} />
    </DialogComponent>
   </>
  );

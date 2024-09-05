@@ -3,7 +3,11 @@ import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
   MiscMasterListKebijakanReq,
   MiscMasterListPerpresReq,
-  MiscMasterListProvinsiReq, MiscMasterListStakeholderReq, MiscMasterRPJMNReq, MiscMasterListSumberPendanaanReq
+  MiscMasterListProvinsiReq,
+  MiscMasterListStakeholderReq,
+  MiscMasterRPJMNReq,
+  MiscMasterListSumberPendanaanReq,
+  MiscMasterListKategoriProyekReq
 } from "@/app/misc/master/masterServiceModel";
 
 export async function doGetMasterListKebijakan(param: MiscMasterListKebijakanReq) {
@@ -50,6 +54,14 @@ export async function doGetMasterListSumberPendanaan(param: MiscMasterListSumber
   const resp = await get({
     ...param,
     url: "misc/master/listSumberPendanaan",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetMasterListlistKategoriProyek(param: MiscMasterListKategoriProyekReq) {
+  const resp = await get({
+    ...param,
+    url: "misc/master/listKategoriProyek",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

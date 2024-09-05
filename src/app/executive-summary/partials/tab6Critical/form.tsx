@@ -1,58 +1,39 @@
-import React from "react";
+import React, {SetStateAction, useState} from "react";
 import {
- Autocomplete,
- Box,
- Checkbox,
- Divider,
  FormControl,
- FormControlLabel,
  Grid,
- Paper,
- TextField,
  ToggleButton,
  ToggleButtonGroup,
  Typography,
 } from "@mui/material";
-import TextareaComponent from "@/app/components/textarea";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
-import DateRangePicker from "@/app/components/dateRange";
 import { green, orange } from "@mui/material/colors";
 import theme from "@/theme";
-import {
- SxAutocompleteTextField,
- SxAutocomplete,
-} from "@/app/components/dropdownKp";
-import { paramVariantDefault } from "@/app/utils/constant";
-import { listTagProP } from "../../data";
-import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
-
-type OptionProP = (typeof listTagProP)[number];
+import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import {AutocompleteSelectMultiple, AutocompleteSelectSingle} from "@/components/autocomplete";
+import {ExsumCriticalState} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import {MiscMasterListKategoriProyekRes} from "@/app/misc/master/masterServiceModel";
+import {GetColor} from "@/utils/color";
 
 export default function FormCritical(
   {
-    optionsRO
+    optionsRO,
+    optionsStrategy,
+    optionProjectCategory,
+    state,
+    setState
   } : {
-    optionsRO:ProjectDefaultDto[]
+    optionsRO:RoDto[]
+    optionsStrategy:string[],
+    optionProjectCategory:MiscMasterListKategoriProyekRes[]
+    state:ExsumCriticalState
+    setState:(value:SetStateAction<ExsumCriticalState>) => void
   }
 ) {
- const [alignment, setAlignment] = React.useState();
- const [columnsProP, setColumnsProp] = React.useState<OptionProP[]>([]);
- const [selectAll, setSelectAll] = React.useState<boolean>(false);
-
- const handleChange = (
-  event: React.MouseEvent<HTMLElement>,
-  newAlignment: string | any
- ) => {
-  setAlignment(newAlignment);
- };
-
- const handleToggleSelectAllProP = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumnsProp([...listTagProP]);
-   else setColumnsProp([]);
-   return !prev;
-  });
- };
 
  return (
   <Grid container spacing={2}>
@@ -62,159 +43,128 @@ export default function FormCritical(
       title="Rincian Output/Project"
       information="Rincian Output/Project"
      />
-     <Autocomplete
-       size="small"
-       freeSolo={false}
-       options={optionsRO}
-       getOptionLabel={(option) => option.value}
-       renderInput={(params) => (
-         <TextField
-           {...params}
-           InputLabelProps={{
-            shrink: true,
-           }}
-           placeholder="Pilih rincian output/project"
-           sx={SxAutocompleteTextField(paramVariantDefault)}
-         />
-       )}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-     />
+      <AutocompleteSelectSingle
+        value={state.ro}
+        options={optionsRO}
+        getOptionLabel={(option) => option.value}
+        handleChange={(val:RoDto) => setState(prev => {
+          return {
+            ...prev,
+            ro:val
+          }
+        })}
+        placeHolder={"Pilih rincian output/project"}
+      />
     </FormControl>
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Tagging Strategi" information="Tagging Strategi" />
-     <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsProP}
-       options={listTagProP}
-       getOptionLabel={(option) => option.description}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listTagProP.length)
-         setSelectAll(true);
-        setColumnsProp(value);
-       }}
-       renderInput={(params) => (
-         <TextField
-           {...params}
-           InputLabelProps={{
-            shrink: true,
-           }}
-           placeholder="Pilih tagging strategi"
-           sx={SxAutocompleteTextField(paramVariantDefault)}
-         />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-          <Paper {...restPaperProps}>
-           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-            <FormControlLabel
-              onClick={(e) => {
-               e.preventDefault();
-               handleToggleSelectAllProP();
-              }}
-              label="Pilih semua tagging"
-              control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-            />
-           </Box>
-           <Divider />
-           {children}
-          </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-     />
+      <AutocompleteSelectMultiple
+        value={state.strategy}
+        options={optionsStrategy}
+        handleChange={(val: string[]) => setState(prev => {
+          return {
+            ...prev,
+            strategy: val
+          };
+        })}
+        placeHolder={"Pilih tagging strategi"}
+        getOptionLabel={(option: string) => option}
+        labelSelectAll={"Pilih semua tagging"}
+      />
     </FormControl>
    </Grid>
    <Grid item xs={12} md={6}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
-     <Typography fontWeight={600}>Kementerian PPN</Typography>
+     <Typography fontWeight={600}>
+       {state.ro ? state.ro.kementrian.value : "-"}
+     </Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} md={6}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Sumber Anggaran" information="Sumber Anggaran" />
-     <Typography fontWeight={600}>APBN</Typography>
+     <Typography fontWeight={600}>
+       {state.ro ? (state.ro.sumber_anggaran == null ? "-" : state.ro.sumber_anggaran) : "-"}
+     </Typography>
     </FormControl>
    </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Waktu Pengerjaan (Mulai - Selesai)"
-      information="Waktu Pengerjaan (Mulai - Selesai)"
-     />
-     <DateRangePicker
-       placeholder="Pilih periode"
-       sxInput={{
-        backgroundColor: "red",
-       }}
-     />
-    </FormControl>
-   </Grid>
+
+    <Grid item lg={6}>
+      <FormControl fullWidth>
+        <FieldLabelInfo title="Waktu Mulai Pengerjaan" information="Waktu Mulai Pengerjaan" />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            sx={{
+              ".MuiInputBase-root": {
+                height: 40,
+              },
+            }}
+            format="D MMM YYYY"
+            value={dayjs(state.start_date)}
+            onChange={(e:any) =>  setState((prev) => {
+              return {...prev, start_date:dayjs(e).format('YYYY-MM-DD')}
+            })}
+          />
+        </LocalizationProvider>
+      </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+      <FormControl fullWidth>
+        <FieldLabelInfo title="Waktu Selesai Pengerjaan" information="Waktu Selesai Pengerjaan" />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            sx={{
+              ".MuiInputBase-root": {
+                height: 40,
+              },
+            }}
+            format="D MMM YYYY"
+            value={dayjs(state.end_date)}
+            onChange={(e:any) =>  setState((prev) => {
+              return {...prev, end_date:dayjs(e).format('YYYY-MM-DD')}
+            })}
+          />
+        </LocalizationProvider>
+      </FormControl>
+    </Grid>
 
    <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Kategori Proyek" information="Kategori Proyek" />
      <ToggleButtonGroup
-       value={alignment}
+       value={state.kategori_proyek_id}
        exclusive
-       onChange={handleChange}
+       onChange={(
+         event: React.MouseEvent<HTMLElement>,
+         newAlignment: number
+       ) => {
+         setState((prev) => {
+           return {
+             ...prev,
+             kategori_proyek_id:newAlignment
+           }
+         })
+       }}
        aria-label="time"
      >
-      <ToggleButton
-        value="bumn"
-        sx={{
-         lineHeight: 1,
-         "&.Mui-selected": {
-          bgcolor: orange[800],
-          color: "white",
-         },
-        }}
-      >
-       Proyek BUMN
-      </ToggleButton>
-      <ToggleButton
-        value="dak"
-        sx={{
-         lineHeight: 1,
-         "&.Mui-selected": {
-          bgcolor: green[800],
-          color: "white",
-         },
-        }}
-      >
-       Proyek DAK
-      </ToggleButton>
-      <ToggleButton
-        value="kl"
-        sx={{
-         lineHeight: 1,
-         "&.Mui-selected": {
-          bgcolor: theme.palette.primary.main,
-          color: "white",
-         },
-        }}
-      >
-       Proyek Belanja K/L
-      </ToggleButton>
+       {optionProjectCategory.map((row, index) =>
+         <ToggleButton
+           key={index}
+           value={row.id}
+           sx={{
+             lineHeight: 1,
+             "&.Mui-selected": {
+               bgcolor: GetColor(row.id),
+               color: "white",
+             },
+           }}
+         >
+           {row.name}
+         </ToggleButton>
+       )}
      </ToggleButtonGroup>
     </FormControl>
    </Grid>

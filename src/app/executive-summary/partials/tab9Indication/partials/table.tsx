@@ -189,7 +189,7 @@ export default function TableIndication({ project, data }: { project: string, da
      </DialogActions>
     }
    >
-    <FormIndication mode="add" project={project} />
+    {/*<FormIndication mode="add" project={project} />*/}
    </DialogComponent>
   </>
  );
