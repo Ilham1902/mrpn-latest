@@ -113,40 +113,41 @@ const fetchAPI = async (param: APIParam) => {
       responseJson = response2;
     }
   }
+  // TODO : HANDLE REFRESH TOKEN
   if (response.status == 401) {
-    if (REFRESH_TOKEN.refreshing == false) {
-      REFRESH_TOKEN.refreshing = true;
-      let refreshToken = sessionStorage.getItem(API_CONSTANT.refreshToken);
-      const rResponse = await fetch(API_BASE + "/login/refreshToken", {
-        method: "POST",
-        body: IS_ENCRYPT
-          ? encryptValue(JSON.stringify({ refreshToken }))
-          : JSON.stringify({ refreshToken }),
-        headers,
-      });
-      let rResponseJson = await mappingResponse(rResponse);
-      if (rResponseJson.code == API_CODE.success) {
-        sessionStorage.setItem(
-          API_CONSTANT.token,
-          rResponseJson.result?.token!
-        );
-        sessionStorage.setItem(
-          API_CONSTANT.refreshToken,
-          rResponseJson.result.refreshToken!
-        );
-        REFRESH_TOKEN.refreshing = false;
-        await fetchRetry();
-      }
-    } else {
-      while (REFRESH_TOKEN.refreshing == true) {
-        await new Promise<void>((resolve) =>
-          setTimeout(function () {
-            resolve();
-          }, 1000)
-        );
-      }
-      await fetchRetry();
-    }
+    // if (REFRESH_TOKEN.refreshing == false) {
+    //   REFRESH_TOKEN.refreshing = true;
+    //   let refreshToken = sessionStorage.getItem(API_CONSTANT.refreshToken);
+    //   const rResponse = await fetch(API_BASE + "/login/refreshToken", {
+    //     method: "POST",
+    //     body: IS_ENCRYPT
+    //       ? encryptValue(JSON.stringify({ refreshToken }))
+    //       : JSON.stringify({ refreshToken }),
+    //     headers,
+    //   });
+    //   let rResponseJson = await mappingResponse(rResponse);
+    //   if (rResponseJson.code == API_CODE.success) {
+    //     sessionStorage.setItem(
+    //       API_CONSTANT.token,
+    //       rResponseJson.result?.token!
+    //     );
+    //     sessionStorage.setItem(
+    //       API_CONSTANT.refreshToken,
+    //       rResponseJson.result.refreshToken!
+    //     );
+    //     REFRESH_TOKEN.refreshing = false;
+    //     await fetchRetry();
+    //   }
+    // } else {
+    //   while (REFRESH_TOKEN.refreshing == true) {
+    //     await new Promise<void>((resolve) =>
+    //       setTimeout(function () {
+    //         resolve();
+    //       }, 1000)
+    //     );
+    //   }
+    //   await fetchRetry();
+    // }
   }
   // flow refresh token
 
@@ -177,7 +178,7 @@ const fetchAPI = async (param: APIParam) => {
   }
 };
 
-async function mappingResponse(response: Response): Promise<ResponseBaseDto> {
+export async function mappingResponse(response: Response): Promise<ResponseBaseDto> {
   let decrypted = null;
   let responseText = await response.text();
   

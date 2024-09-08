@@ -23,6 +23,8 @@ import {usePathname,useRouter} from "next/navigation";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import useAuthorizationVM from "@/app/authorizationVM";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
 
 const sliderContent = [
  "Pranala",
@@ -31,11 +33,10 @@ const sliderContent = [
 
 export default function Header({}) {
 
- const router = useRouter();
- const doLogout = () => {
-  sessionStorage.clear()
-  router.replace("/login")
- }
+ const {user} = useAuthContext(state => state)
+ const {
+  doLogout
+ } = useAuthorizationVM()
 
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const [openDrawerMobile, setOpenDrawerMobile] = React.useState(false);
@@ -303,11 +304,11 @@ export default function Header({}) {
     >
      <MenuItem sx={{ py: 2, gap: 1 }}>
       <Avatar
-       alt="Administrator"
+       alt={user ? user.name : ""}
        src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
       />
       <ListItemText sx={{ span: { fontWeight: 500 } }}>
-       Administrator
+       {user ? user.name : ""}
       </ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />

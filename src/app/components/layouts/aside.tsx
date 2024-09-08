@@ -1,6 +1,6 @@
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Typography, Box, Stack, Collapse } from "@mui/material";
+import {Typography, Box, Stack, Collapse, Button} from "@mui/material";
 import Image from "next/image";
 import { MenuItem } from "./partials/menu";
 import { MenuGroup } from "./partials/menu-group";
@@ -19,6 +19,7 @@ import {
 import { IconFA } from "../icons/icon-fa";
 import { IconSupport } from "../icons/support";
 import { IconApproval } from "../icons/approval";
+import useAuthorizationVM from "@/app/authorizationVM";
 
 export default function Aside({
  isExpanded,
@@ -27,6 +28,11 @@ export default function Aside({
  isExpanded?: boolean;
  isMobile?: boolean;
 }) {
+
+ const {
+  doLogout
+ } = useAuthorizationVM()
+
  const CompanyIcon = (
   <Stack
    width="100%"
@@ -276,13 +282,17 @@ export default function Aside({
      </Stack>
     </MenuGroup>
    </Stack>
-   <MenuItem
-    isExpanded={isExpanded}
-    reflect
-    label="keluar sistem"
-    icon={<IconKeluar />}
-    url="/"
-   />
+
+   <Button onClick={() => doLogout()}>
+    <MenuItem
+      isExpanded={isExpanded}
+      reflect
+      label="keluar sistem"
+      icon={<IconKeluar />}
+      url={"#"}
+    />
+   </Button>
+
   </Stack>
  );
 

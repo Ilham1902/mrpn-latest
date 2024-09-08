@@ -12,6 +12,8 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import {RKPProvider} from "@/lib/core/provider/rkpProvider";
 import {defaultInitRkpState} from "@/lib/core/context/rkpContext";
+import {AuthProvider} from "@/lib/core/provider/authProvider";
+import {defaultInitAuthState} from "@/lib/core/context/authContext";
 // import Head from "next/head";
 
 export const metadata: Metadata = {
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: any) {
  return (
-  <>
+  <AuthProvider state={defaultInitAuthState}>
    <html lang="en">
     <body>
      <AppRouterCacheProvider>
@@ -49,6 +51,6 @@ export default function RootLayout(props: any) {
      </AppRouterCacheProvider>
     </body>
    </html>
-  </>
+  </AuthProvider>
  );
 }

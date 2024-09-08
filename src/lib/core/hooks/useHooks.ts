@@ -4,6 +4,7 @@ import { LoadingContext } from "../context/loadingContext";
 import {RKPContext, RkpStore} from "../context/rkpContext";
 import { ExsumContext } from "../context/exsumContext";
 import {useStore} from "zustand";
+import {AuthContext, AuthStore} from "@/lib/core/context/authContext";
 
 export const useLoading = () => useContext(LoadingContext);
 export const useGlobalModalContext = () => useContext(GlobalModalContext);
@@ -14,6 +15,18 @@ export const useRKPContext = <T,>(
     selector: (store: RkpStore) => T,
 ): T => {
   const globalStoreContext = useContext(RKPContext)
+
+  if (!globalStoreContext) {
+    throw new Error(`useGlobalStore must be use within GlobalStoreProvider`)
+  }
+
+  return useStore(globalStoreContext, selector)
+}
+
+export const useAuthContext = <T,>(
+  selector: (store: AuthStore) => T,
+): T => {
+  const globalStoreContext = useContext(AuthContext)
 
   if (!globalStoreContext) {
     throw new Error(`useGlobalStore must be use within GlobalStoreProvider`)

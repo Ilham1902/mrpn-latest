@@ -21,7 +21,6 @@ import { loadCSS } from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { ILayout } from "../iLayout";
-import {useRouter} from "next/navigation";
 
 const Aside = dynamic(() => import("./aside"), { ssr: false });
 
@@ -30,13 +29,6 @@ export default function DashboardLayout({
 }: {
  children: React.ReactNode;
 }) {
-
- const router = useRouter();
- useEffect(() => {
-  if (sessionStorage.getItem("temp") == null){
-   router.replace("/login")
-  }
- }, []);
 
  const pathname = usePathname();
  const theme = useTheme();
