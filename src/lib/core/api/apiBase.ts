@@ -69,7 +69,7 @@ export const get = async (param: APIParam) => {
 
 const fetchAPI = async (param: APIParam) => {
   if (param.loadingContext != undefined) param.loadingContext.setLoading(true);
-  if (getToken()) {
+  if (!param.url.includes("sso") && !param.url.includes("login") && getToken()) {
     let token = "Bearer " + getToken();
     param.headers = { authorization: token, ...param.headers };
   }

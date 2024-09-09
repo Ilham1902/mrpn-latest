@@ -36,7 +36,14 @@ export default function PageLogin() {
     doLogin,
     userDropdown,
     handleChangeUser,
+    doCheckSSO
   } = useAuthorizationVM()
+
+  useEffect(() => {
+    document.addEventListener('visibilitychange', function (){
+      doCheckSSO()
+    });
+  }, []);
 
   const [showLogin, setShowLogin] = React.useState(false);
 

@@ -371,11 +371,11 @@ export default function Header({}) {
       <ListItemIcon>
        <IconKeluar color={red[800]} />
       </ListItemIcon>
-      <Link href="/">
+      <Button onClick={() => doLogout()}>
        <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
-        <Link href="/">Keluar Sistem</Link>
+        Keluar Sistem
        </ListItemText>
-      </Link>
+      </Button>
      </MenuItem>
     </Menu>
    </Stack>
