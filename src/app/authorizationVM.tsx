@@ -11,7 +11,8 @@ const useAuthorizationVM = () => {
   const {
     setUser,
     setToken,
-    setMenu
+    setMenu,
+    setPermission
   } = useAuthContext(state => state)
 
   const URL_SSO = process.env.NEXT_PUBLIC_SSO_URL_API
@@ -89,6 +90,7 @@ const useAuthorizationVM = () => {
         setUser(undefined)
         setToken(undefined)
         setMenu([])
+        setPermission([])
         router.replace("/login");
       }
     }
@@ -111,6 +113,23 @@ const useAuthorizationVM = () => {
     return []
   }
 
+  async function getPermission(){
+    const response = await get({
+      body: {},
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+      url: "auth/permission",
+    });
+    if (response) {
+      Object.assign(new ResponseBaseDto(), response)
+      if (response.code == API_CODE.success){
+        let result:string[] = response.result
+        return result;
+      }
+    }
+    return []
+  }
+
   async function processStoreUserAuthentication(authResponse:AuthResDto){
 
     sessionStorage.setItem(API_CONSTANT.token, authResponse.access_token.token)
@@ -120,6 +139,9 @@ const useAuthorizationVM = () => {
 
     const menu = await getMenuConfig()
     setMenu(menu)
+
+    const permission = await getPermission()
+    setPermission(permission)
 
     router.replace(menu[0].route);
   }

@@ -1,3 +1,12 @@
+import {Menu} from "@/lib/core/context/authContext";
+
+export function hasPrivilege(permission:string[], pathName:string, action:string){
+  let currentPath = pathName.substring(1)
+  if (currentPath == "executive-summary") currentPath = "exsum"
+
+  return permission.filter(x => x === currentPath+"."+action).length > 0
+}
+
 // import { API_CONSTANT } from "../api/apiModel";
 // import { MenuAppProps } from "../components/iLayout";
 // import { isEmpty } from "./valueHelpers";
