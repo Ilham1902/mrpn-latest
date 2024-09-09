@@ -31,6 +31,27 @@ const getIcon = (icon: string) => {
     case "IconExecutive": {
       return <IconExecutive/>;
     }
+    case "IconPenetapan": {
+      return <IconPenetapan/>;
+    }
+    case "IconProfil": {
+      return <IconProfil/>;
+    }
+    case "IconPemantauan": {
+      return <IconPemantauan/>;
+    }
+    case "IconApproval": {
+      return <IconApproval/>;
+    }
+    case "IconMaturitas": {
+      return <IconFA name="seedling" size={18} />;
+    }
+    case "IconSupport": {
+      return <IconSupport />;
+    }
+    case "IconManajemen": {
+      return <IconManajemen />;
+    }
     default: {
       return <IconDashboard/>;
     }
@@ -157,11 +178,11 @@ export default function Aside(
           </Stack>
         </MenuGroup>
 
-        {(menu.filter(x => x.type == "ADMINISTRATOR")).length > 0 &&
+        {(menu.filter(x => x.type == "CONFIG")).length > 0 &&
             <MenuGroup isExpanded={isExpanded} label="administrator">
                 <Stack direction="column" gap={1}>
                   {menu.map((mn, indexMn) =>
-                    getMenuItem(indexMn, isExpanded, mn, "ADMINISTRATOR")
+                    getMenuItem(indexMn, isExpanded, mn, "CONFIG")
                   )}
                 </Stack>
             </MenuGroup>

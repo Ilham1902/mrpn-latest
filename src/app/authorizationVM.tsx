@@ -4,13 +4,14 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useAuthContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
 import {SelectChangeEvent} from "@mui/material";
-import {AuthResDto, Menu} from "@/lib/core/context/authContext";
+import {AuthResDto, Menu, UserDto} from "@/lib/core/context/authContext";
 
 const useAuthorizationVM = () => {
 
   const {
     setUser,
     setToken,
+    menu,
     setMenu,
     setPermission
   } = useAuthContext(state => state)
@@ -130,6 +131,33 @@ const useAuthorizationVM = () => {
     return []
   }
 
+  async function getCurrentUserData(){
+    const response = await get({
+      body: {},
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+      url: "auth/me",
+    });
+    if (response) {
+      Object.assign(new ResponseBaseDto(), response)
+      if (response.code == API_CODE.success){
+        let result:UserDto = response.result
+        if (result == null){
+          return router.replace("/login");
+        }else{
+          setUser(result)
+        }
+      }
+    }
+
+    const menu = await getMenuConfig()
+    setMenu(menu)
+
+    const permission = await getPermission()
+    setPermission(permission)
+
+  }
+
   async function processStoreUserAuthentication(authResponse:AuthResDto){
 
     sessionStorage.setItem(API_CONSTANT.token, authResponse.access_token.token)
@@ -145,6 +173,12 @@ const useAuthorizationVM = () => {
 
     router.replace(menu[0].route);
   }
+
+  useEffect(() => {
+    if (sessionStorage.getItem(API_CONSTANT.token)) {
+      if (menu.length == 0) getCurrentUserData();
+    }
+  }, []);
 
   return {
     userDropdown,

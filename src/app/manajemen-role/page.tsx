@@ -12,54 +12,43 @@ import ActionColumn from "@/components/actions/action";
 import AddButton from "@/app/components/buttonAdd";
 import DialogComponent from "@/components/dialog";
 import {DialogActions, Button, Chip} from "@mui/material";
+import FormTable from "./partials/form-table";
 import useManagementRoleVM from "@/app/manajemen-role/pageVM";
-import useManagementUserVM from "@/app/manajemen-user/pageVM";
-import FormUser from "@/app/manajemen-user/pageForm";
 
 export default function PageRoleManagement() {
 
   const {
-    users,
-    handleOpenModal,
+    managementRoleData,
+    stateRoleName,
+    setStateRoleName,
+    stateRolePermission,
+    setStateRolePermission,
+    menuConfig,
     modal,
     setModal,
+    handleOpenModal,
     createData,
-    request,
-    setRequest,
-    managementRoleData
-  } = useManagementUserVM()
+  } = useManagementRoleVM()
 
   const columns = useMemo(
     () => [
       {
         accessorKey: "name",
-        header: "Nama User",
-        enableColumnFilterModes: true,
-        filterFns: 'contains'
-      },
-      {
-        accessorKey: "email",
-        header: "Email",
-        enableColumnFilterModes: true,
-        filterFns: 'contains'
-      },
-      {
-        accessorKey: "role",
-        header: "Role",
+        header: "Nama Role",
         enableColumnFilterModes: true,
         filterFns: 'contains'
       },
     ], []
   );
 
-  const data = users
+  const data = managementRoleData
   const table = useMaterialReactTable({
     columns,
     data,
     ...advancedTable,
     enableRowNumbers: true,
     renderTopToolbarCustomActions: () => (
-      <AddButton title="Tambah User" onclick={() => handleOpenModal(0)}/>
+      <AddButton title="Tambah Role" onclick={() => handleOpenModal(0)}/>
     ),
     displayColumnDefOptions: {
       "mrt-row-actions": {
@@ -78,7 +67,7 @@ export default function PageRoleManagement() {
   return (
     <>
       <DashboardLayout>
-        <ContentPage title="Manajemen User">
+        <ContentPage title="Manajemen Role">
           <MaterialReactTable table={table}/>
         </ContentPage>
       </DashboardLayout>
@@ -95,10 +84,12 @@ export default function PageRoleManagement() {
           </Button>
         </DialogActions>}
       >
-        <FormUser
-          roleData={managementRoleData}
-          request={request}
-          setRequest={setRequest}
+        <FormTable
+          menu={menuConfig}
+          roleName={stateRoleName}
+          setRoleName={setStateRoleName}
+          stateRolePermission={stateRolePermission}
+          setStateRolePermission={setStateRolePermission}
         />
       </DialogComponent>
 
