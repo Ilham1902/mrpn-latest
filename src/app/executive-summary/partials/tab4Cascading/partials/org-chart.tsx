@@ -3,7 +3,9 @@ import OrgChart from "@dabeng/react-orgchart";
 import {
  Box,
  Button,
+ DialogActions,
  Divider,
+ IconButton,
  List,
  ListItem,
  ListItemIcon,
@@ -21,6 +23,7 @@ import { IconEmptyData } from "@/app/components/icons";
 import { dataTema } from "@/app/executive-summary/dataTema";
 import { grey, orange } from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
+import FormNomenklatur from "./form-nomenklatur";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  const isAssistant = nodeData.isAssistant === true;
@@ -35,6 +38,7 @@ const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
   >
    <Box position="relative">
     <Box
+     display="none"
      position="absolute"
      top="50%"
      left={8}
@@ -129,13 +133,19 @@ const ItemProP = ({
 
 export default function CascadingOrgChart({ project }: { project?: string }) {
  const [modalOpenImg, setModalOpenImg] = React.useState(false);
-
- const handleModalClose = () => {
-  setModalOpenImg(false);
- };
+ const [modalOpenNomenklaturIku, setModalOpenNomenklaturIku] =
+  React.useState(false);
 
  const handleModalImg = () => {
   setModalOpenImg(true);
+ };
+ const handleModalNomenklaturIku = () => {
+  setModalOpenNomenklaturIku(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenImg(false);
+  setModalOpenNomenklaturIku(false);
  };
 
  const ds = {
@@ -155,7 +165,14 @@ export default function CascadingOrgChart({ project }: { project?: string }) {
         title: "Sasaran",
         children: [
          {
-          name: "Nomenklatur IKU",
+          name: (
+           <Stack justifyContent="center" direction="row" alignItems="center">
+            Nomenklatur IKU
+            <IconButton onClick={handleModalNomenklaturIku} size="small">
+             <IconFA name="circle-plus" size={16} color="white" />
+            </IconButton>
+           </Stack>
+          ),
           title: "Nomenklatur IKU",
           children: [
            {
@@ -275,6 +292,24 @@ export default function CascadingOrgChart({ project }: { project?: string }) {
       chartClass="chartClass"
      />
     </Box>
+   </DialogComponent>
+   <DialogComponent
+    width={1000}
+    dialogOpen={modalOpenNomenklaturIku}
+    dialogClose={handleModalClose}
+    title="Nomenklatur IKU"
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button variant="outlined" onClick={handleModalClose}>
+       Batal
+      </Button>
+      <Button variant="contained" type="submit">
+       Simpan
+      </Button>
+     </DialogActions>
+    }
+   >
+    <FormNomenklatur mode="add" />
    </DialogComponent>
   </>
  );
