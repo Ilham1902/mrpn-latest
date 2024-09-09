@@ -80,7 +80,7 @@ export default function FormNomenklatur({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12}></Grid>
    </Grid>
-   <TableProfilRoKunci />
+   {/*<TableProfilRoKunci />*/}
   </>
  );
 }
