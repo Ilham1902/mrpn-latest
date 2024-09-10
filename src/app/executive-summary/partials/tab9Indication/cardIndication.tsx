@@ -20,17 +20,11 @@ export default function CardIndication({ project }: { project: string }) {
     state,
     setState,
     modalOpen,
-    setModalOpen,
-    updateData
+    updateData,
+    handleModalOpen,
+    handleModalClose
   } = useCardIndicationVM();
 
- const handleModalOpen = () => {
-  setModalOpen(true);
- };
-
- const handleModalClose = () => {
-  setModalOpen(false);
- };
 
  return (
   <>
@@ -42,7 +36,7 @@ export default function CardIndication({ project }: { project: string }) {
        filled
        small
        title="Tambah Indikasi"
-       onclick={handleModalOpen}
+       onclick={() => handleModalOpen(0)}
       />
      }
     >
@@ -54,7 +48,7 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication data={data} />
+      <TableIndication data={data} handleModalOpen={handleModalOpen} />
      )}
     </CardItem>
    </Stack>

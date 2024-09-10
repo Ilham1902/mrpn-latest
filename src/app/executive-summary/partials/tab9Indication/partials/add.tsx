@@ -137,6 +137,7 @@ export default function AddEntity(
        information="Kementerian Koordinator"
       />
        <AutocompleteSelectSingle
+         key={state.entity.coordinator ? state.entity.coordinator.id : undefined}
          value={state.entity.coordinator}
          options={optionStakeholder}
          getOptionLabel={(opt) => opt.value}

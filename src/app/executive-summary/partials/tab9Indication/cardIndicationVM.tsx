@@ -4,11 +4,11 @@ import {
   COORDINATOR,
   ExsumIndicationReqDto, ExsumIndicationResDto,
   ExsumIndicationState, IndicationReqDto,
-  initStateExsumIndication, MAIN, StakeholderReqDto, StakeholderResGroupDto
+  initStateExsumIndication, MAIN, OthersEntityState, StakeholderReqDto, StakeholderResDto, StakeholderResGroupDto
 } from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
 import {
-  doCreateIndication,
-  doGetIndication
+  doCreateIndication, doDeleteIndication,
+  doGetIndication, doUpdateIndication
 } from "@/app/executive-summary/partials/tab9Indication/cardIndicationService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
@@ -35,7 +35,9 @@ const useCardIndicationVM = () => {
   const [optionRO, setOptionRO] = useState<RoDto[]>([])
   const [optionStakeholder, setOptionStakeholder] = useState<MiscMasterListStakeholderRes[]>([])
   const [data, setData] = useState<ExsumIndicationResDto[]>([])
-  const [state, setState] = useState<ExsumIndicationState>(Object.assign({}, {...initStateExsumIndication}))
+
+  const initState:ExsumIndicationState = JSON.parse(JSON.stringify(initStateExsumIndication))
+  const [state, setState] = useState<ExsumIndicationState>(initState)
   const [modalOpen, setModalOpen] = React.useState(false);
 
   async function getOptionRiskType(){
@@ -121,7 +123,7 @@ const useCardIndicationVM = () => {
     if (kejadianState.length == 0) return
     let kejadian:IndicationReqDto[] = []
     kejadianState.map(k => {
-      const swotIds:number[] = k.swot.reduce<number[]>(
+      const swotIds:number[] = k.keyword_swot.reduce<number[]>(
         (acc, b) => {
           return [...acc, b.id]
         },
@@ -172,7 +174,7 @@ const useCardIndicationVM = () => {
     })
 
     const requestDto:ExsumIndicationReqDto = {
-      id: 0,
+      id: state.id,
       jenis: state.jenis,
       kejadian: kejadian,
       perlakuan: perlakuan,
@@ -180,19 +182,75 @@ const useCardIndicationVM = () => {
       exsum_id: exsum.id
     }
 
-    const response = await doCreateIndication({
-      body:requestDto,
-      loadingContext: loadingContext,
-      errorModalContext: errorModalContext,
-    })
+    let response
+    if (requestDto.id == 0){
+      response = await doCreateIndication({
+        body:requestDto,
+        loadingContext: loadingContext,
+        errorModalContext: errorModalContext,
+      })
+    }else{
+      response = await doUpdateIndication({
+        body:requestDto,
+        loadingContext: loadingContext,
+        errorModalContext: errorModalContext,
+      })
+    }
 
     if (response?.code == API_CODE.success){
       getData()
       setModalOpen(false)
-      setState(Object.assign({}, {...initStateExsumIndication}))
     }
 
   }
+
+  async function deleteData(){
+    const response = await doDeleteIndication({
+      body: {id:state.id},
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    })
+    if (response?.code == API_CODE.success){
+      getData()
+      setModalOpen(false)
+    }
+  }
+
+  const handleModalOpen = (id:number) => {
+    if (id == 0) {
+      const initState:ExsumIndicationState = JSON.parse(JSON.stringify(initStateExsumIndication))
+      setState(initState)
+    } else {
+      const getIndex = data.findIndex(x => x.id)
+      const dataByIndex = data[getIndex]
+      let otherEntityState:OthersEntityState[] = []
+      for (const key in dataByIndex.groupStakeholder){
+        if (key !== COORDINATOR && key !== MAIN){
+          otherEntityState.push({
+            type: key,
+            entity: dataByIndex.groupStakeholder[key]
+          })
+        }
+      }
+      const stateData:ExsumIndicationState = {
+        id:id,
+        jenis: dataByIndex.jenis,
+        kejadian: dataByIndex.kejadian,
+        perlakuan: dataByIndex.perlakuan,
+        entity: {
+          coordinator: dataByIndex.groupStakeholder[COORDINATOR] ? dataByIndex.groupStakeholder[COORDINATOR][0] : undefined,
+          main: dataByIndex.groupStakeholder[MAIN] ? dataByIndex.groupStakeholder[MAIN] : [],
+          others: otherEntityState
+        }
+      }
+      setState(stateData)
+    }
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const data = useCardSWOT.data
@@ -218,7 +276,9 @@ const useCardIndicationVM = () => {
     optionStakeholder,
     modalOpen,
     setModalOpen,
-    updateData
+    updateData,
+    handleModalOpen,
+    handleModalClose
   }
 
 }

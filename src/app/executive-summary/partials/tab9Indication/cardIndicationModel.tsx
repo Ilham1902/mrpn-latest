@@ -35,9 +35,7 @@ export interface ExsumIndicationResDto {
   id:number,
   exsum_id:number
   jenis:string
-  kejadian: {
-    keterangan:string
-  }[]
+  kejadian: IndicationState[]
   perlakuan:RoDto[]
   stakeholder:StakeholderResDto[]
   groupStakeholder:StakeholderResGroupDto
@@ -45,13 +43,14 @@ export interface ExsumIndicationResDto {
 
 export interface IndicationState {
   keterangan:string
-  swot:ExsumSWOTValuesDto[]
+  keyword_swot:ExsumSWOTValuesDto[]
 }
 export interface OthersEntityState {
   type:string
   entity:MiscMasterListStakeholderRes[]
 }
 export interface ExsumIndicationState {
+  id:number
   jenis:string
   kejadian:IndicationState[]
   perlakuan:RoDto[]
@@ -63,11 +62,12 @@ export interface ExsumIndicationState {
 }
 
 export const initStateExsumIndication:ExsumIndicationState = {
+  id: 0,
   jenis: "",
   kejadian: [
     {
       keterangan: "",
-      swot: []
+      keyword_swot: []
     }
   ],
   entity: {
@@ -91,6 +91,10 @@ export type GetIndicationByExsumIdServiceModel = BaseAPIServiceParam & {
   body: GetByExsumId;
 };
 
-export type UpdateIndicationByExsumIdServiceModel = BaseAPIServiceParam & {
+export type UpdateIndicationByIdServiceModel = BaseAPIServiceParam & {
   body: ExsumIndicationReqDto;
+};
+
+export type DeleteIndicationByIdServiceModel = BaseAPIServiceParam & {
+  body: {id:number};
 };

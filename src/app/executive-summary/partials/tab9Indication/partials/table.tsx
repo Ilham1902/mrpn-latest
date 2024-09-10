@@ -23,9 +23,11 @@ import {
 
 export default function TableIndication(
   {
-    data
+    data,
+    handleModalOpen
   }: {
     data: ExsumIndicationResDto[]
+    handleModalOpen:any
   }
 ) {
 
@@ -55,7 +57,7 @@ export default function TableIndication(
                   Indikasi Entitas Utama & Pendukung
                 </Typography>
               </TableCell>
-              <TableCell width="100px"></TableCell>
+              <TableCell width="200px"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,22 +102,23 @@ export default function TableIndication(
                         key={key}
                         variant="outlined"
                         elevation={0}
-                        sx={{p: "4px 8px", width: 280, bgcolor: grey[50]}}
+                        sx={{p: "4px 8px", width: 400, bgcolor: grey[50]}}
                       >
+                        <Typography
+                          fontWeight={500}
+                          fontSize={13}
+                          whiteSpace="nowrap"
+                        >
+                          {key} :
+                        </Typography>
                         <Stack
+                          marginTop={"10px"}
                           display="inline-flex"
                           alignItems="center"
                           direction="row"
                           gap={0.5}
                           flexWrap="wrap"
                         >
-                          <Typography
-                            fontWeight={500}
-                            fontSize={13}
-                            whiteSpace="nowrap"
-                          >
-                            {key} :
-                          </Typography>
                           {value.map((st,stIndex) =>
                             <Box key={stIndex} component="span">
                               <Chip label={st.value} size="small"/>
@@ -128,15 +131,24 @@ export default function TableIndication(
                   </Stack>
                 </TableCell>
                 <TableCell
-                  sx={{verticalAlign: "middle", textAlign: "center"}}
+                  sx={{verticalAlign: "baseline", textAlign: "center"}}
                 >
-                  <IconFA
-                    name="edit"
-                    size={16}
-                    color={theme.palette.primary.main}
-                    sx={{cursor: "pointer"}}
-                    // onclick={handleModalOpen}
-                  />
+                  <Stack gap={"5px"} justifyContent={"center"} direction={"row"}>
+                    <IconFA
+                      name="edit"
+                      size={16}
+                      color={theme.palette.primary.main}
+                      sx={{cursor: "pointer"}}
+                      onclick={() => handleModalOpen(itemRow.id)}
+                    />
+                    <IconFA
+                      name="trash"
+                      size={16}
+                      color={theme.palette.error.main}
+                      sx={{cursor: "pointer"}}
+                      onclick={() => handleModalOpen(itemRow.id)}
+                    />
+                  </Stack>
                 </TableCell>
               </TableRow>
             ))}

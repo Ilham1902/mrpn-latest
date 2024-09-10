@@ -46,7 +46,7 @@ export default function AddRisk(
 
       const newIndication:IndicationState = {
         keterangan: "",
-        swot: []
+        keyword_swot: []
       }
       const prevIndication = [...prevState.kejadian]
       prevIndication.push(newIndication)
@@ -114,12 +114,12 @@ export default function AddRisk(
                     <FormControl fullWidth>
                       <FieldLabelInfo title="Keyword SWOT" information="Keyword SWOT"/>
                       <AutocompleteSelectMultiple
-                        value={indication.swot}
+                        value={indication.keyword_swot}
                         options={optionStrategy}
                         getOptionLabel={(option) => option.value}
                         handleChange={(newVal:ExsumSWOTValuesDto[]) => setState(prevState => {
                           const prevIndication = [...prevState.kejadian]
-                          prevIndication[index].swot = newVal
+                          prevIndication[index].keyword_swot = newVal
                           return {
                             ...prevState,
                             kejadian:prevIndication

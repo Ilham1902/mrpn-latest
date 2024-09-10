@@ -12,12 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
-import {
-  SxAutocompleteTextField,
-  SxAutocomplete,
-} from "@/app/components/dropdownKp";
-import {listTagProP} from "@/app/executive-summary/data";
-import {paramVariantDefault} from "@/app/utils/constant";
 import AddEntity from "./add";
 import AddRisk from "./addRisk";
 import {
@@ -53,6 +47,7 @@ export default function FormIndication(
         <FormControl fullWidth>
           <FieldLabelInfo title="Jenis Risiko" information="Jenis Risiko"/>
           <AutocompleteSelectSingle
+            key={state.jenis}
             value={state.jenis}
             options={optionRiskType}
             getOptionLabel={(option) => option}
@@ -75,6 +70,7 @@ export default function FormIndication(
         <FormControl fullWidth>
           <FieldLabelInfo title="Perlakuan Risiko" information="Perlakuan Risiko"/>
           <AutocompleteSelectMultiple
+            key={state.perlakuan.length}
             value={state.perlakuan}
             options={optionRO}
             getOptionLabel={opt => opt.value}
