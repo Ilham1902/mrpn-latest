@@ -111,8 +111,6 @@ const useCardIndicationVM = () => {
         result[index].groupStakeholder = stData
       })
 
-      console.log(result)
-
       setData(result)
     }
   }
