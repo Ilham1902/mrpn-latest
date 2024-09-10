@@ -40,9 +40,7 @@ export default function PageLogin() {
   } = useAuthorizationVM()
 
   useEffect(() => {
-    document.addEventListener('visibilitychange', function (){
       doCheckSSO()
-    });
   }, []);
 
   const [showLogin, setShowLogin] = React.useState(false);

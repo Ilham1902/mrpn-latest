@@ -148,12 +148,6 @@ export default function Aside(
     </Stack>
   );
 
-  const subMenuKonteks = "penetapan";
-  const subMenuProfil = "profil-risiko";
-  const subMenuPemantauan = "pemantauan";
-  const subMenuSupport = "support";
-  const subMenuApproval = "approval";
-
   const Sidemenu = (
     <Stack
       direction="column"

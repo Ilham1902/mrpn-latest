@@ -17,7 +17,7 @@ export const SubmenuItem = ({ label, url, urlLv2 }: IMenu) => {
     "&:hover": { bgcolor: "transparent" },
    }}
   >
-   <Link href={`/${url}/${urlLv2}`} passHref>
+   <Link href={`/${urlLv2}`} passHref>
     <Stack direction="row" alignItems="center" py="5px">
      <Typography
       ml="20px"

@@ -338,11 +338,11 @@ export default function Header({}) {
     >
      <MenuItem sx={{ py: 2, gap: 1 }}>
       <Avatar
-       alt="Administrator"
+       alt={user?.name ?? ""}
        src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
       />
       <ListItemText sx={{ span: { fontWeight: 500 } }}>
-       Administrator
+       {user?.name ?? ""}
       </ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
