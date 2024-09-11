@@ -27,6 +27,7 @@ export const MenuItem = ({
  hasChild,
  children,
  menuParentActive,
+ onclick,
 }: IMenu & ILayout) => {
  const pathname = usePathname();
 
@@ -364,7 +365,7 @@ export const MenuItem = ({
      </Box>
     </ClickAwayListener>
    ) : (
-    <Link href={`/${url}`} passHref>
+    <Link href={`/${url}`} passHref onClick={onclick}>
      <ListItemButton
       selected={
        //  typeof window !== "undefined"
