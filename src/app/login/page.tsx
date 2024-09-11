@@ -25,6 +25,8 @@ import {IconFA} from "../components/icons/icon-fa";
 import SelectCustomTheme from "../components/select";
 import {listUser} from "../utils/data";
 import useAuthorizationVM from "@/app/authorizationVM";
+import {useRouter} from "next/navigation";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
 
 gsap.registerPlugin(useGSAP);
 
@@ -39,9 +41,24 @@ export default function PageLogin() {
     doCheckSSO
   } = useAuthorizationVM()
 
+  const router = useRouter()
+  const {
+    user,
+    token,
+    menu,
+  } = useAuthContext(state => state)
+
   useEffect(() => {
+    if (user !== undefined && token !== undefined && menu.length > 0){
+      let route = menu[0].route
+      if (menu[0].submenu.length > 0){
+        route = menu[0].submenu[0].route
+      }
+      router.replace(route)
+    } else {
       doCheckSSO()
-  }, []);
+    }
+  }, [user,token,menu]);
 
   const [showLogin, setShowLogin] = React.useState(false);
 

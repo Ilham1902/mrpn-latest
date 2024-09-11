@@ -30,6 +30,9 @@ import {
   ExsumCascadingStateDto,
   RKPCascadingDto
 } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {usePathname} from "next/navigation";
+import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 
 const NodeTemplate = ({nodeData}: { nodeData: any }) => {
   const isAssistant = nodeData.isAssistant === true;
@@ -147,13 +150,20 @@ export default function CascadingOrgChart(
   {
     setModal,
     data,
-    setState
+    setState,
+    deleteData
   }: {
     setModal: any,
     data:RKPCascadingDto
     setState: (value: (SetStateAction<ExsumCascadingStateDto>)) => void
+    deleteData:any
   }
 ) {
+
+  const {
+    permission
+  } = useAuthContext(state => state)
+  const pathname = usePathname()
 
   const GenerateData = () => useMemo(
     () => {
@@ -185,17 +195,19 @@ export default function CascadingOrgChart(
                 name: (
                   <Stack justifyContent="center" direction="row" alignItems="center">
                     {`INDIKATOR - ${ind.code}`}
-                    <IconButton onClick={() => {
-                      setState(prevState => {
-                        return {
-                          ...prevState,
-                          src_rkp_kp_indikator_id:ind.id
-                        }
-                      })
-                      setModal(true)
-                    }} size="small">
-                      <IconFA name="circle-plus" size={16} color="white"/>
-                    </IconButton>
+                    {hasPrivilege(permission,pathname,"add") &&
+                      <IconButton onClick={() => {
+                        setState(prevState => {
+                          return {
+                            ...prevState,
+                            src_rkp_kp_indikator_id:ind.id
+                          }
+                        })
+                        setModal(true)
+                      }} size="small">
+                        <IconFA name="circle-plus" size={16} color="white"/>
+                      </IconButton>
+                    }
                   </Stack>
                 ),
                 title: ind.value,
@@ -203,7 +215,16 @@ export default function CascadingOrgChart(
               }
               ind.kl_pengampu.map(kl => {
                 const klData:OrgDto = {
-                  name: "KL Pengampu",
+                  name: (
+                    <Stack justifyContent="center" direction="row" alignItems="center">
+                      {`KL PENGAMPU`}
+                      {hasPrivilege(permission,pathname,"delete") &&
+                        <IconButton onClick={() => deleteData(kl.id)} size="small">
+                          <IconFA name="trash" size={16} color="white"/>
+                        </IconButton>
+                      }
+                    </Stack>
+                  ),
                   title: kl.kementrian.value,
                   children: []
                 }

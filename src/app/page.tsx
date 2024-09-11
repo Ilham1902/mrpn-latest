@@ -19,9 +19,17 @@ export default function Home() {
 
   useEffect(() => {
     if (user !== undefined && token !== undefined && menu.length > 0){
-      router.replace(menu[0].route)
+      let route = menu[0].route
+      if (menu[0].submenu.length > 0){
+        route = menu[0].submenu[0].route
+      }
+      router.replace(route)
     } else {
-      doCheckSSO()
+      doCheckSSO().then(r => {
+        if (r == false){
+          router.replace("/login")
+        }
+      })
     }
   }, [user,token,menu]);
 

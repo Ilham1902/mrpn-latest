@@ -8,6 +8,9 @@ import AddButton from "@/app/components/buttonAdd";
 import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
 import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication/cardIndicationVM";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {usePathname} from "next/navigation";
+import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 
 export default function CardIndication({ project }: { project: string }) {
 
@@ -25,6 +28,10 @@ export default function CardIndication({ project }: { project: string }) {
     handleModalClose
   } = useCardIndicationVM();
 
+  const {
+    permission
+  } = useAuthContext(state => state)
+  const pathname = usePathname()
 
  return (
   <>
@@ -32,12 +39,13 @@ export default function CardIndication({ project }: { project: string }) {
     <CardItem
      title="Indikasi Risiko Objek MRPN 5 Tahunan"
      addButton={
-      <AddButton
-       filled
-       small
-       title="Tambah Indikasi"
-       onclick={() => handleModalOpen(0)}
-      />
+       hasPrivilege(permission,pathname,"add") &&
+        <AddButton
+         filled
+         small
+         title="Tambah Indikasi"
+         onclick={() => handleModalOpen(0)}
+        />
      }
     >
      {data.length == 0 ? (

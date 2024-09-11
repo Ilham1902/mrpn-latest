@@ -7,8 +7,12 @@ import { SelectChangeEvent } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
 import {useRKPContext} from "@/lib/core/hooks/useHooks";
+import {usePermissionChecker} from "@/lib/core/helpers/authHelpers";
 
 export default function PageDashboard() {
+
+  usePermissionChecker()
+
  const [project, setProject] = React.useState("");
 
  const handleChangeProject = (event: SelectChangeEvent) => {

@@ -1,7 +1,7 @@
 import {useExsumContext, useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {useEffect, useState} from "react";
 import {
-  doCreateCascadingDiagram,
+  doCreateCascadingDiagram, doDeleteCascadingDiagram,
   doGetCascadingDiagram
 } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramService";
 import {API_CODE} from "@/lib/core/api/apiModel";
@@ -12,7 +12,6 @@ import {
 } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {doGetMasterListStakeholder} from "@/app/misc/master/masterService";
-import {ProPDto} from "@/app/misc/rkp/rkpServiceModel";
 import {doGetPROP} from "@/app/misc/rkp/rkpService";
 
 const useCardDiagramVM = () => {
@@ -95,6 +94,18 @@ const useCardDiagramVM = () => {
     }
   }
 
+  async function deleteData(id:number){
+    const response = await doDeleteCascadingDiagram({
+      body: {id:id},
+      loadingContext:loadingContext,
+      errorModalContext:errorModalContext
+    })
+    if (response?.code == API_CODE.success){
+      getData()
+      setModal(false)
+    }
+  }
+
   useEffect(() => {
     getData()
     getOptionStakeholder()
@@ -109,7 +120,8 @@ const useCardDiagramVM = () => {
     setModal,
     state,
     setState,
-    createData
+    createData,
+    deleteData
   }
 }
 

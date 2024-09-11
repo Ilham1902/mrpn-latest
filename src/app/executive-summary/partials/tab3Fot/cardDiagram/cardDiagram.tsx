@@ -39,10 +39,6 @@ export default function CardDiagram({project}: { project: string }) {
     setModalOpen(false);
   };
 
-  useEffect(() => {
-    console.log(useCardTOWS.data == undefined || useCardTOWS.data.tows == null)
-  }, [useCardTOWS]);
-
   return (
     <>
       <CardItem title="Diagram"

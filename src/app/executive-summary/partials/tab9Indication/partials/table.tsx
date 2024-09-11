@@ -20,6 +20,9 @@ import {grey} from "@mui/material/colors";
 import {
   ExsumIndicationResDto,
 } from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {usePathname} from "next/navigation";
+import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 
 export default function TableIndication(
   {
@@ -30,6 +33,11 @@ export default function TableIndication(
     handleModalOpen:any
   }
 ) {
+
+  const {
+    permission
+  } = useAuthContext(state => state)
+  const pathname = usePathname()
 
   return (
     <>
@@ -134,20 +142,24 @@ export default function TableIndication(
                   sx={{verticalAlign: "baseline", textAlign: "center"}}
                 >
                   <Stack gap={"5px"} justifyContent={"center"} direction={"row"}>
-                    <IconFA
-                      name="edit"
-                      size={16}
-                      color={theme.palette.primary.main}
-                      sx={{cursor: "pointer"}}
-                      onclick={() => handleModalOpen(itemRow.id)}
-                    />
-                    <IconFA
-                      name="trash"
-                      size={16}
-                      color={theme.palette.error.main}
-                      sx={{cursor: "pointer"}}
-                      onclick={() => handleModalOpen(itemRow.id)}
-                    />
+                    {hasPrivilege(permission,pathname,"add") &&
+                      <IconFA
+                        name="edit"
+                        size={16}
+                        color={theme.palette.primary.main}
+                        sx={{cursor: "pointer"}}
+                        onclick={() => handleModalOpen(itemRow.id)}
+                      />
+                    }
+                    {hasPrivilege(permission,pathname,"delete") &&
+                        <IconFA
+                            name="trash"
+                            size={16}
+                            color={theme.palette.error.main}
+                            sx={{cursor: "pointer"}}
+                            onclick={() => handleModalOpen(itemRow.id)}
+                        />
+                    }
                   </Stack>
                 </TableCell>
               </TableRow>

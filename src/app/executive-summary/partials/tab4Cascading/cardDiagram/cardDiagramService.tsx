@@ -1,6 +1,7 @@
 import {post} from "@/lib/core/api/apiBase";
 import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
+  DeleteExsumCascadingDiagramByIdServiceModel,
   GetExsumCascadingDiagramByExsumIdServiceModel, UpdateExsumCascadingDiagramByExsumIdServiceModel
 } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
 
@@ -16,6 +17,14 @@ export async function doCreateCascadingDiagram(param: UpdateExsumCascadingDiagra
   const resp = await post({
     ...param,
     url: "exsum/casecadingDiagram/add",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doDeleteCascadingDiagram(param: DeleteExsumCascadingDiagramByIdServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "exsum/casecadingDiagram/delete",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

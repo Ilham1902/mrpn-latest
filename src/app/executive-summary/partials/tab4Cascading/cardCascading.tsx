@@ -16,7 +16,8 @@ export default function CardCascading({ project }: { project: string }) {
     setModal,
     state,
     setState,
-    createData
+    createData,
+    deleteData
   } = useCardDiagramVM()
 
  return (
@@ -26,6 +27,7 @@ export default function CardCascading({ project }: { project: string }) {
        setModal={setModal}
        data={data}
        setState={setState}
+       deleteData={deleteData}
      />
     )}
 

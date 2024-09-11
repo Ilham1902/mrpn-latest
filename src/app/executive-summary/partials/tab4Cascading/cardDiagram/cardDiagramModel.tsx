@@ -74,3 +74,7 @@ export type GetExsumCascadingDiagramByExsumIdServiceModel = BaseAPIServiceParam 
 export type UpdateExsumCascadingDiagramByExsumIdServiceModel = BaseAPIServiceParam & {
   body: ExsumCascadingReqDto;
 };
+
+export type DeleteExsumCascadingDiagramByIdServiceModel = BaseAPIServiceParam & {
+  body: { id:number };
+};

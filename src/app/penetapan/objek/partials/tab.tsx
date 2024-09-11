@@ -145,16 +145,22 @@ export default function TabObject({}) {
    </CustomTabPanel>
    <CustomTabPanel value={value} index={2}>
     <CardItem title="Cascading Objek Terpilih">
-     {isEmpty ? (
       <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
+        dense
+        icon={<IconEmptyData width={100} />}
+        title="Data Kosong"
+        description="Silahkan isi konten halaman ini"
       />
-     ) : (
-      <CascadingOrgChart />
-     )}
+     {/*{isEmpty ? (*/}
+     {/* <EmptyState*/}
+     {/*  dense*/}
+     {/*  icon={<IconEmptyData width={100} />}*/}
+     {/*  title="Data Kosong"*/}
+     {/*  description="Silahkan isi konten halaman ini"*/}
+     {/* />*/}
+     {/*) : (*/}
+     {/* <CascadingOrgChart />*/}
+     {/*)}*/}
     </CardItem>
    </CustomTabPanel>
    <CustomTabPanel value={value} index={3}>

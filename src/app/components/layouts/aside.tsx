@@ -164,23 +164,27 @@ export default function Aside(
     >
       <Stack gap="40px" direction="column">
 
-        <MenuGroup isExpanded={isExpanded} label="menu">
-          <Stack direction="column" gap={1}>
-            {menu.map((mn, indexMn) =>
-              getMenuItem(indexMn, isExpanded, mn, "GENERAL")
-            )}
-          </Stack>
-        </MenuGroup>
-
-        {(menu.filter(x => x.type == "CONFIG")).length > 0 &&
-            <MenuGroup isExpanded={isExpanded} label="administrator">
-                <Stack direction="column" gap={1}>
-                  {menu.map((mn, indexMn) =>
-                    getMenuItem(indexMn, isExpanded, mn, "CONFIG")
-                  )}
-                </Stack>
-            </MenuGroup>
+        {menu &&
+          <>
+              <MenuGroup isExpanded={isExpanded} label="menu">
+                  <Stack direction="column" gap={1}>
+                    {menu.map((mn, indexMn) =>
+                      getMenuItem(indexMn, isExpanded, mn, "GENERAL")
+                    )}
+                  </Stack>
+              </MenuGroup>
+              {(menu.filter(x => x.type == "CONFIG")).length > 0 &&
+                  <MenuGroup isExpanded={isExpanded} label="administrator">
+                      <Stack direction="column" gap={1}>
+                        {menu.map((mn, indexMn) =>
+                          getMenuItem(indexMn, isExpanded, mn, "CONFIG")
+                        )}
+                      </Stack>
+                  </MenuGroup>
+              }
+          </>
         }
+
 
       </Stack>
 

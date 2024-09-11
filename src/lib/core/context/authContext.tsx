@@ -20,6 +20,7 @@ export interface Menu {
     short_name:string
     route:string
     icon:string
+    permission: { id:number,name:string,path:string }[]
     submenu:Menu[]
 }
 

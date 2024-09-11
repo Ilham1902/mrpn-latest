@@ -49,7 +49,7 @@ const useAuthorizationVM = () => {
         return processStoreUserAuthentication(result)
       }
     }
-    return router.replace("/login");
+    return false
   }
 
   async function doLogin(){
@@ -170,12 +170,12 @@ const useAuthorizationVM = () => {
 
     const permission = await getPermission()
     setPermission(permission)
-
-    router.replace(menu[0].route);
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem(API_CONSTANT.token)) {
+    const token = sessionStorage.getItem(API_CONSTANT.token)
+    if (token) {
+      setToken({token:token})
       if (menu.length == 0) getCurrentUserData();
     }
   }, []);
