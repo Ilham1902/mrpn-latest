@@ -39,6 +39,7 @@ const useCardIndicationVM = () => {
   const initState:ExsumIndicationState = JSON.parse(JSON.stringify(initStateExsumIndication))
   const [state, setState] = useState<ExsumIndicationState>(initState)
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
 
   async function getOptionRiskType(){
     const response = await doGetSystemParamByModuleAndName({
@@ -213,7 +214,18 @@ const useCardIndicationVM = () => {
     if (response?.code == API_CODE.success){
       getData()
       setModalOpen(false)
+      setModalOpenDelete(false)
     }
+  }
+
+  const handleModalOpenDelete = (id:number) => {
+    setState(prevState => {
+      return {
+        ...prevState,
+        id:id
+      }
+    })
+    setModalOpenDelete(true)
   }
 
   const handleModalOpen = (id:number) => {
@@ -278,7 +290,11 @@ const useCardIndicationVM = () => {
     setModalOpen,
     updateData,
     handleModalOpen,
-    handleModalClose
+    handleModalClose,
+    modalOpenDelete,
+    setModalOpenDelete,
+    handleModalOpenDelete,
+    deleteData
   }
 
 }

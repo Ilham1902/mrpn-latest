@@ -25,7 +25,11 @@ export default function CardIndication({ project }: { project: string }) {
     modalOpen,
     updateData,
     handleModalOpen,
-    handleModalClose
+    handleModalClose,
+    modalOpenDelete,
+    setModalOpenDelete,
+    handleModalOpenDelete,
+    deleteData
   } = useCardIndicationVM();
 
   const {
@@ -56,7 +60,7 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication data={data} handleModalOpen={handleModalOpen} />
+      <TableIndication data={data} handleModalOpen={handleModalOpen} handleModalOpenDelete={handleModalOpenDelete} />
      )}
     </CardItem>
    </Stack>
@@ -85,6 +89,22 @@ export default function CardIndication({ project }: { project: string }) {
       optionRO={optionRO}
     />
    </DialogComponent>
+
+    <DialogComponent
+      width={240}
+      dialogOpen={modalOpenDelete}
+      dialogClose={() => setModalOpenDelete(false)}
+      title="Hapus Data"
+      dialogFooter={  <DialogActions sx={{ p: 2, px: 3 }}>
+        <Button onClick={handleModalClose}>Batal</Button>
+        <Button variant="contained" color="error" onClick={() => deleteData()}>
+          Hapus
+        </Button>
+      </DialogActions>}
+    >
+      Anda yakin akan menghapus data ini?
+    </DialogComponent>
+
   </>
  );
 }

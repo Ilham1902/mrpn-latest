@@ -27,10 +27,12 @@ import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 export default function TableIndication(
   {
     data,
-    handleModalOpen
+    handleModalOpen,
+    handleModalOpenDelete
   }: {
     data: ExsumIndicationResDto[]
     handleModalOpen:any
+    handleModalOpenDelete:any
   }
 ) {
 
@@ -157,7 +159,7 @@ export default function TableIndication(
                             size={16}
                             color={theme.palette.error.main}
                             sx={{cursor: "pointer"}}
-                            onclick={() => handleModalOpen(itemRow.id)}
+                            onclick={() => handleModalOpenDelete(itemRow.id)}
                         />
                     }
                   </Stack>
