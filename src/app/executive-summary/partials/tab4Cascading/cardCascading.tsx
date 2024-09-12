@@ -5,8 +5,9 @@ import useCardDiagramVM from "@/app/executive-summary/partials/tab4Cascading/car
 import { Button, DialogActions } from "@mui/material";
 import FormNomenklatur from "@/app/executive-summary/partials/tab4Cascading/partials/form-nomenklatur";
 import DialogComponent from "@/components/dialog";
+import {del} from "@/lib/core/api/apiBase";
 
-export default function CardCascading({ project }: { project: string }) {
+export default function CardCascading() {
  const {
   optionStakeholder,
   optionProp,
@@ -16,12 +17,13 @@ export default function CardCascading({ project }: { project: string }) {
   state,
   setState,
   createData,
+   deleteData
  } = useCardDiagramVM();
 
  return (
   <CardItem title="Cascading">
    {data !== undefined && (
-    <CascadingOrgChart setModal={setModal} data={data} setState={setState} />
+    <CascadingOrgChart setModal={setModal} data={data} setState={setState} deleteData={deleteData}/>
    )}
 
    <DialogComponent
@@ -29,7 +31,6 @@ export default function CardCascading({ project }: { project: string }) {
     dialogOpen={modal}
     dialogClose={() => setModal(false)}
     title="Nomenklatur IKU"
-    zIndex={9999}
     dialogFooter={
      <DialogActions sx={{ p: 2, px: 3 }}>
       <Button variant="outlined" onClick={() => setModal(false)}>

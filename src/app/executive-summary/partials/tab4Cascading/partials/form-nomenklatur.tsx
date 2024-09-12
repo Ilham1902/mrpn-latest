@@ -56,6 +56,7 @@ export default function FormNomenklatur(
           <FormControl fullWidth>
             <FieldLabelInfo title="KL Pengampu" information="KL Pengampu"/>
             <AutocompleteSelectSingle
+              key={optionStakeholder.length}
               value={state.src_stakeholder_id}
               options={optionStakeholder}
               getOptionLabel={(opt) => opt.value}

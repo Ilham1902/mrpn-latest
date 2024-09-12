@@ -34,6 +34,11 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import DraggableScroll from "../../tab2Profile/partials/draggableScroll";
 import { SxParams } from "@/app/executive-summary/types";
 
+
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {usePathname} from "next/navigation";
+import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
+
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  const isAssistant = nodeData.isAssistant === true;
  const nodeClass = isAssistant ? "has-assistant" : "";
@@ -150,11 +155,19 @@ export default function CascadingOrgChart({
  setModal,
  data,
  setState,
+  deleteData
 }: {
  setModal: any;
  data: RKPCascadingDto;
  setState: (value: SetStateAction<ExsumCascadingStateDto>) => void;
+ deleteData:any
 }) {
+
+ const {
+  permission
+ } = useAuthContext(state => state)
+ const pathname = usePathname()
+
  const [modalOpenImg, setModalOpenImg] = React.useState(false);
 
  const handleModalImg = () => {
@@ -216,7 +229,16 @@ export default function CascadingOrgChart({
        };
        ind.kl_pengampu.map((kl) => {
         const klData: OrgDto = {
-         name: "KL Pengampu",
+         name: (
+           <Stack justifyContent="center" direction="row" alignItems="center">
+            {`KL PENGAMPU`}
+            {hasPrivilege(permission,pathname,"delete") &&
+              <IconButton onClick={() => deleteData(kl.id)} size="small">
+               <IconFA name="trash" size={16} color="white"/>
+              </IconButton>
+            }
+           </Stack>
+         ),
          title: kl.kementrian.value,
          children: [],
         };
@@ -246,89 +268,6 @@ export default function CascadingOrgChart({
    });
    return result;
   }, [data]);
-
- const ds = {
-  name: `Nomenklatur PN`,
-  title: `Sasaran & Indikator`,
-  children: [
-   {
-    name: `Nomenklatur PP`,
-    title: `Sasaran & Indikator`,
-    children: [
-     {
-      name: "Nomenklatur KP",
-      title: "Nomenklatur KP",
-      children: [
-       {
-        name: "Sasaran",
-        title: "Sasaran",
-        children: [
-         {
-          name: (
-           <Stack justifyContent="center" direction="row" alignItems="center">
-            Nomenklatur IKU
-            <IconButton onClick={() => setModal(true)} size="small">
-             <IconFA name="circle-plus" size={16} color="white" />
-            </IconButton>
-           </Stack>
-          ),
-          title: "Nomenklatur IKU",
-          children: [
-           {
-            name: "KL Pengampu",
-            title: "KL Pengampu",
-            children: [
-             {
-              name: "Nomenklatur ProP",
-              title: (
-               <List dense sx={styleList}>
-                <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
-                <ItemProP
-                 isKey
-                 description="Pendampingan balita dengan permasalahan gizi"
-                />
-                <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
-               </List>
-              ),
-             },
-             {
-              name: "Nomenklatur ProP",
-              title: (
-               <List dense sx={styleList}>
-                <ItemProP
-                 isKey
-                 description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)"
-                />
-                <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
-                <ItemProP description="Pelayanan gizi masyarakat di kab/kota" />
-               </List>
-              ),
-             },
-             {
-              name: "Nomenklatur ProP",
-              title: (
-               <List dense sx={styleList}>
-                <ItemProP description="Penyediaan PMT bagi balita bermasalah gizi (termasuk balita dengan BB tidak bertambah sesuai usia/ (weight faltering)" />
-                <ItemProP description="Pendampingan balita dengan permasalahan gizi" />
-                <ItemProP
-                 isKey
-                 description="Pelayanan gizi masyarakat di kab/kota"
-                />
-               </List>
-              ),
-             },
-            ],
-           },
-          ],
-         },
-        ],
-       },
-      ],
-     },
-    ],
-   },
-  ],
- };
 
  const sxParamsFull: SxParams = { variant: "full" };
  const sxParamsZoom: SxParams = { variant: "zoom" };

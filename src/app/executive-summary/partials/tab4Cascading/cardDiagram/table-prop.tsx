@@ -1,23 +1,8 @@
 import React, {SetStateAction, useEffect, useMemo} from "react";
 import {
-  Box,
-  Checkbox, Chip,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Box
 } from "@mui/material";
-import theme from "@/theme";
-import {ProPDto, RoDto} from "@/app/misc/rkp/rkpServiceModel";
-import {FormatIDR} from "@/lib/utils/currency";
 import {MaterialReactTable, MRT_RowSelectionState, useMaterialReactTable} from "material-react-table";
-import {
-  ExsumInterventionState
-} from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
-import {RowSelectionState} from "@tanstack/table-core";
 import {
   ExsumCascadingStateDto,
   PropCascadingDto
