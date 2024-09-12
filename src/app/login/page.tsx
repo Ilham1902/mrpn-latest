@@ -245,7 +245,7 @@ export default function PageLogin() {
       >
        <Image
         alt="Logo MRPN"
-        src="https://res.cloudinary.com/caturteguh/image/upload/v1724835317/mrpn/logo-pranala-sm_ueqxbf.png"
+        src="https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png"
         width={0}
         height={0}
         sizes="100vw"
@@ -267,7 +267,7 @@ export default function PageLogin() {
       >
        <Image
         alt="Logo MRPN"
-        src="https://res.cloudinary.com/caturteguh/image/upload/v1724835317/mrpn/logo-pranala-sm_ueqxbf.png"
+        src="https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png"
         width={0}
         height={0}
         sizes="100vw"
