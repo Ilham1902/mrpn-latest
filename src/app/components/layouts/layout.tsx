@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useCallback, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -29,7 +29,6 @@ export default function DashboardLayout({
 }: {
  children: React.ReactNode;
 }) {
-
  const pathname = usePathname();
  const theme = useTheme();
  const drawerOpenKey = "drawerOpen";
@@ -124,6 +123,11 @@ export default function DashboardLayout({
      maxWidth: checked ? "calc(100vw - 348px)" : "calc(100vw - 132px)",
     },
    },
+   "&.card-level-3": {
+    ".MuiTableContainer-root": {
+     maxWidth: checked ? "calc(100vw - 424px)" : "calc(100vw - 208px)",
+    },
+   },
   },
  };
 
@@ -180,6 +184,9 @@ export default function DashboardLayout({
     maxWidth: "calc(100vw - 368px)",
    },
   },
+  ".orgchart-container": {
+   maxWidth: "calc(100vw - 444px)",
+  },
   ".collapse-active": {
    ".table-sticky-actions-column": {
     maxWidth: "calc(100vw - 132px)",
@@ -188,6 +195,9 @@ export default function DashboardLayout({
     ".MuiTableContainer-root": {
      maxWidth: "calc(100vw - 148px)",
     },
+   },
+   ".orgchart-container": {
+    maxWidth: "calc(100vw - 228px)",
    },
   },
   [theme.breakpoints.down("md")]: {
@@ -308,9 +318,7 @@ export default function DashboardLayout({
       />
      )}
     </Stack>
-    <ILayout>
-     {children}
-    </ILayout>
+    <ILayout>{children}</ILayout>
    </Box>
    <Stack
     component="footer"

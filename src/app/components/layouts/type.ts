@@ -12,4 +12,5 @@ type IMenu = {
  hasChild?: boolean;
  activeUrl?: () => void;
  menuParentActive?: React.ReactNode;
+ onclick?: () => void;
 };

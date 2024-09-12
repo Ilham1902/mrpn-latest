@@ -15,6 +15,7 @@ export default function DialogComponent({
  noDivider,
  closeButton,
  onFocus,
+ zIndex,
 }: {
  title?: React.ReactNode;
  dialogOpen: boolean;
@@ -27,6 +28,7 @@ export default function DialogComponent({
  noDivider?: boolean;
  closeButton?: boolean;
  onFocus?: any;
+ zIndex?: number;
 }) {
  return (
   <Dialog
@@ -35,6 +37,7 @@ export default function DialogComponent({
    onClose={dialogClose}
    onFocus={onFocus}
    sx={{
+    zIndex: zIndex,
     ".MuiPaper-root": {
      minWidth: width ? width : 800,
      [theme.breakpoints.down("md")]: {
