@@ -7,7 +7,7 @@ import FormNomenklatur from "@/app/executive-summary/partials/tab4Cascading/part
 import DialogComponent from "@/components/dialog";
 import {del} from "@/lib/core/api/apiBase";
 
-export default function CardCascading() {
+export default function CardCascading({project}:{project:string}) {
  const {
   optionStakeholder,
   optionProp,

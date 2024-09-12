@@ -6,7 +6,7 @@ import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
-import { styleOrgChart } from "@/app/executive-summary/style";
+import { styleOrgChart2 } from "@/app/executive-summary/style";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
  const isAssistant = nodeData.isAssistant === true;
@@ -66,7 +66,7 @@ export default function InstitutionOrgChart() {
  };
 
  return (
-  <Box sx={styleOrgChart}>
+  <Box sx={styleOrgChart2}>
    <OrgChart
     datasource={ds}
     NodeTemplate={NodeTemplate}

@@ -5,7 +5,7 @@ import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
 import { IconFA } from "@/components/icons/icon-fa";
-import { styleOrgChart } from "@/app/executive-summary/style";
+import {styleOrgChart, styleOrgChart2} from "@/app/executive-summary/style";
 import ImageGalleryStakeholder from "../../executive-summary/partials/tab2Profile/partials/imageSearch";
 import DraggableScroll from "../../executive-summary/partials/tab2Profile/partials/draggableScroll";
 import Image from "next/image";
@@ -129,7 +129,7 @@ export default function StakeholderChart(
  };
 
  return (
-  <Box sx={styleOrgChart}>
+  <Box sx={styleOrgChart2}>
    <OrgChart
     datasource={ds}
     NodeTemplate={NodeTemplate}
