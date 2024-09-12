@@ -128,7 +128,7 @@ export default function Aside({
       <Image
        width={64}
        height={68}
-       src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
+       src="https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png"
        alt="MRPN 2024"
        priority
       />
