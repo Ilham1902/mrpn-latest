@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
  Typography,
  MenuItem,
@@ -13,6 +13,7 @@ import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
 import useRkpVM from "@/components/dropdownKp/rkpVM";
+import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
  return {
@@ -62,12 +63,34 @@ export default function DropdownKp({
  variant?: string;
 }) {
 
+ const rkpContext = useRKPContext(state => state);
+ const {rkp, rkpState} = rkpContext
+
  const {
   options,
   handleChangeOptions,
   value,
-   allowedSelectRKP
+   allowedSelectRKP,
+  getAllowedSelectRKP,
+   getData,
+  triggerChange
  } = useRkpVM();
+
+ useEffect(() => {
+  if (allowedSelectRKP.length == 0) {
+   getAllowedSelectRKP()
+  }
+ }, []);
+
+ useEffect(() => {
+  if (allowedSelectRKP.length > 0) {
+   if (rkp.length == 0){
+    getData()
+   } else {
+    if (rkpState) triggerChange(rkpState);
+   }
+  }
+ }, [allowedSelectRKP]);
 
  const sxParams: SxParams = { variant: variant };
 

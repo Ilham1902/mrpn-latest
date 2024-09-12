@@ -163,7 +163,7 @@ const fetchAPI = async (param: APIParam) => {
     }
     return responseJson;
   } else {
-    if (param.errorModalContext != undefined) {
+    if (param.errorModalContext != undefined && response.status != 401) {
       param.errorModalContext.showModal(MODAL_TYPES.ERROR_MODAL, {
         code: responseJson.code
           ? responseJson.code

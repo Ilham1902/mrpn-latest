@@ -125,22 +125,6 @@ const useRkpVM = () => {
   }
 
   useEffect(() => {
-    if (allowedSelectRKP.length == 0) {
-      getAllowedSelectRKP()
-    }
-  }, []);
-
-  useEffect(() => {
-    if (allowedSelectRKP.length > 0) {
-      if (rkp.length == 0){
-        getData()
-      } else {
-        if (rkpState) triggerChange(rkpState);
-      }
-    }
-  }, [allowedSelectRKP]);
-
-  useEffect(() => {
     if (rkpState) triggerChange(rkpState);
   }, [rkpState]);
 
@@ -149,6 +133,9 @@ const useRkpVM = () => {
     options:rkpOption,
     handleChangeOptions,
     value:rkpState,
+    getAllowedSelectRKP,
+    getData,
+    triggerChange
   }
 }
 
