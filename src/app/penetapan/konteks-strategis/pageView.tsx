@@ -7,7 +7,7 @@ import {
  Stack,
 } from "@mui/material";
 import CardIndikasiSasaran from "./cardIndikasiSasaran/cardIndikasiSasaran";
-import TableSasaran from "./form/partials/table-sasaran";
+import CardSasaranKinerjaUPR from "./cardSasaranKinerjaUPR/cardSasaranKinerjaUPR";
 import TableRegulation from "./form/partials/table-regulation";
 import TableStakeholderInternal from "./form/partials/table-stakeholder-internal";
 import TableStakeholderEksternal from "./form/partials/table-stakeholder-eksternal";
@@ -36,7 +36,7 @@ export default function PageKonteksStrategisView({}) {
     :
      <Stack gap={1}>
       <CardIndikasiSasaran />
-      <TableSasaran mode="view" />
+      <CardSasaranKinerjaUPR />
       <TableRegulation mode="add" />
       <TableStakeholderInternal mode="view" project="1" />
       <TableStakeholderEksternal mode="view" project="1" />

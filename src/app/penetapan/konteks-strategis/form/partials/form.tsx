@@ -13,7 +13,7 @@ import CardIndikasiSasaran from "../../cardIndikasiSasaran/cardIndikasiSasaran";
 import TableRegulation from "./table-regulation";
 import TableStakeholderInternal from "./table-stakeholder-internal";
 import TableStakeholderEksternal from "./table-stakeholder-eksternal";
-import TableSasaran from "./table-sasaran";
+import CardSasaranKinerjaUPR from "../../cardSasaranKinerjaUPR/cardSasaranKinerjaUPR";
 
 export default function FormKonstra({ mode }: { mode?: string }) {
  return (
@@ -43,7 +43,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
    >
     <CardIndikasiSasaran />
     <Divider sx={{ my: 3 }} />
-    <TableSasaran mode={mode} />
+    <CardSasaranKinerjaUPR mode={mode} />
     <Divider sx={{ my: 3 }} />
     <TableRegulation mode={mode} />
     <Divider sx={{ my: 3 }} />
