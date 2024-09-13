@@ -10,7 +10,7 @@ import theme from "@/theme";
 import TableDampak from "./table-kriteria-dampak";
 import { listProvinsi } from "@/app/utils/provinsi";
 import CardIndikasiSasaran from "../../cardIndikasiSasaran/cardIndikasiSasaran";
-import TableRegulation from "./table-regulation";
+import CardRegulation from "../../cardRegulasi/cardRegulation";
 import TableStakeholderInternal from "./table-stakeholder-internal";
 import TableStakeholderEksternal from "./table-stakeholder-eksternal";
 import CardSasaranKinerjaUPR from "../../cardSasaranKinerjaUPR/cardSasaranKinerjaUPR";
@@ -45,7 +45,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <Divider sx={{ my: 3 }} />
     <CardSasaranKinerjaUPR mode={mode} />
     <Divider sx={{ my: 3 }} />
-    <TableRegulation mode={mode} />
+    <CardRegulation mode={mode} />
     <Divider sx={{ my: 3 }} />
     <TableStakeholderInternal mode={mode} project="1" />
     <Divider sx={{ my: 3 }} />

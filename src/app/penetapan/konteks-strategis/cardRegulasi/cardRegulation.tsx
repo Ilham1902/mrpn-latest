@@ -2,33 +2,28 @@ import React, {useEffect} from "react";
 import {
   Button,
   DialogActions,
-  Icon,
-  IconButton,
-  Paper,
-  Stack,
+  Paper, Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
 } from "@mui/material";
 import theme from "@/theme";
-import {AddCircle} from "@mui/icons-material";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
 import DialogComponent from "@/components/dialog";
-import FormSasaran from "./form-sasaran";
+import FormRegulation from "./form-regulasi";
 import CardItem from "@/components/cardTabItem";
-import useCardSasaranUPRVM from "@/app/penetapan/konteks-strategis/cardSasaranKinerjaUPR/vm";
+import useCardRegulasi from "@/app/penetapan/konteks-strategis/cardRegulasi/vm";
 import {useAuthContext} from "@/lib/core/hooks/useHooks";
 import {usePathname} from "next/navigation";
 import AddButton from "@/components/buttonAdd";
 import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 import {IconFA} from "@/components/icons/icon-fa";
 
-export default function CardSasaranKinerjaUPR() {
+export default function CardRegulation() {
 
   const {
     permission
@@ -40,23 +35,15 @@ export default function CardSasaranKinerjaUPR() {
     getData,
     state,
     setState,
-    optionSasaranIndikator,
-    getOptionSasaranIndikator,
-    optionIndikatorSasaran,
-    setOptionIndikatorSasaran,
     data,
     modal,
     setModal,
     hanldeOpenModal,
-    createUpdateDelete,
-    optionStakeholder,
-    getOptionStakeholder
-  } = useCardSasaranUPRVM()
+    createUpdateDelete
+  } = useCardRegulasi()
 
   useEffect(() => {
     if (rkpState !== undefined) {
-      getOptionStakeholder()
-      getOptionSasaranIndikator()
       getData()
     }
   }, [rkpState]);
@@ -64,7 +51,7 @@ export default function CardSasaranKinerjaUPR() {
   return (
     <>
       <CardItem
-        title="Sasaran, Indikator, dan Target Kinerja UPR Lintas Sektor"
+        title="Daftar Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
         addButton={<AddButton
           filled
           small
@@ -90,11 +77,10 @@ export default function CardSasaranKinerjaUPR() {
             <Table size="small">
               <TableHead sx={{bgcolor: theme.palette.primary.light}}>
                 <TableRow>
-                  <TableCell>Peran</TableCell>
-                  <TableCell>Entitas MRPN</TableCell>
-                  <TableCell>Sasaran</TableCell>
-                  <TableCell>Indikator</TableCell>
-                  <TableCell>Target</TableCell>
+                  <TableCell>
+                    Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait
+                  </TableCell>
+                  <TableCell>Keterangan</TableCell>
                   {
                     (hasPrivilege(permission, pathname, "update", "penetapan.kriteriaRisiko") || hasPrivilege(permission, pathname, "delete", "penetapan.kriteriaRisiko")) &&
                       <TableCell width={150}></TableCell>
@@ -107,11 +93,8 @@ export default function CardSasaranKinerjaUPR() {
                     key={row.id}
                     sx={{"&:last-child td, &:last-child th": {border: 0}}}
                   >
-                    <TableCell>{row.peran}</TableCell>
-                    <TableCell>{row.stakeholder_id.value}</TableCell>
-                    <TableCell>{row.sasaran.value}</TableCell>
-                    <TableCell>{row.indikator.value}</TableCell>
-                    <TableCell align="right">{row.target}</TableCell>
+                    <TableCell>{row.regulasi}</TableCell>
+                    <TableCell>{row.keterangan}</TableCell>
                     {
                       (hasPrivilege(permission, pathname, "update", "penetapan.kriteriaRisiko") || hasPrivilege(permission, pathname, "delete", "penetapan.kriteriaRisiko")) &&
                         <TableCell width={150}>
@@ -156,7 +139,7 @@ export default function CardSasaranKinerjaUPR() {
         width={320}
         dialogOpen={modal.action !== "delete" && modal.isOpen}
         dialogClose={() => setModal({action: "add", isOpen: false})}
-        title="Tambah Sasaran, Indikator, dan Target Kinerja UPR Linsek"
+        title="Tambah Regulasi, Kebijakan, Peraturan, Prosedur Terkait"
         dialogFooter={<DialogActions sx={{p: 2, px: 3}}>
           <Button onClick={() => setModal({action: "add", isOpen: false})}>Batal</Button>
           <Button variant="contained" type="submit" onClick={() => createUpdateDelete()}>
@@ -164,13 +147,9 @@ export default function CardSasaranKinerjaUPR() {
           </Button>
         </DialogActions>}
       >
-        <FormSasaran
+        <FormRegulation
           state={state}
           setState={setState}
-          optionSasaranIndikator={optionSasaranIndikator}
-          optionIndikatorSasaran={optionIndikatorSasaran}
-          optionStakeholder={optionStakeholder}
-          setOptionIndikatorSasaran={setOptionIndikatorSasaran}
         />
       </DialogComponent>
 

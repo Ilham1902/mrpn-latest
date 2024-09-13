@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import CardIndikasiSasaran from "./cardIndikasiSasaran/cardIndikasiSasaran";
 import CardSasaranKinerjaUPR from "./cardSasaranKinerjaUPR/cardSasaranKinerjaUPR";
-import TableRegulation from "./form/partials/table-regulation";
+import CardRegulation from "./cardRegulasi/cardRegulation";
 import TableStakeholderInternal from "./form/partials/table-stakeholder-internal";
 import TableStakeholderEksternal from "./form/partials/table-stakeholder-eksternal";
 import TableRincianOutput from "./form/partials/table-ro";
@@ -37,28 +37,13 @@ export default function PageKonteksStrategisView({}) {
      <Stack gap={1}>
       <CardIndikasiSasaran />
       <CardSasaranKinerjaUPR />
-      <TableRegulation mode="add" />
+      <CardRegulation mode="add" />
       <TableStakeholderInternal mode="view" project="1" />
       <TableStakeholderEksternal mode="view" project="1" />
       <TableRincianOutput mode="view" />
      </Stack>
     }
    </ContentPage>
-
-   {/*<DialogComponent*/}
-   {/* width={240}*/}
-   {/* dialogOpen={modalOpenDelete}*/}
-   {/* dialogClose={handleModalClose}*/}
-   {/* title="Hapus Data"*/}
-   {/* dialogFooter={<DialogActions sx={{ p: 2, px: 3 }}>
-   <Button onClick={handleModalClose}>Batal</Button>
-   <Button variant="contained" color="error" type="submit">
-    Hapus
-   </Button>
-  </DialogActions>}*/}
-   {/*>*/}
-   {/* Anda yakin akan menghapus data ini?*/}
-   {/*</DialogComponent>*/}
 
   </>
  );
