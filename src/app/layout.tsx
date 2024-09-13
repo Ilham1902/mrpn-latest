@@ -10,10 +10,10 @@ import "./globals.css";
 import "./styles.scss";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import {RKPProvider} from "@/lib/core/provider/rkpProvider";
-import {defaultInitRkpState} from "@/lib/core/context/rkpContext";
-import {AuthProvider} from "@/lib/core/provider/authProvider";
-import {defaultInitAuthState} from "@/lib/core/context/authContext";
+import { RKPProvider } from "@/lib/core/provider/rkpProvider";
+import { defaultInitRkpState } from "@/lib/core/context/rkpContext";
+import { AuthProvider } from "@/lib/core/provider/authProvider";
+import { defaultInitAuthState } from "@/lib/core/context/authContext";
 // import Head from "next/head";
 
 export const metadata: Metadata = {
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
   icon: [
    {
     media: "(prefers-color-scheme: light)",
-    url: "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
+    url: "https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png",
     href:
-     "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
+     "https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png",
    },
    {
     media: "(prefers-color-scheme: dark)",
-    url: "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
+    url: "https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png",
     href:
-     "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
+     "https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png",
    },
   ],
  },
@@ -44,9 +44,7 @@ export default function RootLayout(props: any) {
      <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
        <CssBaseline />
-       <RKPProvider state={defaultInitRkpState}>
-        {props.children}
-       </RKPProvider>
+       <RKPProvider state={defaultInitRkpState}>{props.children}</RKPProvider>
       </ThemeProvider>
      </AppRouterCacheProvider>
     </body>
