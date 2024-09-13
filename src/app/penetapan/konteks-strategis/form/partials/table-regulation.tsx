@@ -21,7 +21,6 @@ import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./form-table";
-import FormSasaran from "./form-identifikasi";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import FormRegulation from "./form-regulasi";
 import CardItem from "@/app/components/cardTabItem";

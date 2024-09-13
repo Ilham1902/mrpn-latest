@@ -9,7 +9,7 @@ import TableKemungkinan from "./table-kriteria-kemungkinan";
 import theme from "@/theme";
 import TableDampak from "./table-kriteria-dampak";
 import { listProvinsi } from "@/app/utils/provinsi";
-import TableIdentifikasiSasaran from "./table-identifikasi-sasaran";
+import CardIndikasiSasaran from "../../cardIndikasiSasaran/cardIndikasiSasaran";
 import TableRegulation from "./table-regulation";
 import TableStakeholderInternal from "./table-stakeholder-internal";
 import TableStakeholderEksternal from "./table-stakeholder-eksternal";
@@ -41,7 +41,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      },
     }}
    >
-    <TableIdentifikasiSasaran mode={mode} />
+    <CardIndikasiSasaran />
     <Divider sx={{ my: 3 }} />
     <TableSasaran mode={mode} />
     <Divider sx={{ my: 3 }} />

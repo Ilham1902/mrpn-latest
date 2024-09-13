@@ -63,3 +63,22 @@ export interface ProPDto {
 export type GetRkpPROPServiceModel = BaseAPIServiceParam & {
     body: RkpDefaultReqV2Dto;
 };
+
+export interface IndikatorDto {
+    id:number
+    code:string
+    value:string
+}
+export interface SasaranDto {
+    id:number
+    code:string
+    value:string
+    indikator: IndikatorDto[]
+}
+export type RKPSasaranDto = ProjectDefaultDto & {
+    sasaran: SasaranDto[]
+};
+
+export type GetRKPSasaranServiceModel = BaseAPIServiceParam & {
+    body: RkpDefaultReqV1Dto;
+};

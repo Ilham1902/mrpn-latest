@@ -70,7 +70,8 @@ export default function CardItem(
   const {
     permission
   } = useAuthContext(state => state)
-  const pathname = usePathname()
+  let pathname = usePathname()
+  pathname = pathname == "/penetapan/konteks-strategis" ?  "/penetapan/kriteriaRisiko" : pathname;
 
   useEffect(() => {
     console.log(pathname)

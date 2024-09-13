@@ -121,7 +121,11 @@ const useRkpVM = () => {
   }
 
   const handleChangeOptions = (params:OptionsRKP) => {
-    setRkpState(params)
+    if (params == null) {
+      setRkpState(undefined)
+    } else {
+      setRkpState(params)
+    }
   }
 
   useEffect(() => {

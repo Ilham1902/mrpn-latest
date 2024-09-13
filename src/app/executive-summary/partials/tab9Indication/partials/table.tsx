@@ -144,7 +144,7 @@ export default function TableIndication(
                   sx={{verticalAlign: "baseline", textAlign: "center"}}
                 >
                   <Stack gap={"5px"} justifyContent={"center"} direction={"row"}>
-                    {hasPrivilege(permission,pathname,"add") &&
+                    {hasPrivilege(permission,pathname,"update") &&
                       <IconFA
                         name="edit"
                         size={16}

@@ -1,8 +1,9 @@
 import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
-import {doGet} from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportService";
+
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {useEffect, useState} from "react";
 import {ExsumSupportProjectRes} from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportModel";
+import {doGetRKPSasaranIndikator} from "@/app/misc/rkp/rkpService";
 
 const useCardSupportVM = () => {
 
@@ -14,7 +15,7 @@ const useCardSupportVM = () => {
 
   async function getData(){
 
-    const response = await doGet({
+    const response = await doGetRKPSasaranIndikator({
       body: {
         ref_id:exsum.ref_id,
         level:exsum.level

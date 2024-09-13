@@ -35,7 +35,7 @@ export const dataTema = [
      {
       label: "opportunity",
       item: [
-       "Prevalensi stunting merupakan salah satu indikator dalam Human Capital Index (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+       "Prevalensi stunting merupakan salah satu indikator dalam Human Capital CardIndikasiSasaran (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
       ],
      },
      {

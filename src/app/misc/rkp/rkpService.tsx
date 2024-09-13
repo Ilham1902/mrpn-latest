@@ -1,7 +1,7 @@
 import { get, post } from "@/lib/core/api/apiBase";
 import {
   GetExsumServiceModel,
-  GetRkpLocationServiceModel, GetRkpPROPServiceModel, GetRkpROServiceModel,
+  GetRkpLocationServiceModel, GetRkpPROPServiceModel, GetRkpROServiceModel, GetRKPSasaranServiceModel,
   GetRKPServiceModel
 } from "./rkpServiceModel";
 import { ResponseBaseDto } from "@/lib/core/api/apiModel";
@@ -42,6 +42,14 @@ export async function doGetPROP(params: GetRkpPROPServiceModel) {
   const resp = await post({
     ...params,
     url: "misc/rkp/getProp",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetRKPSasaranIndikator(param: GetRKPSasaranServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "misc/rkp/sasaranIndikator",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
