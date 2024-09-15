@@ -354,7 +354,7 @@ export default function PageLogin() {
    <Button
     type="submit"
     fullWidth
-    href={showLogin ? "/executive-summary" : ""}
+    href={showLogin ? "/" : ""}
     className="glow-on-hover cta"
     onClick={!showLogin ? handleShowLogin : () => {}}
     sx={{
