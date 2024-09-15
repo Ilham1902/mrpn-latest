@@ -51,6 +51,7 @@ export default function ContentPage({
  tabStep,
  noMarginBotttom,
  tabArrow,
+ darkTheme,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -82,6 +83,7 @@ export default function ContentPage({
  tabStep?: React.ReactNode;
  noMarginBotttom?: boolean;
  tabArrow?: React.ReactNode;
+ darkTheme?: boolean;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -165,19 +167,21 @@ export default function ContentPage({
        ...sxHeaderCard,
       }}
      >
-      <Stack direction="column">
-       {breadcrumb}
-       {title && (
-        <Typography
-         component="h2"
-         fontWeight="600"
-         fontSize="1.25rem"
-         textTransform="capitalize"
-        >
-         {title}
-        </Typography>
-       )}
-      </Stack>
+      {title && (
+       <Stack direction="column">
+        {breadcrumb}
+        {title && (
+         <Typography
+          component="h2"
+          fontWeight="600"
+          fontSize="1.25rem"
+          textTransform="capitalize"
+         >
+          {title}
+         </Typography>
+        )}
+       </Stack>
+      )}
       {titleChild}
       {chipKp && (
        <Chip
@@ -541,6 +545,8 @@ export default function ContentPage({
       ? "calc(100vh - 240px)"
       : heightNoSet
       ? "auto"
+      : darkTheme
+      ? "calc(100vh - 180px)"
       : // : flagPathnameTheme
         // ? "calc(100vh - 328px)"
         "calc(100vh - 240px)"
