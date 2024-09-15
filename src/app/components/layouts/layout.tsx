@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import {useCallback, useEffect, useState} from "react";
 import { usePathname } from "next/navigation";
 import {
  Box,
@@ -29,6 +29,21 @@ export default function DashboardLayout({
 }: {
  children: React.ReactNode;
 }) {
+
+ // const [check, setCheck] = useState<number>(0)
+ //
+ // const callApi = () => {
+ //  console.log("trigger check session")
+ // }
+ //
+ // useEffect(() => {
+ //  const id = setInterval(() => {
+ //   callApi()
+ //   setCheck(check + 1)
+ //  }, 20000);
+ //  return () => clearInterval(id);
+ // }, [check])
+
  const pathname = usePathname();
  const theme = useTheme();
  const drawerOpenKey = "drawerOpen";

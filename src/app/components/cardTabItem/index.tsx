@@ -73,14 +73,6 @@ export default function CardItem(
   let pathname = usePathname()
   pathname = pathname == "/penetapan/konteks-strategis" ?  "/penetapan/kriteriaRisiko" : pathname;
 
-  useEffect(() => {
-    console.log(pathname)
-  }, []);
-
-  const defineAction = () => {
-
-  }
-
   const settingButton = (
     <>
       <IconButton

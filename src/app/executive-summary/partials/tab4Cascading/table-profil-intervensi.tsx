@@ -10,10 +10,8 @@ import { FormatIDR } from "@/lib/utils/currency";
 import { ExsumInterventionState } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
 
 export default function TableProfilIntervensi({
- project,
  data,
 }: {
- project: string;
  data: RoDto[];
 }) {
  const columns = useMemo(

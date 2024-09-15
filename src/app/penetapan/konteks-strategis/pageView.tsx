@@ -15,6 +15,7 @@ import TableRincianOutput from "./form/partials/table-ro";
 import {useRKPContext} from "@/lib/core/hooks/useHooks";
 import {IconEmptyData} from "@/components/icons";
 import EmptyState from "@/components/empty";
+import CardProfileIntervensi from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/cardProfileIntervensi";
 
 export default function PageKonteksStrategisView({}) {
 
@@ -37,10 +38,10 @@ export default function PageKonteksStrategisView({}) {
      <Stack gap={1}>
       <CardIndikasiSasaran />
       <CardSasaranKinerjaUPR />
-      <CardRegulation mode="add" />
+      <CardRegulation />
       <TableStakeholderInternal mode="view" project="1" />
       <TableStakeholderEksternal mode="view" project="1" />
-      <TableRincianOutput mode="view" />
+      <CardProfileIntervensi />
      </Stack>
     }
    </ContentPage>

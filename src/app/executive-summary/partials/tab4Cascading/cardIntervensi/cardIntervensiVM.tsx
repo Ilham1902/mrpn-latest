@@ -162,32 +162,8 @@ const useCardIntervensiVM = () => {
     }
   }
 
-  useEffect(() => {
-    if (rpjmn == undefined) getRpjmn();
-    if (listProP.length == 0) getListProP();
-    if (listSof.length == 0) getListSumberPendanaan();
-    if (listStakeholder.length == 0) getListStakeholder();
-    if (exsum.id != 0) getData()
-  }, []);
-
-  useEffect(() => {
-    if (rpjmn && state.list.length == 0) {
-      const thisState = {...state}
-      for (let i = rpjmn.start; i <= rpjmn.end; i++) {
-        const dataAnggaran: ProjectTargetAnggaranDto = {
-          tahun: i,
-          target: "",
-          satuan: "",
-          anggaranString: "",
-          anggaran: 0,
-          sumber_anggaran: ""
-        }
-        thisState.list.push(dataAnggaran)
-      }
-    }
-  }, [rpjmn]);
-
   return {
+    exsum,
     rpjmn,
     state,
     setState,
@@ -198,6 +174,12 @@ const useCardIntervensiVM = () => {
     modal,
     setModal,
     handleSubmit,
+    getRpjmn,
+    getListProP,
+    getListSumberPendanaan,
+    getListStakeholder,
+    getData,
+    listSof
   }
 }
 

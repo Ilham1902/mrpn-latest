@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const pass = "nhdYwzniL9EheeZO4vHR78veDiFv9JJP";
+const pass = "dkl1U3VqcmNNm9CygqNpiJBES7IZvVs8WDTN4MWK17QNeVtT9OzKD8Uca14LQihx";
 
 export const encryptValue = (value: string) => {
     const masterKey = pass;

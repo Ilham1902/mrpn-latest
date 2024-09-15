@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalModalContext } from "@/lib/core/hooks/useHooks";
+import {useRouter} from "next/navigation";
+import {useAuthContext, useGlobalModalContext} from "@/lib/core/hooks/useHooks";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import { TransitionProps } from '@mui/material/transitions';
 
@@ -13,20 +14,21 @@ const Transition = React.forwardRef(function Transition(
 });
   
 export const IErrorModal = () => {
+    const router = useRouter()
+    const {
+        setUser
+    } = useAuthContext(state => state)
     const { hideModal, store, } = useGlobalModalContext();
     const { modalProps } = store || {};
     const { code, message, } = modalProps || {};
 
     const handleModalToggle = () => {
-        hideModal();
+        if (code == 401){
+            setUser(undefined)
+            return router.replace("/login");
+        }
+        return hideModal();
     };
-
-    // useEffect(() => {
-    //     if (code === 401 && !router.asPath.includes("login")) {
-    //         window.sessionStorage.clear();
-    //         router.push("/login");
-    //     }
-    // }, [code]);
 
     return (
         <Dialog
@@ -36,12 +38,18 @@ export const IErrorModal = () => {
             onClose={handleModalToggle}
         >
             <DialogContent>
-                <DialogContentText>
+                {code === 401 && <DialogContentText>
+                    Sesi Anda telah berakhir, silahkan login kembali
+                </DialogContentText>}
+                {code !== 401 && <DialogContentText>
                     {`${message} (${code})`}
-                </DialogContentText>
+                </DialogContentText>}
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleModalToggle}>Tutup</Button>
+                <Button onClick={handleModalToggle}>
+                    {code === 401 && 'OK'}
+                    {code !== 401 && 'Tutup'}
+                </Button>
             </DialogActions>
         </Dialog>
     )

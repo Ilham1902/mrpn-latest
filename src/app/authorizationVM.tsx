@@ -29,6 +29,7 @@ const useAuthorizationVM = () => {
     password: ""
   })
   const [userDropdown, setUserDropdown] = React.useState("");
+  const [modalErrorLogin, setModalErrorLogin] = useState<boolean>(false)
 
   const handleChangeUser = (event: SelectChangeEvent) => {
     const userDropdownId = event.target.value
@@ -74,6 +75,8 @@ const useAuthorizationVM = () => {
         return processStoreUserAuthentication(result)
       }
     }
+
+    return setModalErrorLogin(true)
   }
 
   async function doLogout(){
@@ -188,7 +191,9 @@ const useAuthorizationVM = () => {
     setCredential,
     doCheckSSO,
     doLogin,
-    doLogout
+    doLogout,
+    modalErrorLogin,
+    setModalErrorLogin
   }
 }
 

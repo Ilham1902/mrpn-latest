@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Typography,
   Stack,
@@ -9,20 +9,23 @@ import {
   Grow,
   Tooltip,
 } from "@mui/material";
-import EmptyState from "@/app/components/empty";
-import {IconEmptyData} from "@/app/components/icons";
-import CardItem from "@/app/components/cardTabItem";
-import DialogComponent from "@/app/components/dialog";
-import AddButton from "@/app/components/buttonAdd";
-import TableProfilIntervensi from "./table-profil-intervensi";
-import TableProfilRoKunci from "./table-profil-ro-kunci";
-import FormProfilRoProject from "./form-profil-ro-project";
+import EmptyState from "@/components/empty";
+import {IconEmptyData} from "@/components/icons";
+import CardItem from "@/components/cardTabItem";
+import DialogComponent from "@/components/dialog";
+import AddButton from "@/components/buttonAdd";
+import TableProfilIntervensi from "../table-profil-intervensi";
+import TableProfilRoKunci from "../table-profil-ro-kunci";
+import FormProfilRoProject from "../form-profil-ro-project";
 import useCardIntervensiVM from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiVM";
 import {ProPDto} from "@/app/misc/rkp/rkpServiceModel";
 import {AutoCompleteMultipleProp, AutoCompleteSingleProp} from "@/components/autocomplete";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {
+  ProjectTargetAnggaranDto
+} from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
 
-export default function CardRoKunci({project}: { project: string }) {
+export default function CardIntervensi({project}: { project: string }) {
 
   const {
     rpjmn,
@@ -35,7 +38,39 @@ export default function CardRoKunci({project}: { project: string }) {
     modal,
     setModal,
     handleSubmit,
+    getRpjmn,
+    getListProP,
+    getListSumberPendanaan,
+    getListStakeholder,
+    getData,
+    exsum,
+    listSof
   } = useCardIntervensiVM()
+
+  useEffect(() => {
+    if (rpjmn == undefined) getRpjmn();
+    if (listProP.length == 0) getListProP();
+    if (listSof.length == 0) getListSumberPendanaan();
+    if (listStakeholder.length == 0) getListStakeholder();
+    if (exsum.id != 0) getData()
+  }, []);
+
+  useEffect(() => {
+    if (rpjmn && state.list.length == 0) {
+      const thisState = {...state}
+      for (let i = rpjmn.start; i <= rpjmn.end; i++) {
+        const dataAnggaran: ProjectTargetAnggaranDto = {
+          tahun: i,
+          target: "",
+          satuan: "",
+          anggaranString: "",
+          anggaran: 0,
+          sumber_anggaran: ""
+        }
+        thisState.list.push(dataAnggaran)
+      }
+    }
+  }, [rpjmn]);
 
   const selectProP:AutoCompleteSingleProp<ProPDto> = {
     value:state.prop,
@@ -86,7 +121,7 @@ export default function CardRoKunci({project}: { project: string }) {
           description="Silahkan isi konten halaman ini"
         />
       ) : (
-        <TableProfilIntervensi project={project} data={data}/>
+        <TableProfilIntervensi data={data}/>
       )}
 
       <DialogComponent
