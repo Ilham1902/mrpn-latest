@@ -91,7 +91,7 @@ export default function Matriks({ levelId }: { levelId?: number }) {
         >
          <TableRow
           sx={{
-           "&:first-child td, &:last-child th": { border: 0 },
+           "&:first-of-type ": { td: { "&:first-of-type": { border: 0 } } },
           }}
          >
           <TableCell

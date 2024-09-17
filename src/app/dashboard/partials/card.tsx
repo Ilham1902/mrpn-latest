@@ -1,4 +1,14 @@
-import { Paper, Typography, Grid, alpha, Stack, Icon } from "@mui/material";
+import {
+ Paper,
+ Typography,
+ Grid,
+ alpha,
+ Stack,
+ Icon,
+ Box,
+ Tooltip,
+ Grow,
+} from "@mui/material";
 
 type ICard = {
  iconName: string;
@@ -6,16 +16,22 @@ type ICard = {
  value: string;
  total?: string;
  title: string;
+ column?: number;
+ titleSize?: number;
+ actionCard?: React.ReactNode;
+ onclick?: () => void;
 };
 
 export const BlockCard = ({
  title,
  children,
  bgcolor,
+ cardAction,
 }: {
  title?: string;
  children?: React.ReactNode;
  bgcolor?: string;
+ cardAction?: React.ReactNode;
 }) => {
  return (
   <Paper
@@ -31,9 +47,22 @@ export const BlockCard = ({
   >
    {title ? (
     <>
-     <Typography fontSize={18} fontWeight={600} mb={2} color="white">
-      {title}
-     </Typography>
+     {cardAction ? (
+      <Stack
+       flexDirection="row"
+       justifyContent="space-between"
+       alignItems="center"
+      >
+       <Typography fontSize={18} fontWeight={600} mb={2} color="white">
+        {title}
+       </Typography>
+       {cardAction}
+      </Stack>
+     ) : (
+      <Typography fontSize={18} fontWeight={600} mb={2} color="white">
+       {title}
+      </Typography>
+     )}
      {children}
     </>
    ) : (
@@ -43,36 +72,58 @@ export const BlockCard = ({
  );
 };
 
-export const CardValue = ({ iconName, color, value, total, title }: ICard) => {
- return (
-  <Grid item xs={12} md={3}>
-   <Stack
-    direction="column"
-    justifyContent="space-between"
-    height="100%"
-    p="1.25rem"
-    borderRadius="16px"
-    bgcolor={alpha(color, 0.2)}
-    border={`1px solid ${color}`}
-    sx={{
-     height: "140px",
-    }}
-   >
-    <Stack direction="row" alignItems="center" justifyContent="space-between">
-     <Stack
-      //   bgcolor={color}
-      //   width="40px"
-      //   height="40px"
-      //   borderRadius="50%"
-      alignItems="center"
-      justifyContent="center"
-     >
-      <Icon
-       baseClassName="fas"
-       className={`fa-${iconName}`}
-       sx={{ fontSize: "32px", color: color }}
-      />
+export const CardValue = ({
+ iconName,
+ color,
+ value,
+ total,
+ title,
+ column,
+ titleSize,
+ actionCard,
+ onclick,
+}: ICard) => {
+ const contentCardValue = (
+  <Stack
+   direction="column"
+   justifyContent="space-between"
+   height="100%"
+   p="1.25rem"
+   borderRadius="16px"
+   bgcolor={alpha(color, 0.2)}
+   border={`1px solid ${color}`}
+   sx={{
+    height: "140px",
+   }}
+  >
+   <Stack direction="row" alignItems="center" justifyContent="space-between">
+    <Stack
+     //   bgcolor={color}
+     //   width="40px"
+     //   height="40px"
+     //   borderRadius="50%"
+     alignItems="center"
+     justifyContent="center"
+    >
+     <Icon
+      baseClassName="fas"
+      className={`fa-${iconName}`}
+      sx={{ fontSize: "32px", color: color }}
+     />
+    </Stack>
+    {actionCard ? (
+     <Stack direction="row" alignItems="center" gap={1}>
+      {actionCard}
+      <Typography
+       component="span"
+       fontSize="2rem"
+       fontWeight={800}
+       color={color}
+      >
+       {value}
+      </Typography>
      </Stack>
+    ) : (
      <Typography
       component="span"
       fontSize="2rem"
@@ -81,23 +132,47 @@ export const CardValue = ({ iconName, color, value, total, title }: ICard) => {
      >
       {value}
      </Typography>
-    </Stack>
-    <Stack direction="column">
-     {total ? (
-      <Typography color={color} fontSize="12px" fontWeight="500">
-       {total}
-      </Typography>
-     ) : null}
-     <Typography
-      fontSize="18px"
-      textTransform="capitalize"
-      fontWeight={700}
-      color="white"
-     >
-      {title}
-     </Typography>
-    </Stack>
+    )}
    </Stack>
+   <Stack direction="column">
+    {total ? (
+     <Typography color={color} fontSize="12px" fontWeight="500">
+      {total}
+     </Typography>
+    ) : null}
+    <Typography
+     fontSize={titleSize ? `${titleSize}px` : "18px"}
+     textTransform="capitalize"
+     fontWeight={700}
+     color="white"
+    >
+     {title}
+    </Typography>
+   </Stack>
+  </Stack>
+ );
+
+ return (
+  <Grid item xs={12} md={column ? column : 3}>
+   <Box
+    onClick={onclick}
+    sx={{
+     userSelect: "none",
+     cursor: onclick?.length === 0 ? "pointer" : "default",
+    }}
+   >
+    {onclick ? (
+     <Tooltip
+      title="Klik untuk ubah UPR LS"
+      followCursor
+      TransitionComponent={Grow}
+     >
+      {contentCardValue}
+     </Tooltip>
+    ) : (
+     contentCardValue
+    )}
+   </Box>
   </Grid>
  );
 };

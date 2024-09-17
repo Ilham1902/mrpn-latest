@@ -16,17 +16,29 @@ export default function TablePeristiwa() {
  function createData(
   id: number,
   peristiwa: string,
-  efektifitas: number,
+  inherent: number,
+  risidual: number,
+  analisis: number,
   target: number,
-  realisasi: number
+  realisasi: number,
+  efektifitas: number
  ) {
-  return { id, peristiwa, efektifitas, target, realisasi };
+  return {
+   id,
+   peristiwa,
+   inherent,
+   risidual,
+   analisis,
+   target,
+   realisasi,
+   efektifitas,
+  };
  }
 
  const rows = [
-  createData(1, "Keterbatasan anggaran", 3, 20, 15),
-  createData(2, "Penggunaan teknologi masih rendah", 2, 18, 20),
-  createData(3, "Kerusakan lingkungan", 1, 18, 20),
+  createData(1, "Keterbatasan anggaran", 21, 44, 1, 20, 15, 3),
+  createData(2, "Penggunaan teknologi masih rendah", 45, 84, 3, 18, 20, 2),
+  createData(3, "Kerusakan lingkungan", 69, 97, 2, 18, 20, 1),
  ];
 
  const matriksFive = (
@@ -41,13 +53,22 @@ export default function TablePeristiwa() {
       Peristiwa Risiko
      </TableCell>
      <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
+      Inherent Risk
+     </TableCell>
+     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
+      Risidual Risk
+     </TableCell>
+     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
+      Analisis Risk
+     </TableCell>
+     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
+      Target Progress
+     </TableCell>
+     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
+      Realisasi Progress
+     </TableCell>
+     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
       Efektifitas
-     </TableCell>
-     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
-      Target
-     </TableCell>
-     <TableCell align="center" sx={{ p: 1, color: grey[400] }}>
-      Realisasi
      </TableCell>
     </TableRow>
    </TableHead>
@@ -67,6 +88,31 @@ export default function TablePeristiwa() {
       >
        {row.peristiwa}
       </TableCell>
+      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
+       {row.inherent}
+      </TableCell>
+      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
+       {row.risidual}
+      </TableCell>
+      <TableCell align="center">
+       {row.analisis === 3 ? (
+        <Chip label="Di atas selera risiko" size="small" color="primary" />
+       ) : row.analisis === 2 ? (
+        <Chip
+         label="Area risk appetite"
+         size="small"
+         sx={{ bgcolor: orange[600], color: "white" }}
+        />
+       ) : (
+        <Chip label="Di bawah selera risiko" size="small" color="error" />
+       )}
+      </TableCell>
+      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
+       {row.target}
+      </TableCell>
+      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
+       {row.realisasi}
+      </TableCell>
       <TableCell align="center">
        {row.efektifitas === 3 ? (
         <Chip label="Efektif" size="small" color="primary" />
@@ -79,12 +125,6 @@ export default function TablePeristiwa() {
        ) : (
         <Chip label="Tidak Efektif" size="small" color="error" />
        )}
-      </TableCell>
-      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
-       {row.target}
-      </TableCell>
-      <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>
-       {row.realisasi}
       </TableCell>
      </TableRow>
     ))}

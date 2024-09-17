@@ -13,6 +13,7 @@ import ChartStatus from "./partials/chart-status";
 import CardGroup from "./partials/card-group";
 import TableMatriks from "./partials/table-matriks";
 import TablePeristiwa from "./partials/table-peristiwa";
+import ChartTarget from "./partials/chart-target";
 
 export default function PageDashboard() {
  const [project, setProject] = React.useState("");
@@ -60,14 +61,17 @@ export default function PageDashboard() {
       <Grid item xs={12} md={6}>
        <ChartStatus />
       </Grid>
-      <Grid item xs={12}>
-       <TableMatriks />
-      </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
        <ChartRisiko />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
        <ChartEntitas />
+      </Grid>
+      <Grid item xs={12} md={4}>
+       <ChartTarget />
+      </Grid>
+      <Grid item xs={12}>
+       <TableMatriks />
       </Grid>
       <Grid item xs={12}>
        <TablePeristiwa />
