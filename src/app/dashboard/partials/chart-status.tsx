@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { BlockCard } from "./card";
 import theme from "@/theme";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { blue, green, red, yellow } from "@mui/material/colors";
 
 export const CustomTooltipPie = ({
  active,
@@ -38,10 +39,10 @@ export default function ChartStatus({}) {
  const data = [
   { name: "Selesai", value: 45 },
   { name: "Proses", value: 3 },
-  { name: "Terlambat", value: 12 },
   { name: "Belum Mulai", value: 40 },
+  { name: "Terlambat", value: 12 },
  ];
- const COLORS = ["#cc9933", "#d6ad5b", "#e0c184", "#ead6ad", "#f4ead6"];
+ const COLORS = [blue[400], green[400], yellow[400], red[400]];
 
  const usetheme = useTheme();
  const breakpointDownSm = useMediaQuery(usetheme.breakpoints.down("sm"));

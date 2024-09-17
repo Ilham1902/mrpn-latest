@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { BlockCard } from "./card";
 import { CustomTooltipPie } from "./chart-status";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { blue, green, orange, red, yellow } from "@mui/material/colors";
 
 export default function ChartPeringkat({}) {
  const data = [
@@ -12,7 +13,7 @@ export default function ChartPeringkat({}) {
   { name: "Rendah", value: 26 },
   { name: "Sangat Rendah", value: 19 },
  ];
- const COLORS = ["#33cc33", "#5bd65b", "#84e084", "#adeaad", "#d6f4d6"];
+ const COLORS = [red[400], orange[400], yellow[400], green[400], blue[400]];
 
  const usetheme = useTheme();
  const breakpointDownSm = useMediaQuery(usetheme.breakpoints.down("sm"));

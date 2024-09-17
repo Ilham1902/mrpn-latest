@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import {
+ Box,
  Stack,
  Table,
  TableBody,
@@ -8,7 +9,42 @@ import {
  TableRow,
 } from "@mui/material";
 import { blue, green, grey, orange, red, yellow } from "@mui/material/colors";
-import { dataMatriks } from "@/app/penetapan/kriteria/dataMatriks";
+import { dataMatriks } from "../dataMatriks";
+
+const CircleNumber = ({
+ value,
+ position,
+ color,
+}: {
+ value: number;
+ position: string;
+ color: string;
+}) => {
+ return (
+  <Box
+   component="span"
+   sx={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "24px",
+    height: "24px",
+    borderRadius: "50%",
+    border: `1px solid black`,
+    position: "absolute",
+    top: "50%",
+    left: position === "left" ? 12 : "auto",
+    right: position === "right" ? 12 : "auto",
+    transform: "translateY(-50%)",
+    bgcolor: color === "green" ? green[600] : blue[600],
+    color: "white",
+    fontSize: 12,
+   }}
+  >
+   {value}
+  </Box>
+ );
+};
 
 export default function Matriks({ levelId }: { levelId?: number }) {
  const colorMap: { [key: string]: string } = {
@@ -119,6 +155,11 @@ export default function Matriks({ levelId }: { levelId?: number }) {
             sx={{
              fontWeight: 700,
              bgcolor: colorMap[itemMatriks.rows[0].colors[colIndex]],
+             position: "relative",
+             borderRight:
+              value === 12 ? "3px dotted darkgray !important" : "none",
+             borderTop:
+              value === 12 ? "3px dotted darkgray !important" : "none",
             }}
            >
             {value}
@@ -140,9 +181,55 @@ export default function Matriks({ levelId }: { levelId?: number }) {
             <TableCell
              key={colIndex}
              align="center"
-             sx={{ fontWeight: 700, bgcolor: colorMap[row.colors[colIndex]] }}
+             sx={{
+              fontWeight: 700,
+              bgcolor: colorMap[row.colors[colIndex]],
+              position: "relative",
+              borderRight:
+               value === 11 || value === 13 || value === 14 || value === 15
+                ? "3px dotted darkgray !important"
+                : "none",
+              borderTop:
+               value === 14 || value === 15
+                ? "3px dotted darkgray !important"
+                : "none",
+             }}
             >
-             {value}
+             {value === 13 ? (
+              <>
+               {value}
+               <CircleNumber value={3} color="green" position="left" />
+              </>
+             ) : value === 16 ? (
+              <>
+               {value}
+               <CircleNumber value={2} color="green" position="left" />
+               <CircleNumber value={4} color="green" position="right" />
+              </>
+             ) : value === 18 ? (
+              <>
+               {value}
+               <CircleNumber value={1} color="green" position="left" />
+               <CircleNumber value={4} color="blue" position="right" />
+              </>
+             ) : value === 19 ? (
+              <>
+               {value}
+               <CircleNumber value={3} color="blue" position="right" />
+              </>
+             ) : value === 23 ? (
+              <>
+               {value}
+               <CircleNumber value={2} color="blue" position="left" />
+              </>
+             ) : value === 24 ? (
+              <>
+               {value}
+               <CircleNumber value={1} color="blue" position="left" />
+              </>
+             ) : (
+              value
+             )}
             </TableCell>
            ))}
           </TableRow>

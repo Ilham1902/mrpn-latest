@@ -17,37 +17,26 @@ import { CustomTooltip } from "./chart-risiko";
 export default function ChartTarget({}) {
  const data = [
   {
-   name: "Jan",
-   uv: 4000,
-   pv: 2400,
-   amt: 2400,
+   name: "TW I",
+   target: 24,
+   realisasi: 19,
   },
   {
-   name: "Apr",
-   uv: 3000,
-   pv: 1398,
-   amt: 2210,
+   name: "TW II",
+   target: 24,
+   realisasi: 23,
   },
   {
-   name: "Jul",
-   uv: 2000,
-   pv: 9800,
-   amt: 2290,
+   name: "TW III",
+   target: 19,
+   realisasi: 18,
   },
   {
-   name: "Okt",
-   uv: 2780,
-   pv: 3908,
-   amt: 2000,
-  },
-  {
-   name: "Des",
-   uv: 1890,
-   pv: 4800,
-   amt: 2181,
+   name: "TW IV",
+   target: 23,
+   realisasi: 18,
   },
  ];
- const COLORS = ["#00ccff", "#66d6ff", "#99ebff", "	#ccf5ff", "#f3fdff"];
 
  return (
   <BlockCard title="Target & Realisasi Penurunan Risiko">
@@ -67,8 +56,14 @@ export default function ChartTarget({}) {
      <XAxis dataKey="name" />
      <YAxis />
      <Tooltip />
-     <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-     <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+     <Line type="monotone" dataKey="target" stroke="#EF4444" strokeWidth={2} />
+     <Line
+      type="monotone"
+      dataKey="realisasi"
+      stroke="#00CCFF"
+      strokeWidth={2}
+      activeDot={{ r: 8 }}
+     />
     </LineChart>
    </ResponsiveContainer>
   </BlockCard>
