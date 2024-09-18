@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import {
  Box,
- Button,
- DialogActions,
  Paper,
  Stack,
  Table,
@@ -16,8 +14,6 @@ import {
 import theme from "@/theme";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
-import DialogComponent from "@/app/components/dialog";
-import FormIndication from "./form";
 import { dataTema } from "@/app/executive-summary/dataTema";
 import { blue, green, grey, orange } from "@mui/material/colors";
 import { IconFA } from "@/app/components/icons/icon-fa";
@@ -85,52 +81,164 @@ const TextVertical = ({ title }: { title: string }) => {
 export const StrategyTowsContent = () => {
  return (
   <Box bgcolor={alpha(blue[300], 0.3)} py={2}>
-   <Stack
-    justifyContent="center"
-    alignItems="center"
-    sx={{
-     "& > div": {
-      "& + div": {
-       borderTop: `1px solid ${grey[400]}`,
-       mt: 1,
-       pt: 1,
-      },
-     },
-    }}
-   >
-    <Box>
-     <Typography fontSize={14} fontWeight={600} align="center">
-      Strategi SO
-     </Typography>
-     <Typography fontSize={14} align="center">
-      Ciptakan strategi yang menggunakan kekuatan untuk memanfaatkan peluang
-     </Typography>
-    </Box>
-    <Box>
-     <Typography fontSize={14} fontWeight={600} align="center">
-      Strategi WO
-     </Typography>
-     <Typography fontSize={14} align="center">
-      Ciptakan strategi yang meminimalkan kelemahan untuk memanfaatkan peluang
-     </Typography>
-    </Box>
-    <Box>
-     <Typography fontSize={14} fontWeight={600} align="center">
-      Strategi ST
-     </Typography>
-     <Typography fontSize={14} align="center">
-      Ciptakan strategi yang menggunakan kekuatan untuk mengatasi ancaman
-     </Typography>
-    </Box>
-    <Box>
-     <Typography fontSize={14} fontWeight={600} align="center">
-      Strategi WT
-     </Typography>
-     <Typography fontSize={14} align="center">
-      Ciptakan strategi yang meminimalkan kelemahan dan menghindari ancaman
-     </Typography>
-    </Box>
-   </Stack>
+   {dataTema.map((itemRow, index) => (
+    <Fragment key={index}>
+     <Stack
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+       "& > div": {
+        "& + div": {
+         borderTop: `1px solid ${grey[400]}`,
+         mt: 1,
+         pt: 1,
+        },
+       },
+      }}
+     >
+      <Box>
+       <Typography fontSize={14} fontWeight={600} align="center">
+        Strategi SO
+       </Typography>
+       {itemRow.tows.map((detailTows, index) => (
+        <Fragment key={index}>
+         {detailTows.factor === "so" && (
+          <>
+           {detailTows.items.length > 1 ? (
+            <ul style={{ textAlign: "center", listStylePosition: "inside" }}>
+             {detailTows.items.map((itemTows, index) => (
+              <li key={index}>
+               <Typography fontSize={14}>{itemTows}</Typography>
+              </li>
+             ))}
+            </ul>
+           ) : (
+            <>
+             {detailTows.items.map((itemTows, index) => (
+              <Typography
+               fontSize={14}
+               align="center"
+               key={index}
+               display="inline"
+              >
+               {itemTows}
+              </Typography>
+             ))}
+            </>
+           )}
+          </>
+         )}
+        </Fragment>
+       ))}
+      </Box>
+      <Box>
+       <Typography fontSize={14} fontWeight={600} align="center">
+        Strategi WO
+       </Typography>
+       {itemRow.tows.map((detailTows, index) => (
+        <Fragment key={index}>
+         {detailTows.factor === "wo" && (
+          <>
+           {detailTows.items.length > 1 ? (
+            <ul style={{ textAlign: "center", listStylePosition: "inside" }}>
+             {detailTows.items.map((itemTows, index) => (
+              <li key={index}>
+               <Typography fontSize={14}>{itemTows}</Typography>
+              </li>
+             ))}
+            </ul>
+           ) : (
+            <>
+             {detailTows.items.map((itemTows, index) => (
+              <Typography
+               fontSize={14}
+               align="center"
+               key={index}
+               display="inline"
+              >
+               {itemTows}
+              </Typography>
+             ))}
+            </>
+           )}
+          </>
+         )}
+        </Fragment>
+       ))}
+      </Box>
+      <Box>
+       <Typography fontSize={14} fontWeight={600} align="center">
+        Strategi ST
+       </Typography>
+       {itemRow.tows.map((detailTows, index) => (
+        <Fragment key={index}>
+         {detailTows.factor === "st" && (
+          <>
+           {detailTows.items.length > 1 ? (
+            <ul style={{ textAlign: "center", listStylePosition: "inside" }}>
+             {detailTows.items.map((itemTows, index) => (
+              <li key={index}>
+               <Typography fontSize={14}>{itemTows}</Typography>
+              </li>
+             ))}
+            </ul>
+           ) : (
+            <>
+             {detailTows.items.map((itemTows, index) => (
+              <Typography
+               fontSize={14}
+               align="center"
+               key={index}
+               display="inline"
+              >
+               {itemTows}
+              </Typography>
+             ))}
+            </>
+           )}
+          </>
+         )}
+        </Fragment>
+       ))}
+      </Box>
+      <Box>
+       <Typography fontSize={14} fontWeight={600} align="center">
+        Strategi WT
+       </Typography>
+       {itemRow.tows.map((detailTows, index) => (
+        <Fragment key={index}>
+         {detailTows.factor === "wt" && (
+          <>
+           {detailTows.items.length > 1 ? (
+            <ul style={{ textAlign: "center", listStylePosition: "inside" }}>
+             {detailTows.items.map((itemTows, index) => (
+              <li key={index}>
+               <Typography fontSize={14}>{itemTows}</Typography>
+              </li>
+             ))}
+            </ul>
+           ) : (
+            <>
+             {detailTows.items.map((itemTows, index) => (
+              <Typography
+               fontSize={14}
+               align="center"
+               key={index}
+               display="inline"
+              >
+               {itemTows}
+              </Typography>
+             ))}
+            </>
+           )}
+          </>
+         )}
+        </Fragment>
+       ))}
+      </Box>
+     </Stack>
+    </Fragment>
+   ))}
   </Box>
  );
 };
@@ -142,7 +250,7 @@ export default function TableDiagram({ project }: { project: string }) {
     <Fragment key={index}>
      {project === itemRow.temaId && (
       <>
-       {itemRow.indication.length < 1 ? (
+       {itemRow.diagram.length < 1 ? (
         <EmptyState
          dense
          icon={<IconEmptyData width={100} />}
@@ -160,9 +268,19 @@ export default function TableDiagram({ project }: { project: string }) {
               bgcolor: alpha(orange[500], 0.5),
              }}
             >
-             <Typography variant="body1" fontWeight={600} align="center" p={1}>
-              Penanggulangan kurang energi kronik (KEK) pada ibu hamil
-             </Typography>
+             {itemRow.diagram.map((detailDiagram, index) => (
+              <Typography
+               key={index}
+               variant="body1"
+               fontWeight={600}
+               align="center"
+               maxWidth={920}
+               m="0 auto"
+               p={1}
+              >
+               {detailDiagram.nomenklatur}
+              </Typography>
+             ))}
             </TableCell>
             <TableCell
              rowSpan={2}
@@ -182,9 +300,18 @@ export default function TableDiagram({ project }: { project: string }) {
               bgcolor: alpha(blue[500], 0.5),
              }}
             >
-             <Typography variant="body1" fontWeight={600} align="center">
-              Kesehatan untuk Semua
-             </Typography>
+             {itemRow.diagram.map((detailDiagram, index) => (
+              <Typography
+               key={index}
+               variant="body1"
+               fontWeight={600}
+               align="center"
+               maxWidth={920}
+               m="0 auto"
+              >
+               {detailDiagram.sasaran}
+              </Typography>
+             ))}
             </TableCell>
            </TableRow>
            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -228,7 +355,184 @@ export default function TableDiagram({ project }: { project: string }) {
               border: `1px dashed ${green[800]}`,
              }}
             >
-             <StrategyTowsContent />
+             {/* <StrategyTowsContent /> */}
+
+             <Box bgcolor={alpha(blue[300], 0.3)} py={2}>
+              <Stack
+               justifyContent="center"
+               alignItems="center"
+               sx={{
+                "& > div": {
+                 "& + div": {
+                  borderTop: `1px solid ${grey[400]}`,
+                  mt: 1,
+                  pt: 1,
+                 },
+                },
+               }}
+              >
+               <Box>
+                <Typography fontSize={14} fontWeight={600} align="center">
+                 Strategi SO
+                </Typography>
+                {itemRow.tows.map((detailTows, index) => (
+                 <Fragment key={index}>
+                  {detailTows.factor === "so" && (
+                   <>
+                    {detailTows.items.length > 1 ? (
+                     <ul
+                      style={{
+                       textAlign: "center",
+                       listStylePosition: "inside",
+                      }}
+                     >
+                      {detailTows.items.map((itemTows, index) => (
+                       <li key={index}>
+                        <Typography fontSize={14}>{itemTows}</Typography>
+                       </li>
+                      ))}
+                     </ul>
+                    ) : (
+                     <>
+                      {detailTows.items.map((itemTows, index) => (
+                       <Typography
+                        fontSize={14}
+                        align="center"
+                        key={index}
+                        display="inline"
+                       >
+                        {itemTows}
+                       </Typography>
+                      ))}
+                     </>
+                    )}
+                   </>
+                  )}
+                 </Fragment>
+                ))}
+               </Box>
+               <Box>
+                <Typography fontSize={14} fontWeight={600} align="center">
+                 Strategi WO
+                </Typography>
+                {itemRow.tows.map((detailTows, index) => (
+                 <Fragment key={index}>
+                  {detailTows.factor === "wo" && (
+                   <>
+                    {detailTows.items.length > 1 ? (
+                     <ul
+                      style={{
+                       textAlign: "center",
+                       listStylePosition: "inside",
+                      }}
+                     >
+                      {detailTows.items.map((itemTows, index) => (
+                       <li key={index}>
+                        <Typography fontSize={14}>{itemTows}</Typography>
+                       </li>
+                      ))}
+                     </ul>
+                    ) : (
+                     <>
+                      {detailTows.items.map((itemTows, index) => (
+                       <Typography
+                        fontSize={14}
+                        align="center"
+                        key={index}
+                        display="inline"
+                       >
+                        {itemTows}
+                       </Typography>
+                      ))}
+                     </>
+                    )}
+                   </>
+                  )}
+                 </Fragment>
+                ))}
+               </Box>
+               <Box>
+                <Typography fontSize={14} fontWeight={600} align="center">
+                 Strategi ST
+                </Typography>
+                {itemRow.tows.map((detailTows, index) => (
+                 <Fragment key={index}>
+                  {detailTows.factor === "st" && (
+                   <>
+                    {detailTows.items.length > 1 ? (
+                     <ul
+                      style={{
+                       textAlign: "center",
+                       listStylePosition: "inside",
+                      }}
+                     >
+                      {detailTows.items.map((itemTows, index) => (
+                       <li key={index}>
+                        <Typography fontSize={14}>{itemTows}</Typography>
+                       </li>
+                      ))}
+                     </ul>
+                    ) : (
+                     <>
+                      {detailTows.items.map((itemTows, index) => (
+                       <Typography
+                        fontSize={14}
+                        align="center"
+                        key={index}
+                        display="inline"
+                       >
+                        {itemTows}
+                       </Typography>
+                      ))}
+                     </>
+                    )}
+                   </>
+                  )}
+                 </Fragment>
+                ))}
+               </Box>
+               <Box>
+                <Typography fontSize={14} fontWeight={600} align="center">
+                 Strategi WT
+                </Typography>
+                {itemRow.tows.map((detailTows, index) => (
+                 <Fragment key={index}>
+                  {detailTows.factor === "wt" && (
+                   <>
+                    {detailTows.items.length > 1 ? (
+                     <ul
+                      style={{
+                       textAlign: "center",
+                       listStylePosition: "inside",
+                      }}
+                     >
+                      {detailTows.items.map((itemTows, index) => (
+                       <li key={index}>
+                        <Typography fontSize={14}>{itemTows}</Typography>
+                       </li>
+                      ))}
+                     </ul>
+                    ) : (
+                     <>
+                      {detailTows.items.map((itemTows, index) => (
+                       <Typography
+                        fontSize={14}
+                        align="center"
+                        key={index}
+                        display="inline"
+                       >
+                        {itemTows}
+                       </Typography>
+                      ))}
+                     </>
+                    )}
+                   </>
+                  )}
+                 </Fragment>
+                ))}
+               </Box>
+              </Stack>
+             </Box>
             </TableCell>
             <TableCell
              width={50}

@@ -44,20 +44,20 @@ export default function TablePeristiwa() {
    3,
    20,
    15,
-   2
+   1
   ),
-  createData(2, "Erosi tanah", 23, 16, 3, 18, 20, 1),
+  createData(2, "Erosi tanah", 23, 16, 3, 18, 20, 2),
   createData(
    3,
    "Minimnya akses terhadap infrastruktur pertanian presisi, saprodi dan alsintan",
    19,
    13,
-   2,
+   1,
    18,
    20,
    3
   ),
-  createData(4, "Ketidakpastian pasokan pangan", 18, 16, 3, 18, 20, 3),
+  createData(4, "Ketidakpastian pasokan pangan", 18, 16, 3, 18, 18, 3),
  ];
 
  const matriksFive = (

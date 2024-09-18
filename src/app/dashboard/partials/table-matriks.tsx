@@ -13,7 +13,11 @@ export default function TableMatriks() {
   <BlockCard
    title="Peta Risiko"
    cardAction={
-    <DropdownKp handleChangeProject={handleChangeProject} variant="primary" />
+    <DropdownKp
+     showOnlyName
+     handleChangeProject={handleChangeProject}
+     variant="primary"
+    />
    }
   >
    <Matriks levelId={2} />

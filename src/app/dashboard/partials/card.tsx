@@ -13,7 +13,7 @@ import {
 type ICard = {
  iconName: string;
  color: string;
- value: string;
+ value?: string;
  total?: string;
  title: string;
  column?: number;

@@ -91,12 +91,12 @@ export default function CardGroup() {
      <CardValue
       titleSize={16}
       column={2}
-      iconName="file-lines"
+      iconName="building"
       color={red}
       value="54"
       title="Jumlah UPR LS"
-      total="Kementerian PPN/Bappenas"
-      onclick={handleModalOpen}
+      //   total="Kementerian PPN/Bappenas"
+      //   onclick={handleModalOpen}
 
       //  actionCard={
       //   <FormControl size="small">

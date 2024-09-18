@@ -53,7 +53,7 @@ export default function TableTows({ project }: { project: string }) {
     <Fragment key={index}>
      {project === itemRow.temaId && (
       <>
-       {itemRow.indication.length < 1 ? (
+       {itemRow.tows.length < 1 ? (
         <EmptyState
          dense
          icon={<IconEmptyData width={100} />}
@@ -105,17 +105,59 @@ export default function TableTows({ project }: { project: string }) {
             </TableCell>
             <TableCell sx={{ verticalAlign: "top" }}>
              <TitleTableContent title="Strategi SO" />
-             <Typography variant="body1">
-              Ciptakan strategi yang menggunakan kekuatan untuk memanfaatkan
-              peluang
-             </Typography>
+             {itemRow.tows.map((detailTows, index) => (
+              <Fragment key={index}>
+               {detailTows.factor === "so" && (
+                <>
+                 {detailTows.items.length > 1 ? (
+                  <ul>
+                   {detailTows.items.map((itemTows, index) => (
+                    <li key={index}>
+                     <Typography variant="body1">{itemTows}</Typography>
+                    </li>
+                   ))}
+                  </ul>
+                 ) : (
+                  <>
+                   {detailTows.items.map((itemTows, index) => (
+                    <Typography variant="body1" key={index}>
+                     {itemTows}
+                    </Typography>
+                   ))}
+                  </>
+                 )}
+                </>
+               )}
+              </Fragment>
+             ))}
             </TableCell>
             <TableCell sx={{ verticalAlign: "top" }}>
              <TitleTableContent title="Strategi WO" />
-             <Typography variant="body1">
-              Ciptakan strategi yang meminimalkan kelemahan untuk memanfaatkan
-              peluang
-             </Typography>
+             {itemRow.tows.map((detailTows, index) => (
+              <Fragment key={index}>
+               {detailTows.factor === "wo" && (
+                <>
+                 {detailTows.items.length > 1 ? (
+                  <ul>
+                   {detailTows.items.map((itemTows, index) => (
+                    <li key={index}>
+                     <Typography variant="body1">{itemTows}</Typography>
+                    </li>
+                   ))}
+                  </ul>
+                 ) : (
+                  <>
+                   {detailTows.items.map((itemTows, index) => (
+                    <Typography variant="body1" key={index}>
+                     {itemTows}
+                    </Typography>
+                   ))}
+                  </>
+                 )}
+                </>
+               )}
+              </Fragment>
+             ))}
             </TableCell>
            </TableRow>
            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -134,17 +176,59 @@ export default function TableTows({ project }: { project: string }) {
             </TableCell>
             <TableCell sx={{ verticalAlign: "top" }}>
              <TitleTableContent title="Strategi ST" />
-             <Typography variant="body1">
-              Ciptakan strategi yang menggunakan kekuatan untuk mengatasi
-              ancaman
-             </Typography>
+             {itemRow.tows.map((detailTows, index) => (
+              <Fragment key={index}>
+               {detailTows.factor === "st" && (
+                <>
+                 {detailTows.items.length > 1 ? (
+                  <ul>
+                   {detailTows.items.map((itemTows, index) => (
+                    <li key={index}>
+                     <Typography variant="body1">{itemTows}</Typography>
+                    </li>
+                   ))}
+                  </ul>
+                 ) : (
+                  <>
+                   {detailTows.items.map((itemTows, index) => (
+                    <Typography variant="body1" key={index}>
+                     {itemTows}
+                    </Typography>
+                   ))}
+                  </>
+                 )}
+                </>
+               )}
+              </Fragment>
+             ))}
             </TableCell>
             <TableCell sx={{ verticalAlign: "top" }}>
              <TitleTableContent title="Strategi WT" />
-             <Typography variant="body1">
-              Ciptakan strategi yang meminimalkan kelemahan dan menghindari
-              ancaman
-             </Typography>
+             {itemRow.tows.map((detailTows, index) => (
+              <Fragment key={index}>
+               {detailTows.factor === "wt" && (
+                <>
+                 {detailTows.items.length > 1 ? (
+                  <ul>
+                   {detailTows.items.map((itemTows, index) => (
+                    <li key={index}>
+                     <Typography variant="body1">{itemTows}</Typography>
+                    </li>
+                   ))}
+                  </ul>
+                 ) : (
+                  <>
+                   {detailTows.items.map((itemTows, index) => (
+                    <Typography variant="body1" key={index}>
+                     {itemTows}
+                    </Typography>
+                   ))}
+                  </>
+                 )}
+                </>
+               )}
+              </Fragment>
+             ))}
             </TableCell>
            </TableRow>
           </TableBody>

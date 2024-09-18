@@ -52,6 +52,7 @@ export default function ContentPage({
  noMarginBotttom,
  tabArrow,
  darkTheme,
+ ref,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -84,6 +85,7 @@ export default function ContentPage({
  noMarginBotttom?: boolean;
  tabArrow?: React.ReactNode;
  darkTheme?: boolean;
+ ref?: any;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -132,7 +134,7 @@ export default function ContentPage({
  maxDate.setFullYear(currentDate.getFullYear() + 20);
 
  return (
-  <Box>
+  <Box position="relative">
    <Stack
     direction="row"
     justifyContent="space-between"
@@ -538,6 +540,7 @@ export default function ContentPage({
    </Stack>
    {hasAlert && hasAlert}
    <Box
+    ref={ref}
     height={
      heightTitleBreadcrumb
       ? "calc(100vh - 258px)"

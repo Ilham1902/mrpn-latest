@@ -1,17 +1,65 @@
 import React from "react";
 import {
- Typography,
- MenuItem,
  FormControl,
  Grow,
  Tooltip,
  Autocomplete,
  TextField,
 } from "@mui/material";
-import { listSelectKp, listSelectKpName } from "@/app/executive-summary/data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
+
+export const listTopik = [
+ {
+  id: "4",
+  value: 4,
+  code: "01",
+  name: "Ideologi Demokrasi",
+  group: "PN",
+  disabled: true,
+ },
+ {
+  id: "5",
+  value: 5,
+  code: "01.01",
+  name: "Ideologi Pancasila",
+  group: "PP",
+  disabled: true,
+ },
+ {
+  id: "1",
+  value: 1,
+  code: "02.01.01",
+  name: "Ketahanan Pangan",
+  group: "KP",
+  disabled: false,
+ },
+ {
+  id: "2",
+  value: 2,
+  code: "03.01.01.02.6100",
+  name: "Jembatan Strategis",
+  group: "P",
+  disabled: true,
+ },
+ {
+  id: "3",
+  value: 3,
+  code: "01.01.01.01",
+  name: "Internalisasi Pancasila",
+  group: "PROP",
+  disabled: true,
+ },
+ {
+  id: "7",
+  value: 7,
+  code: "01.01.01.01.002",
+  name: "Layanan Komunikasi",
+  group: "P",
+  disabled: true,
+ },
+];
 
 export const SxAutocompleteTextField = (params: SxParams) => {
  return {
@@ -51,13 +99,10 @@ export const SxAutocomplete = (params: SxParams) => {
  };
 };
 
-export default function DropdownKp({
- //  project,
+export default function DropdownTopik({
  handleChangeProject,
  variant,
- showOnlyName,
 }: {
- //  project?: any;
  handleChangeProject?: any;
  variant?: string;
  showOnlyName?: boolean;
@@ -65,15 +110,9 @@ export default function DropdownKp({
  const [value, setValue] = React.useState<string | null>("");
  const [inputValue, setInputValue] = React.useState("");
 
- const optionsListKp = listSelectKp.map((item) => {
+ const optionsList = listTopik.map((item) => {
   return `${item["name"]}`;
  });
-
- const optionsListKpName = listSelectKpName.map((item) => {
-  return `${item["name"]}`;
- });
-
- console.log(optionsListKpName);
 
  const sxParams: SxParams = { variant: variant };
 
@@ -82,7 +121,6 @@ export default function DropdownKp({
    <Autocomplete
     size="small"
     value={value}
-    // isOptionEqualToValue={(value: any) => value.value}
     onChange={(event: any, newValue: string | null) => {
      setValue(newValue);
     }}
@@ -90,24 +128,13 @@ export default function DropdownKp({
     onInputChange={(event, newInputValue) => {
      setInputValue(newInputValue);
 
-     const optionVal = listSelectKp.find((res: any) => {
+     const optionVal = listTopik.find((res: any) => {
       return res.name === newInputValue;
      });
 
      handleChangeProject(optionVal?.value || "");
     }}
-    options={showOnlyName ? optionsListKpName : optionsListKp}
-    // renderOption={(props, option: any) => (
-    //  <li
-    //   {...props}
-    //   style={{
-    //    pointerEvents: option.disabled ? "none" : "auto",
-    //    opacity: option.disabled ? 0.5 : 1,
-    //   }}
-    //  >
-    //   {option.name}
-    //  </li>
-    // )}
+    options={optionsList}
     renderInput={(params) => (
      <Tooltip title={value} followCursor TransitionComponent={Grow}>
       <TextField
@@ -115,45 +142,13 @@ export default function DropdownKp({
        InputLabelProps={{
         shrink: true,
        }}
-       placeholder="Pilih kegiatan pembangunan"
+       placeholder="Pilih topik"
        sx={SxAutocompleteTextField(sxParams)}
       />
      </Tooltip>
     )}
     sx={SxAutocomplete(sxParams)}
    />
-   {/*  */}
-   {/* <SelectCustomTheme
-    small
-    anchorRight
-    value={project}
-    onChange={handleChangeProject}
-   >
-    <MenuItem value="" disabled>
-     <Typography fontSize={14} fontStyle="italic">
-      Pilih Kegiatan Pembangunan (KP)
-     </Typography>
-    </MenuItem>
-    {listSelectKp.map(({ id, value, nama_kp }) => (
-     <MenuItem key={id} value={value}>
-      {nama_kp.length >= 48 ? (
-       <Tooltip title={nama_kp} followCursor TransitionComponent={Grow}>
-        <Typography
-         aria-owns={open ? "mouse-over-popover" : undefined}
-         aria-haspopup="true"
-         onMouseEnter={handlePopoverOpen}
-         onMouseLeave={handlePopoverClose}
-         sx={{ fontSize: 14 }}
-        >
-         {nama_kp.substring(0, 48) + "..."}
-        </Typography>
-       </Tooltip>
-      ) : (
-       nama_kp
-      )}
-     </MenuItem>
-    ))}
-   </SelectCustomTheme> */}
   </FormControl>
  );
 }
