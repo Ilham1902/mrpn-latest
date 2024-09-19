@@ -1,370 +1,371 @@
-import { useCallback, useEffect } from "react";
-import { usePathname } from "next/navigation";
+"use client";
+
+import {useCallback, useEffect, useState} from "react";
+import {usePathname} from "next/navigation";
 import {
- Box,
- Collapse,
- Divider,
- Icon,
- Stack,
- Zoom,
- useMediaQuery,
- useTheme,
+  Box,
+  Collapse,
+  Divider,
+  Icon,
+  Stack,
+  Zoom,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Footer from "./footer";
 // import Aside from "./aside";
 import Header from "./header";
-import { grey } from "@mui/material/colors";
+import {grey} from "@mui/material/colors";
 import React from "react";
 import Image from "next/image";
-import { loadCSS } from "fg-loadcss";
+import {loadCSS} from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+import {ILayout} from "../iLayout";
 
-const Aside = dynamic(() => import("./aside"), { ssr: false });
+const Aside = dynamic(() => import("./aside"), {ssr: false});
 
-export default function DashboardLayout({
- children,
- noOverflow,
- darkTheme,
-}: {
- children: React.ReactNode;
- noOverflow?: boolean;
- darkTheme?: boolean;
-}) {
-
- // const [check, setCheck] = useState<number>(0)
- //
- // const callApi = () => {
- //  console.log("trigger check session")
- // }
- //
- // useEffect(() => {
- //  const id = setInterval(() => {
- //   callApi()
- //   setCheck(check + 1)
- //  }, 20000);
- //  return () => clearInterval(id);
- // }, [check])
-
- const pathname = usePathname();
- const theme = useTheme();
- const drawerOpenKey = "drawerOpen";
- const [openNav, setOpenNav] = React.useState(true);
- const [checked, setChecked] = React.useState(
-  typeof window !== "undefined"
-   ? localStorage.getItem(drawerOpenKey) === "true"
-   : false
- );
-
- const handleChange = () => {
-  setChecked((prev) => !prev);
- };
-
- const handlePathnameChange = useCallback(() => {
-  if (openNav) {
-   setOpenNav(false);
+export default function DashboardLayout(
+  props: {
+    children: React.ReactNode;
+    noOverflow?: boolean;
+    darkTheme?: boolean;
   }
- }, [openNav]);
+) {
 
- useEffect(
-  () => {
-   handlePathnameChange();
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [pathname]
- );
+  // const [check, setCheck] = useState<number>(0)
+  //
+  // const callApi = () => {
+  //  console.log("trigger check session")
+  // }
+  //
+  // useEffect(() => {
+  //  const id = setInterval(() => {
+  //   callApi()
+  //   setCheck(check + 1)
+  //  }, 20000);
+  //  return () => clearInterval(id);
+  // }, [check])
 
- useEffect(() => {
-  localStorage.setItem(drawerOpenKey, JSON.stringify(checked));
- }, [checked]);
-
- useEffect(() => {
-  const node = loadCSS(
-   "https://use.fontawesome.com/releases/v6.5.1/css/all.css"
+  const pathname = usePathname();
+  const theme = useTheme();
+  const drawerOpenKey = "drawerOpen";
+  const [openNav, setOpenNav] = React.useState(true);
+  const [checked, setChecked] = React.useState(
+    typeof window !== "undefined"
+      ? localStorage.getItem(drawerOpenKey) === "true"
+      : false
   );
-  return () => {
-   node.parentNode!.removeChild(node);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
   };
- }, []);
 
- const flagPathnameTheme = [
-  pathname === "/test",
-  // pathname === "/tema",
- ].includes(true);
+  const handlePathnameChange = useCallback(() => {
+    if (openNav) {
+      setOpenNav(false);
+    }
+  }, [openNav]);
 
- const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  useEffect(
+    () => {
+      handlePathnameChange();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pathname]
+  );
 
- const sxMain = {
-  borderTopLeftRadius: "50px",
-  transition: "all 600ms ease",
-  // width: checked ? "calc(100% - 44px)" : "100%",
-  "&::-webkit-scrollbar": {
-   width: "5px",
-   borderRadius: "4px",
-  },
-  [theme.breakpoints.down("md")]: {
-   borderTopLeftRadius: 0,
-   p: 3,
-   maxWidth: "100%",
-   overflow: "auto",
-  },
-  ".table-collapsed": {
-   ".MuiTableContainer-root": {
-    //  maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 163px)",
-    maxWidth: checked
-     ? "calc(100vw - 364px)"
-     : onlySmallScreen
-     ? "100%"
-     : "calc(100vw - 132px)",
-    thead: {
-     tr: {
-      "&:not(:last-of-type)": {
-       boxShadow: "none",
-       th: {
-        "&[colspan='1']": {
-         borderBottom: 0,
+  useEffect(() => {
+    localStorage.setItem(drawerOpenKey, JSON.stringify(checked));
+  }, [checked]);
+
+  useEffect(() => {
+    const node = loadCSS(
+      "https://use.fontawesome.com/releases/v6.5.1/css/all.css"
+    );
+    return () => {
+      node.parentNode!.removeChild(node);
+    };
+  }, []);
+
+  const flagPathnameTheme = [
+    pathname === "/test",
+    // pathname === "/tema",
+  ].includes(true);
+
+  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const sxMain = {
+    borderTopLeftRadius: "50px",
+    transition: "all 600ms ease",
+    // width: checked ? "calc(100% - 44px)" : "100%",
+    "&::-webkit-scrollbar": {
+      width: "5px",
+      borderRadius: "4px",
+    },
+    [theme.breakpoints.down("md")]: {
+      borderTopLeftRadius: 0,
+      p: 3,
+      maxWidth: "100%",
+      overflow: "auto",
+    },
+    ".table-collapsed": {
+      ".MuiTableContainer-root": {
+        //  maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 163px)",
+        maxWidth: checked
+          ? "calc(100vw - 364px)"
+          : onlySmallScreen
+            ? "100%"
+            : "calc(100vw - 132px)",
+        thead: {
+          tr: {
+            "&:not(:last-of-type)": {
+              boxShadow: "none",
+              th: {
+                "&[colspan='1']": {
+                  borderBottom: 0,
+                },
+                "&:not([colspan='1'])": {
+                  backgroundColor: grey[200],
+                },
+              },
+            },
+          },
         },
-        "&:not([colspan='1'])": {
-         backgroundColor: grey[200],
+        ".MuiTableRow-root": {
+          boxShadow: "none",
         },
-       },
       },
-     },
-    },
-    ".MuiTableRow-root": {
-     boxShadow: "none",
-    },
-   },
-   "&.perlakuan-risiko": {
-    ".MuiTableContainer-root": {
-     maxWidth: checked ? "calc(100vw - 348px)" : "calc(100vw - 132px)",
-    },
-   },
-   "&.card-level-3": {
-    ".MuiTableContainer-root": {
-     maxWidth: checked ? "calc(100vw - 424px)" : "calc(100vw - 208px)",
-    },
-   },
-  },
- };
-
- const sxAside = {
-  gridArea: "aside",
-  //  bgcolor: theme.palette.primary.main,
-  bgcolor: theme.palette.secondary.dark,
-  width: checked ? 280 : 64,
-  transition: "width 600ms ease",
-  [theme.breakpoints.down("md")]: {
-   display: "none",
-  },
- };
-
- const sxWrapper = {
-  display: "grid",
-  gridTemplateColumns: checked
-   ? "280px 1fr"
-   : flagPathnameTheme && !checked
-   ? "0 1fr"
-   : "64px 1fr",
-  gridTemplateRows: "auto 1fr auto",
-  gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
-  height: "100vh",
-  transition: "grid-template-columns 600ms ease",
-  ".table-sticky-actions-column": {
-   maxWidth: "calc(100vw - 348px)",
-   overflowX: "auto",
-   transition: "max-width 300ms ease-in-out",
-   "&::-webkit-scrollbar": {
-    height: "5px",
-   },
-   "&.scroll": {
-    ".box-shadow-scroll": {
-     position: "relative",
-     boxShadow: "none",
-     "&:after": {
-      position: "absolute",
-      top: 0,
-      bottom: 0,
-      left: 0,
-      width: "30px",
-      transition: "box-shadow 5s ease-in-out",
-      transform: "translateX(-100%)",
-      content: "''",
-      pointerEvents: "none",
-      boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
-     },
-    },
-   },
-  },
-  ".table-sticky-horizontal": {
-   ".MuiTableContainer-root": {
-    maxWidth: "calc(100vw - 368px)",
-   },
-  },
-  ".orgchart-container": {
-   maxWidth: "calc(100vw - 444px)",
-  },
-  ".collapse-active": {
-   ".table-sticky-actions-column": {
-    maxWidth: "calc(100vw - 132px)",
-   },
-   ".table-sticky-horizontal": {
-    ".MuiTableContainer-root": {
-     maxWidth: "calc(100vw - 148px)",
-    },
-   },
-   ".orgchart-container": {
-    maxWidth: "calc(100vw - 228px)",
-   },
-  },
-  [theme.breakpoints.down("md")]: {
-   gridTemplateColumns: "1fr",
-   gridTemplateAreas: `'header' 'main' 'footer'`,
-  },
- };
-
- const themeCondition = darkTheme ? "#151c26" : theme.palette.primary.light;
-
- return (
-  <Box sx={sxWrapper}>
-   {/* <Box component="aside" sx={sxAside} onMouseOver={handleChange}></Box> */}
-   <Box
-    component="aside"
-    sx={sxAside}
-    position={darkTheme ? "inherit" : "unset"}
-    zIndex={darkTheme ? 1 : "unset"}
-   >
-    <Collapse
-     orientation="horizontal"
-     in={checked}
-     collapsedSize={64}
-     sx={{
-      width: "100%",
-      transitionDelay: "300ms",
-      ".MuiCollapse-wrapper, .MuiCollapse-wrapperInner": {
-       width: "100%",
+      "&.perlakuan-risiko": {
+        ".MuiTableContainer-root": {
+          maxWidth: checked ? "calc(100vw - 348px)" : "calc(100vw - 132px)",
+        },
       },
-     }}
-    >
-     <Aside isExpanded={checked} />
-    </Collapse>
-   </Box>
-   <Box
-    component="header"
-    sx={{ gridArea: "header", p: "20px 0" }}
-    bgcolor={darkTheme ? "#1f2937" : "transparent"}
-    position={darkTheme ? "inherit" : "unset"}
-    zIndex={darkTheme ? 1 : "unset"}
-   >
-    {flagPathnameTheme ? null : (
-     <Zoom
-      in={!checked}
-      style={{
-       transitionDelay: "200ms",
-      }}
-     >
+      "&.card-level-3": {
+        ".MuiTableContainer-root": {
+          maxWidth: checked ? "calc(100vw - 424px)" : "calc(100vw - 208px)",
+        },
+      },
+    },
+  };
+
+  const sxAside = {
+    gridArea: "aside",
+    //  bgcolor: theme.palette.primary.main,
+    bgcolor: theme.palette.secondary.dark,
+    width: checked ? 280 : 64,
+    transition: "width 600ms ease",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  };
+
+  const sxWrapper = {
+    display: "grid",
+    gridTemplateColumns: checked
+      ? "280px 1fr"
+      : flagPathnameTheme && !checked
+        ? "0 1fr"
+        : "64px 1fr",
+    gridTemplateRows: "auto 1fr auto",
+    gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
+    height: "100vh",
+    transition: "grid-template-columns 600ms ease",
+    ".table-sticky-actions-column": {
+      maxWidth: "calc(100vw - 348px)",
+      overflowX: "auto",
+      transition: "max-width 300ms ease-in-out",
+      "&::-webkit-scrollbar": {
+        height: "5px",
+      },
+      "&.scroll": {
+        ".box-shadow-scroll": {
+          position: "relative",
+          boxShadow: "none",
+          "&:after": {
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            width: "30px",
+            transition: "box-shadow 5s ease-in-out",
+            transform: "translateX(-100%)",
+            content: "''",
+            pointerEvents: "none",
+            boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+          },
+        },
+      },
+    },
+    ".table-sticky-horizontal": {
+      ".MuiTableContainer-root": {
+        maxWidth: "calc(100vw - 368px)",
+      },
+    },
+    ".orgchart-container": {
+      maxWidth: "calc(100vw - 444px)",
+    },
+    ".collapse-active": {
+      ".table-sticky-actions-column": {
+        maxWidth: "calc(100vw - 132px)",
+      },
+      ".table-sticky-horizontal": {
+        ".MuiTableContainer-root": {
+          maxWidth: "calc(100vw - 148px)",
+        },
+      },
+      ".orgchart-container": {
+        maxWidth: "calc(100vw - 228px)",
+      },
+    },
+    [theme.breakpoints.down("md")]: {
+      gridTemplateColumns: "1fr",
+      gridTemplateAreas: `'header' 'main' 'footer'`,
+    },
+  };
+
+  const themeCondition = props.darkTheme ? "#151c26" : theme.palette.primary.light;
+
+  return (
+    <Box sx={sxWrapper}>
+      {/* <Box component="aside" sx={sxAside} onMouseOver={handleChange}></Box> */}
       <Box
-       mt={0}
-       position="absolute"
-       left={25}
-       zIndex={999}
-       sx={{
-        [theme.breakpoints.down("md")]: {
-         display: "none",
-        },
-       }}
+        component="aside"
+        sx={sxAside}
+        position={props.darkTheme ? "inherit" : "unset"}
+        zIndex={props.darkTheme ? 1 : "unset"}
       >
-       <Image
-        width={50}
-        height={53}
-        src="https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png"
-        alt="MRPN 2024"
-        priority
-       />
+        <Collapse
+          orientation="horizontal"
+          in={checked}
+          collapsedSize={64}
+          sx={{
+            width: "100%",
+            transitionDelay: "300ms",
+            ".MuiCollapse-wrapper, .MuiCollapse-wrapperInner": {
+              width: "100%",
+            },
+          }}
+        >
+          <Aside isExpanded={checked}/>
+        </Collapse>
       </Box>
-     </Zoom>
-    )}
-    <Header />
-   </Box>
-   <Box
-    component="main"
-    bgcolor={themeCondition}
-    gridArea="main"
-    p="42px"
-    pb="24px"
-    position="relative"
-    className={checked ? "" : "collapse-active"}
-    sx={sxMain}
-    // onMouseOver={handleChange}
-   >
-    <Stack
-     borderRadius="50%"
-     bgcolor={flagPathnameTheme ? "transparent" : theme.palette.primary.main}
-     justifyContent="center"
-     alignItems="center"
-     position="absolute"
-     zIndex={1}
-     top={flagPathnameTheme ? "107px" : "42px"}
-     left={flagPathnameTheme ? "42px" : "-15px"}
-     onClick={handleChange}
-     width="22px"
-     height="22px"
-     border={flagPathnameTheme ? 0 : "5px solid"}
-     borderColor={theme.palette.primary.light}
-     boxSizing="content-box"
-     sx={{
-      cursor: "pointer",
-      [theme.breakpoints.down("md")]: {
-       display: "none",
-      },
-     }}
-    >
-     {flagPathnameTheme ? (
-      <Icon
-       baseClassName="fas"
-       className={`fa-bars-staggered`}
-       sx={{
-        fontSize: "20px",
-        color: "white",
-        // transform: checked ? "rotate(180deg)" : "rotate(0deg)",
-        // transition: "all 1s ease",
-        // position: "relative",
-        // top: checked ? -1 : 0,
-        // left: 0,
-       }}
-      />
-     ) : (
-      <Icon
-       baseClassName="fas"
-       className={`fa-chevron-right`}
-       sx={{
-        fontSize: "12px",
-        color: "white",
-        transform: checked ? "rotate(180deg)" : "rotate(0deg)",
-        transition: "all 1s ease",
-        position: "relative",
-        top: checked ? -1 : 0,
-        left: 0,
-       }}
-      />
-     )}
-    </Stack>
-    <ILayout>{children}</ILayout>
-   </Box>
-   <Stack
-    component="footer"
-    sx={{
-     gridArea: "footer",
-     bgcolor: themeCondition,
-     maxWidth: "100%",
-    }}
-    direction="column"
-    justifyContent="center"
-    px="42px"
-   >
-    <Divider variant="middle" sx={{ bgcolor: grey[200], m: 0, width: 160 }} />
-    <Footer />
-   </Stack>
-  </Box>
- );
+      <Box
+        component="header"
+        sx={{gridArea: "header", p: "20px 0"}}
+        bgcolor={props.darkTheme ? "#1f2937" : "transparent"}
+        position={props.darkTheme ? "inherit" : "unset"}
+        zIndex={props.darkTheme ? 1 : "unset"}
+      >
+        {flagPathnameTheme ? null : (
+          <Zoom
+            in={!checked}
+            style={{
+              transitionDelay: "200ms",
+            }}
+          >
+            <Box
+              mt={0}
+              position="absolute"
+              left={25}
+              zIndex={999}
+              sx={{
+                [theme.breakpoints.down("md")]: {
+                  display: "none",
+                },
+              }}
+            >
+              <Image
+                width={50}
+                height={53}
+                src="https://res.cloudinary.com/caturteguh/image/upload/v1726181357/mrpn/logo-pranala-cmp_oly6uk.png"
+                alt="MRPN 2024"
+                priority
+              />
+            </Box>
+          </Zoom>
+        )}
+        <Header/>
+      </Box>
+      <Box
+        component="main"
+        bgcolor={themeCondition}
+        gridArea="main"
+        p="42px"
+        pb="24px"
+        position="relative"
+        className={checked ? "" : "collapse-active"}
+        sx={sxMain}
+        // onMouseOver={handleChange}
+      >
+        <Stack
+          borderRadius="50%"
+          bgcolor={flagPathnameTheme ? "transparent" : theme.palette.primary.main}
+          justifyContent="center"
+          alignItems="center"
+          position="absolute"
+          zIndex={1}
+          top={flagPathnameTheme ? "107px" : "42px"}
+          left={flagPathnameTheme ? "42px" : "-15px"}
+          onClick={handleChange}
+          width="22px"
+          height="22px"
+          border={flagPathnameTheme ? 0 : "5px solid"}
+          borderColor={theme.palette.primary.light}
+          boxSizing="content-box"
+          sx={{
+            cursor: "pointer",
+            [theme.breakpoints.down("md")]: {
+              display: "none",
+            },
+          }}
+        >
+          {flagPathnameTheme ? (
+            <Icon
+              baseClassName="fas"
+              className={`fa-bars-staggered`}
+              sx={{
+                fontSize: "20px",
+                color: "white",
+                // transform: checked ? "rotate(180deg)" : "rotate(0deg)",
+                // transition: "all 1s ease",
+                // position: "relative",
+                // top: checked ? -1 : 0,
+                // left: 0,
+              }}
+            />
+          ) : (
+            <Icon
+              baseClassName="fas"
+              className={`fa-chevron-right`}
+              sx={{
+                fontSize: "12px",
+                color: "white",
+                transform: checked ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "all 1s ease",
+                position: "relative",
+                top: checked ? -1 : 0,
+                left: 0,
+              }}
+            />
+          )}
+        </Stack>
+        <ILayout>{props.children}</ILayout>
+      </Box>
+      <Stack
+        component="footer"
+        sx={{
+          gridArea: "footer",
+          bgcolor: themeCondition,
+          maxWidth: "100%",
+        }}
+        direction="column"
+        justifyContent="center"
+        px="42px"
+      >
+        <Divider variant="middle" sx={{bgcolor: grey[200], m: 0, width: 160}}/>
+        <Footer/>
+      </Stack>
+    </Box>
+  );
 }
