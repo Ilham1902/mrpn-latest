@@ -261,6 +261,18 @@ const GetGrid = (
     })
   }
 
+  const handleDelete = (index:number) => {
+    setRequest((prev: ExsumSWOTRequestDto) => {
+      const values = [...prev.values]
+      values.splice(index,1)
+      return {
+        ...prev,
+        values: values
+      }
+    })
+  }
+
+
   return <Grid item lg={12}>
     <Paper
       elevation={0}
@@ -296,8 +308,8 @@ const GetGrid = (
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Stack direction={"row"} justifyContent={"right"}>
-                  <Button color={"error"} variant={"contained"}>
-                    <IconFA size={14} name="trash-alt"/>
+                  <Button color={"error"} variant={"contained"} onClick={() => handleDelete(index)}>
+                    <IconFA size={14} name="trash-alt" />
                   </Button>
                 </Stack>
               </Grid>
