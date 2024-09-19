@@ -6,7 +6,7 @@ import {
   Card,
   CardContent, Chip,
   DialogActions,
-  Grid,
+  Grid, Icon,
   Paper,
   Stack, TextField,
   Typography,
@@ -15,13 +15,17 @@ import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import theme from "@/theme";
-import {grey} from "@mui/material/colors";
+import {grey, red} from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
 import useCardSWOTVM from "./cardSwotVM";
-import {ExsumSWOTRequestDto, LISTSWOT} from "./cardSwotModel";
+import {ExsumSWOTRequestDto, ExsumSWOTValuesDto, LISTSWOT} from "./cardSwotModel";
 import {TextareaStyled} from "@/app/components/textarea";
 import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdownKp";
 import {paramVariantDefault} from "@/utils/constant";
+import {width} from "@mui/system";
+import AddButton from "@/components/buttonAdd";
+import {IconFA} from "@/components/icons/icon-fa";
+import {white} from "next/dist/lib/picocolors";
 
 export default function CardSwot({project}: { project: string }) {
   const {data, modal, setModal, updateData, deleteData, request, setRequest} = useCardSWOTVM()
@@ -34,10 +38,7 @@ export default function CardSwot({project}: { project: string }) {
         settingDeleteOnclick={() => deleteData()}
         settingEditOnclick={() => setModal(true)}
       >
-        {data.opportunity == ""
-        && data.strength == ""
-        && data.threat == ""
-        && data.weakness == ""
+        {data.values.length == 0
           ? (
             <EmptyState
               dense
@@ -47,15 +48,13 @@ export default function CardSwot({project}: { project: string }) {
             />
           ) : (
             <Stack direction="row" gap={2} width={"100%"}>
-              <GenerateCard title="Faktor Internal" sub1="strength" sub2="weakness" cont1={data.strength}
-                            cont2={data.weakness}/>
-              <GenerateCard title="Faktor Eksternal" sub1="opportunity" sub2="threat" cont1={data.opportunity}
-                            cont2={data.threat}/>
+              <GenerateCard title="Faktor Internal" sub1="strength" sub2="weakness" data={data.values} />
+              <GenerateCard title="Faktor Eksternal" sub1="opportunity" sub2="threat" data={data.values} />
             </Stack>
           )}
       </CardItem>
       <DialogComponent
-        width={"90%"}
+        width={"80%"}
         dialogOpen={modal}
         dialogClose={() => setModal(false)}
         title="Kondisi Saat Ini/Latar Belakang Proyek (SWOT)"
@@ -72,7 +71,7 @@ export default function CardSwot({project}: { project: string }) {
       >
         <Grid container spacing={2}>
           {LISTSWOT.map((x, index) => (
-            <GetGrid request={request} setRequest={setRequest} title={x} key={index} />
+            <GetGrid request={request} setRequest={setRequest} title={x} key={index}/>
           ))}
         </Grid>
       </DialogComponent>
@@ -85,16 +84,18 @@ const GenerateCard = (
     title,
     sub1,
     sub2,
-    cont1,
-    cont2
+    data
   }: {
     title: string,
     sub1: string,
     sub2: string,
-    cont1: string,
-    cont2: string
+    data: ExsumSWOTValuesDto[]
   }
 ) => {
+
+  const filterSub1 = data.filter(x => x.type == sub1.toUpperCase())
+  const filterSub2 = data.filter(x => x.type == sub2.toUpperCase())
+
   return (
     <Stack
       direction="column"
@@ -154,9 +155,15 @@ const GenerateCard = (
             </Typography>
           </CardContent>
           <CardContent sx={{pt: 0}}>
-            <Typography variant="body1">
-              {cont1}
-            </Typography>
+            <ul>
+              {filterSub1.map(x =>
+                <li>
+                  <Typography variant="body1">
+                    {x.desc}
+                  </Typography>
+                </li>
+              )}
+            </ul>
           </CardContent>
         </Card>
         <Card
@@ -188,9 +195,15 @@ const GenerateCard = (
             </Typography>
           </CardContent>
           <CardContent sx={{pt: 0}}>
-            <Typography variant="body1">
-              {cont2}
-            </Typography>
+            <ul>
+              {filterSub2.map(x =>
+                <li>
+                  <Typography variant="body1">
+                    {x.desc}
+                  </Typography>
+                </li>
+              )}
+            </ul>
           </CardContent>
         </Card>
       </Stack>
@@ -210,122 +223,125 @@ const GetGrid = (
   }
 ) => {
 
-  const getKeyword = () => {
-    const uppercaseTitle = title.toUpperCase();
-    const getKey = request.values.find(x => x.type == uppercaseTitle)
-    if (getKey) {
-      return getKey.values
-    }
-    return []
-  }
-  const handleChangeKeyword = (newValue:string[]) => {
+  const addNewRow = (type:string) => {
     setRequest((prev: ExsumSWOTRequestDto) => {
-      const uppercaseTitle = title.toUpperCase();
-      const getKeyIndex = prev.values.findIndex(x => x.type == uppercaseTitle)
-
-      if (getKeyIndex > -1){
-        const values = [...prev.values]
-        values[getKeyIndex].values = newValue
-        return {
-          ...prev,
-          values:values
-        }
+      const row = {
+        type:type,
+        value:"",
+        desc:""
       }
-
-      return prev
-    })
-  }
-
-  const getDescValue = () => {
-    if (title == "Strength") {
-      return request.strength
-    }
-    if (title == "Weakness") {
-      return request.weakness
-    }
-    if (title == "Opportunity") {
-      return request.opportunity
-    }
-    if (title == "Threat") {
-      return request.threat
-    }
-  }
-  const handleChangeDesc = (e: any) => {
-    setRequest((prev: ExsumSWOTRequestDto) => {
-      if (title == "Strength") {
-        return {...prev, strength: e.target.value}
-      }
-      if (title == "Weakness") {
-        return {...prev, weakness: e.target.value}
-      }
-      if (title == "Opportunity") {
-        return {...prev, opportunity: e.target.value}
-      }
-      if (title == "Threat") {
-        return {...prev, threat: e.target.value}
+      const values = [...prev.values]
+      values.push(row)
+      return {
+        ...prev,
+        values:values
       }
     })
   }
 
-  return <Grid item lg={6}>
+  const handleChangeKeyword = (newValue: string, index:number) => {
+    setRequest((prev: ExsumSWOTRequestDto) => {
+      const values = [...prev.values]
+      values[index].value = newValue
+      return {
+        ...prev,
+        values: values
+      }
+    })
+  }
+
+  const handleChangeDesc = (e: string, index:number) => {
+    setRequest((prev: ExsumSWOTRequestDto) => {
+      const values = [...prev.values]
+      values[index].desc = e
+      return {
+        ...prev,
+        values: values
+      }
+    })
+  }
+
+  return <Grid item lg={12}>
     <Paper
       elevation={0}
       variant="outlined"
       sx={{minWidth: "0 !important", p: 2, height: "100%"}}
     >
       <Stack direction="column" gap={2}>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          lineHeight={1.3}
-          sx={{textTransform: "capitalize"}}
-        >
-          {title}
-        </Typography>
-        <Autocomplete
-          multiple
-          size="small"
-          freeSolo
-          options={[]}
-          value={getKeyword()}
-          onChange={(event, newValue) => {
-            handleChangeKeyword(newValue)
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              placeholder={`Tambah kata kunci ${title}`}
-              sx={SxAutocompleteTextField(paramVariantDefault)}
-            />
-          )}
-          renderTags={(value, props) =>
-            value.map((option, index) => (
-              <Fragment key={index}>
-                <Chip size="small" label={option} {...props({index})} />
-              </Fragment>
-            ))
-          }
-          sx={{
-            ...SxAutocomplete,
-            ".MuiInputBase-root": {
-              borderRadius: 1,
-            },
-          }}
-        />
-        <TextareaStyled
-          key={title}
-          aria-label={`Deskripsi ${title}`}
-          placeholder={`Deskripsi ${title}`}
-          value={getDescValue()}
-          minRows={3}
-          onChange={(e) => {
-            handleChangeDesc(e);
-          }}
-        />
+        <Stack direction={"row"} justifyContent={"space-between"}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            lineHeight={1.3}
+            sx={{textTransform: "capitalize"}}
+          >
+            {title}
+          </Typography>
+          <AddButton
+            filled
+            small
+            title="Tambah"
+            onclick={() => addNewRow(title.toUpperCase())}
+          />
+        </Stack>
+
+        {request.values.map((row, index) =>
+          row.type == title.toUpperCase() &&
+          <Paper
+            elevation={0}
+            variant="outlined"
+            sx={{minWidth: "0 !important", p: 2, height: "100%"}}
+          >
+            <Grid container spacing={2}>
+              <Grid item lg={12}>
+                <Stack direction={"row"} justifyContent={"right"}>
+                  <Button color={"error"} variant={"contained"}>
+                    <IconFA size={14} name="trash-alt"/>
+                  </Button>
+                </Stack>
+              </Grid>
+              <Grid item lg={6}>
+                <Typography
+                  gutterBottom
+                  component="div"
+                  lineHeight={1.3}
+                >
+                  Kata Kunci
+                </Typography>
+                <TextareaStyled
+                  key={title}
+                  aria-label={`Tambah Kata Kunci ${title}`}
+                  placeholder={`Tambah Kata Kunci ${title}`}
+                  value={row.value}
+                  minRows={3}
+                  onChange={(e) => {
+                    handleChangeKeyword(e.target.value, index)
+                  }}
+                />
+              </Grid>
+              <Grid item lg={6}>
+                <Typography
+                  gutterBottom
+                  component="div"
+                  lineHeight={1.3}
+                >
+                  Deskripsi
+                </Typography>
+                <TextareaStyled
+                  key={title}
+                  aria-label={`Deskripsi ${title}`}
+                  placeholder={`Deskripsi ${title}`}
+                  value={row.desc}
+                  minRows={3}
+                  onChange={(e) => {
+                    handleChangeDesc(e.target.value, index);
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+        )}
       </Stack>
     </Paper>
   </Grid>;

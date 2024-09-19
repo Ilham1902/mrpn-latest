@@ -3,7 +3,6 @@ import OrgChart from "@dabeng/react-orgchart";
 import {
  Box,
  Button,
- DialogActions,
  Divider,
  IconButton,
  List,
@@ -18,14 +17,8 @@ import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import { styleList, styleOrgChart } from "@/app/executive-summary/style";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyData } from "@/app/components/icons";
-import { dataTema } from "@/app/executive-summary/dataTema";
 import { grey, orange } from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
-import FormNomenklatur from "./form-nomenklatur";
-import { MiscMasterListStakeholderRes } from "@/app/misc/master/masterServiceModel";
-import { ProPDto } from "@/app/misc/rkp/rkpServiceModel";
 import {
  ExsumCascadingStateDto,
  RKPCascadingDto,
@@ -208,41 +201,41 @@ export default function CascadingOrgChart({
         name: (
          <Stack justifyContent="center" direction="row" alignItems="center">
           {`INDIKATOR - ${ind.code}`}
-          <IconButton
-           onClick={() => {
-            setState((prevState) => {
-             return {
-              ...prevState,
-              src_rkp_kp_indikator_id: ind.id,
-             };
-            });
-            setModal(true);
-           }}
-           size="small"
-          >
-           <IconFA name="circle-plus" size={16} color="white" />
-          </IconButton>
+          {/*<IconButton*/}
+          {/* onClick={() => {*/}
+          {/*  setState((prevState) => {*/}
+          {/*   return {*/}
+          {/*    ...prevState,*/}
+          {/*    src_rkp_kp_indikator_id: ind.id,*/}
+          {/*   };*/}
+          {/*  });*/}
+          {/*  setModal(true);*/}
+          {/* }}*/}
+          {/* size="small"*/}
+          {/*>*/}
+          {/* <IconFA name="circle-plus" size={16} color="white" />*/}
+          {/*</IconButton>*/}
          </Stack>
         ),
         title: ind.value,
         children: [],
        };
-       ind.kl_pengampu.map((kl) => {
+       // ind.kementerian.map((kl) => {
         const klData: OrgDto = {
          name: (
            <Stack justifyContent="center" direction="row" alignItems="center">
             {`KL PENGAMPU`}
-            {hasPrivilege(permission,pathname,"delete") &&
-              <IconButton onClick={() => deleteData(kl.id)} size="small">
-               <IconFA name="trash" size={16} color="white"/>
-              </IconButton>
-            }
+            {/*{hasPrivilege(permission,pathname,"delete") &&*/}
+            {/*  <IconButton onClick={() => deleteData(kl.id)} size="small">*/}
+            {/*   <IconFA name="trash" size={16} color="white"/>*/}
+            {/*  </IconButton>*/}
+            {/*}*/}
            </Stack>
          ),
-         title: kl.kementrian.value,
+         title: ind.kementerian.value,
          children: [],
         };
-        kl.prop.map((prop) => {
+        ind.kementerian.props.map((prop) => {
          const propData: OrgDto = {
           name: prop.value,
           title: (
@@ -257,7 +250,7 @@ export default function CascadingOrgChart({
          klData.children?.push(propData);
         });
         indData.children?.push(klData);
-       });
+       // });
        ssrKPData.children?.push(indData);
       });
       kpData.children?.push(ssrKPData);

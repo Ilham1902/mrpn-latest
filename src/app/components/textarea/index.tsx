@@ -5,6 +5,7 @@ import { grey, blue } from "@mui/material/colors";
 
 export const TextareaStyled = styled(BaseTextareaAutosize)(
     ({ theme }: any) => `
+        width: 100%;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;

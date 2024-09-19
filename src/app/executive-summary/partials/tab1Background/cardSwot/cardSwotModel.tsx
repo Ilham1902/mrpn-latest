@@ -5,63 +5,48 @@ export const LISTSWOT = ["Strength","Weakness","Opportunity","Threat"];
 export interface ExsumSWOTRequestDto {
     id: number
     exsum_id: number
-    strength: string   
-    weakness: string   
-    opportunity: string
-    threat: string
-    values: {
-        type:string
-        values:string[]
-    }[]
+    values: ExsumSWOTValuesDto[]
 }
 export interface ExsumSWOTValuesDto {
-    id:number
     type:string
     value:string
+    desc:string
 }
 export interface ExsumSWOTResponseDto {
     id: number
     exsum_id: number
-    strength: string
-    weakness: string
-    opportunity: string
-    threat: string
     values: ExsumSWOTValuesDto[]
 }
 
 export const initExsumSWOTRequestDto:ExsumSWOTRequestDto = {
     id: 0,
     exsum_id: 0,
-    strength: "",
-    weakness: "",
-    opportunity: "",
-    threat: "",
     values:[
         {
             type:"STRENGTH",
-            values:[]
+            value:"",
+            desc:""
         },
         {
             type:"WEAKNESS",
-            values:[]
+            value:"",
+            desc:""
         },
         {
             type:"OPPORTUNITY",
-            values:[]
+            value:"",
+            desc:""
         },
         {
             type:"THREAT",
-            values:[]
+            value:"",
+            desc:""
         }
     ]
 }
 export const initExsumSWOTResponseDto:ExsumSWOTResponseDto = {
     id: 0,
     exsum_id: 0,
-    strength: "",
-    weakness: "",
-    opportunity: "",
-    threat: "",
     values:[]
 }
 

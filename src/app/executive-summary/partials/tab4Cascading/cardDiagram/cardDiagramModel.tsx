@@ -13,17 +13,16 @@ export type PropDto = ProPDto & {
   ro:RoDto[]
 }
 
-export interface KLPengampu {
+export type KLPengampu = MiscMasterListStakeholderRes & {
   id:number
-  kementrian:MiscMasterListStakeholderRes
-  prop:PropDto[]
+  props:PropDto[]
 }
 
 export interface IndikatorDto {
   id: number
   code: string
   value: string
-  kl_pengampu: KLPengampu[]
+  kementerian: KLPengampu
 }
 
 export interface SasaranDto {

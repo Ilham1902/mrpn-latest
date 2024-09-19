@@ -37,30 +37,27 @@ const useCardSWOTVM = () => {
                 let initReqState:ExsumSWOTRequestDto = {
                     id: result.id,
                     exsum_id: exsum.id,
-                    strength: result.strength,
-                    weakness: result.weakness,
-                    opportunity: result.opportunity,
-                    threat: result.threat,
-                    values:[]
+                    values:result.values
                 }
-                LISTSWOT.map(s => {
 
-                    const swotTitle = s.toUpperCase()
-                    initReqState.values.push({type:swotTitle,values:[]})
-
-                    const group = result.values.filter(x => x.type == swotTitle)
-                    const getKeyIndex = initReqState.values.findIndex(x => x.type == swotTitle)
-                    if (getKeyIndex > -1){
-                        const values = [...initReqState.values]
-                        group.map(g => {
-                            values[getKeyIndex].values.push(g.value)
-                        })
-                        initReqState = {
-                            ...initReqState,
-                            values:values
-                        }
-                    }
-                })
+                // LISTSWOT.map(s => {
+                //
+                //     const swotTitle = s.toUpperCase()
+                //     initReqState.values.push({type:swotTitle,key:"",desc:""})
+                //
+                //     const group = result.values.filter(x => x.type == swotTitle)
+                //     const getKeyIndex = initReqState.values.findIndex(x => x.type == swotTitle)
+                //     if (getKeyIndex > -1){
+                //         const values = [...initReqState.values]
+                //         group.map(g => {
+                //             values[getKeyIndex].key.push(g.value)
+                //         })
+                //         initReqState = {
+                //             ...initReqState,
+                //             values:values
+                //         }
+                //     }
+                // })
 
                 setRequest(initReqState)
             } else {
