@@ -2,11 +2,10 @@ export const dataTema = [
  //  STUNTING
  {
   temaId: "1",
-  tema: "Penurunan Stunting",
+  tema: "Pengembangan Kawasan Sentra Produksi Pangan (KSPP) Kalimantan Tengah",
   urgensi: [
-   "Prevalensi Stunting masih tinggi: 21,6% (SSGI, 2022), termasuk kategori tinggi (WHO: 20-30%). Diperlukan percepatan hingga dua kali (3,5%  rata-rata penurunan/tahun) untuk mencapai target RPJMN 2020-2024 (14%).",
-   "Gagal tumbuh, hambatan perkembangan kognitif dan motorik, serta gangguan metabolik saat dewasa (The Lancet, 2008), Potensi kerugian 2-3% dari GDP per tahun (World Bank, 2016)",
-   "Diperlukan intervensi lintas-sektor yang mencakup dukungan terhadap intervensi spesifik dan sensitive",
+   "Capaian Prevalensi Ketidakcukupan Konsumsi Pangan (PoU) Indonesia masih jauh dari target dengan kecenderungan meningkat pada rentang tahun  2020-2022; menunjukkan ketahanan pangan Indonesia masih belum tahan terhadap guncangan. Dibutuhkan sentra produksi pangan yang berkelanjutan dan dapat menyokong sebuah sistem pangan regional",
+   "Indikasi keberlanjutan dari Food Estate Kalimantan Tengah",
   ],
   swot: [
    {
@@ -15,16 +14,20 @@ export const dataTema = [
      {
       label: "strength",
       item: [
-       "Komitmen global dalam percepatan perbaikan gizi, termasuk penurunan stunting",
-       "Komitmen nasional: Perpres 72/2021 tentang percepatan penurunan stunting",
+       "Sudah memiliki dasar hukum karena merupakan keberlanjutan Food Estate Kalimantan Tengah (KEP. 18/M.PPN/HK/03/2023)",
+       "Dukungan K/L Multisektoral terintegrasi",
+       "Sistem Tata Air mikro sudah baik (terutama Blok A Dadahup)",
       ],
      },
      {
       label: "weakness",
+
       item: [
-       "Capaian indikator intervensi spesifik dan sensitif belum mencapai target",
-       "Pemahaman intervensi stunting belum fokus pada upaya pencegahan",
-       "Tata kelola program belum berjalan optimal",
+       "Lokasi berada di lahan gambut",
+       "Ketersediaan dan kapasitas petani masih rendah",
+       "Penggunaan teknologi masih rendah",
+       "Kualitas panen kurang baik",
+       "Rendahnya kesejahteraan petani komoditas pangan",
       ],
      },
     ],
@@ -35,33 +38,68 @@ export const dataTema = [
      {
       label: "opportunity",
       item: [
-       "Prevalensi stunting merupakan salah satu indikator dalam Human Capital CardIndikasiSasaran (HCI) atau Indeks Modal Manusia sehingga penurunan stunting akan berpengaruh positif terhadap produktivitas SDM di masa mendatang",
+       "Posisi dekat IKN",
+       "Dukungan investasi hilirisasi dari Pihak Swasta/BUMN",
       ],
      },
      {
       label: "threat",
-      item: ["Pemahaman di lapangan yang bervariasi"],
+      item: [
+       "Curah hujan yang tinggi",
+       "Serangan hama pertanian",
+       "Tingginya ﬂuktuasi harga pangan antarwaktu dan antarwilayah",
+       "Adanya konflik lahan",
+      ],
      },
     ],
+   },
+  ],
+  tows: [
+   {
+    factor: "so",
+    items: [
+     "Pengembangan Klaster Industri Pertanian dan Hilirisasi",
+     "Mengembangkan program-program yang mendukung kebutuhan logistik dan suplai pangan bagi IKN",
+     "Menyusun regulasi yang lebih mendukung iklim investasi di sektor hilirisasi, seperti insentif pajak, kemudahan perizinan, dan perlindungan investasi",
+     "Penguatan Kerja sama dengan Pihak Swasta/BUMN",
+    ],
+   },
+   {
+    factor: "wo",
+    items: [
+     "Membangun gudang penyimpanan untuk menjaga kualitas hasil panen",
+     "Mengembangkan program pengelolaan lahan gambut berkelanjutan dengan melibatkan ahli agronomi dan teknologi pengelolaan lahan",
+     "Peningkatan Kapasitas dan Keterampilan Petani",
+    ],
+   },
+   {
+    factor: "st",
+    items: [
+     "Meningkatkan pemanfaatan dalam penggunaan teknologi dalam pengelolaan pertanian",
+     "Meningkatkan teknologi pemberantasan hama",
+     "Meningkatkan akses petani ke pasar dan fasilitas keuangan, termasuk kredit mikro dan asuransi pertanian",
+    ],
+   },
+   {
+    factor: "wt",
+    items: [
+     "Membangun saluran irigasi yang memadai",
+     "Adopsi dan Peningkatan Teknologi Pertanian",
+     "Mengoptimalkan rantai pasokan untuk memastikan distribusi yang efisien dan mengurangi fluktuasi harga",
+    ],
+   },
+  ],
+  diagram: [
+   {
+    nomenklatur:
+     "Memantapkan Sistem Pertahanan Keamanan Negara dan Mendorong Kemandirian Bangsa Melalui Swasembada Pangan, Energi, Air, Ekonomi Syariah, Ekonomi Digital, Ekonomi Hijau, dan Ekonomi Biru",
+    sasaran: "Swasembada Pangan",
    },
   ],
   location: [
    {
     type: "Fisik",
-    list: [
-     "Jawa Barat",
-     "Jawa Tengah",
-     "Jawa Timur",
-     "Sumatera Utara",
-     "Banten",
-     "NTT",
-     "Sulawesi Barat",
-     "Aceh",
-     "NTB",
-     "Kalimantan Selatan",
-     "Kalimantan Barat",
-     "Sulawesi Tenggara",
-    ],
+    list: ["Kalimantan Tengah"],
     note: ["Area of Interest: 43.503 Ha"],
    },
    {
@@ -112,13 +150,7 @@ export const dataTema = [
     description: ["Penuntasan Stunting", "Prevalensi stunting pada balita (%)"],
    },
   ],
-  segment: [
-   "Ibu hamil",
-   "Ibu menyusui",
-   "Anak berusia 0 (nol) - 59 (lima puluh sembilan) bulan",
-   "Remaja putri",
-   "Calon pengantin",
-  ],
+  segment: ["Petani", "Poktan", "Gapoktan", "P3A", "Lembaga Pertanian lainnya"],
   iku: [
    "Prevalensi wasting (kurus dan sangat kurus) pada balita",
    "% Ibu hamil KEK",
@@ -802,6 +834,45 @@ export const dataTema = [
      },
     ],
    },
+
+   //  {
+   //   label: "Koordinasi, Informasi, sosialisasi berkala",
+   //   tag: "Keep Informed",
+   //   desc:
+   //    "Keterlibatan pemerintah daerah dalam pelaksanaan penurunan stunting yang diagendakan pada beberapa daerah",
+   //   instance: [
+   //    {
+   //     name: "Pemerintahan Jawa Barat",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725536/mrpn/company_logo/logo_gemah_ueqink.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan DKI Jakarta",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_jaya_p7hnyk.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Bekasi",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1711725384/mrpn/company_logo/logo_swatantra_jq1s4e.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Badung",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_badung_s4tmhb.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Bogor",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714801748/mrpn/company_logo/logo_kab_bogor_ygigaw.png",
+   //    },
+   //    {
+   //     name: "Pemerintahan Kabupaten Kediri",
+   //     logo:
+   //      "https://res.cloudinary.com/caturteguh/image/upload/v1714802050/mrpn/company_logo/logo_kab_kediri_q6yfnp.png",
+   //    },
+   //   ],
+   //  },
   ],
   roadmap: [
    {
@@ -982,6 +1053,8 @@ export const dataTema = [
     ],
    },
   ],
+  tows: [],
+  diagram: [],
   location: [],
   fot: [
    "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-pariwisata_q1d8ec.png",
@@ -1391,6 +1464,8 @@ export const dataTema = [
     ],
    },
   ],
+  tows: [],
+  diagram: [],
   location: [],
   fot: [
    "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-pangan_rffqlh.png",
@@ -1648,6 +1723,8 @@ export const dataTema = [
     ],
    },
   ],
+  tows: [],
+  diagram: [],
   location: [],
   fot: [
    "https://res.cloudinary.com/caturteguh/image/upload/v1720135604/mrpn/executive_summary/kerangka_pikir/fot-sampah_x6livv.png",

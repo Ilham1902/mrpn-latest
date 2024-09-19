@@ -1,6 +1,4 @@
-"use client";
-
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import {
  Box,
@@ -13,6 +11,7 @@ import {
  useTheme,
 } from "@mui/material";
 import Footer from "./footer";
+// import Aside from "./aside";
 import Header from "./header";
 import { grey } from "@mui/material/colors";
 import React from "react";
@@ -20,14 +19,17 @@ import Image from "next/image";
 import { loadCSS } from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import { ILayout } from "../iLayout";
 
 const Aside = dynamic(() => import("./aside"), { ssr: false });
 
 export default function DashboardLayout({
  children,
+ noOverflow,
+ darkTheme,
 }: {
  children: React.ReactNode;
+ noOverflow?: boolean;
+ darkTheme?: boolean;
 }) {
 
  // const [check, setCheck] = useState<number>(0)
@@ -221,10 +223,17 @@ export default function DashboardLayout({
   },
  };
 
+ const themeCondition = darkTheme ? "#151c26" : theme.palette.primary.light;
+
  return (
   <Box sx={sxWrapper}>
    {/* <Box component="aside" sx={sxAside} onMouseOver={handleChange}></Box> */}
-   <Box component="aside" sx={sxAside}>
+   <Box
+    component="aside"
+    sx={sxAside}
+    position={darkTheme ? "inherit" : "unset"}
+    zIndex={darkTheme ? 1 : "unset"}
+   >
     <Collapse
      orientation="horizontal"
      in={checked}
@@ -240,7 +249,13 @@ export default function DashboardLayout({
      <Aside isExpanded={checked} />
     </Collapse>
    </Box>
-   <Box component="header" sx={{ gridArea: "header", p: "20px 0" }}>
+   <Box
+    component="header"
+    sx={{ gridArea: "header", p: "20px 0" }}
+    bgcolor={darkTheme ? "#1f2937" : "transparent"}
+    position={darkTheme ? "inherit" : "unset"}
+    zIndex={darkTheme ? 1 : "unset"}
+   >
     {flagPathnameTheme ? null : (
      <Zoom
       in={!checked}
@@ -273,7 +288,7 @@ export default function DashboardLayout({
    </Box>
    <Box
     component="main"
-    bgcolor={theme.palette.primary.light}
+    bgcolor={themeCondition}
     gridArea="main"
     p="42px"
     pb="24px"
@@ -288,6 +303,7 @@ export default function DashboardLayout({
      justifyContent="center"
      alignItems="center"
      position="absolute"
+     zIndex={1}
      top={flagPathnameTheme ? "107px" : "42px"}
      left={flagPathnameTheme ? "42px" : "-15px"}
      onClick={handleChange}
@@ -339,7 +355,7 @@ export default function DashboardLayout({
     component="footer"
     sx={{
      gridArea: "footer",
-     bgcolor: theme.palette.primary.light,
+     bgcolor: themeCondition,
      maxWidth: "100%",
     }}
     direction="column"
