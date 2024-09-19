@@ -4,7 +4,7 @@ import {IconEmptyData} from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import useCardIntervensiVM from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiVM";
 import TableProfilIntervensi from "@/app/executive-summary/partials/tab4Cascading/table-profil-intervensi";
-import useRkpVM from "@/components/dropdownKp/rkpVM";
+import useRkpVM from "@/components/dropdown/rkpVM";
 
 export default function CardProfileIntervensi() {
 

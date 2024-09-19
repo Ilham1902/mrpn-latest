@@ -15,7 +15,7 @@ import TextareaComponent from "@/app/components/textarea";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
 import { grey } from "@mui/material/colors";

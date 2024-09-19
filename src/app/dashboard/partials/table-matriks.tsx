@@ -1,7 +1,7 @@
 import React from "react";
 import { BlockCard } from "./card";
 import Matriks from "./matriks";
-import DropdownKp from "@/app/components/dropdownKp";
+import DropdownDefault from "@/components/dropdown/dropdownDefault";
 
 export default function TableMatriks() {
  const [project, setProject] = React.useState("");
@@ -13,7 +13,7 @@ export default function TableMatriks() {
   <BlockCard
    title="Peta Risiko"
    cardAction={
-    <DropdownKp
+    <DropdownDefault
      showOnlyName
      handleChangeProject={handleChangeProject}
      variant="primary"

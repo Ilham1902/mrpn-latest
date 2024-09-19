@@ -10,7 +10,7 @@ import TableProfilRoKunci from "../table-profil-ro-kunci";
 import {
   SxAutocompleteTextField,
   SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {listTagProP} from "@/app/executive-summary/data";
 import {paramVariantDefault} from "@/app/utils/constant";

@@ -7,6 +7,7 @@
   "uat": "env-cmd -f .env.uat next dev",
   "prod": "env-cmd -f .env.prod next dev",
   "build:dev": "env-cmd -f .env.dev next build",
+  "build:uat": "env-cmd -f .env.uat next build",
   "build:prod": "env-cmd -f .env.prod next build",
   "start:dev": "env-cmd -f .env.dev npx serve@latest out",
   "start:prod": "env-cmd -f .env.prod npx serve@latest out",

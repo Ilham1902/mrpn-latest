@@ -14,7 +14,7 @@ import {
 import {
   SxAutocompleteTextField,
   SxAutocomplete,
-} from "@/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import {paramVariantDefault} from "@/utils/constant";
 import FieldLabelInfo from "@/components/fieldLabelInfo";
 import {listSwotSo, listSwotSt, listSwotWo, listSwotWt} from "../../../data";

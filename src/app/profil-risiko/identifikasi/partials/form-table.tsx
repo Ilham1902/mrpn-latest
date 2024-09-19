@@ -32,7 +32,7 @@ import theme from "@/theme";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import HeaderIdentifikasi from "./header";
 import { paramVariantDefault } from "@/app/utils/constant";
 import { listRiskCategory } from "@/app/utils/data";

@@ -1,6 +1,6 @@
 import React from "react";
 import {Autocomplete, Box, Checkbox, Divider, FormControlLabel, Paper, TextField} from "@mui/material";
-import {SxAutocomplete, SxAutocompleteTextField} from "../dropdownKp";
+import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdown/dropdownRkp";
 import {paramVariantDefault} from "@/app/utils/constant";
 
 export interface AutoCompleteMultipleProp<T> {

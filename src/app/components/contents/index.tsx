@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import theme from "@/theme";
 import SelectCustomTheme from "../select";
-import DropdownKp from "../dropdownKp";
+import DropdownRkp from "@/components/dropdown/dropdownRkp";
 import { grey } from "@mui/material/colors";
 import { usePathname } from "next/navigation";
 import { listSelectKp } from "@/app/executive-summary/data";
@@ -279,7 +279,7 @@ export default function ContentPage({
      {tabArrow}
      {chooseProjectPage}
      {dowloadAttachmentFile}
-     {chooseProject && <DropdownKp handleChangeProject={handleChangeProject} />}
+     {chooseProject && <DropdownRkp handleChangeProject={handleChangeProject} />}
      {chooseRo && (
       <FormControl size="small">
        <SelectCustomTheme

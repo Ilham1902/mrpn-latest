@@ -10,7 +10,7 @@ import {
 } from "@/app/penetapan/objek/pageModel";
 import {doCreatePenetapanObject, doGetPenetapanObject} from "@/app/penetapan/objek/pageService";
 import {API_CODE} from "@/lib/core/api/apiModel";
-import useRkpVM from "@/components/dropdownKp/rkpVM";
+import useRkpVM from "@/components/dropdown/rkpVM";
 
 const usePenetapanObjectVM = () => {
   const loadingContext = useLoading();

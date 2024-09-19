@@ -12,7 +12,7 @@ import { listSelectKp } from "@/app/executive-summary/data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { SxParams } from "@/app/executive-summary/types";
-import useRkpVM from "@/components/dropdownKp/rkpVM";
+import useRkpVM from "@/components/dropdown/rkpVM";
 import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
@@ -53,7 +53,7 @@ export const SxAutocomplete = (params: SxParams) => {
  };
 };
 
-export default function DropdownKp({
+export default function DropdownRkp({
  //  project,
  handleChangeProject,
  variant,

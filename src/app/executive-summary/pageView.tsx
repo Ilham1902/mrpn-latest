@@ -31,11 +31,11 @@ import Tab7Regulation from "./partials/tab7Regulation";
 import Tab8Fund from "./partials/tab8Fund";
 import Tab9Indication from "./partials/tab9Indication";
 import { CustomTab, styleDownload, styleTab, styleTabPanel } from "./style";
-import DropdownKp from "../components/dropdownKp";
+import DropdownRkp from "@/components/dropdown/dropdownRkp";
 import { SxParams, TabPanelProps } from "./types";
 import Tab7Stakeholder from "./partials/tab7Stakeholder";
 import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
-import useRkpVM from "@/components/dropdownKp/rkpVM";
+import useRkpVM from "@/components/dropdown/rkpVM";
 import Tab9Risk from "@/app/executive-summary/partials/tab9Risk";
 
 function a11yProps(index: number) {
@@ -206,7 +206,7 @@ export default function PageExecutiveSummary({}) {
                 title="Halaman Executive Summary (RPJMN) Kosong"
                 description="Silahkan pilih kegiatan pembangunan di bawah ini"
                 button={
-                  <DropdownKp
+                  <DropdownRkp
                     handleChangeProject={handleChangeProject}
                     variant="primary"
                   />
@@ -430,7 +430,7 @@ export default function PageExecutiveSummary({}) {
               title="Halaman Executive Summary (Kaji Ulang 1) Kosong"
               description="Silahkan pilih kegiatan pembangunan di bawah ini"
               button={
-                <DropdownKp
+                <DropdownRkp
                   handleChangeProject={handleChangeProject}
                   variant="primary"
                 />
@@ -445,7 +445,7 @@ export default function PageExecutiveSummary({}) {
               title="Halaman Executive Summary (Kaji Ulang 2) Kosong"
               description="Silahkan pilih kegiatan pembangunan di bawah ini"
               button={
-                <DropdownKp
+                <DropdownRkp
                   handleChangeProject={handleChangeProject}
                   variant="primary"
                 />
@@ -460,7 +460,7 @@ export default function PageExecutiveSummary({}) {
               title="Halaman Executive Summary (Kaji Ulang 3) Kosong"
               description="Silahkan pilih kegiatan pembangunan di bawah ini"
               button={
-                <DropdownKp
+                <DropdownRkp
                   handleChangeProject={handleChangeProject}
                   variant="primary"
                 />
@@ -475,7 +475,7 @@ export default function PageExecutiveSummary({}) {
               title="Halaman Executive Summary (Kaji Ulang 4) Kosong"
               description="Silahkan pilih kegiatan pembangunan di bawah ini"
               button={
-                <DropdownKp
+                <DropdownRkp
                   handleChangeProject={handleChangeProject}
                   variant="primary"
                 />
@@ -490,7 +490,7 @@ export default function PageExecutiveSummary({}) {
               title="Halaman Executive Summary (Kaji Ulang 5) Kosong"
               description="Silahkan pilih kegiatan pembangunan di bawah ini"
               button={
-                <DropdownKp
+                <DropdownRkp
                   handleChangeProject={handleChangeProject}
                   variant="primary"
                 />

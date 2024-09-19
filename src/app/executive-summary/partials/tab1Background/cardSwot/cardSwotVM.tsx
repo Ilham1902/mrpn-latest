@@ -39,26 +39,6 @@ const useCardSWOTVM = () => {
                     exsum_id: exsum.id,
                     values:result.values
                 }
-
-                // LISTSWOT.map(s => {
-                //
-                //     const swotTitle = s.toUpperCase()
-                //     initReqState.values.push({type:swotTitle,key:"",desc:""})
-                //
-                //     const group = result.values.filter(x => x.type == swotTitle)
-                //     const getKeyIndex = initReqState.values.findIndex(x => x.type == swotTitle)
-                //     if (getKeyIndex > -1){
-                //         const values = [...initReqState.values]
-                //         group.map(g => {
-                //             values[getKeyIndex].key.push(g.value)
-                //         })
-                //         initReqState = {
-                //             ...initReqState,
-                //             values:values
-                //         }
-                //     }
-                // })
-
                 setRequest(initReqState)
             } else {
                 setData({ ...initExsumSWOTResponseDto })

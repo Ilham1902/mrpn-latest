@@ -26,7 +26,7 @@ import {TextareaStyled} from "@/app/components/textarea";
 import {
   SxAutocompleteTextField,
   SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import {grey} from "@mui/material/colors";
 import {paramVariantDefault} from "@/app/utils/constant";
 import {MiscMasterListKebijakanRes} from "@/app/misc/master/masterServiceModel";

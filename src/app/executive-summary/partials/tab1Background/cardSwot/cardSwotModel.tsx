@@ -8,6 +8,7 @@ export interface ExsumSWOTRequestDto {
     values: ExsumSWOTValuesDto[]
 }
 export interface ExsumSWOTValuesDto {
+    id:number
     type:string
     value:string
     desc:string
@@ -23,21 +24,25 @@ export const initExsumSWOTRequestDto:ExsumSWOTRequestDto = {
     exsum_id: 0,
     values:[
         {
+            id:0,
             type:"STRENGTH",
             value:"",
             desc:""
         },
         {
+            id:0,
             type:"WEAKNESS",
             value:"",
             desc:""
         },
         {
+            id:0,
             type:"OPPORTUNITY",
             value:"",
             desc:""
         },
         {
+            id:0,
             type:"THREAT",
             value:"",
             desc:""

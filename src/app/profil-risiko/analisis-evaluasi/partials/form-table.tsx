@@ -22,7 +22,7 @@ import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
-} from "@/app/components/dropdownKp";
+} from "@/components/dropdown/dropdownRkp";
 import TextareaComponent from "@/app/components/textarea";
 import { paramVariantDefault } from "@/app/utils/constant";
 import { listRiskCategory } from "@/app/utils/data";

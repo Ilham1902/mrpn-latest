@@ -20,7 +20,7 @@ import DialogComponent from "@/app/components/dialog";
 import useCardSWOTVM from "./cardSwotVM";
 import {ExsumSWOTRequestDto, ExsumSWOTValuesDto, LISTSWOT} from "./cardSwotModel";
 import {TextareaStyled} from "@/app/components/textarea";
-import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdownKp";
+import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdown/dropdownRkp";
 import {paramVariantDefault} from "@/utils/constant";
 import {width} from "@mui/system";
 import AddButton from "@/components/buttonAdd";
@@ -226,6 +226,7 @@ const GetGrid = (
   const addNewRow = (type:string) => {
     setRequest((prev: ExsumSWOTRequestDto) => {
       const row = {
+        id:0,
         type:type,
         value:"",
         desc:""

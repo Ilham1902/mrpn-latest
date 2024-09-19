@@ -43,9 +43,9 @@ export default function FormKonstra({ mode }: { mode?: string }) {
    >
     <CardIndikasiSasaran />
     <Divider sx={{ my: 3 }} />
-    <CardSasaranKinerjaUPR mode={mode} />
+    <CardSasaranKinerjaUPR />
     <Divider sx={{ my: 3 }} />
-    <CardRegulation mode={mode} />
+    <CardRegulation />
     <Divider sx={{ my: 3 }} />
     <TableStakeholderInternal mode={mode} project="1" />
     <Divider sx={{ my: 3 }} />
