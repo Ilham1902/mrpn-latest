@@ -28,7 +28,7 @@ export default function CardMatriks() {
  return (
   <>
    <CardItem title="Matriks dengan Selera Risiko Konservatif">
-    <Matriks levelId={2} />
+    <Matriks levelId={5} />
    </CardItem>
    <DialogComponent
     width={1200}

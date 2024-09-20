@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 import {
  Autocomplete,
+ Box,
  Chip,
+ FormControl,
  Grid,
+ IconButton,
  Paper,
  Stack,
  TextField,
@@ -15,6 +18,57 @@ import {
  SxAutocomplete,
 } from "@/app/components/dropdownKp";
 import { paramVariantDefault } from "@/app/utils/constant";
+import AddButton from "@/app/components/buttonAdd";
+import { IconFA } from "@/app/components/icons/icon-fa";
+
+const FieldGroup = ({
+ detailItem,
+ addField,
+ onclick,
+}: {
+ detailItem: any;
+ addField?: boolean;
+ onclick?: () => void;
+}) => {
+ return (
+  <>
+   <Grid item xs={12} md={6}>
+    <TextField
+     size="small"
+     fullWidth
+     InputLabelProps={{
+      shrink: true,
+     }}
+     placeholder={`Deskripsi ${detailItem.label}`}
+    />
+   </Grid>
+   <Grid item xs={12} md={addField ? 5 : 6}>
+    <TextField
+     size="small"
+     fullWidth
+     InputLabelProps={{
+      shrink: true,
+     }}
+     placeholder={`Kata kunci ${detailItem.label}`}
+    />
+   </Grid>
+   {addField && (
+    <Grid item xs={12} md={1}>
+     <Stack justifyContent="center" alignItems="center" height="40px">
+      <IconButton
+       aria-label="delete"
+       color="error"
+       onClick={onclick}
+       sx={{ p: 0 }}
+      >
+       <IconFA size={18} name="trash-can" />
+      </IconButton>
+     </Stack>
+    </Grid>
+   )}
+  </>
+ );
+};
 
 export default function FormSwot({
  mode,
@@ -23,6 +77,31 @@ export default function FormSwot({
  mode?: string;
  project?: string;
 }) {
+ const [itemFactor, setItemFactor] = React.useState([{ id: 0 }]);
+
+ const addFactor = () => {
+  let arr = [...itemFactor];
+  if (arr.length >= 10) {
+   return;
+  } else {
+   arr.push({ id: Math.floor(Math.random() * 1000) });
+  }
+  const newItem = arr;
+  setItemFactor(newItem);
+ };
+
+ const minusFactor = (nowId: any) => {
+  let arr = [...itemFactor];
+  let newArr = arr.filter((val) => {
+   if (nowId === val.id) {
+    return false;
+   } else {
+    return true;
+   }
+  });
+  setItemFactor(newArr);
+ };
+
  return (
   <Grid container spacing={2}>
    {dataTema.map((itemSwot, index) => (
@@ -32,62 +111,42 @@ export default function FormSwot({
        {itemSwot.swot?.map((detailSwot, index) => (
         <Fragment key={index}>
          {detailSwot.item.map((detailItem, index) => (
-          <Grid item lg={6} key={index}>
+          <Grid item xs={12} key={index}>
            <Paper
             elevation={0}
             variant="outlined"
             sx={{ minWidth: "0 !important", p: 2, height: "100%" }}
            >
             <Stack direction="column">
-             <Typography
-              gutterBottom
-              variant="h6"
-              component="div"
-              lineHeight={1.3}
-              sx={{ textTransform: "capitalize" }}
-             >
-              {detailItem.label}
-             </Typography>
-             {/* {detailSwot.item.map((itemSh, index) => (
-             <Typography variant="body2" mb={1} key={index}>
-              <strong>{itemSh}</strong>
-             </Typography>
-            ))} */}
-             <Stack gap={1}>
-              <Autocomplete
-               multiple
-               size="small"
-               freeSolo
-               options={[]}
-               renderInput={(params) => (
-                <TextField
-                 {...params}
-                 InputLabelProps={{
-                  shrink: true,
-                 }}
-                 placeholder={`Tambah kata kunci ${detailItem.label}`}
-                 sx={SxAutocompleteTextField(paramVariantDefault)}
-                />
-               )}
-               renderTags={(value, props) =>
-                value.map((option, index) => (
-                 <Fragment key={index}>
-                  <Chip size="small" label={option} {...props({ index })} />
-                 </Fragment>
-                ))
-               }
-               sx={{
-                ...SxAutocomplete,
-                ".MuiInputBase-root": {
-                 borderRadius: 1,
-                },
-               }}
-              />
-              <TextareaComponent
-               label={`Deskripsi ${detailItem.label}`}
-               placeholder={`Deskripsi ${detailItem.label}`}
+             <Stack direction="row" justifyContent="space-between" mb={1}>
+              <Typography
+               gutterBottom
+               variant="h6"
+               component="div"
+               lineHeight={1.3}
+               sx={{ textTransform: "capitalize" }}
+              >
+               {detailItem.label}
+              </Typography>
+              <AddButton
+               title={`Tambah ${detailItem.label}`}
+               small
+               noMargin
+               onclick={addFactor}
               />
              </Stack>
+             <Grid container spacing={1}>
+              <FieldGroup detailItem={detailItem} />
+              {itemFactor.map((tags: any) => (
+               <Fragment key={`${tags.id}`}>
+                <FieldGroup
+                 addField
+                 detailItem={detailItem}
+                 onclick={() => minusFactor(tags.id)}
+                />
+               </Fragment>
+              ))}
+             </Grid>
             </Stack>
            </Paper>
           </Grid>

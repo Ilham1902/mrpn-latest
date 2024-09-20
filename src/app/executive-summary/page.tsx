@@ -408,33 +408,13 @@ export default function PageExecutiveSummary({}) {
          <CustomTabPanel value={value} index={7} tabLevel={condTabHeightLv1}>
           <Tab8Fund project={project} />
          </CustomTabPanel>
-         <CustomTabPanel value={value} index={8} tabLevel="1">
-          <Tabs
-           value={valueTabChild}
-           onChange={handleChangeTabChild}
-           sx={styleTab(sxParamsOutlined)}
-           variant="fullWidth"
-          >
-           <Tab
-            label="Indikasi Risiko Objek MRPN 5 Tahunan"
-            {...a11yProps(0)}
-           />
-           <Tab label="Selera Risiko" {...a11yProps(1)} />
-          </Tabs>
-          <CustomTabPanel
-           value={valueTabChild}
-           index={0}
-           tabLevel={condTabHeightLv2}
-          >
-           <Tab9Indication project={project} />
-          </CustomTabPanel>
-          <CustomTabPanel
-           value={valueTabChild}
-           index={1}
-           tabLevel={condTabHeightLv2}
-          >
-           <Tab9Risk project={project} />
-          </CustomTabPanel>
+         <CustomTabPanel
+          value={value}
+          index={8}
+          project={project}
+          tabLevel={condTabHeightLv1}
+         >
+          <Tab9Indication project={project} />
          </CustomTabPanel>
         </Box>
        </Collapse>

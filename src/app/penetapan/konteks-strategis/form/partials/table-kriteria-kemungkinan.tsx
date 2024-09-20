@@ -24,6 +24,7 @@ import FormPeraturan from "./form-peraturan";
 import FormKemungkinan from "./form-kemungkinan";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import CardItem from "@/app/components/cardTabItem";
+import AddButton from "@/app/components/buttonAdd";
 
 export default function TableKemungkinan({ mode }: { mode?: string }) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -95,30 +96,19 @@ export default function TableKemungkinan({ mode }: { mode?: string }) {
 
  return (
   <>
-   <CardItem title="Kriteria Kemungkinan">
-    {/* <Stack
-     mb={2}
-     direction="row"
-     justifyContent="space-between"
-     alignItems="center"
-    >
-     <FieldLabelInfo
-      titleSection
-      title="Kriteria Kemungkinan"
-      information="Kriteria Kemungkinan"
-     />
-     {mode === "add" || mode === "edit" ? (
-      <Button
-       variant="outlined"
-       size="small"
-       startIcon={<AddCircle />}
-       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-       onClick={handleModalOpenAdd}
-      >
-       Tambah Kriteria Kemungkinan
-      </Button>
-     ) : null}
-    </Stack> */}
+   <CardItem
+    title="Kriteria Kemungkinan"
+    addButton={
+     <>
+      <AddButton
+       filled
+       small
+       title="Tambah Kriteria Kemungkinan"
+       onclick={handleModalOpenAdd}
+      />
+     </>
+    }
+   >
     <TableContainer component={Paper} elevation={0} variant="outlined">
      <Table sx={{ minWidth: 650 }} size="small">
       <TableHead sx={{ bgcolor: theme.palette.primary.light }}>

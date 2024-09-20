@@ -1,17 +1,40 @@
 import React, { Fragment } from "react";
 import {
+ Autocomplete,
+ Box,
  Checkbox,
+ Divider,
  FormControl,
  FormControlLabel,
  FormGroup,
  Grid,
+ Paper,
  TextField,
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import { listPeraturan } from "@/app/utils/data";
+import {
+ SxAutocomplete,
+ SxAutocompleteTextField,
+} from "@/app/components/dropdownKp";
+import { paramVariantDefault } from "@/app/utils/constant";
+
+type Option = (typeof listPeraturan)[number];
 
 export default function FormPeraturan({ mode }: { mode?: string }) {
+ const [columnsInstance, setColumnsInstance] = React.useState<Option[]>([]);
+ const [selectAll, setSelectAll] = React.useState<boolean>(false);
+
+ const handleToggleSelectAllInstance = () => {
+  setSelectAll((prev) => {
+   if (!prev) setColumnsInstance([...listPeraturan]);
+   else setColumnsInstance([]);
+   return !prev;
+  });
+ };
+
  return (
   <>
    <Grid container spacing={2}>
@@ -22,38 +45,58 @@ export default function FormPeraturan({ mode }: { mode?: string }) {
        information="Peraturan Terkait"
       />
       {mode === "add" || mode === "edit" ? (
-       <FormGroup
+       <Autocomplete
+        multiple
+        disableCloseOnSelect
+        filterSelectedOptions
+        size="small"
+        freeSolo={false}
+        value={columnsInstance}
+        options={listPeraturan}
+        getOptionLabel={(option) => option.source}
+        onChange={(_e, value, reason) => {
+         if (reason === "clear" || reason === "removeOption")
+          setSelectAll(false);
+         if (reason === "selectOption" && value.length === listPeraturan.length)
+          setSelectAll(true);
+         setColumnsInstance(value);
+        }}
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          InputLabelProps={{
+           shrink: true,
+          }}
+          placeholder="Pilih peraturan terkait"
+          sx={SxAutocompleteTextField(paramVariantDefault)}
+         />
+        )}
+        PaperComponent={(paperProps) => {
+         const { children, ...restPaperProps } = paperProps;
+         return (
+          <Paper {...restPaperProps}>
+           <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
+            <FormControlLabel
+             onClick={(e) => {
+              e.preventDefault();
+              handleToggleSelectAllInstance();
+             }}
+             label="Pilih semua peraturan"
+             control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
+            />
+           </Box>
+           <Divider />
+           {children}
+          </Paper>
+         );
+        }}
         sx={{
-         flexWrap: "nowrap",
-         maxHeight: 200,
-         overflowY: "auto",
-         "&::-webkit-scrollbar": {
-          width: "3px",
-         },
-         label: {
-          span: {
-           py: 0.2,
-          },
+         ...SxAutocomplete,
+         ".MuiInputBase-root": {
+          borderRadius: 1,
          },
         }}
-       >
-        {[...new Array(8)].map((_, i) => (
-         <Fragment key={i}>
-          <FormControlLabel
-           control={<Checkbox />}
-           label="Peraturan Presiden Nomor 79 Tahun 2019"
-          />
-          <FormControlLabel
-           control={<Checkbox />}
-           label="Peraturan Presiden Nomor 109 Tahun 2022"
-          />
-          <FormControlLabel
-           control={<Checkbox />}
-           label="Peraturan Presiden Nomor 109 Tahun 2020"
-          />
-         </Fragment>
-        ))}
-       </FormGroup>
+       />
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}
