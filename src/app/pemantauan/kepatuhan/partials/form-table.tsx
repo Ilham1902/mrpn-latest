@@ -70,14 +70,6 @@ export default function FormTable({
   ),
  ];
 
- const handleToggleSelectAll = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumns([...listPeristiwaRisiko]);
-   else setColumns([]);
-   return !prev;
-  });
- };
-
  return (
   <Stack gap={2}>
    <Grid container spacing={2}>

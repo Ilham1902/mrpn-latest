@@ -160,10 +160,6 @@ export default function PagePemantauan({}) {
   setModalOpenBukti(false);
  };
 
- const days = 70;
- const result = convertDaysToMonthsAndDays(days);
- const printResult = `${days} days is approximately ${result.months} months and ${result.remainingDays} days.`;
-
  const columns = useMemo<MRT_ColumnDef<PemantauanType>[]>(
   () => [
    {
@@ -679,7 +675,6 @@ export default function PagePemantauan({}) {
      >
       <MaterialReactTable table={table} />
      </Box>
-     {printResult}
     </ContentPage>
    </DashboardLayout>
    <DialogComponent

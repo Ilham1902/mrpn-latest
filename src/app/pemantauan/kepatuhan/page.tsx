@@ -20,90 +20,8 @@ import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import HeaderIdentifikasi from "./partials/header";
 import AddButton from "@/app/components/buttonAdd";
-
-const CustomChip = ({ title, value }: { title: string; value: string }) => {
- return (
-  <Chip
-   variant="outlined"
-   label={
-    <>
-     <Stack direction="row" alignItems="center">
-      <Stack
-       direction="row"
-       bgcolor={grey[700]}
-       px={2}
-       alignItems="center"
-       height="34px"
-       sx={{
-        borderTopLeftRadius: 24,
-        borderBottomLeftRadius: 24,
-       }}
-      >
-       <Typography fontSize={13} color="white" fontWeight={600} lineHeight={1}>
-        {title}
-       </Typography>
-      </Stack>
-      <Box
-       sx={{
-        [theme.breakpoints.up("sm")]: {
-         display: "none",
-        },
-        [theme.breakpoints.down("sm")]: {
-         display: "block",
-        },
-       }}
-      >
-       {/* {nameOfKp.length >= 35 ? (
-            <Tooltip title={nameOfKp} followCursor TransitionComponent={Grow}>
-             <Typography
-              aria-owns={open ? "mouse-over-popover" : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}
-              px={1.5}
-              fontSize={13}
-              fontWeight={600}
-             >
-              {nameOfKp.substring(0, 35) + "..."}
-             </Typography>
-            </Tooltip>
-           ) : (
-            <Typography px={1.5} fontSize={13} fontWeight={600}>
-             {nameOfKp}
-            </Typography>
-           )} */}
-      </Box>
-      <Box
-       sx={{
-        [theme.breakpoints.up("sm")]: {
-         display: "block",
-        },
-        [theme.breakpoints.down("sm")]: {
-         display: "none",
-        },
-       }}
-      >
-       <Typography px={3} fontSize={13} fontWeight={800}>
-        {value}
-       </Typography>
-      </Box>
-     </Stack>
-    </>
-   }
-   sx={{
-    height: "34px",
-    bgcolor: "white",
-    fontWeight: 600,
-    lineHeight: 1,
-    cursor: "default",
-
-    ".MuiChip-label": {
-     px: 0,
-    },
-   }}
-  />
- );
-};
+import TableAdd from "./partials/table";
+import CardGroup from "./partials/card-group";
 
 export default function PageKepatuhan({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
@@ -174,10 +92,15 @@ export default function PageKepatuhan({}) {
      title="Kepatuhan"
      chipKp
      addButton={
-      <AddButton title="Tambah Kepatuhan" filled onclick={handleModalOpenAdd} />
+      <AddButton
+       title="Tambah Kepatuhan"
+       noMargin
+       filled
+       onclick={handleModalOpenAdd}
+      />
      }
     >
-     <HeaderIdentifikasi asTable viewOnly />
+     <CardGroup />
     </ContentPage>
    </DashboardLayout>
    <DialogComponent
@@ -188,12 +111,13 @@ export default function PageKepatuhan({}) {
     <FormTable mode="view" />
    </DialogComponent>
    <DialogComponent
+    width={980}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
     title="Tambah Kepatuhan"
     dialogFooter={dialogActionFooter}
    >
-    <FormTable mode="add" />
+    <TableAdd />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenEdit}
