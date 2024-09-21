@@ -155,9 +155,10 @@ export default function Aside({
    justifyContent="space-between"
    height={isMobile ? "calc(100% + 16px)" : "calc(100% - 120px)"}
    maxHeight={isMobile ? "calc(100% + 16px)" : "calc(100% - 120px)"}
-   overflow="auto"
    sx={{
     pt: isMobile ? 3 : 0,
+    overflowY: "auto",
+    overflowX: "hidden",
     "&::-webkit-scrollbar": {
      width: "3px",
     },
@@ -187,7 +188,7 @@ export default function Aside({
     reflect
     label="keluar sistem"
     icon={<IconKeluar />}
-    url={"#"}
+    url={"/"}
     onclick={() => doLogout()}
    />
   </Stack>

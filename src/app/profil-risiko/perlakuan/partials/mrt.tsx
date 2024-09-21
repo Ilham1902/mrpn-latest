@@ -372,8 +372,12 @@ export default function MRTPerlakuan({
         <TableCell>Nomenklatur RO</TableCell>
         <TableCell>Target</TableCell>
         <TableCell>Satuan</TableCell>
-        <TableCell>Realisasi Anggaran</TableCell>
         <TableCell>Realisasi Fisik</TableCell>
+        <TableCell>Alokasi Anggaran</TableCell>
+        <TableCell>Realisasi Anggaran</TableCell>
+        <TableCell>Target Capaian</TableCell>
+        <TableCell>Realisasi Progress</TableCell>
+        <TableCell>Status</TableCell>
        </TableRow>
       </TableHead>
       <TableBody>
@@ -385,8 +389,22 @@ export default function MRTPerlakuan({
          <TableCell>{row.ro}</TableCell>
          <TableCell>{row.target}</TableCell>
          <TableCell>{row.satuan}</TableCell>
-         <TableCell>{row.anggaran}</TableCell>
          <TableCell>{row.fisik}</TableCell>
+         <TableCell>{row.alokasi}</TableCell>
+         <TableCell>{row.anggaran}</TableCell>
+         <TableCell>{row.capaian}</TableCell>
+         <TableCell>{row.progress}</TableCell>
+         <TableCell>
+          <Chip
+           variant="outlined"
+           label={row.status === 1 ? "Tercapai" : "Tidak Tercapai"}
+           sx={{
+            fontWeight: 600,
+            color: row.status === 1 ? green[800] : red[800],
+            borderColor: row.status === 1 ? green[800] : red[800],
+           }}
+          />
+         </TableCell>
         </TableRow>
        ))}
       </TableBody>

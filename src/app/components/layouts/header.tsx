@@ -19,11 +19,11 @@ import { IconKeluar } from "../icons";
 import { IconFA } from "../icons/icon-fa";
 import Image from "next/image";
 import Aside from "./aside";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import useAuthorizationVM from "@/app/authorizationVM";
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -37,11 +37,8 @@ const sliderContent = [
 const textStyles = ["abbreviation", "full-form"];
 
 export default function Header({}) {
-
- const {user} = useAuthContext(state => state)
- const {
-  doLogout
- } = useAuthorizationVM()
+ const { user } = useAuthContext((state) => state);
+ const { doLogout } = useAuthorizationVM();
 
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const [openDrawerMobile, setOpenDrawerMobile] = React.useState(false);
@@ -346,7 +343,10 @@ export default function Header({}) {
       </ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
-     <MenuItem sx={{ py: 2 }}>
+     <MenuItem>
+      <ListItemText>Tahun 2024</ListItemText>
+     </MenuItem>
+     <MenuItem>
       <ListItemText>Tahun 2025</ListItemText>
      </MenuItem>
      <MenuItem>

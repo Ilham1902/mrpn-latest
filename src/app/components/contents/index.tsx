@@ -15,7 +15,6 @@ import theme from "@/theme";
 import SelectCustomTheme from "../select";
 import DropdownKp from "../dropdownKp";
 import { grey } from "@mui/material/colors";
-import { usePathname } from "next/navigation";
 import { listSelectKp } from "@/app/executive-summary/data";
 import { listTriwulan } from "@/app/utils/data";
 import DateRangePicker from "@/components/dateRange";
@@ -51,6 +50,7 @@ export default function ContentPage({
  tabStep,
  noMarginBotttom,
  tabArrow,
+ darkTheme,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -82,6 +82,7 @@ export default function ContentPage({
  tabStep?: React.ReactNode;
  noMarginBotttom?: boolean;
  tabArrow?: React.ReactNode;
+ darkTheme?: boolean;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -130,7 +131,7 @@ export default function ContentPage({
  maxDate.setFullYear(currentDate.getFullYear() + 20);
 
  return (
-  <Box>
+  <Box position="relative">
    <Stack
     direction="row"
     justifyContent="space-between"
@@ -165,19 +166,21 @@ export default function ContentPage({
        ...sxHeaderCard,
       }}
      >
-      <Stack direction="column">
-       {breadcrumb}
-       {title && (
-        <Typography
-         component="h2"
-         fontWeight="600"
-         fontSize="1.25rem"
-         textTransform="capitalize"
-        >
-         {title}
-        </Typography>
-       )}
-      </Stack>
+      {title && (
+       <Stack direction="column">
+        {breadcrumb}
+        {title && (
+         <Typography
+          component="h2"
+          fontWeight="600"
+          fontSize="1.25rem"
+          textTransform="capitalize"
+         >
+          {title}
+         </Typography>
+        )}
+       </Stack>
+      )}
       {titleChild}
       {chipKp && (
        <Chip
@@ -541,9 +544,9 @@ export default function ContentPage({
       ? "calc(100vh - 240px)"
       : heightNoSet
       ? "auto"
-      : // : flagPathnameTheme
-        // ? "calc(100vh - 328px)"
-        "calc(100vh - 240px)"
+      : darkTheme
+      ? "calc(100vh - 180px)"
+      : "calc(100vh - 240px)"
     }
     overflow={overflowHidden ? "hidden" : "auto"}
     margin={noMinusMargin ? 0 : -1}

@@ -18,6 +18,7 @@ import SelectCustomTheme from "@/app/components/select";
 import { grey } from "@mui/material/colors";
 import { listPeristiwaRisiko } from "../setting";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
+import TextareaComponent from "@/app/components/textarea";
 
 export default function FormTable({ mode }: { mode?: string }) {
  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -47,7 +48,7 @@ export default function FormTable({ mode }: { mode?: string }) {
  return (
   <>
    <Grid container spacing={2}>
-    <Grid item lg={12}>
+    <Grid item xs={12}>
      <FormControl fullWidth>
       <FieldLabelInfo title="Peristiwa Risiko" information="Peristiwa Risiko" />
       {mode === "add" || mode === "edit" ? (
@@ -97,7 +98,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item xs={12} md={6}>
      <FormControl fullWidth>
       <FieldLabelInfo
        title="Konteks Strategis"
@@ -126,7 +127,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item xs={12} md={6}>
      <FormControl fullWidth>
       <FieldLabelInfo title="Nilai Risiko" information="Nilai Risiko" />
       {mode === "add" ? (
@@ -152,7 +153,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item xs={12} md={6}>
      <FormControl fullWidth>
       <FieldLabelInfo title="Pengendalian" information="Pengendalian" />
       {mode === "add" || mode === "edit" ? (
@@ -165,7 +166,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item xs={12} md={6}>
      <FormControl fullWidth>
       <FieldLabelInfo title="Tindak Lanjut" information="Tindak Lanjut" />
       {mode === "add" || mode === "edit" ? (
@@ -174,6 +175,25 @@ export default function FormTable({ mode }: { mode?: string }) {
         <ToggleButton value="proses">Proses</ToggleButton>
         <ToggleButton value="sudah">Sudah</ToggleButton>
        </ToggleButtonGroup>
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item xs={12}>
+     <FormControl fullWidth>
+      <FieldLabelInfo title="Keterangan" information="Keterangan" />
+      {mode === "add" ? (
+       <TextareaComponent
+        label="Tuliskan keterangan"
+        placeholder="Tuliskan keterangan"
+       />
+      ) : mode === "edit" ? (
+       <TextareaComponent
+        label="Tuliskan keterangan"
+        placeholder="Tuliskan keterangan"
+        value="-"
+       />
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}
