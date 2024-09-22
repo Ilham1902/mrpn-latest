@@ -45,6 +45,25 @@ export const listFundSource = [
  { id: 6, source: "Swasta" },
 ];
 
+export const listPeraturan = [
+ { id: 1, source: "Peraturan Presiden Nomor 79 Tahun 2019" },
+ { id: 2, source: "Peraturan Presiden Nomor 106 Tahun 2022" },
+ { id: 3, source: "Peraturan Presiden Nomor 109 Tahun 2020" },
+ { id: 4, source: "Peraturan Presiden Nomor 22 Tahun 2024" },
+ { id: 5, source: "Peraturan Presiden Nomor 37 Tahun 2024" },
+ { id: 6, source: "Peraturan Presiden Nomor 60 Tahun 2024" },
+ { id: 7, source: "Peraturan Presiden Nomor 36 Tahun 2024" },
+ { id: 8, source: "Peraturan Presiden Nomor 30 Tahun 2024" },
+ { id: 9, source: "Peraturan Presiden Nomor 19 Tahun 2024" },
+ { id: 10, source: "Peraturan Presiden Nomor 49 Tahun 2024" },
+ { id: 11, source: "Peraturan Presiden Nomor 88 Tahun 2024" },
+ { id: 12, source: "Peraturan Presiden Nomor 29 Tahun 2024" },
+ { id: 13, source: "Peraturan Presiden Nomor 1 Tahun 2022" },
+ { id: 14, source: "Peraturan Presiden Nomor 2 Tahun 2022" },
+ { id: 15, source: "Peraturan Presiden Nomor 111 Tahun 2022" },
+ { id: 16, source: "Peraturan Presiden Nomor 4 Tahun 2022" },
+];
+
 export const listKldBadanUsaha = [
  { id: 1, source: "Kementerian ESDM" },
  { id: 2, source: "Kementerian BUMN" },

@@ -96,7 +96,7 @@ export default function TabCriteria({}) {
       icon={<IconFA size={16} name="minimize" />}
      />
      <Tab
-      label="Matriks Risiko Konservatif"
+      label="Matriks Analisis Risiko"
       {...a11yProps(3)}
       iconPosition="start"
       icon={<IconFA size={16} name="arrow-up-right-dots" />}
