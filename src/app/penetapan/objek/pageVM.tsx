@@ -16,7 +16,7 @@ import {OptionsRKP} from "@/app/misc/rkp/rkpServiceModel";
 const usePenetapanObjectVM = () => {
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { rkp } = useRKPContext(state => state)
+  const { rkp, year } = useRKPContext(state => state)
   const {
     getData
   } = useRkpVM()
@@ -46,12 +46,8 @@ const usePenetapanObjectVM = () => {
       id: state.id,
       code: state.code,
       topik: state.topik,
-      pn_ids: state.pn_ids.reduce<number[]>(
-        (a,b) => {
-          return [...a,b.id]
-        },
-        []
-      )
+      tahun: year,
+      values: state.values
     }
     const response = await doCreatePenetapanObject({
       body:req,
@@ -60,6 +56,9 @@ const usePenetapanObjectVM = () => {
     })
     if (response?.code == API_CODE.success){
       getPenetapanObject()
+      const initState = JSON.parse(JSON.stringify(initPenetapanObjectState))
+      setModalAdd(false)
+      setState(initState)
     }
   }
 

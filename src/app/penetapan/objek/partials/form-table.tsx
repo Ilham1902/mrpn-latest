@@ -70,13 +70,13 @@ export default function FormTable(
         <Typography gutterBottom>Prioritas Nasional</Typography>
         <AutocompleteSelectMultiple
           key={optionPN.length}
-          value={state.pn_ids}
+          value={state.values}
           options={optionPN}
           getOptionLabel={(opt) => `${opt.code} - ${opt.value}`}
           handleChange={(val:ProjectDefaultDto[]) => setState(prevState => {
             return {
               ...prevState,
-              pn_ids:val
+              values:val
             }
           })}
           placeHolder={"Pilih PN"}

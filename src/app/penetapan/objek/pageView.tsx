@@ -28,7 +28,7 @@ import ThemeToggleButton from "@/app/components/toggleButton/theme";
 import TabObject from "./partials/tab";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {useAuthContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {usePathname} from "next/navigation";
 import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 import {PenetapanObjectResDto} from "@/app/penetapan/objek/pageModel";
@@ -103,6 +103,8 @@ export default function PageTemaView({}) {
  } = useAuthContext(state => state)
  const pathname = usePathname()
 
+ const {year} = useRKPContext(state => state)
+
  const {
   topic,
   setTopic,
@@ -133,7 +135,7 @@ export default function PageTemaView({}) {
  return (
   <>
     <ContentPage
-     title="Objek MRPN & UPR Linsek"
+     title={`Objek MRPN & UPR Linsek Tahun ${year}`}
      noMinusMargin
      heightNoSet
      withCard={false}

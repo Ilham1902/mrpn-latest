@@ -6,7 +6,7 @@ export interface PenetapanObjectState {
   code:string
   topik:string
   tahun:number
-  pn_ids:ProjectDefaultDto[]
+  values:ProjectDefaultDto[]
 }
 
 export const initPenetapanObjectState:PenetapanObjectState = {
@@ -14,7 +14,7 @@ export const initPenetapanObjectState:PenetapanObjectState = {
   code: "",
   topik: "",
   tahun: 2025,
-  pn_ids: []
+  values: []
 }
 
 export interface PenetapanObjectResDto {
@@ -22,7 +22,7 @@ export interface PenetapanObjectResDto {
   code:string
   topik:string
   tahun:number
-  pn_ids:ProjectDefaultDto[]
+  values:ProjectDefaultDto[]
 }
 
 export const initPenetapanObjectResDto:PenetapanObjectResDto = {
@@ -30,14 +30,15 @@ export const initPenetapanObjectResDto:PenetapanObjectResDto = {
   code: "",
   topik: "",
   tahun: 2025,
-  pn_ids: []
+  values: []
 }
 
 export interface PenetapanObjectReqDto {
   id:number
   code:string
   topik:string
-  pn_ids:number[]
+  tahun:number
+  values:ProjectDefaultDto[]
 }
 
 export type GetPenetapanObjectIdServiceModel = BaseAPIServiceParam & {
