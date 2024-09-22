@@ -99,8 +99,6 @@ const useCardCriticalVM = () => {
         tasks.push(t)
       })
 
-      console.log(tasks)
-
       setGanChart(tasks)
 
     }

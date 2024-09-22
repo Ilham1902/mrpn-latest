@@ -6,9 +6,9 @@ import {
   Card,
   CardContent, Chip,
   DialogActions,
-  Grid, Icon,
+  Grid, Icon, IconButton,
   Paper,
-  Stack, TextField,
+  Stack,
   Typography,
 } from "@mui/material";
 import EmptyState from "@/app/components/empty";
@@ -20,12 +20,8 @@ import DialogComponent from "@/app/components/dialog";
 import useCardSWOTVM from "./cardSwotVM";
 import {ExsumSWOTRequestDto, ExsumSWOTValuesDto, LISTSWOT} from "./cardSwotModel";
 import {TextareaStyled} from "@/app/components/textarea";
-import {SxAutocomplete, SxAutocompleteTextField} from "@/components/dropdown/dropdownRkp";
-import {paramVariantDefault} from "@/utils/constant";
-import {width} from "@mui/system";
 import AddButton from "@/components/buttonAdd";
 import {IconFA} from "@/components/icons/icon-fa";
-import {white} from "next/dist/lib/picocolors";
 
 export default function CardSwot({project}: { project: string }) {
   const {data, modal, setModal, updateData, deleteData, request, setRequest} = useCardSWOTVM()
@@ -292,69 +288,54 @@ const GetGrid = (
             {title}
           </Typography>
           <AddButton
-            filled
+            title={`Tambah`}
             small
-            title="Tambah"
+            noMargin
             onclick={() => addNewRow(title.toUpperCase())}
           />
         </Stack>
+        <Grid container spacing={1}>
+          {request.values.map((row, index) =>
+            row.type == title.toUpperCase() &&
+            <>
+                <Grid item xs={12} md={6}>
+                    <TextareaStyled
+                        key={title}
+                        aria-label={`Tambah Kata Kunci ${title}`}
+                        placeholder={`Tambah Kata Kunci ${title}`}
+                        value={row.value}
+                        onChange={(e) => {
+                          handleChangeKeyword(e.target.value, index)
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12} md={5}>
+                    <TextareaStyled
+                        key={title}
+                        aria-label={`Deskripsi ${title}`}
+                        placeholder={`Deskripsi ${title}`}
+                        value={row.desc}
+                        onChange={(e) => {
+                          handleChangeDesc(e.target.value, index);
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12} md={1}>
+                    <Stack justifyContent="center" alignItems="center" height="40px">
+                        <IconButton
+                            aria-label="delete"
+                            color="error"
+                            onClick={() => handleDelete(index)}
+                            sx={{p: 0}}
+                        >
+                            <IconFA size={18} name="trash-can"/>
+                        </IconButton>
+                    </Stack>
+                </Grid>
+            </>
+          )}
+        </Grid>
 
-        {request.values.map((row, index) =>
-          row.type == title.toUpperCase() &&
-          <Paper
-            elevation={0}
-            variant="outlined"
-            sx={{minWidth: "0 !important", p: 2, height: "100%"}}
-          >
-            <Grid container spacing={2}>
-              <Grid item lg={12}>
-                <Stack direction={"row"} justifyContent={"right"}>
-                  <Button color={"error"} variant={"contained"} onClick={() => handleDelete(index)}>
-                    <IconFA size={14} name="trash-alt" />
-                  </Button>
-                </Stack>
-              </Grid>
-              <Grid item lg={6}>
-                <Typography
-                  gutterBottom
-                  component="div"
-                  lineHeight={1.3}
-                >
-                  Kata Kunci
-                </Typography>
-                <TextareaStyled
-                  key={title}
-                  aria-label={`Tambah Kata Kunci ${title}`}
-                  placeholder={`Tambah Kata Kunci ${title}`}
-                  value={row.value}
-                  minRows={3}
-                  onChange={(e) => {
-                    handleChangeKeyword(e.target.value, index)
-                  }}
-                />
-              </Grid>
-              <Grid item lg={6}>
-                <Typography
-                  gutterBottom
-                  component="div"
-                  lineHeight={1.3}
-                >
-                  Deskripsi
-                </Typography>
-                <TextareaStyled
-                  key={title}
-                  aria-label={`Deskripsi ${title}`}
-                  placeholder={`Deskripsi ${title}`}
-                  value={row.desc}
-                  minRows={3}
-                  onChange={(e) => {
-                    handleChangeDesc(e.target.value, index);
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-        )}
       </Stack>
     </Paper>
   </Grid>;
