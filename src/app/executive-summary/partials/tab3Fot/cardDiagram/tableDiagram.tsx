@@ -86,7 +86,7 @@ const TextVertical = ({ title }: { title: string }) => {
  );
 };
 
-export const StrategyTowsContent = ({data} : {data:ExsumTWOSDto}) => {
+export const StrategyTowsContent = ({data} : {data:ExsumTWOSDto[]}) => {
  return (
   <Box bgcolor={alpha(blue[300], 0.3)} py={2}>
    <Stack
@@ -107,23 +107,33 @@ export const StrategyTowsContent = ({data} : {data:ExsumTWOSDto}) => {
       Strategi SO
      </Typography>
      <Typography fontSize={14} align="center">
-       {data.so}
+       <ul>
+         {data.map(x =>
+           x.type == "SO" && <li>{x.value}</li>
+         )}
+       </ul>
      </Typography>
     </Box>
     <Box>
      <Typography fontSize={14} fontWeight={600} align="center">
       Strategi WO
      </Typography>
-     <Typography fontSize={14} align="center">
-       {data.wo}
-     </Typography>
+      <Typography fontSize={14} align="center">
+        <ul>
+          {data.map(x =>
+            x.type == "WO" && <li>{x.value}</li>
+          )}
+        </ul>
+      </Typography>
     </Box>
-    <Box>
-     <Typography fontSize={14} fontWeight={600} align="center">
-      Strategi ST
+     <Box>
+       <Typography fontSize={14} fontWeight={600} align="center">
+         Strategi ST
      </Typography>
      <Typography fontSize={14} align="center">
-       {data.st}
+       {data.map(x =>
+         x.type == "ST" && <li>{x.value}</li>
+       )}
      </Typography>
     </Box>
     <Box>
@@ -131,7 +141,9 @@ export const StrategyTowsContent = ({data} : {data:ExsumTWOSDto}) => {
       Strategi WT
      </Typography>
      <Typography fontSize={14} align="center">
-       {data.wt}
+       {data.map(x =>
+         x.type == "WT" && <li>{x.value}</li>
+       )}
      </Typography>
     </Box>
    </Stack>
@@ -147,7 +159,7 @@ export default function TableDiagram(
     support
   }: {
     data:ExsumDiagramState
-    dataTows: ExsumTWOSDto,
+    dataTows: ExsumTWOSDto[],
     rkpState:ProjectDefaultDto|undefined
     support:ExsumSupportProjectRes|undefined
   }

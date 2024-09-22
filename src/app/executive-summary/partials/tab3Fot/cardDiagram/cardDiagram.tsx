@@ -72,7 +72,7 @@ export default function CardDiagram({project}: { project: string }) {
       >
         <FormDiagram
           request={request}
-          dataTows={useCardTOWS.data?.tows}
+          dataTows={useCardTOWS.data.tows}
           rkpState={rkpState}
           support={useCardSupport.data}
           listProvinsi={listProvinsi}

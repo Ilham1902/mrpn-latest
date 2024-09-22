@@ -135,11 +135,9 @@ const useCardCriticalVM = () => {
     const data = useCardTows.data
     if (data != undefined && data.tows != undefined) {
       let options: string[] = []
-      options.push(data.tows.so)
-      options.push(data.tows.wo)
-      options.push(data.tows.st)
-      options.push(data.tows.wt)
-      console.log(options)
+      data.tows.map(t => {
+        options.push(t.value)
+      })
       setOptionStrategy(options)
     }
   }, [useCardTows.data]);

@@ -37,7 +37,7 @@ export default function FormDiagram(
     handleChangeStakeholder:any
     listSof:MiscMasterListSumberPendanaanRes[]
     handleChangeListSof:any
-    dataTows: ExsumTWOSDto | undefined,
+    dataTows: ExsumTWOSDto[],
     rkpState: ProjectDefaultDto | undefined
     support: ExsumSupportProjectRes | undefined
   }
