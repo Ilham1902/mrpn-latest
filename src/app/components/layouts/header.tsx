@@ -13,7 +13,7 @@ import {
  Stack,
  Typography,
 } from "@mui/material";
-import { orange, red } from "@mui/material/colors";
+import {blue, orange, red} from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { IconKeluar } from "../icons";
 import { IconFA } from "../icons/icon-fa";
@@ -23,7 +23,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import useAuthorizationVM from "@/app/authorizationVM";
-import { useAuthContext } from "@/lib/core/hooks/useHooks";
+import {useAuthContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -38,7 +38,23 @@ const textStyles = ["abbreviation", "full-form"];
 
 export default function Header({}) {
  const { user } = useAuthContext((state) => state);
+ const { rpjmn, setYear, year } = useRKPContext(state => state);
  const { doLogout } = useAuthorizationVM();
+
+ const optionsYear = () => {
+  if (rpjmn !== undefined){
+   let opt:number[] = []
+   for (let i = rpjmn.start; i <= rpjmn.end; i++) {
+     opt.push(i)
+   }
+   return opt
+  }
+  return []
+ }
+
+ const setProviderYear = (year:number) => {
+  setYear(year)
+ }
 
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const [openDrawerMobile, setOpenDrawerMobile] = React.useState(false);
@@ -343,24 +359,19 @@ export default function Header({}) {
       </ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
-     <MenuItem>
-      <ListItemText>Tahun 2024</ListItemText>
-     </MenuItem>
-     <MenuItem>
-      <ListItemText>Tahun 2025</ListItemText>
-     </MenuItem>
-     <MenuItem>
-      <ListItemText>Tahun 2026</ListItemText>
-     </MenuItem>
-     <MenuItem>
-      <ListItemText>Tahun 2027</ListItemText>
-     </MenuItem>
-     <MenuItem>
-      <ListItemText>Tahun 2028</ListItemText>
-     </MenuItem>
-     <MenuItem>
-      <ListItemText>Tahun 2029</ListItemText>
-     </MenuItem>
+
+     {optionsYear().map((y, index) =>
+      <MenuItem
+        key={index}
+        onClick={() => setProviderYear(y)}
+        sx={{
+         bgcolor: year == y ? blue[100] : null,
+        }}
+      >
+       <ListItemText>Tahun {y}</ListItemText>
+      </MenuItem>
+     )}
+
      <Divider sx={{ m: "0 !important" }} />
      <MenuItem
       sx={{

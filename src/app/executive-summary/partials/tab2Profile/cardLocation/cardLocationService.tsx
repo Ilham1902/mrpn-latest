@@ -20,3 +20,11 @@ export async function doCreate(param: UpdateLocationByExsumIdServiceModel) {
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
+
+export async function doUpdate(param: UpdateLocationByExsumIdServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "exsum/lokasi/update",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
   ExsumLocationDto, ExsumLocationUpdateDto, initExsumLocationUpdateDto
 } from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationModel";
-import { doCreate, doGet } from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationService";
+import {doCreate, doGet, doUpdate} from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationService";
 import { API_CODE } from "@/lib/core/api/apiModel";
 import { doGetMasterListProvinsi } from "@/app/misc/master/masterService";
 import { MiscMasterListProvinsiRes } from "@/app/misc/master/masterServiceModel";
@@ -52,6 +52,7 @@ const useCardLocationVM = () => {
       let result: ExsumLocationDto[] = response.result;
       if (result.length > 0) {
         setData(result)
+        setRequest(result[0])
       } else {
         setData([])
         setRequest({ ...initExsumLocationUpdateDto })
@@ -66,8 +67,7 @@ const useCardLocationVM = () => {
     }
   }, [exsum]);
 
-  async function updateData() {
-    const req = {...request}
+  async function updateData(req:ExsumLocationUpdateDto) {
     req.exsum_id = exsum.id
     const params = {
       body: req,
@@ -76,8 +76,11 @@ const useCardLocationVM = () => {
     }
 
     if (request.id !== 0) {
-      // TODO : implement this
-      console.log("not implement")
+      const response = await doUpdate(params)
+      if (response?.code == API_CODE.success) {
+        getData();
+        setModal(false)
+      }
     } else {
       const response = await doCreate(params);
       if (response?.code == API_CODE.success) {

@@ -11,6 +11,7 @@ import {
 import {doCreatePenetapanObject, doGetPenetapanObject} from "@/app/penetapan/objek/pageService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import useRkpVM from "@/components/dropdown/rkpVM";
+import {OptionsRKP} from "@/app/misc/rkp/rkpServiceModel";
 
 const usePenetapanObjectVM = () => {
   const loadingContext = useLoading();
@@ -63,19 +64,49 @@ const usePenetapanObjectVM = () => {
   }
 
   const generateOptionPN = () => {
-    const optPN:ProjectDefaultDto[] = rkp.reduce<ProjectDefaultDto[]>(
-      (a,b) => {
-        const dto:ProjectDefaultDto = {
-          id: b.id,
-          level: b.level,
-          code: b.code,
-          value: b.value
-        }
-        return [...a, dto]
-      },
-      []
-    );
-    setOptionPN(optPN)
+
+    let opt: ProjectDefaultDto[] = []
+    rkp.map(pn => {
+      opt.push({
+        id: pn.id,
+        level: "PN",
+        code: pn.code,
+        value: pn.value
+      })
+      pn.pp.map(pp => {
+        opt.push({
+          id: pp.id,
+          level: "PP",
+          code: pp.code,
+          value: pp.value
+        })
+
+        pp.kp.map(kp => {
+          opt.push({
+            id: kp.id,
+            level: "KP",
+            code: kp.code,
+            value: kp.value
+          })
+        })
+
+      })
+    })
+
+    // const optPN:ProjectDefaultDto[] = rkp.reduce<ProjectDefaultDto[]>(
+    //   (a,b) => {
+    //     const dto:ProjectDefaultDto = {
+    //       id: b.id,
+    //       level: b.level,
+    //       code: b.code,
+    //       value: b.value
+    //     }
+    //     return [...a, dto]
+    //   },
+    //   []
+    // );
+
+    setOptionPN(opt)
   }
 
   useEffect(() => {

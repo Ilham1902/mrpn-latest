@@ -1,20 +1,28 @@
 import React from "react";
 import {
- Box,
- Button,
- Chip,
- DialogActions,
- Stack,
- Typography,
+  Box,
+  Button,
+  Chip,
+  DialogActions, FormControl, Grid,
+  Stack,
+  Typography,
 } from "@mui/material";
 import EmptyState from "@/components/empty";
 import { IconEmptyData } from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import DialogComponent from "@/components/dialog";
 import { grey } from "@mui/material/colors";
-import FormLocation from "./form-location";
 import useCardLocationVM from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationVM";
 import {margin} from "@mui/system";
+
+import type ReactQuill from 'react-quill'
+import dynamic from "next/dynamic";
+import FieldLabelInfo from "@/components/fieldLabelInfo";
+import {ExsumLocationUpdateDto} from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationModel";
+
+interface IWrappedComponent extends React.ComponentProps<typeof ReactQuill> {
+  forwardedRef: React.LegacyRef<ReactQuill>
+}
 
 export default function CardLocation({ project }: { project: string }) {
 
@@ -29,6 +37,32 @@ export default function CardLocation({ project }: { project: string }) {
     columns,
     setColumns
   } = useCardLocationVM();
+
+  const ReactQuill = dynamic(async () => {
+      const { default: RQ } = await import('react-quill')
+
+      function QuillJS({ forwardedRef, ...props }: IWrappedComponent) {
+        return <RQ ref={forwardedRef} {...props} />
+      }
+
+      return QuillJS
+    },
+    {
+      ssr: false,
+    },);
+  const quillRef = React.useRef<ReactQuill>(null)
+
+  const handleCreateOrUpdateData = async () => {
+    const text = quillRef.current?.value
+    if (text) {
+      const req = {
+        ...request,
+        keterangan: text.toString()
+      }
+      updateData(req)
+    }
+  };
+
 
  return (
   <CardItem title="Lokasi Proyek" setting settingEditOnclick={() => setModal(true)}>
@@ -65,7 +99,7 @@ export default function CardLocation({ project }: { project: string }) {
         </Typography>
        </Typography>
        <Typography variant="body1" fontWeight={600}>
-         {data[0].keterangan}
+        <div dangerouslySetInnerHTML={{ __html: data[0].keterangan }}></div>
        </Typography>
       </Stack>
      </Stack>
@@ -80,19 +114,25 @@ export default function CardLocation({ project }: { project: string }) {
       <Button variant="outlined" onClick={() => setModal(false)}>
        Batal
       </Button>
-      <Button variant="contained" type="submit" onClick={() => updateData()}>
+      <Button variant="contained" type="submit" onClick={() => handleCreateOrUpdateData()}>
        Simpan
       </Button>
      </DialogActions>
     }
    >
-    <FormLocation mode="add"
-      options={locationExsum}
-       request={request}
-        setRequest={setRequest}
-        columns={columns}
-        setColumns={setColumns}
-    />
+     <Grid container spacing={2}>
+       <Grid item xs={12}>
+         <FormControl fullWidth>
+           <FieldLabelInfo title="Keterangan" information="Keterangan" />
+             <ReactQuill
+               key={request.keterangan}
+               theme="snow"
+               defaultValue={request.keterangan}
+               forwardedRef={quillRef}
+             />
+         </FormControl>
+       </Grid>
+     </Grid>
    </DialogComponent>
   </CardItem>
  );

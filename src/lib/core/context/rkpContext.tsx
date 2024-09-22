@@ -32,6 +32,7 @@ export type RKPDto = PNDto[]
 
 export type RkpState = {
     rpjmn: MiscMasterRPJMNRes | undefined
+    year: number;
     rkp: RKPDto;
     rkpOption: ProjectDefaultDto[]
     rkpState: ProjectDefaultDto | undefined;
@@ -39,6 +40,7 @@ export type RkpState = {
 
 export type RkpActions = {
     setRpjmn: (value: MiscMasterRPJMNRes) => void;
+    setYear: (value:number) => void;
     setRkp: (value: RKPDto) => void;
     setRkpOption: (value: ProjectDefaultDto[]) => void;
     setRkpState: (value: ProjectDefaultDto|undefined) => void;
@@ -51,6 +53,7 @@ export const defaultInitRkpState: RkpState = {
     rkp: [],
     rkpOption: [],
     rkpState: undefined,
+    year: 0
 };
 
 export const createRkpStore = (
@@ -59,6 +62,7 @@ export const createRkpStore = (
     return createStore<RkpStore>()((set) => ({
         ...initState,
         setRpjmn: (params: MiscMasterRPJMNRes) => set((state) => state = {...state, rpjmn:params}),
+        setYear: (params: number) => set((state) => state = {...state, year:params}),
         setRkp: (params: RKPDto) => set((state) => state = {...state, rkp:params}),
         setRkpOption: (params: ProjectDefaultDto[]) => set((state) => state = {...state, rkpOption:params}),
         setRkpState: (params: ProjectDefaultDto|undefined) => set((state) => state = {...state, rkpState:params})

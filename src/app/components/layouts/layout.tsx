@@ -22,6 +22,10 @@ import {loadCSS} from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import {ILayout} from "../iLayout";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
+import {doGetMasterListRpjmn} from "@/app/misc/master/masterService";
+import {API_CODE} from "@/lib/core/api/apiModel";
+import {MiscMasterRPJMNRes} from "@/app/misc/master/masterServiceModel";
 
 const Aside = dynamic(() => import("./aside"), {ssr: false});
 
@@ -32,6 +36,26 @@ export default function DashboardLayout(
     darkTheme?: boolean;
   }
 ) {
+
+  const {rpjmn, setRpjmn, year, setYear} = useRKPContext(state => state)
+
+  async function getRpjmn(){
+    const response = await doGetMasterListRpjmn({
+      body: {},
+    })
+    if (response?.code == API_CODE.success){
+      const result:MiscMasterRPJMNRes = response.result
+      setRpjmn(result)
+    }
+  }
+
+  useEffect(() => {
+    if (rpjmn == undefined){
+      getRpjmn()
+    } else {
+      if (year == 0) setYear(rpjmn.start)
+    }
+  }, [rpjmn]);
 
   // const [check, setCheck] = useState<number>(0)
   //

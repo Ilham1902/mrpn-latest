@@ -13,7 +13,7 @@ export default function CardIndicator({ project }: { project: string }) {
   } = useCardSupportVM();
 
  return (
-  <CardItem title={`Indikator Kinerja Utama ${project === "5" ? "PN" : "PP"}`}>
+  <CardItem title={`Indikator Kinerja Utama ${exsum.level}`}>
    {data === undefined ? (
     <EmptyState
      dense
