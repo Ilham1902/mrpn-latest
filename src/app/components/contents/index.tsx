@@ -15,7 +15,6 @@ import theme from "@/theme";
 import SelectCustomTheme from "../select";
 import DropdownRkp from "@/components/dropdown/dropdownRkp";
 import { grey } from "@mui/material/colors";
-import { usePathname } from "next/navigation";
 import { listSelectKp } from "@/app/executive-summary/data";
 import { listTriwulan } from "@/app/utils/data";
 import DateRangePicker from "@/components/dateRange";
@@ -550,9 +549,7 @@ export default function ContentPage({
       ? "auto"
       : darkTheme
       ? "calc(100vh - 180px)"
-      : // : flagPathnameTheme
-        // ? "calc(100vh - 328px)"
-        "calc(100vh - 240px)"
+      : "calc(100vh - 240px)"
     }
     overflow={overflowHidden ? "hidden" : "auto"}
     margin={noMinusMargin ? 0 : -1}

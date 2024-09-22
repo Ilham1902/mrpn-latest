@@ -1,35 +1,26 @@
 "use client";
 
 import ContentPage from "@/app/components/contents";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
-import {
- Box,
- Grid,
- IconButton,
- SelectChangeEvent,
- Stack,
- Typography,
-} from "@mui/material";
+import { Box, Grid, SelectChangeEvent, Stack, Typography } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
-import ChartRisiko from "./partials/chart-risiko";
+import { usePermissionChecker } from "@/lib/core/helpers/authHelpers";
+import { blue } from "@mui/material/colors";
+import { IconFA } from "../components/icons/icon-fa";
+import CardGroup from "./partials/card-group";
 import ChartEntitas from "./partials/chart-entitas";
 import ChartPeringkat from "./partials/chart-peringkat";
+import ChartRisiko from "./partials/chart-risiko";
 import ChartStatus from "./partials/chart-status";
-import CardGroup from "./partials/card-group";
+import ChartTarget from "./partials/chart-target";
+import DropdownTopik from "./partials/dropdownTopik";
 import TableMatriks from "./partials/table-matriks";
 import TablePeristiwa from "./partials/table-peristiwa";
-import ChartTarget from "./partials/chart-target";
-import { IconFA } from "../components/icons/icon-fa";
-import { blue } from "@mui/material/colors";
-import DropdownTopik from "./partials/dropdownTopik";
-import {useRKPContext} from "@/lib/core/hooks/useHooks";
-import {usePermissionChecker} from "@/lib/core/helpers/authHelpers";
 
 export default function PageDashboard() {
-
-  usePermissionChecker()
+ usePermissionChecker();
 
  const [project, setProject] = React.useState("");
  const [value, setValue] = React.useState(0);
@@ -85,7 +76,7 @@ export default function PageDashboard() {
          px={3}
          py={1}
          onClick={handleClick}
-         //  display={flaqShow ? "block" : "none"}
+         sx={{ cursor: "pointer" }}
         >
          <Stack direction="row" alignItems="center" gap={1}>
           <Typography color="white" sx={{ userSelect: "none" }}>
@@ -94,14 +85,14 @@ export default function PageDashboard() {
             {value === 1
              ? "Ketahanan Pangan"
              : value === 2
-             ? "Jembatan Strategis"
+             ? "Stunting"
              : value === 3
-             ? "Internalisasi Pancasila"
+             ? "Kemiskinan"
              : value === 4
-             ? "Ideologi Demokrasi"
+             ? "Persampahan"
              : value === 5
-             ? "Ideologi Pancasila"
-             : "Layanan Komunikasi"}
+             ? "Pariwisata"
+             : "Transisi Energi"}
            </Typography>
           </Typography>
           <IconFA name="chevron-down" size={14} color="white" />

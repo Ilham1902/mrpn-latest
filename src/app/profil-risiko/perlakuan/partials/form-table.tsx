@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
  Autocomplete,
  Box,
- Button,
  Checkbox,
  Chip,
  Divider,
  FormControl,
  Grid,
- Icon,
+ InputAdornment,
  MenuItem,
+ OutlinedInput,
  Paper,
  SelectChangeEvent,
  Stack,
@@ -33,12 +33,12 @@ import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
-} from "@/components/dropdown/dropdownRkp";
-import TextareaComponent from "@/app/components/textarea";
+} from "@/app/components/dropdownKp";
 import DateRangePicker from "@/app/components/dateRange";
 import theme from "@/theme";
 import { paramVariantDefault } from "@/app/utils/constant";
 import { listRiskCategory } from "@/app/utils/data";
+import Matriks from "../../analisis-evaluasi/partials/matriks";
 
 type Option = (typeof listPeristiwaRisiko)[number];
 type OptionRspn = (typeof listPenanggungjawab)[number];
@@ -183,17 +183,88 @@ const TablePerlakuanMultiCheck = () => {
 };
 
 export default function FormTable({ mode }: { mode?: string }) {
- const [project, setProject] = React.useState("");
- const [columns, setColumns] = React.useState<Option[]>([]);
- const [columnsRspn, setColumnsRspn] = React.useState<OptionRspn[]>([]);
- const [columnsKeputusan, setColumnsKeputusan] = React.useState<OptionRspn[]>(
-  []
- );
- const [selectAll, setSelectAll] = React.useState<boolean>(false);
+ const [project, setProject] = useState("");
+ const [columnsRspn, setColumnsRspn] = useState<OptionRspn[]>([]);
+ const [selectAll, setSelectAll] = useState<boolean>(false);
 
+ const [clickedCell, setClickedCell] = useState({
+  rowIndex: null,
+  colIndex: null,
+  value: null,
+ });
+
+ const handleClick = (rowIndex: any, colIndex: any, value: any) => {
+  setClickedCell({ rowIndex, colIndex, value });
+ };
  const handleChangeProject = (event: SelectChangeEvent) => {
   setProject(event.target.value);
  };
+
+ const conditionValueLK =
+  clickedCell.value === 7 ||
+  clickedCell.value === 12 ||
+  clickedCell.value === 17 ||
+  clickedCell.value === 22 ||
+  clickedCell.value === 25
+   ? 5
+   : clickedCell.value === 4 ||
+     clickedCell.value === 9 ||
+     clickedCell.value === 14 ||
+     clickedCell.value === 19 ||
+     clickedCell.value === 24
+   ? 4
+   : clickedCell.value === 3 ||
+     clickedCell.value === 8 ||
+     clickedCell.value === 13 ||
+     clickedCell.value === 18 ||
+     clickedCell.value === 23
+   ? 3
+   : clickedCell.value === 2 ||
+     clickedCell.value === 6 ||
+     clickedCell.value === 11 ||
+     clickedCell.value === 16 ||
+     clickedCell.value === 21
+   ? 2
+   : clickedCell.value === 1 ||
+     clickedCell.value === 5 ||
+     clickedCell.value === 10 ||
+     clickedCell.value === 15 ||
+     clickedCell.value === 20
+   ? 1
+   : "-";
+
+ const conditionValueLD =
+  clickedCell.value === 7 ||
+  clickedCell.value === 4 ||
+  clickedCell.value === 3 ||
+  clickedCell.value === 2 ||
+  clickedCell.value === 1
+   ? 1
+   : clickedCell.value === 12 ||
+     clickedCell.value === 9 ||
+     clickedCell.value === 8 ||
+     clickedCell.value === 6 ||
+     clickedCell.value === 5
+   ? 2
+   : clickedCell.value === 17 ||
+     clickedCell.value === 14 ||
+     clickedCell.value === 13 ||
+     clickedCell.value === 11 ||
+     clickedCell.value === 10
+   ? 3
+   : clickedCell.value === 22 ||
+     clickedCell.value === 19 ||
+     clickedCell.value === 18 ||
+     clickedCell.value === 16 ||
+     clickedCell.value === 15
+   ? 4
+   : clickedCell.value === 25 ||
+     clickedCell.value === 24 ||
+     clickedCell.value === 23 ||
+     clickedCell.value === 21 ||
+     clickedCell.value === 20
+   ? 5
+   : "-";
 
  return (
   <Grid container spacing={2}>
@@ -342,21 +413,9 @@ export default function FormTable({ mode }: { mode?: string }) {
      <FieldLabelInfo title="Keputusan" information="Keputusan" />
      {mode === "add" || mode === "edit" ? (
       <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       freeSolo={false}
        size="small"
-       value={columnsKeputusan}
        options={listKeputusan}
        getOptionLabel={(option) => option.label}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listKeputusan.length)
-         setSelectAll(true);
-        setColumnsKeputusan(value);
-       }}
        renderInput={(params) => (
         <TextField
          {...params}
@@ -388,7 +447,7 @@ export default function FormTable({ mode }: { mode?: string }) {
      <TablePerlakuanMultiCheck />
     </FormControl>
    </Grid>
-   <Grid item xs={12} sm={6}>
+   <Grid item xs={12}>
     <FormControl fullWidth>
      <FieldLabelInfo title="Waktu Rencana" information="Waktu Rencana" />
      {mode === "add" || mode === "edit" ? (
@@ -448,10 +507,43 @@ export default function FormTable({ mode }: { mode?: string }) {
      )}
     </FormControl>
    </Grid>
+   <Grid item xs={12} sm={6}>
+    <FormControl fullWidth>
+     <FieldLabelInfo
+      title="Target Capaian Progress Project/RO"
+      information="Target Capaian Progress Project/RO"
+     />
+     {mode === "add" ? (
+      <OutlinedInput
+       size="small"
+       fullWidth
+       placeholder="Target Capaian Progress Project/RO"
+       endAdornment={<InputAdornment position="end">%</InputAdornment>}
+      />
+     ) : mode === "edit" ? (
+      <OutlinedInput
+       size="small"
+       fullWidth
+       value={23}
+       endAdornment={<InputAdornment position="end">%</InputAdornment>}
+      />
+     ) : (
+      <Typography fontWeight={600}>-</Typography>
+     )}
+    </FormControl>
+   </Grid>
    <Grid item xs={12}>
     <Divider>
      <Chip label="Risiko Residual Harapan" size="small" />
     </Divider>
+   </Grid>
+   <Grid item xs={12}>
+    <FormControl>
+     <Typography fontStyle="italic" variant="overline" color={grey[600]}>
+      Klik kotak berwarna untuk menampilkan nilai LK & LD
+     </Typography>
+    </FormControl>
+    <Matriks levelId={5} handleClick={handleClick} clickedCell={clickedCell} />
    </Grid>
    <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
@@ -459,27 +551,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       title="Level Kemungkinan (LK)"
       information="Level Kemungkinan (LK)"
      />
-     {mode === "add" || mode === "edit" ? (
-      <SelectCustomTheme
-       small
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih level kemungkinan (LK)
-        </Typography>
-       </MenuItem>
-       {[...new Array(5)].map((_, i) => (
-        <MenuItem key={i} value={i} defaultChecked>
-         {i + 1}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>{conditionValueLK}</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={6}>
@@ -488,27 +560,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       title="Level Dampak (LD)"
       information="Level Dampak (LD)"
      />
-     {mode === "add" || mode === "edit" ? (
-      <SelectCustomTheme
-       small
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih level dampak (LD)
-        </Typography>
-       </MenuItem>
-       {[...new Array(5)].map((_, i) => (
-        <MenuItem key={i} value={i} defaultChecked>
-         {i + 1}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>{conditionValueLD}</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={6}>
