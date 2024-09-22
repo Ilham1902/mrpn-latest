@@ -11,34 +11,53 @@ export interface ExsumTWOSOptions {
   wt:ExsumKeyword[]
 }
 export interface ExsumTWOSDto {
-  id:number
-  exsum_id:number
-  so:string
-  so_keyword:ExsumKeyword[]
-  wo:string
-  wo_keyword:ExsumKeyword[]
-  st:string
-  st_keyword:ExsumKeyword[]
-  wt:string
-  wt_keyword:ExsumKeyword[]
-}
-export interface ExsumTWOSResDto {
-  tows?:ExsumTWOSDto,
-  options:ExsumTWOSOptions
+  type:string
+  value:string
+  keywords:ExsumKeyword[]
 }
 
-export type ExsumTWOSReqDto = ExsumTWOSDto
+export interface ExsumTWOSResDto {
+  tows:ExsumTWOSDto[],
+  options:ExsumTWOSOptions
+}
+export const initExsumTWOSResDto:ExsumTWOSResDto = {
+  tows: [],
+  options: {
+    so:[],
+    wo:[],
+    st:[],
+    wt:[]
+  }
+}
+
+export interface ExsumTWOSReqDto {
+  exsum_id:number
+  values:ExsumTWOSDto[]
+}
 export const initExsumTWOSRequestDto:ExsumTWOSReqDto = {
-  id: 0,
   exsum_id: 0,
-  so:"",
-  so_keyword: [],
-  wo:"",
-  wo_keyword: [],
-  st:"",
-  st_keyword: [],
-  wt:"",
-  wt_keyword: []
+  values:[
+    {
+      type:"SO",
+      value:"",
+      keywords:[]
+    },
+    {
+      type:"WO",
+      value:"",
+      keywords:[]
+    },
+    {
+      type:"ST",
+      value:"",
+      keywords:[]
+    },
+    {
+      type:"WT",
+      value:"",
+      keywords:[]
+    }
+  ]
 }
 
 export interface GetByExsumId {

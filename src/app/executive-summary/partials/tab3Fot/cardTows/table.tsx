@@ -16,12 +16,12 @@ import {
  alpha,
 } from "@mui/material";
 import theme from "@/theme";
-import { IconFA } from "@/app/components/icons/icon-fa";
+import { IconFA } from "@/components/icons/icon-fa";
 import { grey } from "@mui/material/colors";
-import EmptyState from "@/app/components/empty";
-import { IconEmptyData } from "@/app/components/icons";
-import DialogComponent from "@/app/components/dialog";
-import FormIndication from "./form";
+import EmptyState from "@/components/empty";
+import { IconEmptyData } from "@/components/icons";
+import DialogComponent from "@/components/dialog";
+import FormIndication from "../form";
 import { dataTema } from "@/app/executive-summary/dataTema";
 import {ExsumTWOSDto, ExsumTWOSResDto} from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsModel";
 
@@ -91,17 +91,25 @@ export default function TableTows(
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi SO" />
         <Typography variant="body1">
-         {data.tows?.so ?? "-"}
+         <ul>
+          {data.tows.map(x =>
+            x.type == "SO" && <li>{x.value}</li>
+          )}
+         </ul>
         </Typography>
        </TableCell>
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi WO" />
         <Typography variant="body1">
-         {data.tows?.wo ?? "-"}
+         <ul>
+          {data.tows.map(x =>
+            x.type == "WO" && <li>{x.value}</li>
+          )}
+         </ul>
         </Typography>
        </TableCell>
       </TableRow>
-      <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+      <TableRow sx={{"&:last-child td, &:last-child th": { border: 0 } }}>
        <TableCell
          sx={{
           verticalAlign: "top",
@@ -118,13 +126,21 @@ export default function TableTows(
        <TableCell sx={{ verticalAlign: "top" }}>
         <TitleTableContent title="Strategi ST" />
         <Typography variant="body1">
-         {data.tows?.st ?? "-"}
+         <ul>
+          {data.tows.map(x =>
+            x.type == "WT" && <li>{x.value}</li>
+          )}
+         </ul>
         </Typography>
        </TableCell>
-       <TableCell sx={{ verticalAlign: "top" }}>
+       <TableCell sx={{verticalAlign: "top"}}>
         <TitleTableContent title="Strategi WT" />
         <Typography variant="body1">
-         {data.tows?.wt ?? "-"}
+         <ul>
+          {data.tows.map(x =>
+            x.type == "ST" && <li>{x.value}</li>
+          )}
+         </ul>
         </Typography>
        </TableCell>
       </TableRow>

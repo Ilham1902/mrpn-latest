@@ -2,7 +2,7 @@ import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hoo
 import React, {useEffect, useState} from "react";
 import {
   ExsumTWOSResDto, ExsumTWOSOptions, ExsumTWOSReqDto,
-  initExsumTWOSRequestDto, UpdateTOWSByExsumIdServiceModel,
+  initExsumTWOSRequestDto, UpdateTOWSByExsumIdServiceModel, initExsumTWOSResDto,
 } from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsModel";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {doCreate, doGet, doUpdate} from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsService";
@@ -12,7 +12,7 @@ const useCardTOWSVM = () => {
   const errorModalContext = useGlobalModalContext();
   const { exsum } = useExsumContext()
 
-  const [ data, setData ] = useState<ExsumTWOSResDto>()
+  const [ data, setData ] = useState<ExsumTWOSResDto>(initExsumTWOSResDto)
   const [ request, setRequest ] = useState<ExsumTWOSReqDto>(initExsumTWOSRequestDto)
   const [ options, setOptions ] = useState<ExsumTWOSOptions>()
   const [ modalOpen, setModalOpen] = React.useState(false);
@@ -28,10 +28,16 @@ const useCardTOWSVM = () => {
     if (response?.code == API_CODE.success) {
       const result:ExsumTWOSResDto = response.result
       if (result) {
+
         setData(result)
         setOptions(result.options)
-        if (result.tows){
-          setRequest(result.tows)
+
+        if (result.tows.length){
+          const req:ExsumTWOSReqDto = {
+            exsum_id: exsum.id,
+            values: result.tows
+          }
+          setRequest(req)
         }
       }
     }
@@ -47,7 +53,7 @@ const useCardTOWSVM = () => {
     }
 
     let response
-    if (req.id == 0){
+    if (data.tows.length == 0){
       response = await doCreate(params)
     }else{
       response = await doUpdate(params)
