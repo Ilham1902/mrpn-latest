@@ -64,7 +64,7 @@ export default function TableIndication(
               </TableCell>
               <TableCell>
                 <Typography variant="body1" fontWeight={600}>
-                  Indikasi Entitas Utama & Pendukung
+                  KL Penanggung Jawab
                 </Typography>
               </TableCell>
               <TableCell width="200px"></TableCell>
