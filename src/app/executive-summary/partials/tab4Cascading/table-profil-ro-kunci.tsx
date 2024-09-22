@@ -32,6 +32,17 @@ export default function TableProfilRoKunci(
   const columns = useMemo(
     () => [
       {
+        accessorKey: "intervention",
+        header: "Intervensi Kunci",
+        Cell: (item: any) => {
+          const value =
+            item.row.original.intervention == true ? "Intervensi Kunci" : "Reguler";
+          const color =
+            item.row.original.intervention == true ? "primary" : "default";
+          return <Chip size="small" color={color} label={value} />;
+        },
+      },
+      {
         accessorKey: "tahun",
         header: "Tahun",
         size: 200,
