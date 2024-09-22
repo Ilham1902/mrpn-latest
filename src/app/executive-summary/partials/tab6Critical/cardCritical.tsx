@@ -11,6 +11,7 @@ import DialogComponent from "@/app/components/dialog";
 import FormCritical from "./form";
 import useCardCriticalVM from "@/app/executive-summary/partials/tab6Critical/cardCriticalVM";
 import {GetColor} from "@/utils/color";
+import {ExsumCriticalData} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
  return (
@@ -46,10 +47,28 @@ export default function CardCritical({ project }: { project: string }) {
   setModalOpen(false);
  };
 
+ const groupProjectCategory = () => {
+   const obj = Object.groupBy(data, ({ kategori_proyek_id }) => kategori_proyek_id)
+   let dt: {
+     id:number
+     name:string
+   }[] = []
+     for (const o in obj){
+       const index:number = parseInt(o)
+       if (obj[index]){
+         dt.push({
+           id:parseInt(o),
+           name:obj[index][0].kategori_proyek.name
+         })
+       }
+     }
+   return dt
+ }
+
  return (
   <>
    <CardItem title="Critical Path" setting settingEditOnclick={handleModalOpen}>
-    {data.length == 0 ? (
+    {data.length == 0 || ganChart.length == 0 ? (
      <EmptyState
       dense
       icon={<IconEmptyData width={100} />}
@@ -60,8 +79,8 @@ export default function CardCritical({ project }: { project: string }) {
      <>
       <Stack gap={3}>
        <Stack direction="row" gap={1}>
-         {data.map((d,index) =>
-            <ProjectType key={index} color={GetColor(d.kategori_proyek.id)} label={d.kategori_proyek.name} />
+         {groupProjectCategory().map((d,index) =>
+            <ProjectType key={index} color={GetColor(d.id)} label={d.name} />
          )}
        </Stack>
        <GanttChart project={project} tasks={ganChart} />

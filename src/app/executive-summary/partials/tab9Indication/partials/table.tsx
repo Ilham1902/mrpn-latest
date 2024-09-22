@@ -63,11 +63,11 @@ export default function TableIndication(
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography variant="body1" fontWeight={600}>
+                <Typography variant="body1" fontWeight={400}>
                   KL Penanggung Jawab
                 </Typography>
               </TableCell>
-              <TableCell width="200px"></TableCell>
+              <TableCell width="100px"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -391,7 +391,7 @@ export default function PageExecutiveSummary({}) {
                 <CustomTabPanel value={value} index={7} tabLevel={condTabHeightLv1}>
                   <Tab8Fund project={project} />
                 </CustomTabPanel>
-                <CustomTabPanel value={value} index={8} tabLevel={"1"}>
+                <CustomTabPanel value={value} index={8} tabLevel={condTabHeightLv1}>
                   <Tab9Indication project={project} />
                   {/*<Tabs*/}
                   {/*  value={valueTabChild}*/}

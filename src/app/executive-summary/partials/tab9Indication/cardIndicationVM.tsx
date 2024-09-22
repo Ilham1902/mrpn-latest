@@ -54,8 +54,6 @@ const useCardIndicationVM = () => {
     if (response?.code == API_CODE.success) {
       let result: GetSysParamsServiceResModel = response.result
       const paramValue:string[] = JSON.parse(result.value);
-      console.log(result)
-      console.log(paramValue)
       setOptionRiskType(paramValue)
     }
   }

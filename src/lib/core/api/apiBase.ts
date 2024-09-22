@@ -186,7 +186,6 @@ export async function mappingResponse(response: Response): Promise<ResponseBaseD
     try {
       decrypted = decryptValue(responseText);
     } catch (error) {
-      console.log("decrypt error", error);
       decrypted = responseText;
     }
     return Object.assign(new ResponseBaseDto(), JSON.parse(decrypted)); 

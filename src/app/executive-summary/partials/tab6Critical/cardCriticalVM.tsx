@@ -19,6 +19,7 @@ import {
 import {Task} from "gantt-task-react";
 import dayjs from "dayjs";
 import {GetColor} from "@/utils/color";
+import {end} from "@popperjs/core";
 
 const useCardCriticalVM = () => {
 
@@ -78,17 +79,27 @@ const useCardCriticalVM = () => {
 
       const tasks:Task[] = []
       result.map(res => {
+        let startDay = dayjs(res.start_date)
+        let endDay = dayjs(res.end_date)
+
+        if (endDay.isBefore(startDay) || endDay.isSame(startDay)){
+          endDay = startDay.add(1,"hour")
+        }
+
         const t:Task = {
           id: res.id.toString(),
           type: "task",
           name: res.ro.value,
-          start: dayjs(res.start_date).toDate(),
-          end: dayjs(res.end_date).toDate(),
+          start: startDay.toDate(),
+          end: endDay.toDate(),
           progress: 0,
           styles: { backgroundColor: GetColor(res.kategori_proyek.id) },
+          dependencies: []
         }
         tasks.push(t)
       })
+
+      console.log(tasks)
 
       setGanChart(tasks)
 

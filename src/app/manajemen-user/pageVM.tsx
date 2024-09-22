@@ -99,7 +99,6 @@ const useManagementUserVM = () => {
           password: "",
           role_id: managementRoleData[findIndexRole]
         }
-        console.log(req)
         setRequest(req)
       }
     }

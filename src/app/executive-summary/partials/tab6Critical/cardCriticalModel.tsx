@@ -44,6 +44,7 @@ export interface ExsumCriticalReqDto {
 
 export interface ExsumCriticalData {
   id:number
+  kategori_proyek_id:number
   kategori_proyek:MiscMasterListKategoriProyekRes
   ro:RoDto
   start_date:string

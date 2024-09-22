@@ -73,8 +73,6 @@ export default function DropdownDefault({
   return `${item["name"]}`;
  });
 
- console.log(optionsListKpName);
-
  const sxParams: SxParams = { variant: variant };
 
  return (
