@@ -7,6 +7,7 @@ import { Button, DialogActions, Stack } from "@mui/material";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./partials/form-table";
 import MRTIdentifikasi from "./partials/mrt";
+import AddButton from "@/app/components/buttonAdd";
 
 export default function PageIdentifikasi({}) {
  const [modalOpenView, setModalOpenView] = React.useState(false);
@@ -73,7 +74,18 @@ export default function PageIdentifikasi({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Identifikasi Risiko" chipKp>
+    <ContentPage
+     title="Identifikasi Risiko"
+     chipKp
+     addButton={
+      <AddButton
+       title={`Tambah Identifikasi Risiko`}
+       filled
+       noMargin
+       onclick={handleModalOpenAdd}
+      />
+     }
+    >
      <MRTIdentifikasi
       viewOnly
       handleModalOpenView={handleModalOpenView}

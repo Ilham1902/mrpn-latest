@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, Grid, TextField, Typography } from "@mui/material";
+import { FormControl, Grid, Typography } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 
@@ -12,20 +12,9 @@ export default function FormRegulation({ mode }: { mode?: string }) {
       title="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
       information="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
      />
-     {mode === "add" ? (
-      <TextareaComponent
-       label="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
-       placeholder="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
-      />
-     ) : mode === "edit" ? (
-      <TextareaComponent
-       label="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
-       placeholder="Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait"
-       value="-"
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
+     <Typography fontWeight={600}>
+      Regulasi, Kebijakan, Peraturan, dan Prosedur Terkait
+     </Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12}>
