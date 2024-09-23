@@ -20,7 +20,7 @@ import { listPeraturan } from "@/app/utils/data";
 import {
  SxAutocomplete,
  SxAutocompleteTextField,
-} from "@/app/components/dropdownKp";
+} from "@/app/components/dropdown/dropdownRkp";
 import { paramVariantDefault } from "@/app/utils/constant";
 
 type Option = (typeof listPeraturan)[number];
