@@ -1,7 +1,7 @@
 "use client";
 
 import ContentPage from "@/app/components/contents";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
@@ -28,10 +28,11 @@ import ThemeToggleButton from "@/app/components/toggleButton/theme";
 import TabObject from "./partials/tab";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
-import {useAuthContext, useRKPContext} from "@/lib/core/hooks/useHooks";
+import {useAuthContext, usePenetapanObjectContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {usePathname} from "next/navigation";
 import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
-import {PenetapanObjectResDto} from "@/app/penetapan/objek/pageModel";
+import {PenetapanObjectDto, PenetapanObjectState} from "@/lib/core/context/penetapanObjectContext";
+import useRkpVM from "@/components/dropdown/rkpVM";
 
 const styleToggleButton = [
  {
@@ -103,26 +104,39 @@ export default function PageTemaView({}) {
  } = useAuthContext(state => state)
  const pathname = usePathname()
 
- const {year} = useRKPContext(state => state)
+ const {
+   year
+ } = useRKPContext(state => state)
+
+  useRkpVM()
+
+  const {
+    objects,
+    objectState,
+    setObjectState
+  } = usePenetapanObjectContext(state => state)
 
  const {
-  topic,
-  setTopic,
-  modalAdd,
-  setModalAdd,
-  dataPenetapanObject,
-  optionPN,
-  state,
-  setState,
-   updateOrCreate
+   useEffectGenerateOption,
+   useEffectObjectState,
+   modalAdd,
+   setModalAdd,
+   optionPN,
+   stateTopic,
+   setStateTopic,
+   updateOrCreateTopic
  } = usePenetapanObjectVM()
+
+  useEffect(useEffectGenerateOption, []);
+
+  useEffect(useEffectObjectState, [objectState]);
 
  const dialogActionFooterAdd = (
   <DialogActions sx={{ p: 2, px: 3 }}>
    <Button onClick={() => setModalAdd(false)}>Batal</Button>
    <Button
     variant="contained"
-    onClick={() => updateOrCreate()}
+    onClick={() => updateOrCreateTopic()}
     sx={{
      color: "white !important",
     }}
@@ -140,7 +154,7 @@ export default function PageTemaView({}) {
      heightNoSet
      withCard={false}
      selectedTopic={
-      <Collapse in={topic !== undefined}>
+      <Collapse in={objectState !== undefined}>
        <Chip
         variant="outlined"
         label={
@@ -169,7 +183,7 @@ export default function PageTemaView({}) {
            </Typography>
           </Stack>
           <Typography px={2} fontSize={16} fontWeight={600}>
-           {topic?.topik}
+           {objectState?.topik}
           </Typography>
          </Stack>
         }
@@ -188,16 +202,16 @@ export default function PageTemaView({}) {
      }
      addButton={
        <>
-        <Collapse in={topic !== undefined}>
+        <Collapse in={objectState !== undefined}>
           <AddButton
            title="Ganti Topik"
            filled
            noMargin
            startIcon={<IconFA name="refresh" size={14} />}
-           onclick={() => setTopic(undefined)}
+           onclick={() => setObjectState(undefined)}
           />
         </Collapse>
-        {(topic == undefined) && (
+        {(objectState == undefined) && (
           hasPrivilege(permission, pathname,"add", "penetapan.objectUpr") &&
            <AddButton
             title="Tambah Topik"
@@ -209,7 +223,7 @@ export default function PageTemaView({}) {
        </>
      }
     >
-     {dataPenetapanObject.length == 0 ? (
+     {objects.length == 0 ? (
       <EmptyState
        icon={<IconEmptyPage />}
        title="Halaman Topik Kosong"
@@ -217,22 +231,22 @@ export default function PageTemaView({}) {
       />
      ) : (
       <>
-       {topic === undefined &&
+       {objectState === undefined &&
          <>
          <Typography color={grey[600]} fontSize={14} fontStyle="italic">
              Pilih salah satu objek
          </Typography>
          <Box>
              <ToggleButtonGroup
-                 value={topic}
+                 value={objectState}
                  exclusive
-                 onChange={(event: React.MouseEvent<HTMLElement>,     value: PenetapanObjectResDto|undefined) => {
-                   if (value !== undefined) setTopic(value)
+                 onChange={(event: React.MouseEvent<HTMLElement>,     value: PenetapanObjectDto|undefined) => {
+                   if (value !== undefined) setObjectState(value)
                  }}
                  aria-label="text alignment"
                  sx={styleToggleButton}
              >
-               {dataPenetapanObject.map((x, indexPntp) =>
+               {objects.map((x, indexPntp) =>
                  <ThemeToggleButton
                    key={indexPntp}
                    value={x}
@@ -243,7 +257,7 @@ export default function PageTemaView({}) {
           </Box>
          </>
        }
-       <Collapse in={topic !== undefined}>
+       <Collapse in={objectState !== undefined}>
         <TabObject />
        </Collapse>
       </>
@@ -257,7 +271,7 @@ export default function PageTemaView({}) {
     title="Tambah Topik"
     dialogFooter={dialogActionFooterAdd}
    >
-    <FormTable state={state} setState={setState} optionPN={optionPN}/>
+    <FormTable state={stateTopic} setState={setStateTopic} optionPN={optionPN}/>
    </DialogComponent>
 
    {/*<DialogComponent*/}

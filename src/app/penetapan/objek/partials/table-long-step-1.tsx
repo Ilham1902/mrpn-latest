@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
  Checkbox,
  Paper,
@@ -12,8 +12,46 @@ import {
 import theme from "@/theme";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
+import {usePenetapanObjectContext} from "@/lib/core/hooks/useHooks";
+import {PenetapanObjectPrioritas, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanObjectContext";
+import {DasarPemilihan} from "@/app/penetapan/objek/pageModel";
 
 export default function TableLonglistStepOne({ mode }: { mode?: string }) {
+
+ const {
+   uraianState,
+   setUraianState
+ } = usePenetapanObjectContext(state => state)
+
+ const getIsChecked = (data:PenetapanObjectPrioritas[], id:number) => {
+  const getIndex = data.findIndex(x => x.value == id.toString())
+  return getIndex > -1;
+ }
+
+ function handleChecked(checked: boolean, i: number, id: number) {
+  const curUraian:PenetapanObjectUraianDto[] = uraianState
+  const curPrioritas = curUraian[i].prioritas
+  if (checked){
+   const newRow:PenetapanObjectPrioritas = {
+    id: 0,
+    uraian_penetapan_objek_id: 0,
+    value: id.toString()
+   }
+   curPrioritas.push(newRow)
+  } else {
+   const getIndex = curPrioritas.findIndex(x => x.value == id.toString())
+   if (getIndex > -1){
+    curPrioritas.splice(getIndex, 1)
+   }
+  }
+
+  if (curPrioritas.length == 0){
+   curUraian[i].objek = false
+  }
+
+  setUraianState(curUraian)
+ }
+
  return (
   <>
    <TableContainer component={Paper} elevation={0} variant="outlined">
@@ -29,16 +67,9 @@ export default function TableLonglistStepOne({ mode }: { mode?: string }) {
        </TableCell>
       </TableRow>
       <TableRow>
-       <TableCell width="16%">Merupakan Fokus & Perhatian Presiden</TableCell>
-       <TableCell width="16%">
-        Mempunyai Nilai Strategis dalam Pencapaian Sasaran Prioritas Nasional
-        /Agenda Pembangunan
-       </TableCell>
-       <TableCell width="16%">
-        Memiliki Faktor Risiko yang Tinggi (Diantaranya Anggaran, Ruang Lingkup,
-        Kinerja, & Rekam Jejak Akuntabilitas)
-       </TableCell>
-       <TableCell width="16%">Pertimbangan Lain yang Relevan</TableCell>
+       {DasarPemilihan.map((x,index) =>
+        <TableCell width="16%">{x.value}</TableCell>
+       )}
       </TableRow>
      </TableHead>
      <TableBody>
@@ -54,22 +85,19 @@ export default function TableLonglistStepOne({ mode }: { mode?: string }) {
        </TableRow>
       ) : (
        <>
-        {[...new Array(3)].map((_, i) => (
+        {uraianState.map((row, i) => (
          <TableRow key={i}>
           <TableCell>{i + 1}</TableCell>
-          <TableCell>Uraian {i + 1}</TableCell>
-          <TableCell align="center">
-           <Checkbox />
-          </TableCell>
-          <TableCell align="center">
-           <Checkbox />
-          </TableCell>
-          <TableCell align="center">
-           <Checkbox />
-          </TableCell>
-          <TableCell align="center">
-           <Checkbox />
-          </TableCell>
+          <TableCell>{row.rkp.value}</TableCell>
+          {DasarPemilihan.map((x,index) =>
+           <TableCell align="center">
+            <Checkbox
+              value={x.id}
+              checked={getIsChecked(row.prioritas, x.id)}
+              onChange={(e) => handleChecked(e.target.checked, i, x.id)}
+            />
+           </TableCell>
+          )}
          </TableRow>
         ))}
        </>

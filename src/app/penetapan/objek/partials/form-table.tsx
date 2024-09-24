@@ -6,7 +6,7 @@ import {
  TextField,
  Typography,
 } from "@mui/material";
-import {PenetapanObjectState} from "@/app/penetapan/objek/pageModel";
+import {PenetapanObjectVMState} from "@/app/penetapan/objek/pageModel";
 import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 import {AutocompleteSelectMultiple} from "@/components/autocomplete";
 
@@ -16,8 +16,8 @@ export default function FormTable(
    setState,
    optionPN,
   } : {
-   state:PenetapanObjectState
-   setState:(value:(SetStateAction<PenetapanObjectState>)) => void,
+   state:PenetapanObjectVMState
+   setState:(value:(SetStateAction<PenetapanObjectVMState>)) => void,
    optionPN:ProjectDefaultDto[]
   }
 ) {

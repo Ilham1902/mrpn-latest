@@ -12,6 +12,8 @@ import TableProposal from "./table-proposal";
 import TableNotaDinas from "./table-nota-dinas";
 import CascadingOrgChart from "@/app/executive-summary/partials/tab4Cascading/partials/org-chart";
 import { SxParams } from "@/app/executive-summary/types";
+import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
+import CascadingPenetapanObjectOrgChart from "@/app/penetapan/objek/partials/org-chart";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -63,14 +65,22 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export default function TabObject({}) {
+
+  const {
+    updateOrCreateLongList,
+  } = usePenetapanObjectVM()
+
  const [value, setValue] = React.useState(0);
 
  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
   setValue(newValue);
  };
 
- const handleOpenShortlist = () => {
-  setValue(1);
+ const handleOpenShortlist = async () => {
+   const updateData =  await updateOrCreateLongList()
+   if (updateData){
+     setValue(1);
+   }
  };
 
  const isEmpty = false;
@@ -145,22 +155,16 @@ export default function TabObject({}) {
    </CustomTabPanel>
    <CustomTabPanel value={value} index={2}>
     <CardItem title="Cascading Objek Terpilih">
+     {isEmpty ? (
       <EmptyState
-        dense
-        icon={<IconEmptyData width={100} />}
-        title="Data Kosong"
-        description="Silahkan isi konten halaman ini"
+       dense
+       icon={<IconEmptyData width={100} />}
+       title="Data Kosong"
+       description="Silahkan isi konten halaman ini"
       />
-     {/*{isEmpty ? (*/}
-     {/* <EmptyState*/}
-     {/*  dense*/}
-     {/*  icon={<IconEmptyData width={100} />}*/}
-     {/*  title="Data Kosong"*/}
-     {/*  description="Silahkan isi konten halaman ini"*/}
-     {/* />*/}
-     {/*) : (*/}
-     {/* <CascadingOrgChart />*/}
-     {/*)}*/}
+     ) : (
+      <CascadingPenetapanObjectOrgChart />
+     )}
     </CardItem>
    </CustomTabPanel>
    <CustomTabPanel value={value} index={3}>

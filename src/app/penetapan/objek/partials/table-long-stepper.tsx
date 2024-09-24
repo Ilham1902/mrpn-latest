@@ -18,6 +18,7 @@ export default function TableLonglistStepper({
 }: {
  handleOpenShortlist?: () => void;
 }) {
+
  const [activeStep, setActiveStep] = React.useState(0);
  const [skipped, setSkipped] = React.useState(new Set<number>());
 
@@ -29,7 +30,7 @@ export default function TableLonglistStepper({
   return skipped.has(step);
  };
 
- const handleNext = () => {
+ const handleNext = async () => {
   let newSkipped = skipped;
   if (isStepSkipped(activeStep)) {
    newSkipped = new Set(newSkipped.values());
