@@ -2,50 +2,47 @@ import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 
 export interface KonstraStakeholderInternalValueDto {
-  type:string
+  type_stakeholder:string
   label:string
   value:string
   stakeholder:MiscMasterListStakeholderRes[]
 }
 
-export interface KonstraStakeholderInternalReqDto {
-  id:number
-  level:string
-  ref_id:number
+export interface KonstraStakeholderInternalStateDto {
+  uraian_penetapan_objek_id:number
+  type_stakeholder:string
   values:KonstraStakeholderInternalValueDto[]
 }
 
-export const initKonstraStakeholderInternalReqDto:KonstraStakeholderInternalReqDto = {
-  id: 0,
-  level:"",
-  ref_id: 0,
+export const initKonstraStakeholderInternalStateReqDto:KonstraStakeholderInternalStateDto = {
+  uraian_penetapan_objek_id: 0,
+  type_stakeholder:"INTERNAL",
   values: [
     {
-      type: "COORDINATION",
-      label: "Kementarian Koordinator",
-      value:"",
-      stakeholder: []
-    },
-    {
-      type: "MAIN_ENTITY",
-      label: "Entitas Sektor Utama",
-      value:"",
-      stakeholder: []
-    },
-    {
-      type: "SUPPORT",
-      label: "Entitas Pendukung",
+      type_stakeholder: "INTERNAL",
+      label: "Stakeholder Internal",
       value:"",
       stakeholder: []
     }
   ]
 }
 
-export type KonstraStakeholderInternalResDto = KonstraStakeholderInternalValueDto
+export interface KonstraStakeholderInternalReqDto {
+  uraian_penetapan_objek_id:number
+  type_stakeholder:string
+  values:{
+    src_stakeholder_id:number
+  }[]
+}
+
+export type KonstraStakeholderInternalResDto = {
+  type_stakeholder:string
+  stakeholder:MiscMasterListStakeholderRes
+}
 
 export interface GetByRefIdAndLevel {
-  level: string
-  ref_id: number
+  type_stakeholder: string
+  uraian_penetapan_objek_id: number
 }
 
 export type GetKonstraStakeholderByExsumIdServiceModel = BaseAPIServiceParam & {

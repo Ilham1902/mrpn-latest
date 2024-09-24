@@ -26,6 +26,7 @@ export default function ContentPage({
  chooseKonteks,
  chooseProject,
  chooseRo,
+ chooseObject,
  chipRo,
  chooseProjectPage,
  titleChild,
@@ -61,6 +62,7 @@ export default function ContentPage({
  chooseProjectPage?: React.ReactNode;
  chooseKonteks?: boolean;
  chooseRo?: boolean;
+ chooseObject?: React.JSX.Element;
  chipRo?: boolean;
  heightTitleBreadcrumb?: boolean;
  titleChild?: React.ReactNode;
@@ -279,6 +281,7 @@ export default function ContentPage({
      {chooseProjectPage}
      {dowloadAttachmentFile}
      {chooseProject && <DropdownRkp handleChangeProject={handleChangeProject} />}
+     {chooseObject && chooseObject }
      {chooseRo && (
       <FormControl size="small">
        <SelectCustomTheme

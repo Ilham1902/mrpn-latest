@@ -2,9 +2,10 @@
 "use client";
 
 import ContentPage from "@/components/contents";
-import React from "react";
+import React, {useEffect} from "react";
 import {
- Stack,
+  FormControl,
+  Stack,
 } from "@mui/material";
 import CardIndikasiSasaran from "./cardIndikasiSasaran/cardIndikasiSasaran";
 import CardSasaranKinerjaUPR from "./cardSasaranKinerjaUPR/cardSasaranKinerjaUPR";
@@ -16,18 +17,51 @@ import {useRKPContext} from "@/lib/core/hooks/useHooks";
 import {IconEmptyData} from "@/components/icons";
 import EmptyState from "@/components/empty";
 import CardProfileIntervensi from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/cardProfileIntervensi";
+import {AutocompleteSelectSingle} from "@/components/autocomplete";
+import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
+import {width} from "@mui/system";
+import CardStakeholderInternal from "@/app/penetapan/konteks-strategis/cardStakeholders/cardStakeholderInternal";
+import CardStakeholderEksternal from "@/app/penetapan/konteks-strategis/cardStakeholders/cardStakeholderEksternal";
 
 export default function PageKonteksStrategisView({}) {
 
- const {rkpState} = useRKPContext(state => state);
+  const {
+    year
+  } = useRKPContext(state => state)
 
- return (
+ const {
+   objects,
+   objectState,
+   setObjectState,
+   getMasterListObject
+ } = useKonstraVM()
+
+  useEffect(() => {
+    if (year > 0){
+      setObjectState(undefined)
+      getMasterListObject()
+    }
+  }, [year]);
+
+
+  return (
   <>
    <ContentPage
      title="Eksplorasi Konteks Strategis"
-     chooseProject
+     chooseObject={(
+       <FormControl size="small" sx={{width:"20vw"}}>
+         <AutocompleteSelectSingle
+           value={objectState}
+           options={objects}
+           getOptionLabel={opt => `${opt.rkp.code} - ${opt.rkp.value}`}
+           handleChange={(val:MasterListObjectRes) => setObjectState(val)}
+           placeHolder={"Pilih RKP"}
+         />
+       </FormControl>
+     )}
    >
-    {rkpState === undefined ?
+    {objectState === undefined ?
       <EmptyState
         dense
         icon={<IconEmptyData width={100}/>}
@@ -39,8 +73,8 @@ export default function PageKonteksStrategisView({}) {
       <CardIndikasiSasaran />
       <CardSasaranKinerjaUPR />
       <CardRegulation />
-      <TableStakeholderInternal mode="view" project="1" />
-      <TableStakeholderEksternal mode="view" project="1" />
+      <CardStakeholderInternal />
+      <CardStakeholderEksternal />
       <CardProfileIntervensi />
      </Stack>
     }

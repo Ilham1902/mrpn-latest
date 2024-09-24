@@ -280,14 +280,13 @@ const usePenetapanObjectVM = () => {
   }
 
   const useEffectGenerateOption = () => {
+    setObjectState(undefined)
     if (rkp.length > 0 && optionPN.length == 0) {
       generateOptionPN()
     } else {
       getData()
     }
-    if (objects.length == 0){
-      getPenetapanObjectTopic()
-    }
+    getPenetapanObjectTopic()
   }
 
   const useEffectObjectState = () => {

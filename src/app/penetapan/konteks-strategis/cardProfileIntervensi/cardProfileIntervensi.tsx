@@ -2,27 +2,20 @@ import React, {useEffect} from "react";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
-import useCardIntervensiVM from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiVM";
 import TableProfilIntervensi from "@/app/executive-summary/partials/tab4Cascading/table-profil-intervensi";
-import useRkpVM from "@/components/dropdown/rkpVM";
+import useProfileKunciVM from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/vm";
 
 export default function CardProfileIntervensi() {
 
-  useRkpVM()
-
   const {
-    exsum,
+    objectState,
     data,
-    getData,
-  } = useCardIntervensiVM()
+    getDataProfileKunci
+  } = useProfileKunciVM()
 
   useEffect(() => {
-      if (exsum !== undefined && exsum.id != 0) {
-        getData()
-      }
-  }, [exsum]);
-
-  const filterData = data.filter(x => x.intervention)
+    if (objectState != undefined) getDataProfileKunci()
+  }, [objectState]);
 
   return (
     <CardItem
@@ -36,7 +29,7 @@ export default function CardProfileIntervensi() {
           description="Silahkan isi profil intervensi pada halaman executive summary"
         />
       ) : (
-        <TableProfilIntervensi data={filterData}/>
+        <TableProfilIntervensi data={data}/>
       )}
 
     </CardItem>

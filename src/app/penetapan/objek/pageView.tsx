@@ -127,9 +127,9 @@ export default function PageTemaView({}) {
    updateOrCreateTopic
  } = usePenetapanObjectVM()
 
-  useEffect(useEffectGenerateOption, []);
+  useEffect(useEffectGenerateOption, [year]);
 
-  useEffect(useEffectObjectState, [objectState]);
+  useEffect(useEffectObjectState, [year]);
 
  const dialogActionFooterAdd = (
   <DialogActions sx={{ p: 2, px: 3 }}>

@@ -1,4 +1,26 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+
+export const stakeholderType = [
+  {
+    type: "COORDINATION",
+    label: "Kementarian Koordinator",
+    value:"",
+    stakeholder: []
+  },
+  {
+    type: "MAIN_ENTITY",
+    label: "Entitas Sektor Utama",
+    value:"",
+    stakeholder: []
+  },
+  {
+    type: "SUPPORT",
+    label: "Entitas Pendukung",
+    value:"",
+    stakeholder: []
+  }
+]
 
 // LIST KEBIJAKAN
 export type MiscMasterListKebijakanReq = BaseAPIServiceParam & {
@@ -74,4 +96,18 @@ export type MiscMasterListKategoriProyekReq = BaseAPIServiceParam & {
 export interface MiscMasterListKategoriProyekRes {
   id: number
   name: string
+}
+
+// LIST RKP BY OBJECT
+export type MasterListObjectReq = BaseAPIServiceParam & {
+  body: {
+    tahun:number
+  };
+};
+export interface MasterListObjectRes {
+  id:number
+  level:string
+  ref_id:string
+  objek:boolean
+  rkp: ProjectDefaultDto
 }

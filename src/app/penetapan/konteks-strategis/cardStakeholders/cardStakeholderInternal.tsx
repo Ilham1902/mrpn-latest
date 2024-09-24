@@ -4,33 +4,33 @@ import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
-import FormStakeholderInternal from "./form-stakeholder-internal";
-import StakeholderChart from "@/components/cardStakeholder/stakeholder-chart";
-import useCardStakeholderInternalVM from "@/app/penetapan/konteks-strategis/cardStakeholderInternal/vm";
+import FormStakeholder from "./form-stakeholder";
+import useCardStakeholderInternalVM from "@/app/penetapan/konteks-strategis/cardStakeholders/vm";
+import StakeholderChart from "@/app/penetapan/konteks-strategis/cardStakeholders/stakeholder-chart";
 
 export default function CardStakeholderInternal() {
 
   const {
-    rkpState,
+    objectState,
     data,
     listStakeholder,
     modalOpenStakeholder,
     setModalOpenStakeholder,
     request,
-    setRequest,
     updateData,
     handleSelectStakeholder,
-    handleChangeDescription,
     getListStakeholder,
-    getDataStakeholderInternal
+    getDataStakeholder,
+    setType
   } = useCardStakeholderInternalVM()
 
   useEffect(() => {
-    if (rkpState !== undefined){
-      getDataStakeholderInternal()
+    setType("INTERNAL")
+    if (objectState !== undefined){
+      getDataStakeholder()
       if (listStakeholder.length == 0) getListStakeholder()
     }
-  }, [rkpState]);
+  }, [objectState]);
 
   const handleModalOpenStakeholder = () => {
     setModalOpenStakeholder(true);
@@ -75,14 +75,13 @@ export default function CardStakeholderInternal() {
       >
         <Grid container spacing={2}>
           {request.values.map((req,index) => (
-            <FormStakeholderInternal
+            <FormStakeholder
               key={index}
               title={req.label}
               listStakeholder={listStakeholder}
               selectedStakeholder={req.stakeholder}
-              setSelectedStakeholder={(items:number[]) => handleSelectStakeholder(items, req.type)}
+              setSelectedStakeholder={(items:number[]) => handleSelectStakeholder(items, req.type_stakeholder)}
               description={req.value}
-              setDescription={(item:string) => handleChangeDescription(item, req.type)}
             />
           ))}
         </Grid>

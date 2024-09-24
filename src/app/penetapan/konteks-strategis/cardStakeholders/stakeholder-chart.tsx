@@ -5,13 +5,8 @@ import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
 import { IconFA } from "@/components/icons/icon-fa";
-import {styleOrgChart, styleOrgChart2} from "@/app/executive-summary/style";
-import ImageGalleryStakeholder from "../../executive-summary/partials/tab2Profile/partials/imageSearch";
-import DraggableScroll from "../../executive-summary/partials/tab2Profile/partials/draggableScroll";
+import {styleOrgChart2} from "@/app/executive-summary/style";
 import Image from "next/image";
-import {
-  ExsumStakeholderResDto, ExsumStakeholderValueDto
-} from "@/app/executive-summary/partials/tab7Regulation/cardStakeholder/cardStakeholderModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {IconEmptyImage} from "@/components/icons";
 
@@ -97,35 +92,16 @@ export default function StakeholderChart(
   {
    data
   } : {
-   data:ExsumStakeholderResDto[]
+   data:MiscMasterListStakeholderRes[]
   }
 ) {
 
- const coordinator = data.find(x => x.type == "COORDINATION")
- const mainEntity = data.find(x => x.type == "MAIN_ENTITY")
- const support = data.find(x => x.type == "SUPPORT")
-
  const ds = {
-  name: `Kementerian Koordinator`,
+  name: ``,
   title: (
-   <InstanceLogo data={coordinator?.stakeholder ?? []} />
+   <InstanceLogo data={data ?? []} />
   ),
-  children: [
-   {
-    name: "Entitas Sektor Utama",
-    title: (
-      <InstanceLogo data={mainEntity?.stakeholder ?? []} />
-    ),
-    children: [
-     {
-      name: "Entitas Pendukung",
-      title: (
-        <InstanceLogo data={support?.stakeholder ?? []} />
-      ),
-     }
-    ],
-   },
-  ],
+  children: [],
  };
 
  return (

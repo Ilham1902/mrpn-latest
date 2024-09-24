@@ -68,6 +68,12 @@ export interface IndikatorDto {
     id:number
     code:string
     value:string
+    target_0:string
+    target_1:string
+    target_2:string
+    target_3:string
+    target_4:string
+    satuan:string
 }
 export interface SasaranDto {
     id:number

@@ -1,27 +1,28 @@
-import {useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
+import {useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
 import React, {useState} from "react";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {doGetMasterListStakeholder} from "@/app/misc/master/masterService";
 import {API_CODE, ResponseBaseDto} from "@/lib/core/api/apiModel";
 
-import {doCreate, doGet, doUpdate} from "@/app/penetapan/konteks-strategis/cardStakeholderEksternal/service";
 import {
-  initKonstraStakeholderEksternalReqDto,
-  KonstraStakeholderEksternalReqDto, KonstraStakeholderEksternalResDto
-} from "@/app/penetapan/konteks-strategis/cardStakeholderEksternal/model";
-
+  initKonstraStakeholderInternalStateReqDto,
+  KonstraStakeholderInternalStateDto,
+  KonstraStakeholderInternalResDto, KonstraStakeholderInternalReqDto, KonstraStakeholderInternalValueDto
+} from "@/app/penetapan/konteks-strategis/cardStakeholders/model";
+import {doCreate, doGet, doUpdate} from "@/app/penetapan/konteks-strategis/cardStakeholders/service";
+import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
 
 const useCardStakeholderInternalVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { rkpState } = useRKPContext(state => state)
+  const { objectState } = useKonstraVM()
 
   const [listStakeholder, setListStakeholder] = useState<MiscMasterListStakeholderRes[]>([])
   const [modalOpenStakeholder, setModalOpenStakeholder] = React.useState(false);
-
-  const [data, setData] = useState<KonstraStakeholderEksternalResDto[]>([])
-  const [request, setRequest] = useState<KonstraStakeholderEksternalReqDto>(initKonstraStakeholderEksternalReqDto)
+  const [data, setData] = useState<MiscMasterListStakeholderRes[]>([])
+  const [request, setRequest] = useState<KonstraStakeholderInternalStateDto>(initKonstraStakeholderInternalStateReqDto)
+  const [type, setType] = useState<string>("")
 
   async function getListStakeholder(){
     const response = await doGetMasterListStakeholder({
@@ -37,43 +38,61 @@ const useCardStakeholderInternalVM = () => {
     }
   }
 
-  async function getDataStakeholderInternal(){
+  async function getDataStakeholder(){
     const response = await doGet({
       body: {
-        level:rkpState?.level ?? "",
-        ref_id:rkpState?.id ?? 0
+        type_stakeholder:type,
+        uraian_penetapan_objek_id:objectState?.id ?? 0
       },
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
     })
     if (response?.code == API_CODE.success){
-      const result:KonstraStakeholderEksternalResDto[] = response.result
-      setData(result)
+      const result:KonstraStakeholderInternalResDto[] = response.result
 
-      const genereteReq:KonstraStakeholderEksternalReqDto = {
-        ...request
+      let dt:MiscMasterListStakeholderRes[] = []
+      result.map(st => {
+        dt.push(st.stakeholder)
+      })
+      setData(dt)
+
+      const genereteReq:KonstraStakeholderInternalStateDto = {
+        uraian_penetapan_objek_id: objectState?.id ?? 0,
+        type_stakeholder: type,
+        values: []
+      }
+      const state:KonstraStakeholderInternalValueDto = {
+        type_stakeholder: type,
+        label: "",
+        value: "",
+        stakeholder: []
       }
       result.map(res => {
-        const indexReq = genereteReq.values.findIndex(x => x.type == res.type)
-        if (indexReq > -1) {
-          genereteReq.values[indexReq].stakeholder = res.stakeholder
-          genereteReq.values[indexReq].value = res.value
-        }
+        state.stakeholder.push(res.stakeholder)
       })
-      genereteReq.id = 1
+      genereteReq.values.push(state)
+      genereteReq.uraian_penetapan_objek_id = 1
       setRequest(genereteReq)
     }
   }
 
   async function updateData(){
-    const req:KonstraStakeholderEksternalReqDto = {
-      ...request,
-      level:rkpState?.level ?? "",
-      ref_id:rkpState?.id ?? 0
+    const req:KonstraStakeholderInternalReqDto = {
+      type_stakeholder: type,
+      uraian_penetapan_objek_id: objectState?.id ?? 0,
+      values: []
     }
 
+    request.values.map(st => {
+      st.stakeholder.map(stval => {
+        req.values.push({
+          src_stakeholder_id:stval.id
+        })
+      })
+    })
+
     let response:ResponseBaseDto|undefined
-    if (req.id > 0){
+    if (data.length > 0){
       response = await doUpdate({
         body:req,
         loadingContext:loadingContext,
@@ -88,7 +107,7 @@ const useCardStakeholderInternalVM = () => {
     }
 
     if (response?.code == API_CODE.success){
-      getDataStakeholderInternal().then(r => {
+      getDataStakeholder().then(r => {
         setModalOpenStakeholder(false)
       })
     }
@@ -104,7 +123,7 @@ const useCardStakeholderInternalVM = () => {
 
     setRequest(prev => {
       const newVal = {...prev}
-      const stakeholderTypeIndex = newVal.values.findIndex(item => item.type == type)
+      const stakeholderTypeIndex = newVal.values.findIndex(item => item.type_stakeholder == type)
 
       if (stakeholderTypeIndex > -1){
         newVal.values[stakeholderTypeIndex].stakeholder = itemSelected
@@ -114,20 +133,8 @@ const useCardStakeholderInternalVM = () => {
 
   }
 
-  const handleChangeDescription = (value:string, type:string) => {
-    setRequest(prev => {
-      const newVal = {...prev}
-      const stakeholderTypeIndex = newVal.values.findIndex(item => item.type == type)
-
-      if (stakeholderTypeIndex > -1){
-        newVal.values[stakeholderTypeIndex].value = value
-      }
-      return newVal
-    })
-  }
-
   return {
-    rkpState,
+    objectState,
     data,
     listStakeholder,
     modalOpenStakeholder,
@@ -136,9 +143,10 @@ const useCardStakeholderInternalVM = () => {
     setRequest,
     updateData,
     handleSelectStakeholder,
-    handleChangeDescription,
     getListStakeholder,
-    getDataStakeholderInternal
+    getDataStakeholder,
+    type,
+    setType
   }
 
 }

@@ -6,7 +6,7 @@ import SearchBar from "@/app/executive-summary/partials/tab2Profile/partials/ima
 import {grey} from "@mui/material/colors";
 import StakeholderOptionsForm from "@/app/components/cardStakeholder";
 
-export default function FormStakeholderInternal(
+export default function FormStakeholder(
   {
     title,
     listStakeholder,
@@ -19,8 +19,8 @@ export default function FormStakeholderInternal(
     listStakeholder: MiscMasterListStakeholderRes[]
     selectedStakeholder:MiscMasterListStakeholderRes[]
     setSelectedStakeholder: (item:number[]) => void
-    description:string
-    setDescription:(item:string) => void
+    description?:string
+    setDescription?:(item:string) => void
   }
 ) {
 
@@ -52,7 +52,7 @@ export default function FormStakeholderInternal(
   }
 
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={12}>
       <Paper
         elevation={0}
         variant="outlined"
@@ -90,16 +90,16 @@ export default function FormStakeholderInternal(
 
           </Stack>
 
-          <Typography gutterBottom>
-            Keterangan
-          </Typography>
-          <TextareaStyled
-            aira-label={`Deskripsi ${title}`}
-            placeholder={`Deskripsi ${title}`}
-            minRows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          {/*<Typography gutterBottom>*/}
+          {/*  Keterangan*/}
+          {/*</Typography>*/}
+          {/*<TextareaStyled*/}
+          {/*  aira-label={`Deskripsi ${title}`}*/}
+          {/*  placeholder={`Deskripsi ${title}`}*/}
+          {/*  minRows={3}*/}
+          {/*  value={description}*/}
+          {/*  onChange={(e) => setDescription(e.target.value)}*/}
+          {/*/>*/}
         </Stack>
       </Paper>
     </Grid>

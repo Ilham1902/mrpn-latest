@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, {Fragment, SetStateAction} from "react";
 import {
  Autocomplete,
  Box,
@@ -22,6 +22,7 @@ import {
  SxAutocompleteTextField,
 } from "@/app/components/dropdown/dropdownRkp";
 import { paramVariantDefault } from "@/app/utils/constant";
+import {AutocompleteSelectMultiple} from "@/components/autocomplete";
 
 type Option = (typeof listPeraturan)[number];
 
@@ -32,43 +33,8 @@ export default function FormPeraturan({
 }: {
  options: MiscMasterListPerpresRes[];
  request: ExsumRegulationDto;
- setRequest: (prev: any) => void;
+ setRequest: (value: SetStateAction<ExsumRegulationDto>) => void;
 }) {
- const [columnsInstance, setColumnsInstance] = React.useState<Option[]>([]);
- const [selectAll, setSelectAll] = React.useState<boolean>(false);
-
- const handleToggleSelectAllInstance = () => {
-  setSelectAll((prev) => {
-   if (!prev) setColumnsInstance([...listPeraturan]);
-   else setColumnsInstance([]);
-   return !prev;
-  });
- };
-
- const isChecked = (id: number) => {
-  return request.perpres.findIndex((x) => x.id == id) !== -1;
- };
-
- const handleChangeChecked = (
-  isChecked: boolean,
-  item: MiscMasterListPerpresRes
- ) => {
-  setRequest((prev: ExsumRegulationDto) => {
-   const newReq = { ...request };
-   if (!isChecked) {
-    const checkedItem = newReq.perpres.findIndex((x) => x.id == item.id);
-    if (checkedItem !== -1) {
-     newReq.perpres.splice(checkedItem, 1);
-    }
-   } else {
-    newReq.perpres.push(item);
-   }
-   return {
-    ...prev,
-    perpres: newReq.perpres,
-   };
-  });
- };
 
  return (
   <>
@@ -79,87 +45,19 @@ export default function FormPeraturan({
        title="Peraturan Terkait"
        information="Peraturan Terkait"
       />
-      {/* <FormGroup
-        sx={{
-         flexWrap: "nowrap",
-         maxHeight: 200,
-         overflowY: "auto",
-         "&::-webkit-scrollbar": {
-          width: "3px",
-         },
-         label: {
-          span: {
-           py: 0.2,
-          },
-         },
-        }}
-      >
-       {options.map((row, i) => (
-         <Fragment key={i}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isChecked(row.id)}
-                onChange={(event) => handleChangeChecked(event.target.checked, row)}
-              />
-            }
-            label={row.title}
-          />
-         </Fragment>
-       ))}
-      </FormGroup> */}
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       size="small"
-       freeSolo={false}
-       value={columnsInstance}
-       options={listPeraturan}
-       getOptionLabel={(option) => option.source}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (reason === "selectOption" && value.length === listPeraturan.length)
-         setSelectAll(true);
-        setColumnsInstance(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih peraturan terkait"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       PaperComponent={(paperProps) => {
-        const { children, ...restPaperProps } = paperProps;
-        return (
-         <Paper {...restPaperProps}>
-          <Box onMouseDown={(e) => e.preventDefault()} pl={1.5} py={0.5}>
-           <FormControlLabel
-            onClick={(e) => {
-             e.preventDefault();
-             handleToggleSelectAllInstance();
-            }}
-            label="Pilih semua peraturan"
-            control={<Checkbox id="select-all-checkbox" checked={selectAll} />}
-           />
-          </Box>
-          <Divider />
-          {children}
-         </Paper>
-        );
-       }}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
+      <AutocompleteSelectMultiple
+        value={request.perpres}
+        options={options}
+        getOptionLabel={opt => opt.title}
+        handleChange={(e:MiscMasterListPerpresRes[]) => setRequest(prevState => {
+         return {
+          ...prevState,
+          perpres:e
+         }
+        })}
+        placeHolder={"Pilih peraturan terkait"}
+        labelSelectAll={"Pilih semua peraturan terkait"}
+       />
      </FormControl>
     </Grid>
     <Grid item xs={12}>

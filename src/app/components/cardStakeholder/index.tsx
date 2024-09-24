@@ -122,7 +122,7 @@ const StakeholderOptionsForm = (
                       key={index}
                       alt={image.value}
                       value={image.id}
-                      imgSrc={image.icon}
+                      imgSrc={process.env.NEXT_PUBLIC_BASE_URL_FILES+image.icon}
                     />
                   </Box>
                 </Stack>

@@ -1,32 +1,31 @@
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
+import {MiscMasterListPerpresRes} from "@/app/misc/master/masterServiceModel";
 
-export interface RegulasiReqDto {
-  id: number
-  level: string
-  ref_id: number
-  regulasi: string
-  keterangan: string
+export interface RegulasiValueDto {
+  id:number
+  amanat:string
+  perpres:MiscMasterListPerpresRes[]
+}
+
+export interface RegulasiExsumDto {
+  id:number
+  regulasi:RegulasiValueDto[]
 }
 
 export interface RegulasiResDto {
-  id: number
-  regulasi: string
-  keterangan: string
+  exsum: RegulasiExsumDto
 }
 
 export type RegulasiData = RegulasiResDto
 
 export type RegulasiState = RegulasiResDto
 
-export const initRegulasiState: RegulasiState = {
-  id: 0,
-  regulasi: "",
-  keterangan: ""
-}
+// export const initRegulasiState: RegulasiState = {
+//   exsum: undefined
+// }
 
 export interface GetByRefIdAndLevel {
-  level: string
-  ref_id: number
+  id: number
 }
 
 export type GetByRefIdAndLevelServiceModel = BaseAPIServiceParam & {
@@ -34,5 +33,5 @@ export type GetByRefIdAndLevelServiceModel = BaseAPIServiceParam & {
 };
 
 export type CreateUpdateDeleteServiceModel = BaseAPIServiceParam & {
-  body: RegulasiReqDto;
+  body: RegulasiValueDto;
 };

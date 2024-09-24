@@ -7,7 +7,7 @@ import {
   MiscMasterListStakeholderReq,
   MiscMasterRPJMNReq,
   MiscMasterListSumberPendanaanReq,
-  MiscMasterListKategoriProyekReq
+  MiscMasterListKategoriProyekReq, MasterListObjectReq
 } from "@/app/misc/master/masterServiceModel";
 
 export async function doGetMasterListKebijakan(param: MiscMasterListKebijakanReq) {
@@ -62,6 +62,14 @@ export async function doGetMasterListlistKategoriProyek(param: MiscMasterListKat
   const resp = await get({
     ...param,
     url: "misc/master/listKategoriProyek",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetMasterListObject(param: MasterListObjectReq) {
+  const resp = await post({
+    ...param,
+    url: "misc/master/objek",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

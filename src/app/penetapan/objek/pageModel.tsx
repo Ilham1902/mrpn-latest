@@ -1,6 +1,7 @@
 import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
 
 export const DasarPemilihan:{
   id:number
@@ -102,17 +103,7 @@ export type UpdateOrCreatePenetapanObjectLongListAssignObjectServiceModel = Base
 };
 
 
-export interface PenetapanObjectShortListSasaranIndikatorDto {
-  id: number
-  code: string
-  value: string
-  target_0:string
-  target_1:string
-  target_2:string
-  target_3:string
-  target_4:string
-  satuan:string
-}
+export type PenetapanObjectShortListSasaranIndikatorDto = IndikatorDto
 
 export interface PenetapanObjectShortListSasaranDto {
   id: number

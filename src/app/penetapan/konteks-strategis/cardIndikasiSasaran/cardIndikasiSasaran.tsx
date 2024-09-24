@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {
-  Button,
+  Box,
+  Button, Chip,
   DialogActions,
   Icon,
   IconButton,
@@ -12,76 +13,99 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
 } from "@mui/material";
 import theme from "@/theme";
-import {AddCircle} from "@mui/icons-material";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
-import DialogComponent from "@/components/dialog";
-import FieldLabelInfo from "@/components/fieldLabelInfo";
-import FormIdentifikasi from "./form-identifikasi";
 import CardItem from "@/components/cardTabItem";
 import useIndikatorSasaranVM from "@/app/penetapan/konteks-strategis/cardIndikasiSasaran/vm";
-import {hasPrivilege, usePermissionChecker} from "@/lib/core/helpers/authHelpers";
-import {IconFA} from "@/components/icons/icon-fa";
-import AddButton from "@/components/buttonAdd";
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
-import {usePathname} from "next/navigation";
-import {PenetapanIndikasiSasaranState} from "@/app/penetapan/konteks-strategis/cardIndikasiSasaran/model";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
+
+type Row = {
+  uraian: string
+  sasaran: string
+  indicator: string[]
+  target: string[]
+}
 
 export default function CardIndikasiSasaran() {
 
   const {
-    permission
-  } = useAuthContext(state => state)
-  const pathname = usePathname()
+    rpjmn,
+    year
+  } = useRKPContext(state => state)
 
   const {
-    rkpState,
-    optionSasaranIndikator,
-    getOptionSasaranIndikator,
+    objectState,
     indikatorSasaranData,
     getDataIndikatorSasaran,
-    optionIndikatorSasaran,
-    setOptionIndikatorSasaran,
-    modalOpenAdd,
-    setModalOpenAdd,
-    state,
-    setState,
-    updateOrCreate,
-    hanldeOpenModal,
-    modalOpenDelete,
-    setModalOpenDelete,
-    deleteData
   } = useIndikatorSasaranVM()
 
-  const handleModalClose = () => {
-    setModalOpenAdd(false);
-  };
-
   useEffect(() => {
-    if (rkpState !== undefined) {
-      getOptionSasaranIndikator()
+    if (objectState !== undefined) {
       getDataIndikatorSasaran()
     };
-  }, [rkpState]);
+  }, [objectState]);
+
+  const generateRows = () => {
+    if (indikatorSasaranData == undefined){
+      return []
+    }
+    let index = 0
+
+    if (rpjmn != undefined){
+      for (let i = rpjmn.start; i <= rpjmn.end; i++) {
+        if (i !== year && i <= year){
+          index++
+        }
+      }
+    }
+
+    let rows:Row[] = []
+    let row:Row = {
+      uraian: indikatorSasaranData.rkp.value,
+      sasaran: "",
+      indicator: [],
+      target: [],
+    }
+    indikatorSasaranData.rkp.sasaran.map(sasaran => {
+      row.sasaran = sasaran.value
+      sasaran.indikator.map(indikator => {
+        row.indicator.push(indikator.value)
+        let target = ""
+        switch (index){
+          case 0:
+            target = indikator.target_0+" "+indikator.satuan
+            break
+          case 1:
+            target = indikator.target_1+" "+indikator.satuan
+            break
+          case 2:
+            target = indikator.target_2+" "+indikator.satuan
+            break
+          case 3:
+            target = indikator.target_3+" "+indikator.satuan
+            break
+          case 4:
+            target = indikator.target_4+" "+indikator.satuan
+            break
+          default:
+            target = indikator.target_0+" "+indikator.satuan
+            break
+        }
+        row.target.push(target)
+      })
+      rows.push(row)
+    })
+    return rows
+  }
 
   return (
     <>
       <CardItem
         title="Identifikasi Sasaran dan Indikator Objek MRPN Lintas Sektor"
-        addButton={<AddButton
-          filled
-          small
-          title="Tambah"
-          onclick={() => {
-            hanldeOpenModal(0)
-            setModalOpenAdd(true)
-          }}
-        />}
       >
-        {indikatorSasaranData.length == 0 ?
+        {indikatorSasaranData == undefined ?
 
           <EmptyState
             dense
@@ -100,100 +124,41 @@ export default function CardIndikasiSasaran() {
                   <TableCell>Sasaran</TableCell>
                   <TableCell>Indikator</TableCell>
                   <TableCell width={150}>Target</TableCell>
-                  {
-                    (hasPrivilege(permission,pathname,"update","penetapan.kriteriaRisiko") || hasPrivilege(permission,pathname,"delete","penetapan.kriteriaRisiko")) &&
-                    <TableCell width={150}></TableCell>
-                  }
                 </TableRow>
               </TableHead>
               <TableBody>
-                {indikatorSasaranData.map((row, indexRow) => (
-                  <TableRow
-                    key={indexRow}
-                    sx={{"&:last-child td, &:last-child th": {border: 0}}}
-                  >
-                    <TableCell>{row.uraian}</TableCell>
-                    <TableCell>{row.sasaran.value}</TableCell>
-                    <TableCell>{row.indikator.value}</TableCell>
-                    <TableCell align="right">{row.target}</TableCell>
-                    {
-                      (hasPrivilege(permission,pathname,"update","penetapan.kriteriaRisiko") || hasPrivilege(permission,pathname,"delete","penetapan.kriteriaRisiko")) &&
-                        <TableCell width={150}>
-                            <Stack gap={"5px"} justifyContent={"center"} direction={"row"}>
-                              {hasPrivilege(permission,pathname,"update","penetapan.kriteriaRisiko") &&
-                                  <IconFA
-                                      name="edit"
-                                      size={16}
-                                      color={theme.palette.primary.main}
-                                      sx={{cursor: "pointer"}}
-                                      onclick={() => {
-                                        hanldeOpenModal(row.id)
-                                        setModalOpenAdd(true)
-                                      }}
-                                  />
-                              }
-                              {hasPrivilege(permission,pathname,"delete","penetapan.kriteriaRisiko") &&
-                                  <IconFA
-                                      name="trash"
-                                      size={16}
-                                      color={theme.palette.error.main}
-                                      sx={{cursor: "pointer"}}
-                                      onclick={() => {
-                                        hanldeOpenModal(row.id)
-                                        setModalOpenDelete(true)
-                                      }}
-                                  />
-                              }
-                            </Stack>
+                {generateRows().map((row, rowIndex) =>
+                  row.indicator.map((subItem, subIndex) => (
+                    <TableRow key={`${rowIndex}-${subIndex}`}>
+                      {subIndex === 0 && (
+                        <TableCell
+                          rowSpan={row.indicator.length}
+                          sx={{ verticalAlign: "top" }}
+                        >
+                          {row.uraian}
                         </TableCell>
-                    }
-                  </TableRow>
-                ))}
+                      )}
+                      {subIndex === 0 && (
+                        <TableCell
+                          rowSpan={row.indicator.length}
+                          sx={{ verticalAlign: "top" }}
+                        >
+                          {row.sasaran}
+                        </TableCell>
+                      )}
+                      <TableCell sx={{ verticalAlign: "top" }}>{subItem}</TableCell>
+                      <TableCell sx={{ verticalAlign: "top", textAlign: "right" }}>
+                        {row.target[subIndex]}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
 
         }
       </CardItem>
-
-      <DialogComponent
-        width={320}
-        dialogOpen={modalOpenAdd}
-        dialogClose={handleModalClose}
-        title="Tambah Identifkasi Sasaran"
-        dialogFooter={<DialogActions sx={{p: 2, px: 3}}>
-          <Button onClick={handleModalClose}>Batal</Button>
-          <Button variant="contained" type="submit" onClick={() => updateOrCreate()}>
-            Simpan
-          </Button>
-        </DialogActions>}
-      >
-
-        <FormIdentifikasi
-          state={state}
-          setState={setState}
-          optionSasaranIndikator={optionSasaranIndikator}
-          optionIndikatorSasaran={optionIndikatorSasaran}
-          setOptionIndikatorSasaran={setOptionIndikatorSasaran}
-        />
-
-      </DialogComponent>
-
-      <DialogComponent
-        width={320}
-        dialogOpen={modalOpenDelete}
-        dialogClose={() => setModalOpenDelete(false)}
-        title="Tambah Identifkasi Sasaran"
-        dialogFooter={<DialogActions sx={{p: 2, px: 3}}>
-          <Button onClick={() => setModalOpenDelete(false)}>Batal</Button>
-          <Button variant="contained" type="submit" onClick={() => deleteData()}>
-            Simpan
-          </Button>
-        </DialogActions>}
-      >
-        Apakah Anda yakin menghapus data ini?
-      </DialogComponent>
-
     </>
   );
 }

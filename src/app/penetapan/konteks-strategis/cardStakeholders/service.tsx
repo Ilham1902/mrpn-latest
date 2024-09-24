@@ -2,12 +2,12 @@ import {post, put} from "@/lib/core/api/apiBase";
 import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
   GetKonstraStakeholderByExsumIdServiceModel, UpdateKonstraStakeholderByExsumIdServiceModel
-} from "@/app/penetapan/konteks-strategis/cardStakeholderInternal/model";
+} from "@/app/penetapan/konteks-strategis/cardStakeholders/model";
 
 export async function doGet(param: GetKonstraStakeholderByExsumIdServiceModel) {
   const resp = await post({
     ...param,
-    url: "exsum/stakeholder/show",
+    url: "penetapan/konteks/stakeholder/show",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
@@ -15,7 +15,7 @@ export async function doGet(param: GetKonstraStakeholderByExsumIdServiceModel) {
 export async function doCreate(param: UpdateKonstraStakeholderByExsumIdServiceModel) {
   const resp = await post({
     ...param,
-    url: "exsum/stakeholder/add",
+    url: "penetapan/konteks/stakeholder/add",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
@@ -23,7 +23,7 @@ export async function doCreate(param: UpdateKonstraStakeholderByExsumIdServiceMo
 export async function doUpdate(param: UpdateKonstraStakeholderByExsumIdServiceModel) {
   const resp = await put({
     ...param,
-    url: "exsum/stakeholder/update",
+    url: "penetapan/konteks/stakeholder/update",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
