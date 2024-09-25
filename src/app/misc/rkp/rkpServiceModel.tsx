@@ -21,6 +21,12 @@ export type RkpDefaultReqV1Dto = {
 export type RkpDefaultReqV2Dto = {
     by: string
     id: number[]
+    tahun : number
+};
+
+export type RkpDefaultReqV3Dto = {
+    by: string
+    id: number[]
 };
 
 export type RkpLocationReqDto = {
@@ -61,7 +67,7 @@ export interface ProPDto {
     value:string
 }
 export type GetRkpPROPServiceModel = BaseAPIServiceParam & {
-    body: RkpDefaultReqV2Dto;
+    body: RkpDefaultReqV3Dto;
 };
 
 export interface IndikatorDto {

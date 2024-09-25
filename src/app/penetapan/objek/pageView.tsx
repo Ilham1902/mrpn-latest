@@ -129,7 +129,7 @@ export default function PageTemaView({}) {
 
   useEffect(useEffectGenerateOption, [year]);
 
-  useEffect(useEffectObjectState, [year]);
+  useEffect(useEffectObjectState, [year,objectState]);
 
  const dialogActionFooterAdd = (
   <DialogActions sx={{ p: 2, px: 3 }}>

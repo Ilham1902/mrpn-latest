@@ -53,7 +53,7 @@ export default function CardIntervensi({project}: { project: string }) {
     if (listSof.length == 0) getListSumberPendanaan();
     if (listStakeholder.length == 0) getListStakeholder();
     if (exsum.id != 0) getData()
-  }, []);
+  }, [exsum]);
 
   useEffect(() => {
     if (rpjmn && state.list.length == 0) {

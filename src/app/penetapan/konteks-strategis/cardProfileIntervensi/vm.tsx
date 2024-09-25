@@ -1,7 +1,6 @@
 import {useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
 import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
 import {useState} from "react";
-import {MiscMasterListPerpresRes} from "@/app/misc/master/masterServiceModel";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
 import {doGetDataProfileKunci} from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/service";
 import {API_CODE} from "@/lib/core/api/apiModel";

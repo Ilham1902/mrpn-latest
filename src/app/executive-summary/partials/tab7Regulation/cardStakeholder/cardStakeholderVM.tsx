@@ -125,7 +125,7 @@ const useCardStakeholderVM = () => {
   useEffect(() => {
     if (listStakeholder.length == 0) getListStakeholder()
     if (exsum.id != 0) getData()
-  }, []);
+  }, [exsum]);
 
   return {
     data,

@@ -23,7 +23,7 @@ export const IErrorModal = () => {
     const { code, message, } = modalProps || {};
 
     const handleModalToggle = () => {
-        if (code == 401){
+        if (code == 401 || code == 500){
             setUser(undefined)
             return router.replace("/login");
         }
@@ -38,17 +38,17 @@ export const IErrorModal = () => {
             onClose={handleModalToggle}
         >
             <DialogContent>
-                {code === 401 && <DialogContentText>
+                {code === 401 || code === 500 && <DialogContentText>
                     Sesi Anda telah berakhir, silahkan login kembali
                 </DialogContentText>}
-                {code !== 401 && <DialogContentText>
+                {code !== 401 && code !== 500 && <DialogContentText>
                     {`${message} (${code})`}
                 </DialogContentText>}
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleModalToggle}>
-                    {code === 401 && 'OK'}
-                    {code !== 401 && 'Tutup'}
+                    {code === 401 || code === 500 && 'OK'}
+                    {code !== 401 && code !== 500 && 'Tutup'}
                 </Button>
             </DialogActions>
         </Dialog>

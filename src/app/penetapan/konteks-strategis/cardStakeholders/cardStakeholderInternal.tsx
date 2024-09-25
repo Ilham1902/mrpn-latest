@@ -21,16 +21,17 @@ export default function CardStakeholderInternal() {
     handleSelectStakeholder,
     getListStakeholder,
     getDataStakeholder,
-    setType
+    setType,
+    type
   } = useCardStakeholderInternalVM()
 
   useEffect(() => {
-    setType("INTERNAL")
     if (objectState !== undefined){
+      setType("INTERNAL")
       getDataStakeholder()
       if (listStakeholder.length == 0) getListStakeholder()
     }
-  }, [objectState]);
+  }, [objectState, type]);
 
   const handleModalOpenStakeholder = () => {
     setModalOpenStakeholder(true);

@@ -87,7 +87,7 @@ const useCardRegulationVM = () => {
   useEffect(() => {
     if (perpres.length == 0) getListPerpres();
     if (exsum.id !== 0) getData();
-  }, []);
+  }, [exsum]);
 
   return {
     data,

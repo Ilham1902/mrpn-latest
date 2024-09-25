@@ -1,130 +1,131 @@
 import React, {useEffect} from "react";
 import {
- Typography,
- MenuItem,
- FormControl,
- Grow,
- Tooltip,
- Autocomplete,
- TextField,
+  Typography,
+  MenuItem,
+  FormControl,
+  Grow,
+  Tooltip,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
-import { listSelectKp } from "@/app/executive-summary/data";
+import {listSelectKp} from "@/app/executive-summary/data";
 import theme from "@/theme";
-import { grey } from "@mui/material/colors";
-import { SxParams } from "@/app/executive-summary/types";
+import {grey} from "@mui/material/colors";
+import {SxParams} from "@/app/executive-summary/types";
 import useRkpVM from "@/components/dropdown/rkpVM";
 import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export const SxAutocompleteTextField = (params: SxParams) => {
- return {
-  "input::-webkit-input-placeholder": {
-   color: params.variant === "primary" ? "white" : grey[600],
-   opacity: 1,
-   fontStyle: "italic",
-  },
- };
+  return {
+    "input::-webkit-input-placeholder": {
+      color: params.variant === "primary" ? "white" : grey[600],
+      opacity: 1,
+      fontStyle: "italic",
+    },
+  };
 };
 
 export const SxAutocomplete = (params: SxParams) => {
- return {
-  minWidth: 300,
-  color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
-  ".MuiInputBase-root": {
-   height: "38px",
-   fontWeight: 600,
-   fontSize: 14,
-   py: 0,
-   borderRadius: 6,
-   bgcolor: params.variant === "primary" ? theme.palette.primary.main : "white",
-   [theme.breakpoints.down("md")]: {
-    fontSize: 12,
-   },
-  },
-  ".MuiInputBase-input": {
-   color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
-  },
-  ".MuiSvgIcon-root": {
-   //   fill: "white",
-   fill: params.variant === "primary" ? "white" : grey[600],
-  },
-  [theme.breakpoints.down("md")]: {
-   minWidth: 200,
-  },
- };
+  return {
+    minWidth: 300,
+    color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
+    ".MuiInputBase-root": {
+      height: "38px",
+      fontWeight: 600,
+      fontSize: 14,
+      py: 0,
+      borderRadius: 6,
+      bgcolor: params.variant === "primary" ? theme.palette.primary.main : "white",
+      [theme.breakpoints.down("md")]: {
+        fontSize: 12,
+      },
+    },
+    ".MuiInputBase-input": {
+      color: params.variant === "primary" ? "white" : theme.palette.primary.dark,
+    },
+    ".MuiSvgIcon-root": {
+      //   fill: "white",
+      fill: params.variant === "primary" ? "white" : grey[600],
+    },
+    [theme.breakpoints.down("md")]: {
+      minWidth: 200,
+    },
+  };
 };
 
-export default function DropdownRkp({
- //  project,
- handleChangeProject,
- variant,
-}: {
- //  project?: any;
- handleChangeProject?: any;
- variant?: string;
-}) {
+export default function DropdownRkp(
+  {
+    //  project,
+    handleChangeProject,
+    variant,
+  }: {
+    //  project?: any;
+    handleChangeProject?: any;
+    variant?: string;
+  }) {
 
- const rkpContext = useRKPContext(state => state);
- const {rkp, rkpState} = rkpContext
+  const rkpContext = useRKPContext(state => state);
+  const {rkp, setRkp, rkpState, setRkpState, year} = rkpContext
 
- const {
-  options,
-  handleChangeOptions,
-  value,
-   allowedSelectRKP,
-  getAllowedSelectRKP,
-   getData,
-  triggerChange
- } = useRkpVM();
+  const {
+    options,
+    handleChangeOptions,
+    value,
+    allowedSelectRKP,
+    getAllowedSelectRKP,
+    getData,
+    triggerChange
+  } = useRkpVM();
 
- useEffect(() => {
-  if (allowedSelectRKP.length == 0) {
-   getAllowedSelectRKP()
-  }
- }, []);
-
- useEffect(() => {
-  if (allowedSelectRKP.length > 0) {
-   if (rkp.length == 0){
-    getData()
-   } else {
-    if (rkpState) triggerChange(rkpState);
-   }
-  }
- }, [allowedSelectRKP]);
-
- const sxParams: SxParams = { variant: variant };
-
- return (
-  <FormControl size="small">
-   <Autocomplete
-    size="small"
-    value={value}
-    getOptionLabel={(option:any) => option.value ? option.level+" - "+option.code+" - "+option.value : ""}
-    getOptionDisabled={(option:any) =>
-      options.some((selectedOption) => {
-       return !allowedSelectRKP.includes(option.level)
-      })
+  useEffect(() => {
+    if (allowedSelectRKP.length == 0) {
+      getAllowedSelectRKP()
     }
-    onChange={(event: any, newValue: any | undefined) => {
-      handleChangeOptions(newValue);
-    }}
-    options={options}
-    renderInput={(params) => (
-     <Tooltip title={value ? value.value : ""} followCursor TransitionComponent={Grow}>
-      <TextField
-       {...params}
-       InputLabelProps={{
-        shrink: true,
-       }}
-       placeholder="Pilih kegiatan pembangunan"
-       sx={SxAutocompleteTextField(sxParams)}
+  }, []);
+
+  useEffect(() => {
+    if (allowedSelectRKP.length > 0) {
+      if (rkp.length == 0) {
+        getData()
+      } else {
+        if (rkpState) triggerChange(rkpState);
+      }
+    }
+  }, [allowedSelectRKP]);
+
+  const sxParams: SxParams = {variant: variant};
+
+  return (
+    <FormControl size="small">
+      <Autocomplete
+        size="small"
+        value={value}
+        getOptionLabel={(option: any) => option.value ? option.level + " - " + option.code + " - " + option.value : ""}
+        getOptionDisabled={(option: any) =>
+          options.some((selectedOption) => {
+            return !allowedSelectRKP.includes(option.level)
+          })
+        }
+        onChange={(event: any, newValue: any | undefined) => {
+          handleChangeOptions(newValue);
+        }}
+        options={options}
+        renderInput={(params) => (
+          <Tooltip title={value ? value.value : ""} followCursor TransitionComponent={Grow}>
+            <TextField
+              {...params}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Pilih kegiatan pembangunan"
+              sx={SxAutocompleteTextField(sxParams)}
+            />
+          </Tooltip>
+        )}
+        sx={SxAutocomplete(sxParams)}
       />
-     </Tooltip>
-    )}
-    sx={SxAutocomplete(sxParams)}
-   />
-   {/*  */}
-   {/* <SelectCustomTheme
+      {/*  */}
+      {/* <SelectCustomTheme
     small
     anchorRight
     value={project}
@@ -155,6 +156,6 @@ export default function DropdownRkp({
      </MenuItem>
     ))}
    </SelectCustomTheme> */}
-  </FormControl>
- );
+    </FormControl>
+  );
 }

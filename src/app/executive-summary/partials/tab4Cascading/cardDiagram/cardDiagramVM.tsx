@@ -44,7 +44,10 @@ const useCardDiagramVM = () => {
 
   async function getOptionProP() {
     const response = await doGetPROP({
-      body: {by: exsum.level, id: [exsum.ref_id]},
+      body: {
+        by: exsum.level,
+        id: [exsum.ref_id]
+      },
       errorModalContext: errorModalContext,
       loadingContext: loadingContext
     })
@@ -110,7 +113,7 @@ const useCardDiagramVM = () => {
     getData()
     getOptionStakeholder()
     getOptionProP()
-  }, []);
+  }, [exsum]);
 
   return {
     data,

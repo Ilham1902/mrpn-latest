@@ -1,5 +1,5 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
-import {IndikatorDto, SasaranDto} from "@/app/misc/rkp/rkpServiceModel";
+import {SasaranDto} from "@/app/misc/rkp/rkpServiceModel";
 import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 

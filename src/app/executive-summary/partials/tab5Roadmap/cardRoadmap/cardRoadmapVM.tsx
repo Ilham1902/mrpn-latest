@@ -109,7 +109,7 @@ const useCardRoadmapVM = () => {
   useEffect(() => {
     if (rpjmn == undefined) getRpjmn();
     if (exsum.id != 0) getData()
-  }, []);
+  }, [exsum]);
 
   return {
     rpjmn,

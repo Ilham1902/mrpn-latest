@@ -19,13 +19,13 @@ import {
 import {Task} from "gantt-task-react";
 import dayjs from "dayjs";
 import {GetColor} from "@/utils/color";
-import {end} from "@popperjs/core";
 
 const useCardCriticalVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
   const {exsum} = useExsumContext()
+  const {year} = useRKPContext(store => store)
 
   const useCardTows = useCardTOWSVM();
 
@@ -41,7 +41,8 @@ const useCardCriticalVM = () => {
     const response = await doGetRO({
       body: {
         by: exsum.level,
-        id: [exsum.ref_id]
+        id: [exsum.ref_id],
+        tahun: year
       },
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,

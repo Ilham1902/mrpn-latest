@@ -32,7 +32,7 @@ const useCardSupportVM = () => {
 
   useEffect(() => {
     if (exsum.id != 0) getData();
-  }, []);
+  }, [exsum]);
 
   return {
     data,

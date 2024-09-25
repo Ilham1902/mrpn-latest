@@ -1,4 +1,4 @@
-import {useExsumContext, useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
+import {useExsumContext, useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
 import React, {useEffect, useState} from "react";
 import {
   COORDINATOR,
@@ -29,6 +29,7 @@ const useCardIndicationVM = () => {
   const errorModalContext = useGlobalModalContext();
   const {exsum} = useExsumContext()
   const useCardSWOT = useCardSWOTVM();
+  const {year} = useRKPContext(store => store)
 
   const [optionRiskType, setOptionRiskType] = useState<string[]>([])
   const [optionStrategy, setOptionStrategy] = useState<ExsumSWOTValuesDto[]>([])
@@ -62,7 +63,8 @@ const useCardIndicationVM = () => {
     const response = await doGetRO({
       body: {
         by: exsum.level,
-        id: [exsum.ref_id]
+        id: [exsum.ref_id],
+        tahun: year
       },
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,

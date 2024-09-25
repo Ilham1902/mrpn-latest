@@ -14,7 +14,7 @@ const useRkpVM = () => {
   const rkpContext = useRKPContext(state => state);
   const exsumContext = useExsumContext();
 
-  const {rkp,setRkp, rkpOption,setRkpOption, rkpState, setRkpState} = rkpContext
+  const {rkp,setRkp, rkpOption,setRkpOption, rkpState, setRkpState, year} = rkpContext
   const [allowedSelectRKP, setAllowedSelectRKP] = useState<string[]>([])
 
   async function getAllowedSelectRKP() {
@@ -112,7 +112,7 @@ const useRkpVM = () => {
     if (allowedSelectRKP.includes(params.level)) {
       let req: ExsumDto = {
         id: 0,
-        tahun: new Date().getFullYear(),
+        tahun: year,
         level: params.level,
         ref_id: params.id
       }
@@ -131,6 +131,10 @@ const useRkpVM = () => {
   useEffect(() => {
     if (rkpState) triggerChange(rkpState);
   }, [rkpState]);
+
+  useEffect(() => {
+    if (rkpState !== undefined) triggerChange(rkpState);
+  }, [year]);
 
   return {
     allowedSelectRKP,

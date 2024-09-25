@@ -8,6 +8,7 @@ export interface UserDto {
     id: number
     name: string
     email: string
+    type: string
 }
 export interface TokenPayload {
     token: string
