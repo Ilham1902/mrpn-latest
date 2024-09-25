@@ -28,10 +28,10 @@ import ThemeToggleButton from "@/app/components/toggleButton/theme";
 import TabObject from "./partials/tab";
 import { IconFA } from "@/app/components/icons/icon-fa";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
-import {useAuthContext, usePenetapanObjectContext, useRKPContext} from "@/lib/core/hooks/useHooks";
+import {useAuthContext, usePenetapanTopicContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {usePathname} from "next/navigation";
 import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
-import {PenetapanObjectDto, PenetapanObjectState} from "@/lib/core/context/penetapanObjectContext";
+import {PenetapanObjectDto, PenetapanObjectState} from "@/lib/core/context/penetapanTopicContext";
 import useRkpVM from "@/components/dropdown/rkpVM";
 
 const styleToggleButton = [
@@ -114,7 +114,7 @@ export default function PageTemaView({}) {
     objects,
     objectState,
     setObjectState
-  } = usePenetapanObjectContext(state => state)
+  } = usePenetapanTopicContext(state => state)
 
  const {
    useEffectGenerateOption,

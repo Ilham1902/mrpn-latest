@@ -10,13 +10,13 @@ import {
   KonstraStakeholderInternalResDto, KonstraStakeholderInternalReqDto, KonstraStakeholderInternalValueDto
 } from "@/app/penetapan/konteks-strategis/cardStakeholders/model";
 import {doCreate, doGet, doUpdate} from "@/app/penetapan/konteks-strategis/cardStakeholders/service";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 
 const useCardStakeholderInternalVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { objectState } = useKonstraVM()
+  const { objectState } = usePenetapanGlobalVM()
 
   const [listStakeholder, setListStakeholder] = useState<MiscMasterListStakeholderRes[]>([])
   const [modalOpenStakeholder, setModalOpenStakeholder] = React.useState(false);

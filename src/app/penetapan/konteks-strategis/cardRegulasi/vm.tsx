@@ -1,4 +1,4 @@
-import {useGlobalModalContext, useLoading, usePenetapanObjectContext, useRKPContext} from "@/lib/core/hooks/useHooks";
+import {useGlobalModalContext, useLoading, usePenetapanTopicContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {useState} from "react";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {
@@ -8,14 +8,14 @@ import {
 import {
   doGetRegulasi,
 } from "@/app/penetapan/konteks-strategis/cardRegulasi/service";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {MiscMasterListPerpresRes} from "@/app/misc/master/masterServiceModel";
 
 const useCardRegulasi = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { objectState } = useKonstraVM()
+  const { objectState } = usePenetapanGlobalVM()
 
   const [data, setData] = useState<MiscMasterListPerpresRes[]>([])
 

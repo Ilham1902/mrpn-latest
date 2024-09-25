@@ -1,11 +1,10 @@
-import {useEffect} from "react";
 import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
 import {useGlobalModalContext, useLoading, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {doGetMasterListObject} from "@/app/misc/master/masterService";
 import {API_CODE} from "@/lib/core/api/apiModel";
-import {useKonstraContext} from "@/app/penetapan/konteks-strategis/provider/konstraHook";
+import {usePenetapanContext} from "@/lib/core/hooks/useHooks";
 
-const useKonstraVM = () => {
+const usePenetapanGlobalVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
@@ -19,7 +18,7 @@ const useKonstraVM = () => {
     setObjects,
     objectState,
     setObjectState,
-  } = useKonstraContext(store => store)
+  } = usePenetapanContext(store => store)
 
   const getMasterListObject = async () => {
     const response = await doGetMasterListObject({
@@ -30,6 +29,10 @@ const useKonstraVM = () => {
     if (response?.code == API_CODE.success) {
       const result: MasterListObjectRes[] = response.result
       setObjects(result)
+      const getIndex = result.findIndex(x => x.id == objectState?.id)
+      if (getIndex == -1){
+        setObjectState(undefined)
+      }
     }
   }
 
@@ -42,4 +45,4 @@ const useKonstraVM = () => {
   }
 }
 
-export default useKonstraVM
+export default usePenetapanGlobalVM

@@ -67,4 +67,4 @@ export const createPenetapanObjectStore = (
   }))
 }
 
-export const PenetapanObjectContext = createContext<StoreApi<PenetapanObjectStore> | null>(null);
+export const PenetapanTopicContext = createContext<StoreApi<PenetapanObjectStore> | null>(null);

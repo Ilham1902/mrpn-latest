@@ -2,8 +2,8 @@
 const nextConfig = {
     // output: "standalone",
     output: "export",
-    basePath: "/fe",
-    assetPrefix: "https://mrpn.bappenas.go.id/fe",
+    // basePath: "/fe",
+    // assetPrefix: "https://mrpn.bappenas.go.id/fe",
     reactStrictMode: false,
     crossOrigin: 'anonymous',
     images: {

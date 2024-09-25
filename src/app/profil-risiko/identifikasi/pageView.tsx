@@ -8,7 +8,7 @@ import FormTable from "./partials/form-table";
 import AddButton from "@/app/components/buttonAdd";
 import useIdentificationRiskVM from "@/app/profil-risiko/identifikasi/pageVM";
 import {useAuthContext, useRKPContext} from "@/lib/core/hooks/useHooks";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {AutocompleteSelectSingle} from "@/components/autocomplete";
 import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
 import EmptyState from "@/components/empty";
@@ -38,11 +38,10 @@ export default function PageIdentifikasiView({}) {
     objectState,
     setObjectState,
     getMasterListObject
-  } = useKonstraVM()
+  } = usePenetapanGlobalVM()
 
   useEffect(() => {
     if (year > 0) {
-      setObjectState(undefined)
       getMasterListObject()
     }
   }, [year]);

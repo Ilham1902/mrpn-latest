@@ -2,7 +2,7 @@ import {
   useExsumContext,
   useGlobalModalContext,
   useLoading,
-  usePenetapanObjectContext,
+  usePenetapanTopicContext,
   useRKPContext
 } from "@/lib/core/hooks/useHooks";
 import React, {useEffect, useState} from "react";
@@ -27,7 +27,7 @@ import {
 } from "@/app/penetapan/objek/pageService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import useRkpVM from "@/components/dropdown/rkpVM";
-import {PenetapanObjectDto, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanObjectContext";
+import {PenetapanObjectDto, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanTopicContext";
 import {RKPCascadingDto} from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
 
 const usePenetapanObjectVM = () => {
@@ -47,7 +47,7 @@ const usePenetapanObjectVM = () => {
     setObjectState,
     uraianState,
     setUraianState,
-  } = usePenetapanObjectContext(state => state)
+  } = usePenetapanTopicContext(state => state)
 
   const initState = JSON.parse(JSON.stringify(initPenetapanObjectState))
   const [stateTopic, setStateTopic] = useState<PenetapanObjectVMState>(initState)

@@ -1,33 +1,35 @@
+"use client"
+
 import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
 import {createStore} from "zustand/vanilla";
 import {createContext} from "react";
 import type {StoreApi} from "zustand";
 
-export type KonstraState =  {
+export type PenetapanState =  {
   objects: MasterListObjectRes[]
   objectState : MasterListObjectRes | undefined
 }
 
-export type KonstraActions = {
+export type PenetapanActions = {
   setObjects: (value: MasterListObjectRes[]) => void
   setObjectState: (value: MasterListObjectRes|undefined ) => void
 }
 
-export type KonstraStore = KonstraState & KonstraActions
+export type PenetapanStore = PenetapanState & PenetapanActions
 
-export const defaultKonstraState: KonstraState = {
+export const defaultPenetapanState: PenetapanState = {
   objects: [],
   objectState: undefined,
 }
 
 export const createKonstraStore = (
-  initState: KonstraState = defaultKonstraState,
+  initState: PenetapanState = defaultPenetapanState,
 ) => {
-  return createStore<KonstraStore>()((set) => ({
+  return createStore<PenetapanStore>()((set) => ({
     ...initState,
     setObjects: (params:MasterListObjectRes[]) => set((state) => state = {...state, objects:params}),
     setObjectState: (params:MasterListObjectRes|undefined) => set((state) => state = {...state, objectState:params}),
   }))
 }
 
-export const KonstraContext = createContext<StoreApi<KonstraStore> | null>(null);
+export const PenetapanContext = createContext<StoreApi<PenetapanStore> | null>(null);

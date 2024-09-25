@@ -4,7 +4,7 @@ import {
   doCreateIdentificationRisk, doUpdateIdentificationRisk, doDeleteIdentificationRisk
 } from "@/app/profil-risiko/identifikasi/pageService";
 import {useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {API_CODE, ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
   IdentificationRiskAddReqDto,
@@ -21,7 +21,7 @@ const useIdentificationRiskVM = () => {
 
   const {
     objectState
-  } = useKonstraVM()
+  } = usePenetapanGlobalVM()
 
   const [modal, setModal] = useState<{isOpen:boolean, action:string}>({isOpen:false, action:"create"})
   const [dataIdentificationRisk, setDataIdentificationRisk] = useState<IdentificationRiskResDto|undefined>(undefined)

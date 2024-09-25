@@ -18,7 +18,7 @@ import {IconEmptyData} from "@/components/icons";
 import EmptyState from "@/components/empty";
 import CardProfileIntervensi from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/cardProfileIntervensi";
 import {AutocompleteSelectSingle} from "@/components/autocomplete";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
 import {width} from "@mui/system";
 import CardStakeholderInternal from "@/app/penetapan/konteks-strategis/cardStakeholders/cardStakeholderInternal";
@@ -35,11 +35,10 @@ export default function PageKonteksStrategisView({}) {
    objectState,
    setObjectState,
    getMasterListObject
- } = useKonstraVM()
+ } = usePenetapanGlobalVM()
 
   useEffect(() => {
     if (year > 0){
-      setObjectState(undefined)
       getMasterListObject()
     }
   }, [year]);

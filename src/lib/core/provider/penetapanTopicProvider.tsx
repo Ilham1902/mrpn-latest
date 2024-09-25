@@ -2,13 +2,13 @@
 
 import React, {ReactNode, useRef} from 'react';
 import {
-    createPenetapanObjectStore, PenetapanObjectContext,
+    createPenetapanObjectStore, PenetapanTopicContext,
     PenetapanObjectState,
     PenetapanObjectStore
-} from "@/lib/core/context/penetapanObjectContext";
+} from "@/lib/core/context/penetapanTopicContext";
 import {StoreApi} from "zustand";
 
-export const PenetapanObjectProvider = (
+export const PenetapanTopicProvider = (
     {
         children,
         state
@@ -24,8 +24,8 @@ export const PenetapanObjectProvider = (
     }
 
     return (
-        <PenetapanObjectContext.Provider value={storeRef.current}>
+        <PenetapanTopicContext.Provider value={storeRef.current}>
             {children}
-        </PenetapanObjectContext.Provider>
+        </PenetapanTopicContext.Provider>
     );
 }

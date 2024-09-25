@@ -7,7 +7,7 @@ import RiskContent from "./partials/risk";
 import {AutocompleteSelectSingle} from "@/components/autocomplete";
 import {MasterListObjectRes} from "@/app/misc/master/masterServiceModel";
 import {useRKPContext} from "@/lib/core/hooks/useHooks";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
 
@@ -22,11 +22,10 @@ export default function PageSeleraRisikoView({}) {
     objectState,
     setObjectState,
     getMasterListObject
-  } = useKonstraVM()
+  } = usePenetapanGlobalVM()
 
   useEffect(() => {
     if (year > 0){
-      setObjectState(undefined)
       getMasterListObject()
     }
   }, [year]);

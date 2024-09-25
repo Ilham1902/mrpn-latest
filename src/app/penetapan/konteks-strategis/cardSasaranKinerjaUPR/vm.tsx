@@ -7,7 +7,7 @@ import {
 import {
   doGetIndikasiSasaran
 } from "@/app/penetapan/konteks-strategis/cardSasaranKinerjaUPR/service";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {stakeholderType} from "@/app/misc/master/masterServiceModel";
 
 const useCardSasaranUPRVM = () => {
@@ -15,7 +15,7 @@ const useCardSasaranUPRVM = () => {
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
 
-  const {objectState} = useKonstraVM()
+  const {objectState} = usePenetapanGlobalVM()
 
   const [data, setData] = useState<SasaranIndikatorTargetUPRData[]>([])
 

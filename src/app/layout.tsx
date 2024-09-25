@@ -14,6 +14,8 @@ import { RKPProvider } from "@/lib/core/provider/rkpProvider";
 import { defaultInitRkpState } from "@/lib/core/context/rkpContext";
 import { AuthProvider } from "@/lib/core/provider/authProvider";
 import { defaultInitAuthState } from "@/lib/core/context/authContext";
+import {defaultPenetapanState} from "@/lib/core/context/penetapanContext";
+import {PenetapanProvider} from "@/lib/core/provider/penetapanProvider";
 // import Head from "next/head";
 
 export const metadata: Metadata = {
@@ -44,7 +46,11 @@ export default function RootLayout(props: any) {
      <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
        <CssBaseline />
-       <RKPProvider state={defaultInitRkpState}>{props.children}</RKPProvider>
+       <RKPProvider state={defaultInitRkpState}>
+        <PenetapanProvider state={defaultPenetapanState}>
+         {props.children}
+        </PenetapanProvider>
+       </RKPProvider>
       </ThemeProvider>
      </AppRouterCacheProvider>
     </body>

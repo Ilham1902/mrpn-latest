@@ -4,16 +4,16 @@ import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import PageTemaView from "@/app/penetapan/objek/pageView";
 import {usePermissionChecker} from "@/lib/core/helpers/authHelpers";
-import {PenetapanObjectProvider} from "@/lib/core/provider/penetapanObjectProvider";
-import {defaultPenetapanObjectState} from "@/lib/core/context/penetapanObjectContext";
+import {PenetapanTopicProvider} from "@/lib/core/provider/penetapanTopicProvider";
+import {defaultPenetapanObjectState} from "@/lib/core/context/penetapanTopicContext";
 
 export default function PageTema({}) {
 
  usePermissionChecker("penetapan.objectUpr")
 
  return <DashboardLayout>
-  <PenetapanObjectProvider state={defaultPenetapanObjectState}>
+  <PenetapanTopicProvider state={defaultPenetapanObjectState}>
    <PageTemaView />
-  </PenetapanObjectProvider>
+  </PenetapanTopicProvider>
  </DashboardLayout>
 }

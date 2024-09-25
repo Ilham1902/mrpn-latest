@@ -16,13 +16,13 @@ import theme from "@/theme";
 import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
-import {usePenetapanObjectContext} from "@/lib/core/hooks/useHooks";
+import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
 import {
   KriteriaPemilihanEntity,
   PenetapanObjectEntityItemDto,
   PenetapanObjectStateEntityDto
 } from "@/app/penetapan/objek/pageModel";
-import {PenetapanObjectPrioritas} from "@/lib/core/context/penetapanObjectContext";
+import {PenetapanObjectPrioritas} from "@/lib/core/context/penetapanTopicContext";
 
 export default function TableProposal({mode}: { mode?: string }) {
 
@@ -35,7 +35,7 @@ export default function TableProposal({mode}: { mode?: string }) {
 
   const {
     objectState
-  } = usePenetapanObjectContext(state => state)
+  } = usePenetapanTopicContext(state => state)
 
   useEffect(() => {
     if (objectState !== undefined) {

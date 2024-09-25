@@ -1,5 +1,5 @@
 import {useGlobalModalContext, useLoading} from "@/lib/core/hooks/useHooks";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 import {useState} from "react";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
 import {doGetDataProfileKunci} from "@/app/penetapan/konteks-strategis/cardProfileIntervensi/service";
@@ -9,7 +9,7 @@ const useProfileKunciVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { objectState } = useKonstraVM()
+  const { objectState } = usePenetapanGlobalVM()
 
   const [data, setData] = useState<RoDto[]>([])
 

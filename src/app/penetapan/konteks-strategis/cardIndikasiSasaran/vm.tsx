@@ -7,13 +7,13 @@ import {API_CODE} from "@/lib/core/api/apiModel";
 import {
   PenetapanIndikasiSasaranResDto
 } from "@/app/penetapan/konteks-strategis/cardIndikasiSasaran/model";
-import useKonstraVM from "@/app/penetapan/konteks-strategis/pageVM";
+import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
 
 const useIndikatorSasaranVM = () => {
 
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { objectState } = useKonstraVM()
+  const { objectState } = usePenetapanGlobalVM()
 
   const [indikatorSasaranData, setIndikatorSasaranData] = useState<PenetapanIndikasiSasaranResDto|undefined>(undefined)
 

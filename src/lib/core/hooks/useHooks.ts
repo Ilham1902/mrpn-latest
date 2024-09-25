@@ -5,7 +5,8 @@ import {RKPContext, RkpStore} from "../context/rkpContext";
 import { ExsumContext } from "../context/exsumContext";
 import {useStore} from "zustand";
 import {AuthContext, AuthStore} from "@/lib/core/context/authContext";
-import {PenetapanObjectContext, PenetapanObjectStore} from "@/lib/core/context/penetapanObjectContext";
+import {PenetapanTopicContext, PenetapanObjectStore} from "@/lib/core/context/penetapanTopicContext";
+import {PenetapanContext, PenetapanStore} from "@/lib/core/context/penetapanContext";
 
 export const useLoading = () => useContext(LoadingContext);
 export const useGlobalModalContext = () => useContext(GlobalModalContext);
@@ -36,10 +37,22 @@ export const useAuthContext = <T,>(
   return useStore(globalStoreContext, selector)
 }
 
-export const usePenetapanObjectContext = <T,>(
+export const usePenetapanTopicContext = <T,>(
   selector: (store: PenetapanObjectStore) => T,
 ): T => {
-  const globalStoreContext = useContext(PenetapanObjectContext)
+  const globalStoreContext = useContext(PenetapanTopicContext)
+
+  if (!globalStoreContext) {
+    throw new Error(`useGlobalStore must be use within GlobalStoreProvider`)
+  }
+
+  return useStore(globalStoreContext, selector)
+}
+
+export const usePenetapanContext = <T,>(
+  selector: (store: PenetapanStore) => T,
+): T => {
+  const globalStoreContext = useContext(PenetapanContext)
 
   if (!globalStoreContext) {
     throw new Error(`useGlobalStore must be use within GlobalStoreProvider`)

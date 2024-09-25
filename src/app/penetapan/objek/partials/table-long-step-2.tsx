@@ -12,15 +12,15 @@ import {
 import theme from "@/theme";
 import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
-import {usePenetapanObjectContext} from "@/lib/core/hooks/useHooks";
-import {PenetapanObjectPrioritas, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanObjectContext";
+import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
+import {PenetapanObjectPrioritas, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanTopicContext";
 
 export default function TableLonglistStepTwo({mode}: { mode?: string }) {
 
   const {
     uraianState,
     setUraianState
-  } = usePenetapanObjectContext(state => state)
+  } = usePenetapanTopicContext(state => state)
 
   function handleChecked(checked: boolean, i: number) {
     const curUraian: PenetapanObjectUraianDto[] = uraianState

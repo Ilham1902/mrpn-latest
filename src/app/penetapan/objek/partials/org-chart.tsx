@@ -25,7 +25,7 @@ import {
 import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
 import DraggableScroll from "@/app/executive-summary/partials/tab2Profile/partials/draggableScroll";
 import {SxParams} from "@/app/executive-summary/types";
-import {usePenetapanObjectContext} from "@/lib/core/hooks/useHooks";
+import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
 
 
@@ -151,7 +151,7 @@ export default function CascadingPenetapanObjectOrgChart() {
 
   const {
     objectState
-  } = usePenetapanObjectContext(state => state)
+  } = usePenetapanTopicContext(state => state)
 
   useEffect(() => {
     if (objectState !== undefined){
