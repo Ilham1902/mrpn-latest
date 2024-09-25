@@ -111,3 +111,16 @@ export interface MasterListObjectRes {
   objek:boolean
   rkp: ProjectDefaultDto
 }
+
+// LIST RISK MATRIX
+export type MasterRiskMatrixReq = BaseAPIServiceParam & {
+  body: {};
+};
+export interface MasterRiskMatrixRes {
+  id: number
+  dampak: number
+  kemungkinan: number
+  warna: string
+  nilai: number
+  level: string
+}
