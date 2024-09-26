@@ -51,6 +51,6 @@ export const initIdentificationRiskAddReqDto:IdentificationRiskAddReqDto = {
   kategori_risiko: "",
   insidentil: false,
   peristiwa_risiko: "",
-  penyebab: [],
-  dampak: []
+  penyebab: [""],
+  dampak: [""]
 }

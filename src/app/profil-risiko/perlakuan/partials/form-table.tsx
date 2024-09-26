@@ -223,6 +223,7 @@ export default function FormTable(
           />
           {mode !== "read" && mode !== "update" ? (
             <AutocompleteSelectSingle
+              key={state.profil_risiko?.id ?? 0}
               value={state.profil_risiko}
               options={optionsRiskProfile}
               getOptionLabel={opt => opt.peristiwa_risiko}

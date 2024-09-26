@@ -16,6 +16,7 @@ import {
 } from "@/app/profil-risiko/perlakuan/pageModel";
 import {doGetMasterListStakeholder} from "@/app/misc/master/masterService";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 const useTreatmentRiskVM = () => {
 
@@ -28,7 +29,7 @@ const useTreatmentRiskVM = () => {
 
   const [modal, setModal] = useState<{isOpen:boolean, action:string}>({isOpen:false, action:"create"})
 
-
+  const [dataTable, setDataTable] = useState<RiskOverviewData[]>([])
   const [dataTreatmentRisk, setDataTreatmentRisk] = useState<RiskTreatmentResDto|undefined>(undefined)
   const getTreatmentRiskData = async () => {
     const response = await doGetRiskTreatment({
@@ -40,7 +41,23 @@ const useTreatmentRiskVM = () => {
     })
     if (response?.code === API_CODE.success){
       const result:RiskTreatmentResDto = response.result
-      // console.log(result.profilRisiko[0].perlakuan.penanggung_jawab)
+
+      const obj = Object.groupBy(result.dataTable, (risk) => risk.analisis_br)
+      const sorted = Object.keys(obj).sort((a,b) => (parseInt(a) < parseInt(b)) ? 1 : -1)
+
+      const finalDataTable = result.dataTable.reduce<RiskOverviewData[]>(
+        (a,b) => {
+          let prior:number = 1
+          const getIndex = sorted.findIndex(x => parseInt(x) == b.analisis_br)
+          if (getIndex > -1){
+            prior = getIndex+1
+          }
+          b.prioritas = prior
+          return [...a,b]
+        },
+        []
+      )
+      setDataTable(finalDataTable)
       setDataTreatmentRisk(result)
     }
   }
@@ -88,7 +105,7 @@ const useTreatmentRiskVM = () => {
     let initState:RiskTreatmentState = JSON.parse(JSON.stringify(initRiskTreatmentState))
 
     if (id != undefined && dataTreatmentRisk !== undefined){
-      const getIndex = dataTreatmentRisk.profilRisiko.findIndex(x => x.id == id)
+      const getIndex = dataTreatmentRisk.profilRisiko.findIndex(x => x.perlakuan.id == id)
       if (getIndex > -1){
         const reqData = dataTreatmentRisk.profilRisiko[getIndex]
         initState = {
@@ -170,6 +187,7 @@ const useTreatmentRiskVM = () => {
   }
 
   return {
+    dataTable,
     modal,
     setModal,
     getTreatmentRiskData,

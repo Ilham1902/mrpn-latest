@@ -15,6 +15,7 @@ import {API_CODE} from "@/lib/core/api/apiModel";
 import {doGetMasterRiskMatrix} from "@/app/misc/master/masterService";
 import {MasterRiskMatrixRes} from "@/app/misc/master/masterServiceModel";
 import {ProfileRiskDto} from "@/app/profil-risiko/identifikasi/pageModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 export const useRiskAnalysisVM = () => {
 
@@ -40,6 +41,7 @@ export const useRiskAnalysisVM = () => {
 
   const [optionsRisk, setOptionRisk] = useState<ProfileRiskDto[]>([])
   const [riskAnalysisData, setRiskAnalysisData] = useState<RiskAnalysisDto[]>([])
+  const [dataTable, setDataTable] = useState<RiskOverviewData[]>([])
 
   const getRiskAnalysisData = async () => {
     const response = await doGetRiskAnalysis({
@@ -51,8 +53,27 @@ export const useRiskAnalysisVM = () => {
     })
     if (response?.code == API_CODE.success){
       let result:RiskAnalysisResDto = response.result
+
+      const obj = Object.groupBy(result.dataTable, (risk) => risk.analisis_br)
+      const sorted = Object.keys(obj).sort((a,b) => (parseInt(a) < parseInt(b)) ? 1 : -1)
+
+      const finalDataTable = result.dataTable.reduce<RiskOverviewData[]>(
+        (a,b) => {
+          let prior:number = 1
+          const getIndex = sorted.findIndex(x => parseInt(x) == b.analisis_br)
+          if (getIndex > -1){
+            prior = getIndex+1
+          }
+          b.prioritas = prior
+          return [...a,b]
+        },
+        []
+      )
+
+      setDataTable(finalDataTable)
       setRiskAnalysisData(result.profilRisiko)
-      setOptionRisk(result.option)
+      setOptionRisk(result.options)
+
     }
   }
 
@@ -104,7 +125,7 @@ export const useRiskAnalysisVM = () => {
   const actionModal = (isOpen: boolean, action: string, id?:number) => {
     let initState:RiskAnalysisAddStateDto = JSON.parse(JSON.stringify(initRiskAnalysisAddState))
     if (id != undefined){
-      const getIndex = riskAnalysisData.findIndex(x => x.id == id)
+      const getIndex = riskAnalysisData.findIndex(x => x.analisis.id == id)
       if (getIndex > -1){
         const reqData = riskAnalysisData[getIndex]
         initState = {
@@ -128,6 +149,7 @@ export const useRiskAnalysisVM = () => {
     optionsRisk,
     setOptionRisk,
     riskAnalysisData,
+    dataTable,
     state,
     setState,
     modal,

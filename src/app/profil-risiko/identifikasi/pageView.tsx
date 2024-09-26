@@ -182,7 +182,7 @@ export default function PageIdentifikasiView({}) {
 
 
       <DialogComponent
-        width={"80%"}
+        width={"70%"}
         dialogOpen={modal.isOpen && modal.action != "delete"}
         dialogClose={() => actionModal(true, "create")}
         title="Ubah Identifikasi Risiko"

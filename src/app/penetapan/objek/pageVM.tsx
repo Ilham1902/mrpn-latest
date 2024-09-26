@@ -253,7 +253,7 @@ const usePenetapanObjectVM = () => {
 
   async function updateOrCreateEntity(){
     if (objectState !== undefined){
-      console.log(stateEntity)
+      // console.log(stateEntity)
       let req:PenetapanObjectEntityReqDto = {
         id_objek: objectState.id,
         values: []

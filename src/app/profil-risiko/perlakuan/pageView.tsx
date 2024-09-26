@@ -36,6 +36,7 @@ import useRiskAnalysisVM from "@/app/profil-risiko/analisis-evaluasi/pageVM";
 import {RiskTreatmentDto} from "@/app/profil-risiko/perlakuan/pageModel";
 import dayjs from "dayjs";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 export default function PagePerlakuanView({}) {
 
@@ -61,6 +62,7 @@ export default function PagePerlakuanView({}) {
   }, [year]);
 
   const {
+    dataTable,
     getTreatmentRiskData,
     dataTreatmentRisk,
     state,
@@ -104,7 +106,7 @@ export default function PagePerlakuanView({}) {
     </DialogActions>
   );
 
-  const columns = useMemo<MRT_ColumnDef<RiskTreatmentDto>[]>(
+  const columns = useMemo<MRT_ColumnDef<RiskOverviewData>[]>(
     () => [
       {
         id: "penilaian_risiko",
@@ -115,13 +117,13 @@ export default function PagePerlakuanView({}) {
             header: "Identifikasi Risiko",
             columns: [
               {
-                accessorKey: "peristiwa_risiko",
+                accessorKey: "peristiwa",
                 header: "Peristiwa Risiko",
                 size: 250,
                 enableColumnActions: false,
               },
               {
-                accessorKey: "kategori_risiko",
+                accessorKey: "kategori",
                 header: "Kategori Risiko",
                 enableColumnActions: false,
               },
@@ -134,17 +136,16 @@ export default function PagePerlakuanView({}) {
         header: "Perlakuan Risiko",
         columns: [
           {
-            accessorKey: "perlakuan",
+            accessorKey: "keputusan",
             header: "Keputusan Perlakuan Risiko",
             enableColumnActions: false,
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => renderedCellValue.keputusan
           },
           {
-            accessorKey: "perlakuan",
+            accessorKey: "keterangan",
             header: "Keterangan Perlakuan Risiko",
             enableColumnActions: false,
             size: 300,
-            Cell: () => (
+            Cell: ({cell}: { cell: any }) => (
               <Paper
                 elevation={0}
                 sx={{
@@ -157,7 +158,7 @@ export default function PagePerlakuanView({}) {
                 }}
               >
                 <Stack gap={1}>
-                  {/*{cell.getValue().map((itemDesc: any, index: any) => (*/}
+                  {cell.getValue().map((itemDesc: any, index: any) => (
                     <Chip
                       // key={index}
                       sx={{
@@ -170,29 +171,21 @@ export default function PagePerlakuanView({}) {
                       }}
                       label={"{no implement}"}
                     />
-                  {/*))}*/}
+                  ))}
                 </Stack>
               </Paper>
             ),
           },
           {
-            accessorKey: "perlakuan",
+            accessorKey: "waktu",
             header: "Waktu Rencana Perlakuan Risiko",
             enableColumnActions: false,
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => {
-              const start = dayjs(renderedCellValue.start_date).format("D MMM YYYY")
-              const end = dayjs(renderedCellValue.end_date).format("D MMM YYYY")
-              return `${start} s/d ${end}`
-            }
           },
           {
-            accessorKey: "perlakuan",
+            accessorKey: "penanggung_jawab",
             header: "Penanggung Jawab",
             enableColumnActions: false,
-            size: 220,
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => {
-              return renderedCellValue.penanggung_jawab.value
-            }
+            size: 220
           }
         ],
       },
@@ -201,10 +194,7 @@ export default function PagePerlakuanView({}) {
         header: "Risiko Residual Harapan",
         columns: [
           {
-            accessorKey: "perlakuan",
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => {
-              return renderedCellValue.matriks.kemungkinan
-            },
+            accessorKey: "perlakuan_lk",
             header: "LK",
             enableColumnActions: false,
             size: 120,
@@ -216,10 +206,7 @@ export default function PagePerlakuanView({}) {
             },
           },
           {
-            accessorKey: "perlakuan",
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => {
-              return renderedCellValue.matriks.dampak
-            },
+            accessorKey: "perlakuan_ld",
             header: "LD",
             enableColumnActions: false,
             size: 120,
@@ -231,10 +218,8 @@ export default function PagePerlakuanView({}) {
             },
           },
           {
-            accessorKey: "perlakuan",
-            Cell: ({renderedCellValue}: { renderedCellValue: any }) => {
-              return renderedCellValue.matriks.nilai
-            },
+            id:"row_perlakuan_br",
+            accessorKey: "perlakuan_br",
             header: "BR",
             enableColumnActions: false,
             size: 120,
@@ -246,15 +231,15 @@ export default function PagePerlakuanView({}) {
             },
           },
           {
-            accessorKey: "perlakuan",
+            accessorKey: "perlakuan_level",
             header: "Level Risiko",
             enableColumnActions: false,
             Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
               <Chip
                 color={
-                  renderedCellValue.matriks.level === "Sangat Tinggi (5)"
+                  renderedCellValue === "Sangat Tinggi (5)"
                     ? "error"
-                    : renderedCellValue.matriks.level === "Tinggi (4)"
+                    : renderedCellValue === "Tinggi (4)"
                       ? "warning"
                       : "success"
                 }
@@ -281,7 +266,7 @@ export default function PagePerlakuanView({}) {
                     color: green[900],
                   },
                 }}
-                label={renderedCellValue.matriks.level}
+                label={renderedCellValue}
               />
             ),
           },
@@ -295,8 +280,10 @@ export default function PagePerlakuanView({}) {
 
   const renderTopToolbar: ColumnsType = {
     renderTopToolbarCustomActions: () => (
-      hasPrivilege(permission, pathname, "add") &&
+      (hasPrivilege(permission, pathname, "add") && dataTreatmentRisk != undefined && dataTreatmentRisk.optionProfilRisiko.length > 0) ?
       <AddButton onclick={() => actionModal(true, "create")} title="Tambah Perlakuan"/>
+        :
+      <Box/>
     ),
   };
 
@@ -307,7 +294,7 @@ export default function PagePerlakuanView({}) {
     },
   };
 
-  const data = dataTreatmentRisk?.profilRisiko ?? []
+  const data = dataTable
   const table = useMaterialReactTable({
     columns,
     data,
@@ -374,7 +361,7 @@ export default function PagePerlakuanView({}) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {row.row.original.perlakuan.rincian_output.map((r:RoDto, index:number) => (
+              {row.row.original.rincian_output.map((r:RoDto, index:number) => (
                 <TableRow key={r.id}>
                   <TableCell>{index+1}</TableCell>
                   <TableCell>{r.value}</TableCell>

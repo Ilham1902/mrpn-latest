@@ -1,6 +1,6 @@
 import React, {SetStateAction} from "react";
 import {
-  Autocomplete,
+  Autocomplete, Box,
   Button,
   Checkbox,
   Chip,
@@ -8,7 +8,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
-  Icon,
+  Icon, IconButton,
   MenuItem,
   Paper,
   SelectChangeEvent,
@@ -22,24 +22,19 @@ import {
   Typography,
 } from "@mui/material";
 import TextareaComponent, {TextareaStyled} from "@/app/components/textarea";
-import SelectCustomTheme from "@/app/components/select";
-import {listPeristiwaRisiko} from "../setting";
 import {red} from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import EmptyState from "@/app/components/empty";
 import {IconEmptyData} from "@/app/components/icons";
 import theme from "@/theme";
-import {
-  SxAutocompleteTextField,
-  SxAutocomplete,
-} from "@/components/dropdown/dropdownRkp";
 import HeaderIdentifikasi from "./header";
-import {paramVariantDefault} from "@/app/utils/constant";
-import {listRiskCategory} from "@/app/utils/data";
 import {IdentificationRiskAddReqDto, IdentificationRiskResDto} from "@/app/profil-risiko/identifikasi/pageModel";
 import {AutocompleteSelectSingle} from "@/components/autocomplete";
 import {useRKPContext} from "@/lib/core/hooks/useHooks";
 import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import {ActionIcon} from "@/components/actions/action";
+import AddButton from "@/components/buttonAdd";
+import {IconFA} from "@/components/icons/icon-fa";
 
 
 export default function FormTable(
@@ -230,57 +225,151 @@ export default function FormTable(
                     peristiwa_risiko:e.target.value
                   }
                 })}
-                minRows={3}
               />
 
             </FormControl>
           </Grid>
+
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <FieldLabelInfo
-                title="Penyebab/Faktor Risiko Strategis MRPN Linsek"
-                information="Penyebab/Faktor Risiko Strategis MRPN Linsek"
-              />
+              <Stack direction={"row"} gap={2} justifyContent={"space-between"} marginY={1}>
+                <FieldLabelInfo
+                  title="Penyebab/Faktor Risiko Strategis MRPN Linsek"
+                  information="Penyebab/Faktor Risiko Strategis MRPN Linsek"
+                />
+                <AddButton
+                  title={`Tambah`}
+                  filled
+                  noMargin
+                  onclick={() => setRequest(prevState => {
+                    let p = prevState.penyebab
+                    p.push("")
+                    return {
+                      ...prevState,
+                      penyebab:p
+                    }
+                  })}
+                />
+              </Stack>
 
-              <TextareaStyled
-                aria-label="Penyebab/Faktor Risiko Strategis MRPN Linsek"
-                placeholder="Penyebab/Faktor Risiko Strategis MRPN Linsek"
-                disabled={mode === "read"}
-                value={request.penyebab.length > 0 ? request.penyebab[0] : ""}
-                onChange={(e) => setRequest(prevState => {
-                  return {
-                    ...prevState,
-                    penyebab:[e.target.value]
-                  }
-                })}
-                minRows={3}
-              />
+              <Stack direction={"column"} gap={1}>
+                {request.penyebab.map((p,pi) =>
+                  <Stack direction={"column"} gap={1}>
+                    <Stack direction={"row"} gap={1}>
+                      <TextareaStyled
+                        key={`ip-${pi}`}
+                        aria-label="Penyebab/Faktor Risiko Strategis MRPN Linsek"
+                        placeholder="Penyebab/Faktor Risiko Strategis MRPN Linsek"
+                        disabled={mode === "read"}
+                        value={p}
+                        onChange={(e) => setRequest(prevState => {
+                          let dt = prevState.penyebab
+                          dt[pi] = e.target.value
+                          return {
+                            ...prevState,
+                            penyebab:dt
+                          }
+                        })}
+                      />
+
+                      {pi > 0 &&
+                        <Stack minWidth={"50px"} justifyContent={"center"}>
+                          <IconButton
+                            aria-label="delete"
+                            color="error"
+                            onClick={() => setRequest(prevState => {
+                              let dt = prevState.penyebab
+                              dt.splice(pi, 1)
+                              return {
+                                ...prevState,
+                                penyebab:dt
+                              }
+                            })}
+                            sx={{p: 0}}
+                          >
+                            <IconFA size={18} name="trash-can"/>
+                          </IconButton>
+                        </Stack>
+                      }
+
+                    </Stack>
+                  </Stack>
+                )}
+              </Stack>
 
             </FormControl>
           </Grid>
+
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <FieldLabelInfo
-                title="Dampak Strategis MRPN Linsek"
-                information="Dampak Strategis MRPN Linsek"
-              />
+              <Stack direction={"row"} gap={2} justifyContent={"space-between"} marginY={1}>
+                <FieldLabelInfo
+                  title="Dampak Strategis MRPN Linsek"
+                  information="Dampak Strategis MRPN Linsek"
+                />
+                <AddButton
+                  title={`Tambah`}
+                  filled
+                  noMargin
+                  onclick={() => setRequest(prevState => {
+                    let p = prevState.dampak
+                    p.push("")
+                    return {
+                      ...prevState,
+                      dampak:p
+                    }
+                  })}
+                />
+              </Stack>
 
-              <TextareaStyled
-                aria-label="Dampak Strategis MRPN Linsek"
-                placeholder="Dampak Strategis MRPN Linsek"
-                disabled={mode === "read"}
-                value={request.dampak.length > 0 ? request.dampak[0] : ""}
-                onChange={(e) => setRequest(prevState => {
-                  return {
-                    ...prevState,
-                    dampak:[e.target.value]
-                  }
-                })}
-                minRows={3}
-              />
+              <Stack direction={"column"} gap={1}>
+                {request.dampak.map((p,pi) =>
+                  <Stack direction={"column"} gap={1}>
+                    <Stack direction={"row"} gap={1}>
+                      <TextareaStyled
+                        key={`ip-${pi}`}
+                        aria-label="Dampak Strategis MRPN Linsek"
+                        placeholder="Dampak Strategis MRPN Linsek"
+                        disabled={mode === "read"}
+                        value={p}
+                        onChange={(e) => setRequest(prevState => {
+                          let dt = prevState.dampak
+                          dt[pi] = e.target.value
+                          return {
+                            ...prevState,
+                            dampak:dt
+                          }
+                        })}
+                      />
+
+                      {pi > 0 &&
+                          <Stack minWidth={"50px"} justifyContent={"center"}>
+                              <IconButton
+                                  aria-label="delete"
+                                  color="error"
+                                  onClick={() => setRequest(prevState => {
+                                    let dt = prevState.dampak
+                                    dt.splice(pi, 1)
+                                    return {
+                                      ...prevState,
+                                      dampak:dt
+                                    }
+                                  })}
+                                  sx={{p: 0}}
+                              >
+                                  <IconFA size={18} name="trash-can"/>
+                              </IconButton>
+                          </Stack>
+                      }
+
+                    </Stack>
+                  </Stack>
+                )}
+              </Stack>
 
             </FormControl>
           </Grid>
+
         </>
       </Grid>
     </Stack>

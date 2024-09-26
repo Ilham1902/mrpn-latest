@@ -12,7 +12,6 @@ import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import Matriks from "./matriks";
 import {
   RiskAnalysisAddStateDto,
-  RiskAnalysisResDto
 } from "@/app/profil-risiko/analisis-evaluasi/pageModel";
 import {MasterRiskMatrixRes} from "@/app/misc/master/masterServiceModel";
 import {AutocompleteSelectSingle} from "@/components/autocomplete";
@@ -100,7 +99,7 @@ export default function FormTable(
             Klik kotak berwarna untuk menampilkan nilai LK & LD
           </Typography>
         </FormControl>
-        <Matriks levelId={5} handleClick={handleClick} clickedCell={clickedCell}/>
+        <Matriks key={"risk-analysis"} levelId={5} handleClick={handleClick} clickedCell={clickedCell}/>
       </Grid>
 
       <Grid item xs={12} sm={6}>

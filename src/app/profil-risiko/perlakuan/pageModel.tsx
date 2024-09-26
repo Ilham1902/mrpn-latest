@@ -2,6 +2,7 @@ import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
 import {MasterRiskMatrixRes, MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {RiskAnalysisDto} from "@/app/profil-risiko/analisis-evaluasi/pageModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 export type RiskTreatmentDto = RiskAnalysisDto & {
   perlakuan: RiskTreatmentValueDto
@@ -21,6 +22,7 @@ export interface RiskTreatmentValueDto {
 }
 
 export interface RiskTreatmentResDto {
+  dataTable:RiskOverviewData[]
   profilRisiko: RiskTreatmentDto[]
   optionProfilRisiko: RiskAnalysisDto[]
   optionRo: RoDto[]

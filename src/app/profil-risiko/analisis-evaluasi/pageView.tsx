@@ -2,7 +2,7 @@
 
 import ContentPage from "@/app/components/contents";
 import React, {useEffect, useMemo} from "react";
-import {Button, Chip, DialogActions, FormControl} from "@mui/material";
+import {Box, Button, Chip, DialogActions, FormControl} from "@mui/material";
 import DialogComponent from "@/app/components/dialog";
 import FormTable from "./partials/form-table";
 import AddButton from "@/app/components/buttonAdd";
@@ -12,7 +12,6 @@ import {
   useMaterialReactTable,
 } from "material-react-table";
 import ActionColumn from "@/app/components/actions/action";
-import {advancedTable} from "@/app/components/table";
 import {orange, red, green} from "@mui/material/colors";
 import {useAuthContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import usePenetapanGlobalVM from "@/app/penetapan/penetapanGlobalVM";
@@ -23,7 +22,8 @@ import {usePathname} from "next/navigation";
 import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 import EmptyState from "@/components/empty";
 import {IconEmptyData} from "@/components/icons";
-import {RiskAnalysisDto, RiskAnalysisResDto} from "@/app/profil-risiko/analisis-evaluasi/pageModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
+import {advancedTable} from "@/components/table";
 
 type ColumnsType = {};
 
@@ -63,7 +63,8 @@ export default function PageAnalisisEvaluasiView({}) {
     optionsRiskMatrix,
     getMasterRiskMatrix,
     getRiskAnalysisData,
-    updateOrCreateOrDelete
+    updateOrCreateOrDelete,
+    dataTable
   } = useRiskAnalysisVM()
 
   useEffect(() => {
@@ -92,7 +93,7 @@ export default function PageAnalisisEvaluasiView({}) {
     </DialogActions>
   );
 
-  const columns = useMemo<MRT_ColumnDef<RiskAnalysisDto>[]>(
+  const columns = useMemo<MRT_ColumnDef<RiskOverviewData>[]>(
     () => [
       {
         id: "penilaian_risiko",
@@ -103,12 +104,12 @@ export default function PageAnalisisEvaluasiView({}) {
             header: "Identifikasi Risiko",
             columns: [
               {
-                accessorKey: "peristiwa_risiko",
+                accessorKey: "peristiwa",
                 header: "Peristiwa Risiko",
                 enableColumnActions: false,
               },
               {
-                accessorKey: "kategori_risiko",
+                accessorKey: "kategori",
                 header: "Kategori Risiko",
                 enableColumnActions: false,
               },
@@ -119,10 +120,7 @@ export default function PageAnalisisEvaluasiView({}) {
             header: "Analisis & Evaluasi Risiko",
             columns: [
               {
-                accessorKey: "analisis",
-                Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
-                  renderedCellValue.matriks.kemungkinan
-                ),
+                accessorKey: "analisis_lk",
                 header: "LK",
                 enableColumnActions: false,
                 size: 120,
@@ -134,10 +132,7 @@ export default function PageAnalisisEvaluasiView({}) {
                 },
               },
               {
-                accessorKey: "analisis",
-                Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
-                  renderedCellValue.matriks.dampak
-                ),
+                accessorKey: "analisis_ld",
                 header: "LD",
                 enableColumnActions: false,
                 size: 120,
@@ -149,11 +144,8 @@ export default function PageAnalisisEvaluasiView({}) {
                 },
               },
               {
-                id:"br",
-                accessorKey: "analisis",
-                Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
-                  renderedCellValue.matriks.nilai
-                ),
+                id:"row-br",
+                accessorKey: "analisis_br",
                 header: "BR",
                 enableColumnActions: false,
                 size: 120,
@@ -165,16 +157,16 @@ export default function PageAnalisisEvaluasiView({}) {
                 },
               },
               {
-                accessorKey: "analisis",
+                accessorKey: "analisis_level",
                 header: "Level Risiko",
                 enableColumnActions: false,
                 size: 160,
                 Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
                   <Chip
                     color={
-                      renderedCellValue.matriks.level === "Sangat Tinggi (5)"
+                      renderedCellValue === "Sangat Tinggi (5)"
                         ? "error"
-                        : renderedCellValue.matriks.level === "Tinggi (4)"
+                        : renderedCellValue === "Tinggi (4)"
                           ? "warning"
                           : "success"
                     }
@@ -201,35 +193,14 @@ export default function PageAnalisisEvaluasiView({}) {
                         color: green[900],
                       },
                     }}
-                    label={renderedCellValue.matriks.level}
+                    label={renderedCellValue}
                   />
                 ),
               },
               {
-                id:"risk_priority",
-                accessorKey: "analisis",
+                id:"row-prioritas",
+                accessorKey: "prioritas",
                 header: "Prioritas Risiko",
-                Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
-                  parseInt(renderedCellValue.matriks.level.replace(/[^,\d]/g, ''))
-                ),
-                enableColumnActions: false,
-                size: 160,
-                muiTableHeadCellProps: {
-                  align: "center",
-                },
-                muiTableBodyCellProps: {
-                  align: "center",
-                },
-              },{
-                accessorKey: "analisis",
-                header: "Action",
-                Cell: (item:any) => (
-                  <ActionColumn
-                    viewClick={hasPrivilege(permission, pathname, "list") ? () => actionModal(true, "read", item.row.original.id) : undefined}
-                    editClick={hasPrivilege(permission, pathname, "update") ? () => actionModal(true, "update", item.row.original.id) : undefined}
-                    deleteClick={hasPrivilege(permission, pathname, "delete") ? () => actionModal(true, "delete", item.row.original.id) : undefined}
-                  />
-                ),
                 enableColumnActions: false,
                 size: 160,
                 muiTableHeadCellProps: {
@@ -247,38 +218,42 @@ export default function PageAnalisisEvaluasiView({}) {
     []
   );
 
-  const data = riskAnalysisData
+  const data = dataTable
   const renderTopToolbar: ColumnsType = {
     renderTopToolbarCustomActions: () => (
+      hasPrivilege(permission,pathname,"add") && optionsRisk.length > 0 ?
       <AddButton onclick={() => actionModal(true, "create")} title="Tambah Analisis & Evaluasi"/>
+        :
+      <Box />
     ),
   };
   const table = useMaterialReactTable({
     columns,
     data,
     ...renderTopToolbar,
+    ...advancedTable,
     initialState: {
       showGlobalFilter: true,
       sorting: [
         {
-          id: 'br',
-          desc: false,
+          id: 'row-br',
+          desc: true,
         }
       ]
     },
-    // displayColumnDefOptions: {
-    //   "mrt-row-actions": {
-    //     header: "",
-    //     size: 150,
-    //     Cell: (item: any) => (
-    //       <ActionColumn
-    //         viewClick={hasPrivilege(permission, pathname, "list") ? () => actionModal(true, "read", item.cell.row.original.id) : undefined}
-    //         editClick={hasPrivilege(permission, pathname, "update") ? () => actionModal(true, "update", item.cell.row.original.id) : undefined}
-    //         deleteClick={hasPrivilege(permission, pathname, "delete") ? () => actionModal(true, "delete", item.cell.row.original.id) : undefined}
-    //       />
-    //     ),
-    //   },
-    // },
+    displayColumnDefOptions: {
+      "mrt-row-actions": {
+        header: "",
+        size: 150,
+        Cell: (item: any) => (
+          <ActionColumn
+            viewClick={hasPrivilege(permission, pathname, "list") ? () => actionModal(true, "read", item.cell.row.original.id) : undefined}
+            editClick={hasPrivilege(permission, pathname, "update") ? () => actionModal(true, "update", item.cell.row.original.id) : undefined}
+            deleteClick={hasPrivilege(permission, pathname, "delete") ? () => actionModal(true, "delete", item.cell.row.original.id) : undefined}
+          />
+        ),
+      },
+    },
   });
 
   return (

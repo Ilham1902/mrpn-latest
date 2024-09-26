@@ -1,28 +1,23 @@
 import {ProfileRiskDto} from "@/app/profil-risiko/identifikasi/pageModel";
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 import {MasterRiskMatrixRes} from "@/app/misc/master/masterServiceModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 export interface RiskAnalysisValueDto {
   id: number
   profil_risiko_id: number
   src_matriks_risiko_id: number
   triwulan: number
-  matriks: {
-    id: number
-    dampak: number
-    kemungkinan: number
-    warna: string
-    nilai: number
-    level: string
-  }
+  matriks: MasterRiskMatrixRes
 }
 
 export type RiskAnalysisDto = ProfileRiskDto & {
   analisis: RiskAnalysisValueDto
 }
 export interface RiskAnalysisResDto {
+  dataTable:RiskOverviewData[]
   profilRisiko: RiskAnalysisDto[]
-  option: ProfileRiskDto[]
+  options: ProfileRiskDto[]
 }
 export type GetRiskAnalysisServiceModel = BaseAPIServiceParam & {
   body: {
