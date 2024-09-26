@@ -1,603 +1,534 @@
-import React, { useState } from "react";
+import React, {SetStateAction, useEffect, useState} from "react";
 import {
- Autocomplete,
- Box,
- Checkbox,
- Chip,
- Divider,
- FormControl,
- Grid,
- InputAdornment,
- MenuItem,
- OutlinedInput,
- Paper,
- SelectChangeEvent,
- Stack,
- Table,
- TableBody,
- TableCell,
- TableContainer,
- TableHead,
- TableRow,
- TextField,
- Typography,
+  Autocomplete,
+  Box,
+  Checkbox,
+  Chip,
+  Divider,
+  FormControl,
+  Grid,
+  InputAdornment,
+  MenuItem,
+  OutlinedInput,
+  Paper,
+  SelectChangeEvent,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
 } from "@mui/material";
 import SelectCustomTheme from "@/app/components/select";
 import {
- listKeputusan,
- listPenanggungjawab,
- listPeristiwaRisiko,
+  listKeputusan,
+  listPenanggungjawab,
+  listPeristiwaRisiko,
 } from "../setting";
-import { grey, red } from "@mui/material/colors";
+import {grey, red} from "@mui/material/colors";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import {
- SxAutocompleteTextField,
- SxAutocomplete,
+  SxAutocompleteTextField,
 } from "@/app/components/dropdown/dropdownDefault";
-import DateRangePicker from "@/app/components/dateRange";
+import DateRangePicker, {convertDateToString, convertStringToDate, DateRangeState} from "@/app/components/dateRange";
 import theme from "@/theme";
-import { paramVariantDefault } from "@/app/utils/constant";
-import { listRiskCategory } from "@/app/utils/data";
+import {paramVariantDefault} from "@/app/utils/constant";
 import Matriks from "../../analisis-evaluasi/partials/matriks";
-
-type Option = (typeof listPeristiwaRisiko)[number];
-type OptionRspn = (typeof listPenanggungjawab)[number];
-
-const data = [
- {
-  id: 1,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
- },
- {
-  id: 2,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
- },
- {
-  id: 3,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
- },
- {
-  id: 4,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
- },
- {
-  id: 5,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
- },
- {
-  id: 6,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
- },
- {
-  id: 7,
-  ro: "Suplementasi gizi mikro pada balita",
-  target: "72,42",
-  satuan: "poin",
-  anggaran: "Kemen PUPR",
- },
- {
-  id: 8,
-  ro: "	Tata laksana balita gizi buruk",
-  target: "33",
-  satuan: "%",
-  anggaran: "Kemen PPN",
- },
- {
-  id: 9,
-  ro: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-  target: "moderat",
-  satuan: "indeks",
-  anggaran: "Kemenkeu",
- },
-];
+import {RiskTreatmentResDto, RiskTreatmentState} from "@/app/profil-risiko/perlakuan/pageModel";
+import {AutocompleteSelectSingle} from "@/components/autocomplete";
+import {RiskAnalysisDto} from "@/app/profil-risiko/analisis-evaluasi/pageModel";
+import {MasterRiskMatrixRes, MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import dayjs from "dayjs";
 
 const highlightText = (text: any, highlight: any) => {
- if (!highlight.trim()) {
-  return text;
- }
- const regex = new RegExp(`(${highlight})`, "gi");
- const parts = text.split(regex);
- return parts.map((part: any, index: any) =>
-  regex.test(part) ? (
-   <span key={index} style={{ backgroundColor: "yellow" }}>
+  if (!highlight.trim() || text == "" || text == undefined) {
+    return text;
+  }
+  const regex = new RegExp(`(${highlight})`, "gi");
+  const parts = text.split(regex);
+  return parts.map((part: any, index: any) =>
+    regex.test(part) ? (
+      <span key={index} style={{backgroundColor: "yellow"}}>
     {part}
    </span>
-  ) : (
-   part
-  )
- );
+    ) : (
+      part
+    )
+  );
 };
 
-const TablePerlakuanMultiCheck = () => {
- const [search, setSearch] = React.useState("");
+const TablePerlakuanMultiCheck = (
+  {
+    mode,
+    data,
+    state,
+    setState
+  }: {
+    mode?:string
+    data: RoDto[],
+    state:RiskTreatmentState,
+    setState: (value:(SetStateAction<RiskTreatmentState>)) => void
+  }
+) => {
+  const [rows, setRows] = React.useState<RoDto[]>([]);
+  const [search, setSearch] = React.useState("");
 
- const handleSearchChange = (event: any) => {
-  setSearch(event.target.value);
- };
+  const handleSearchChange = (event: any) => {
+    setSearch(event.target.value);
+  };
 
- const filteredData = data.filter(
-  (row: any) => row.ro.toLowerCase().includes(search.toLowerCase())
-  //    || row.email.toLowerCase().includes(search.toLowerCase())
- );
+  const handleChecked = (isChecked:boolean, ro:RoDto) => {
+    if (isChecked){
+      setState(prevState => {
+        let roPrev = [...prevState.ro]
+        roPrev.push(ro)
+        return {
+          ...prevState,
+          ro:roPrev
+        }
+      })
+    }else{
+      setState(prevState => {
+        let roPrev = [...prevState.ro]
+        const getIndex = roPrev.findIndex(x => x.id == ro.id)
+        if (getIndex > -1) roPrev.splice(getIndex,1)
+        return {
+          ...prevState,
+          ro:roPrev
+        }
+      })
+    }
 
- return (
-  <Paper elevation={0} variant="outlined" sx={{ minWidth: "100% !important" }}>
-   <TextField
-    InputLabelProps={{
-     shrink: true,
-    }}
-    variant="outlined"
-    fullWidth
-    placeholder="Cari nomenklatur RO"
-    value={search}
-    onChange={handleSearchChange}
-    sx={SxAutocompleteTextField(paramVariantDefault)}
-    size="small"
-   />
-   <TableContainer sx={{ maxHeight: 200 }}>
-    <Table stickyHeader size="small">
-     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
-       <TableCell sx={{ width: 30 }}></TableCell>
-       <TableCell>Nomenklatur RO</TableCell>
-       <TableCell>Target</TableCell>
-       <TableCell>Satuan</TableCell>
-       <TableCell>Anggaran</TableCell>
-      </TableRow>
-     </TableHead>
-     <TableBody>
-      {filteredData.map((row) => (
-       <TableRow key={row.id}>
-        <TableCell>
-         <Checkbox size="small" />
-        </TableCell>
-        <TableCell>{highlightText(row.ro, search)}</TableCell>
-        <TableCell>{highlightText(row.target, search)}</TableCell>
-        <TableCell>{highlightText(row.satuan, search)}</TableCell>
-        <TableCell>{highlightText(row.anggaran, search)}</TableCell>
-       </TableRow>
-      ))}
-     </TableBody>
-    </Table>
-   </TableContainer>
-  </Paper>
- );
+  }
+
+  useEffect(() => {
+    const filteredData = data.filter(
+      (row: RoDto) => row.value.toLowerCase().includes(search.toLowerCase())
+    );
+    setRows(filteredData)
+  }, [search, data]);
+
+  function getChecked(arg0: number): boolean {
+  const getIndex = state.ro.findIndex(x => x.id == arg0)
+      return getIndex > -1
+  }
+
+  return (
+    <Paper elevation={0} variant="outlined" sx={{minWidth: "100% !important"}}>
+      <TextField
+        InputLabelProps={{
+          shrink: true,
+        }}
+        variant="outlined"
+        fullWidth
+        placeholder="Cari nomenklatur RO"
+        value={search}
+        onChange={handleSearchChange}
+        sx={SxAutocompleteTextField(paramVariantDefault)}
+        size="small"
+      />
+      <TableContainer sx={{maxHeight: 200}}>
+        <Table stickyHeader size="small">
+          <TableHead sx={{bgcolor: theme.palette.primary.light}}>
+            <TableRow>
+              <TableCell sx={{width: 30}}></TableCell>
+              <TableCell>Nomenklatur RO</TableCell>
+              <TableCell>Target</TableCell>
+              <TableCell>Satuan</TableCell>
+              <TableCell>Anggaran</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>
+                  <Checkbox
+                    disabled={mode === "read"}
+                    size="small"
+                    checked={getChecked(row.id)}
+                    onChange={(e) => handleChecked(e.target.checked, row)}
+                  />
+                </TableCell>
+                <TableCell>{highlightText(row.value, search)}</TableCell>
+                <TableCell>{highlightText(row.target, search)}</TableCell>
+                <TableCell>{highlightText(row.satuan, search)}</TableCell>
+                <TableCell>{highlightText(row.alokasi, search)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+  );
 };
 
-export default function FormTable({ mode }: { mode?: string }) {
- const [project, setProject] = useState("");
- const [columnsRspn, setColumnsRspn] = useState<OptionRspn[]>([]);
- const [selectAll, setSelectAll] = useState<boolean>(false);
+export default function FormTable(
+  {
+    mode,
+    data,
+    state,
+    setState,
+    optionsRiskProfile,
+    optionsRiskDecision,
+    optionsStakeholder,
+    optionsRiskMatrix
+  }: {
+    mode?: string
+    data?: RiskTreatmentResDto
+    state: RiskTreatmentState
+    setState: (value: (SetStateAction<RiskTreatmentState>)) => void
+    optionsRiskProfile: RiskAnalysisDto[]
+    optionsRiskDecision: string[]
+    optionsStakeholder: MiscMasterListStakeholderRes[]
+    optionsRiskMatrix: MasterRiskMatrixRes[]
+  }
+) {
 
- const [clickedCell, setClickedCell] = useState({
-  rowIndex: null,
-  colIndex: null,
-  value: null,
- });
+  const [clickedCell, setClickedCell] = useState({
+    rowIndex: null,
+    colIndex: null,
+    value: null,
+  });
 
- const handleClick = (rowIndex: any, colIndex: any, value: any) => {
-  setClickedCell({ rowIndex, colIndex, value });
- };
- const handleChangeProject = (event: SelectChangeEvent) => {
-  setProject(event.target.value);
- };
+  const handleClick = (rowIndex: any, colIndex: any, value: any) => {
+    const getIndex = optionsRiskMatrix.findIndex(x => x.id == value)
+    if (getIndex > -1) {
+      setState(prevState => {
+        return {
+          ...prevState,
+          src_matriks_risiko: optionsRiskMatrix[getIndex]
+        }
+      })
+      setClickedCell({rowIndex, colIndex, value})
+    }
+  };
 
- const conditionValueLK =
-  clickedCell.value === 7 ||
-  clickedCell.value === 12 ||
-  clickedCell.value === 17 ||
-  clickedCell.value === 22 ||
-  clickedCell.value === 25
-   ? 5
-   : clickedCell.value === 4 ||
-     clickedCell.value === 9 ||
-     clickedCell.value === 14 ||
-     clickedCell.value === 19 ||
-     clickedCell.value === 24
-   ? 4
-   : clickedCell.value === 3 ||
-     clickedCell.value === 8 ||
-     clickedCell.value === 13 ||
-     clickedCell.value === 18 ||
-     clickedCell.value === 23
-   ? 3
-   : clickedCell.value === 2 ||
-     clickedCell.value === 6 ||
-     clickedCell.value === 11 ||
-     clickedCell.value === 16 ||
-     clickedCell.value === 21
-   ? 2
-   : clickedCell.value === 1 ||
-     clickedCell.value === 5 ||
-     clickedCell.value === 10 ||
-     clickedCell.value === 15 ||
-     clickedCell.value === 20
-   ? 1
-   : "-";
 
- const conditionValueLD =
-  clickedCell.value === 7 ||
-  clickedCell.value === 4 ||
-  clickedCell.value === 3 ||
-  clickedCell.value === 2 ||
-  clickedCell.value === 1
-   ? 1
-   : clickedCell.value === 12 ||
-     clickedCell.value === 9 ||
-     clickedCell.value === 8 ||
-     clickedCell.value === 6 ||
-     clickedCell.value === 5
-   ? 2
-   : clickedCell.value === 17 ||
-     clickedCell.value === 14 ||
-     clickedCell.value === 13 ||
-     clickedCell.value === 11 ||
-     clickedCell.value === 10
-   ? 3
-   : clickedCell.value === 22 ||
-     clickedCell.value === 19 ||
-     clickedCell.value === 18 ||
-     clickedCell.value === 16 ||
-     clickedCell.value === 15
-   ? 4
-   : clickedCell.value === 25 ||
-     clickedCell.value === 24 ||
-     clickedCell.value === 23 ||
-     clickedCell.value === 21 ||
-     clickedCell.value === 20
-   ? 5
-   : "-";
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Divider>
+          <Chip label="Identifikasi Risiko" size="small"/>
+        </Divider>
+      </Grid>
+      <Grid item xs={12}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Peristiwa Risiko Strategis MRPN Linsek"
+            information="Peristiwa Risiko Strategis MRPN Linsek"
+          />
+          {mode !== "read" && mode !== "update" ? (
+            <AutocompleteSelectSingle
+              value={state.profil_risiko}
+              options={optionsRiskProfile}
+              getOptionLabel={opt => opt.peristiwa_risiko}
+              handleChange={(e: RiskAnalysisDto) => setState(prevState => {
+                return {
+                  ...prevState,
+                  profil_risiko: e
+                }
+              })}
+              placeHolder={"Pilih peristiwa risiko"}
+            />
+          ) : (
+            <Typography fontWeight={600}>
+              {state.profil_risiko?.peristiwa_risiko ?? "-"}
+            </Typography>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Kategori Risiko MRPN Linsek"
+            information="Kategori Risiko MRPN Linsek"
+          />
+          <Typography fontWeight={600}>
+            {state.profil_risiko?.peristiwa_risiko ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider>
+          <Chip label="Analisis & Evaluasi Risiko" size="small"/>
+        </Divider>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Level Dampak (LD)"
+            information="Level Dampak (LD)"
+          />
+          <Typography fontWeight={600}>
+            {state.profil_risiko?.analisis.matriks.dampak ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Level Kemungkinan (LK)"
+            information="Level Kemungkinan (LK)"
+          />
+          <Typography fontWeight={600}>
+            {state.profil_risiko?.analisis.matriks.kemungkinan ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Besaran Risiko (BR)"
+            information="Besaran Risiko (BR)"
+          />
+          <Typography fontWeight={600}>
+            {state.profil_risiko?.analisis.matriks.nilai ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Level Risiko" information="Level Risiko"/>
+          {/*<Box>*/}
+          {/*  <Chip*/}
+          {/*    color="error"*/}
+          {/*    sx={{*/}
+          {/*      minWidth: 80,*/}
+          {/*      borderWidth: "2px",*/}
+          {/*      borderStyle: "solid",*/}
+          {/*      "& .MuiChip-label": {*/}
+          {/*        fontWeight: 600,*/}
+          {/*      },*/}
+          {/*      "&.MuiChip-colorError": {*/}
+          {/*        bgcolor: red[100],*/}
+          {/*        borderColor: red[400],*/}
+          {/*        color: red[900],*/}
+          {/*      },*/}
+          {/*    }}*/}
+          {/*    label="Sangat Tinggi"*/}
+          {/*  />*/}
+          {/*</Box>*/}
+          <Typography fontWeight={600}>
+            {state.profil_risiko?.analisis.matriks.level ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Prioritas Risiko" information="Prioritas Risiko"/>
+          <Typography fontWeight={600}>
+            {state.profil_risiko ? state.profil_risiko.analisis.matriks.level.replace(/\D/g, '') : "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider>
+          <Chip label="Perlakuan Risiko" size="small"/>
+        </Divider>
+      </Grid>
 
- return (
-  <Grid container spacing={2}>
-   <Grid item xs={12}>
-    <Divider>
-     <Chip label="Identifikasi Risiko" size="small" />
-    </Divider>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Peristiwa Risiko Strategis MRPN Linsek"
-      information="Peristiwa Risiko Strategis MRPN Linsek"
-     />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       disableCloseOnSelect
-       filterSelectedOptions
-       freeSolo={false}
-       size="small"
-       options={listPeristiwaRisiko}
-       getOptionLabel={(option) => option.risk}
-       noOptionsText={
-        "Pencarian Anda tidak ada di list? Klik tombol Tambah Peristiwa Risiko Baru"
-       }
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih peristiwa risiko"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Kategori Risiko MRPN Linsek"
-      information="Kategori Risiko MRPN Linsek"
-     />
-     {mode === "add" || mode === "edit" ? (
-      <SelectCustomTheme
-       small
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih kategori risiko MRPN Linsek
-        </Typography>
-       </MenuItem>
-       {listRiskCategory.map((category, index) => (
-        <MenuItem key={index} value={index} defaultChecked>
-         {category}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <Divider>
-     <Chip label="Analisis & Evaluasi Risiko" size="small" />
-    </Divider>
-   </Grid>
-   <Grid item xs={12} sm={4}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Dampak (LD)"
-      information="Level Dampak (LD)"
-     />
-     <Typography fontWeight={600}>5</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={4}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Kemungkinan (LK)"
-      information="Level Kemungkinan (LK)"
-     />
-     <Typography fontWeight={600}>4</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={4}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Besaran Risiko (BR)"
-      information="Besaran Risiko (BR)"
-     />
-     <Typography fontWeight={600}>19</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={4}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Level Risiko" information="Level Risiko" />
-     <Box>
-      <Chip
-       color="error"
-       sx={{
-        minWidth: 80,
-        borderWidth: "2px",
-        borderStyle: "solid",
-        "& .MuiChip-label": {
-         fontWeight: 600,
-        },
-        "&.MuiChip-colorError": {
-         bgcolor: red[100],
-         borderColor: red[400],
-         color: red[900],
-        },
-       }}
-       label="Sangat Tinggi"
-      />
-     </Box>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={4}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Prioritas Risiko" information="Prioritas Risiko" />
-     <Typography fontWeight={600}>3</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <Divider>
-     <Chip label="Perlakuan Risiko" size="small" />
-    </Divider>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Keputusan" information="Keputusan" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       size="small"
-       options={listKeputusan}
-       getOptionLabel={(option) => option.label}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih keputusan"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Keterangan Perlakuan Risiko"
-      information="Keterangan Perlakuan Risiko"
-     />
-     <TablePerlakuanMultiCheck />
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Waktu Rencana" information="Waktu Rencana" />
-     {mode === "add" || mode === "edit" ? (
-      <DateRangePicker
-       placeholder="Pilih periode"
-       sxInput={{
-        backgroundColor: "red",
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
-     {mode === "add" || mode === "edit" ? (
-      <Autocomplete
-       multiple
-       disableCloseOnSelect
-       filterSelectedOptions
-       freeSolo={false}
-       size="small"
-       value={columnsRspn}
-       options={listPenanggungjawab}
-       getOptionLabel={(option) => option.label}
-       onChange={(_e, value, reason) => {
-        if (reason === "clear" || reason === "removeOption")
-         setSelectAll(false);
-        if (
-         reason === "selectOption" &&
-         value.length === listPenanggungjawab.length
-        )
-         setSelectAll(true);
-        setColumnsRspn(value);
-       }}
-       renderInput={(params) => (
-        <TextField
-         {...params}
-         InputLabelProps={{
-          shrink: true,
-         }}
-         placeholder="Pilih penanggungjawab"
-         sx={SxAutocompleteTextField(paramVariantDefault)}
-        />
-       )}
-       sx={{
-        ...SxAutocomplete,
-        ".MuiInputBase-root": {
-         borderRadius: 1,
-        },
-       }}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Target Capaian Progress Project/RO"
-      information="Target Capaian Progress Project/RO"
-     />
-     {mode === "add" ? (
-      <OutlinedInput
-       size="small"
-       fullWidth
-       placeholder="Target Capaian Progress Project/RO"
-       endAdornment={<InputAdornment position="end">%</InputAdornment>}
-      />
-     ) : mode === "edit" ? (
-      <OutlinedInput
-       size="small"
-       fullWidth
-       value={23}
-       endAdornment={<InputAdornment position="end">%</InputAdornment>}
-      />
-     ) : (
-      <Typography fontWeight={600}>-</Typography>
-     )}
-    </FormControl>
-   </Grid>
-   <Grid item xs={12}>
-    <Divider>
-     <Chip label="Risiko Residual Harapan" size="small" />
-    </Divider>
-   </Grid>
-   <Grid item xs={12}>
-    <FormControl>
-     <Typography fontStyle="italic" variant="overline" color={grey[600]}>
-      Klik kotak berwarna untuk menampilkan nilai LK & LD
-     </Typography>
-    </FormControl>
-    <Matriks levelId={5} handleClick={handleClick} clickedCell={clickedCell} />
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Kemungkinan (LK)"
-      information="Level Kemungkinan (LK)"
-     />
-     <Typography fontWeight={600}>{conditionValueLK}</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Dampak (LD)"
-      information="Level Dampak (LD)"
-     />
-     <Typography fontWeight={600}>{conditionValueLD}</Typography>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Besaran Risiko (BR)"
-      information="Besaran Risiko (BR)"
-     />
-     <Stack sx={{ height: 40 }} direction="row" alignItems="center">
-      <Typography fontWeight={600}>22</Typography>
-     </Stack>
-    </FormControl>
-   </Grid>
-   <Grid item xs={12} sm={6}>
-    <FormControl fullWidth>
-     <FieldLabelInfo title="Level Risiko" information="Level Risiko" />
-     <Box>
-      <Chip
-       color="error"
-       sx={{
-        minWidth: 80,
-        borderWidth: "2px",
-        borderStyle: "solid",
-        "& .MuiChip-label": {
-         fontWeight: 600,
-        },
-        "&.MuiChip-colorError": {
-         bgcolor: red[100],
-         borderColor: red[400],
-         color: red[900],
-        },
-       }}
-       label="Sangat Tinggi"
-      />
-     </Box>
-    </FormControl>
-   </Grid>
-  </Grid>
- );
+      <Grid item xs={12}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Keputusan" information="Keputusan"/>
+          {mode !== "read" ? (
+            <AutocompleteSelectSingle
+              key={state.keputusan ? state.keputusan : "keputusan"}
+              value={state.keputusan}
+              options={optionsRiskDecision}
+              getOptionLabel={opt => opt}
+              handleChange={(e: string) => setState(prevState => {
+                return {
+                  ...prevState,
+                  keputusan: e
+                }
+              })}
+              placeHolder={"Pilih keputusan"}
+            />
+          ) : (
+            <Typography fontWeight={600}>
+              {state.keputusan}
+            </Typography>
+          )}
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Keterangan Perlakuan Risiko"
+            information="Keterangan Perlakuan Risiko"
+          />
+          <TablePerlakuanMultiCheck
+            data={data?.optionRo ?? []}
+            state={state}
+            setState={setState}
+            mode={mode}
+          />
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Waktu Rencana" information="Waktu Rencana"/>
+          {mode !== "read" ? (
+            <DateRangePicker
+              key={state.start_date}
+              placeholder="Pilih periode"
+              sxInput={{
+                backgroundColor: "red",
+              }}
+              initState={convertStringToDate(state.start_date, state.end_date)}
+              handleChangeState={(event:DateRangeState[]) => setState(prevState => {
+                const convertData = convertDateToString(event)
+                return {
+                  ...prevState,
+                  start_date:convertData.startDate,
+                  end_date:convertData.endDate
+                }
+              })}
+            />
+          ) : (
+            <Typography fontWeight={600}>
+              {`${dayjs(state.start_date).format("D MMM YYYY")} s/d ${dayjs(state.end_date).format("D MMM YYYY")}`}
+            </Typography>
+          )}
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab"/>
+          {mode !== "read" ? (
+            <AutocompleteSelectSingle
+              key={state.src_stakeholder ? state.src_stakeholder.id : "stakeholder"}
+              value={state.src_stakeholder}
+              options={optionsStakeholder}
+              getOptionLabel={opt => opt.value}
+              handleChange={(e: MiscMasterListStakeholderRes) => setState(prevState => {
+                return {
+                  ...prevState,
+                  src_stakeholder: e
+                }
+              })}
+              placeHolder={"Pilih penanggungjawab"}
+            />
+          ) : (
+            <Typography fontWeight={600}>
+              {state.src_stakeholder?.value ?? ""}
+            </Typography>
+          )}
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Target Capaian Progress Project/RO"
+            information="Target Capaian Progress Project/RO"
+          />
+          {mode !== "read" ? (
+              <OutlinedInput
+                size="small"
+                fullWidth
+                placeholder="Target Capaian Progress Project/RO"
+                endAdornment={<InputAdornment position="end">%</InputAdornment>}
+                value={state.target}
+                onChange={(e) => setState(prevState => {
+                  return {
+                    ...prevState,
+                    target: e.target.value
+                  }
+                })}
+              />
+            ) :
+            <Typography fontWeight={600}>
+              {state.target}
+            </Typography>
+          }
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Divider>
+          <Chip label="Risiko Residual Harapan" size="small"/>
+        </Divider>
+      </Grid>
+
+      <Grid item xs={12}>
+        <FormControl>
+          <Typography fontStyle="italic" variant="overline" color={grey[600]}>
+            Klik kotak berwarna untuk menampilkan nilai LK & LD
+          </Typography>
+        </FormControl>
+        <Matriks levelId={5} handleClick={handleClick} clickedCell={clickedCell}/>
+      </Grid>
+
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Level Kemungkinan (LK)"
+            information="Level Kemungkinan (LK)"
+          />
+          <Typography fontWeight={600}>
+            {state.src_matriks_risiko?.kemungkinan ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Level Dampak (LD)"
+            information="Level Dampak (LD)"
+          />
+          <Typography fontWeight={600}>
+            {state.src_matriks_risiko?.dampak ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo
+            title="Besaran Risiko (BR)"
+            information="Besaran Risiko (BR)"
+          />
+          <Stack sx={{height: 40}} direction="row" alignItems="center">
+            <Typography fontWeight={600}>
+              {state.src_matriks_risiko?.nilai ?? "-"}
+            </Typography>
+          </Stack>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <FieldLabelInfo title="Level Risiko" information="Level Risiko"/>
+          {/*<Box>*/}
+          {/*  <Chip*/}
+          {/*    color="error"*/}
+          {/*    sx={{*/}
+          {/*      minWidth: 80,*/}
+          {/*      borderWidth: "2px",*/}
+          {/*      borderStyle: "solid",*/}
+          {/*      "& .MuiChip-label": {*/}
+          {/*        fontWeight: 600,*/}
+          {/*      },*/}
+          {/*      "&.MuiChip-colorError": {*/}
+          {/*        bgcolor: red[100],*/}
+          {/*        borderColor: red[400],*/}
+          {/*        color: red[900],*/}
+          {/*      },*/}
+          {/*    }}*/}
+          {/*    label="Sangat Tinggi"*/}
+          {/*  />*/}
+          {/*</Box>*/}
+          <Typography fontWeight={600}>
+            {state.src_matriks_risiko?.level ?? "-"}
+          </Typography>
+        </FormControl>
+      </Grid>
+    </Grid>
+  );
 }

@@ -149,6 +149,7 @@ export default function PageAnalisisEvaluasiView({}) {
                 },
               },
               {
+                id:"br",
                 accessorKey: "analisis",
                 Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
                   renderedCellValue.matriks.nilai
@@ -205,10 +206,11 @@ export default function PageAnalisisEvaluasiView({}) {
                 ),
               },
               {
+                id:"risk_priority",
                 accessorKey: "analisis",
                 header: "Prioritas Risiko",
                 Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
-                  renderedCellValue.matriks.nilai
+                  parseInt(renderedCellValue.matriks.level.replace(/[^,\d]/g, ''))
                 ),
                 enableColumnActions: false,
                 size: 160,
@@ -257,6 +259,12 @@ export default function PageAnalisisEvaluasiView({}) {
     ...renderTopToolbar,
     initialState: {
       showGlobalFilter: true,
+      sorting: [
+        {
+          id: 'br',
+          desc: false,
+        }
+      ]
     },
     // displayColumnDefOptions: {
     //   "mrt-row-actions": {

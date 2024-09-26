@@ -57,17 +57,6 @@ export default function FormTable(
     optionRiskType: string[]
   }) {
 
-  function createData(
-    id: number,
-    indikator: string,
-    nilai: string,
-    satuan: string,
-    anggaran: string,
-    objek: string
-  ) {
-    return {id, indikator, nilai, satuan, anggaran, objek};
-  }
-
   const {rpjmn, year} = useRKPContext(store => store)
 
   const getTarget = (indikator:IndikatorDto) => {

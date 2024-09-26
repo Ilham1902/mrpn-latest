@@ -14,7 +14,6 @@ import {
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {doGetMasterRiskMatrix} from "@/app/misc/master/masterService";
 import {MasterRiskMatrixRes} from "@/app/misc/master/masterServiceModel";
-import useIdentificationRiskVM from "@/app/profil-risiko/identifikasi/pageVM";
 import {ProfileRiskDto} from "@/app/profil-risiko/identifikasi/pageModel";
 
 export const useRiskAnalysisVM = () => {
@@ -105,11 +104,9 @@ export const useRiskAnalysisVM = () => {
   const actionModal = (isOpen: boolean, action: string, id?:number) => {
     let initState:RiskAnalysisAddStateDto = JSON.parse(JSON.stringify(initRiskAnalysisAddState))
     if (id != undefined){
-      console.log(id)
       const getIndex = riskAnalysisData.findIndex(x => x.id == id)
       if (getIndex > -1){
         const reqData = riskAnalysisData[getIndex]
-        console.log(reqData)
         initState = {
           id: reqData.analisis.id,
           profil_risiko: reqData,

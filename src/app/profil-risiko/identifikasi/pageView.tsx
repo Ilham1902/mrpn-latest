@@ -61,9 +61,7 @@ export default function PageIdentifikasiView({}) {
 
   useEffect(() => {
     getOptionRiskType()
-    if (objectState !== undefined) {
-      getIdentificationRiskData()
-    }
+    if (objectState !== undefined) getIdentificationRiskData()
   }, [objectState]);
 
   const columns = useMemo(
