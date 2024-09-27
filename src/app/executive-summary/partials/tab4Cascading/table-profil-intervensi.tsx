@@ -8,30 +8,29 @@ import {
 import React, { SetStateAction, useMemo } from "react";
 import { FormatIDR } from "@/lib/utils/currency";
 import { ExsumInterventionState } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
+import { advancedTable } from "@/app/components/table";
 
-export default function TableProfilIntervensi({
- data,
-}: {
- data: RoDto[];
-}) {
+export default function TableProfilIntervensi({ data }: { data: RoDto[] }) {
  const columns = useMemo(
   () => [
    {
     accessorKey: "tahun",
     header: "Tahun",
-    size: 200,
+    size: 105,
     enableColumnFilterModes: true,
     filterFns: "contains",
    },
    {
     accessorKey: "code",
     header: "Format Kode",
+    size: 140,
     enableColumnFilterModes: true,
     filterFns: "contains",
    },
    {
     accessorKey: "intervention",
     header: "Keterangan Intervensi",
+    size: 140,
     filterFns: "contains",
     Cell: (item: any) => {
      const value =
@@ -44,7 +43,7 @@ export default function TableProfilIntervensi({
    {
     accessorKey: "kementrian_id",
     header: "Penanggungjawab",
-    enableColumnFilterModes: false,
+    enableColumnFilterModes: true,
     Cell: (item: any) => {
      return item.row.original.kementrian.value;
     },
@@ -52,14 +51,17 @@ export default function TableProfilIntervensi({
    {
     accessorKey: "value",
     header: "Nomenklatur RO/Project",
+    size: 350,
    },
    {
     accessorKey: "target",
     header: "Target",
+    size: 140,
    },
    {
     accessorKey: "anggaran",
     header: "Anggaran",
+    size: 140,
     Cell: (item: any) => {
      const value = FormatIDR(item.row.original.alokasi);
      return <div style={{ textAlign: "right", width: "100%" }}>{value}</div>;
@@ -68,6 +70,7 @@ export default function TableProfilIntervensi({
    {
     accessorKey: "sumber_anggaran",
     header: "Sumber Anggaran",
+    size: 170,
    },
   ],
   []
@@ -76,13 +79,17 @@ export default function TableProfilIntervensi({
  const table = useMaterialReactTable({
   columns,
   data,
-  layoutMode: "grid",
-  positionActionsColumn: "last",
-  paginationDisplayMode: "pages",
+  ...advancedTable,
+  enableStickyHeader: true,
+  enableStickyFooter: true,
+  muiTableContainerProps: { sx: { maxHeight: "28vh" } },
   getRowId: (row) => row.id.toString(),
+  //   initialState: {
+  //    showGlobalFilter: false,
+  //    showColumnFilters: false,
+  //   },
   initialState: {
-   showGlobalFilter: false,
-   showColumnFilters: false,
+   showGlobalFilter: true,
   },
  });
 

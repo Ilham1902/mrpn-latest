@@ -1,126 +1,126 @@
 import { BaseAPIServiceParam } from "@/lib/core/api/apiModel";
-import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+import { ProjectDefaultDto } from "@/lib/core/context/rkpContext";
 
 export const stakeholderType = [
-  {
-    type: "COORDINATION",
-    label: "Kementarian Koordinator",
-    value:"",
-    stakeholder: []
-  },
-  {
-    type: "MAIN_ENTITY",
-    label: "Entitas Sektor Utama",
-    value:"",
-    stakeholder: []
-  },
-  {
-    type: "SUPPORT",
-    label: "Entitas Pendukung",
-    value:"",
-    stakeholder: []
-  }
-]
+ {
+  type: "COORDINATION",
+  label: "Kementerian Koordinator",
+  value: "",
+  stakeholder: [],
+ },
+ {
+  type: "MAIN_ENTITY",
+  label: "Entitas Sektor Utama",
+  value: "",
+  stakeholder: [],
+ },
+ {
+  type: "SUPPORT",
+  label: "Entitas Pendukung",
+  value: "",
+  stakeholder: [],
+ },
+];
 
 // LIST KEBIJAKAN
 export type MiscMasterListKebijakanReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListKebijakanChildRes {
-  id: number
-  src_kebijakan_id: number
-  value: string
-  isCheck?: boolean
+ id: number;
+ src_kebijakan_id: number;
+ value: string;
+ isCheck?: boolean;
 }
 export interface MiscMasterListKebijakanRes {
-  id:number
-  name: string
-  list: MiscMasterListKebijakanChildRes[]
+ id: number;
+ name: string;
+ list: MiscMasterListKebijakanChildRes[];
 }
 
 // LIST PROVINSI
 export type MiscMasterListProvinsiReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListProvinsiRes {
-  id: number
-  name: string
+ id: number;
+ name: string;
 }
 
 // LIST PERPRES
 export type MiscMasterListPerpresReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListPerpresRes {
-  id: number
-  title:string
-  value: string
+ id: number;
+ title: string;
+ value: string;
 }
 
 // LIST STAKEHOLDER
 export type MiscMasterListStakeholderReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListStakeholderRes {
-  id: number
-  short:string
-  code:string
-  value: string
-  icon:string
+ id: number;
+ short: string;
+ code: string;
+ value: string;
+ icon: string;
 }
 
 // RPJMN
 export type MiscMasterRPJMNReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterRPJMNRes {
-  id: number
-  start:number
-  end:number
-  status: string
+ id: number;
+ start: number;
+ end: number;
+ status: string;
 }
 
 // LIST SUMBER PENDANAAN
 export type MiscMasterListSumberPendanaanReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListSumberPendanaanRes {
-  id: number
-  name: string
+ id: number;
+ name: string;
 }
 
 // LIST KATEGORI PROYEK
 export type MiscMasterListKategoriProyekReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MiscMasterListKategoriProyekRes {
-  id: number
-  name: string
+ id: number;
+ name: string;
 }
 
 // LIST RKP BY OBJECT
 export type MasterListObjectReq = BaseAPIServiceParam & {
-  body: {
-    tahun:number
-  };
+ body: {
+  tahun: number;
+ };
 };
 export interface MasterListObjectRes {
-  id:number
-  level:string
-  ref_id:string
-  objek:boolean
-  rkp: ProjectDefaultDto
+ id: number;
+ level: string;
+ ref_id: string;
+ objek: boolean;
+ rkp: ProjectDefaultDto;
 }
 
 // LIST RISK MATRIX
 export type MasterRiskMatrixReq = BaseAPIServiceParam & {
-  body: {};
+ body: {};
 };
 export interface MasterRiskMatrixRes {
-  id: number
-  dampak: number
-  kemungkinan: number
-  warna: string
-  nilai: number
-  level: string
+ id: number;
+ dampak: number;
+ kemungkinan: number;
+ warna: string;
+ nilai: number;
+ level: string;
 }

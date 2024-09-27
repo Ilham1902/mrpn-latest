@@ -1,5 +1,5 @@
 import React from "react";
-import { Select } from "@mui/material";
+import { Select, SxProps } from "@mui/material";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 
@@ -22,7 +22,7 @@ export default function SelectCustomTheme({
  small?: boolean;
  anchorRight?: boolean;
  rounded?: boolean;
- sx?: any;
+ sx?: SxProps;
  multiple?: boolean;
  renderValue?: any;
 }) {

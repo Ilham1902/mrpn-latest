@@ -8,34 +8,31 @@ import AddButton from "@/app/components/buttonAdd";
 import TableIndication from "./partials/table";
 import FormIndication from "./partials/form";
 import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication/cardIndicationVM";
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
-import {usePathname} from "next/navigation";
-import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
+import { useAuthContext } from "@/lib/core/hooks/useHooks";
+import { usePathname } from "next/navigation";
+import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
 
 export default function CardIndication({ project }: { project: string }) {
+ const {
+  data,
+  optionRiskType,
+  optionStakeholder,
+  optionStrategy,
+  optionRO,
+  state,
+  setState,
+  modalOpen,
+  updateData,
+  handleModalOpen,
+  handleModalClose,
+  modalOpenDelete,
+  setModalOpenDelete,
+  handleModalOpenDelete,
+  deleteData,
+ } = useCardIndicationVM();
 
-  const {
-    data,
-    optionRiskType,
-    optionStakeholder,
-    optionStrategy,
-    optionRO,
-    state,
-    setState,
-    modalOpen,
-    updateData,
-    handleModalOpen,
-    handleModalClose,
-    modalOpenDelete,
-    setModalOpenDelete,
-    handleModalOpenDelete,
-    deleteData
-  } = useCardIndicationVM();
-
-  const {
-    permission
-  } = useAuthContext(state => state)
-  const pathname = usePathname()
+ const { permission } = useAuthContext((state) => state);
+ const pathname = usePathname();
 
  return (
   <>
@@ -43,13 +40,14 @@ export default function CardIndication({ project }: { project: string }) {
     <CardItem
      title="Indikasi Risiko Objek MRPN 5 Tahunan"
      addButton={
-       hasPrivilege(permission,pathname,"add") &&
-        <AddButton
-         filled
-         small
-         title="Tambah Indikasi"
-         onclick={() => handleModalOpen(0)}
-        />
+      hasPrivilege(permission, pathname, "add") && (
+       <AddButton
+        filled
+        small
+        title="Tambah Indikasi"
+        onclick={() => handleModalOpen(0)}
+       />
+      )
      }
     >
      {data.length == 0 ? (
@@ -60,12 +58,16 @@ export default function CardIndication({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication data={data} handleModalOpen={handleModalOpen} handleModalOpenDelete={handleModalOpenDelete} />
+      <TableIndication
+       data={data}
+       handleModalOpen={handleModalOpen}
+       handleModalOpenDelete={handleModalOpenDelete}
+      />
      )}
     </CardItem>
    </Stack>
    <DialogComponent
-     width={"90%"}
+    width={"50%"}
     dialogOpen={modalOpen}
     dialogClose={handleModalClose}
     title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
@@ -81,30 +83,31 @@ export default function CardIndication({ project }: { project: string }) {
     }
    >
     <FormIndication
-      state={state}
-      setState={setState}
-      optionRiskType={optionRiskType}
-      optionStrategy={optionStrategy}
-      optionStakeholder={optionStakeholder}
-      optionRO={optionRO}
+     state={state}
+     setState={setState}
+     optionRiskType={optionRiskType}
+     optionStrategy={optionStrategy}
+     optionStakeholder={optionStakeholder}
+     optionRO={optionRO}
     />
    </DialogComponent>
 
-    <DialogComponent
-      width={240}
-      dialogOpen={modalOpenDelete}
-      dialogClose={() => setModalOpenDelete(false)}
-      title="Hapus Data"
-      dialogFooter={  <DialogActions sx={{ p: 2, px: 3 }}>
-        <Button onClick={handleModalClose}>Batal</Button>
-        <Button variant="contained" color="error" onClick={() => deleteData()}>
-          Hapus
-        </Button>
-      </DialogActions>}
-    >
-      Anda yakin akan menghapus data ini?
-    </DialogComponent>
-
+   <DialogComponent
+    width={240}
+    dialogOpen={modalOpenDelete}
+    dialogClose={() => setModalOpenDelete(false)}
+    title="Hapus Data"
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button onClick={handleModalClose}>Batal</Button>
+      <Button variant="contained" color="error" onClick={() => deleteData()}>
+       Hapus
+      </Button>
+     </DialogActions>
+    }
+   >
+    Anda yakin akan menghapus data ini?
+   </DialogComponent>
   </>
  );
 }
