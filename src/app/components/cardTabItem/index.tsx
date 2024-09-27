@@ -141,7 +141,7 @@ export default function CardItem(
           </MenuItem>
         )}
 
-        {hasPrivilege(permission,pathname,"delete") &&
+        {hasPrivilege(permission,pathname,"delete") && settingDeleteOnclick &&
           <MenuItem
             onClick={settingDeleteOnclick}
             sx={{
