@@ -7,7 +7,7 @@ import {
 import {MiscMasterRPJMNRes} from "@/app/misc/master/masterServiceModel";
 import {doGetMasterListRpjmn} from "@/app/misc/master/masterService";
 import {API_CODE} from "@/lib/core/api/apiModel";
-import {doCreate, doGet} from "@/app/executive-summary/partials/tab5Roadmap/cardRoadmap/cardRoadmapService";
+import {doCreate, doDelete, doGet} from "@/app/executive-summary/partials/tab5Roadmap/cardRoadmap/cardRoadmapService";
 
 const useCardRoadmapVM = () => {
 
@@ -20,6 +20,7 @@ const useCardRoadmapVM = () => {
   const [dataBusiness,setDataBusiness] = useState<ExsumRoadmapDto[]>([])
   const [request, setRequest] = useState<ExsumRoadmapDto>({...initExsumRoadmapReq})
   const [modal, setModal] = useState<{open:boolean,title:string}>({open:false,title:""})
+  const [modalDelete, setModalDelete] = useState<{isOpen:boolean,id:number}>({isOpen:false,id:0})
 
   async function getRpjmn(){
     const response = await doGetMasterListRpjmn({
@@ -106,6 +107,25 @@ const useCardRoadmapVM = () => {
     }
   }
 
+  async function deleteData(){
+    if (modalDelete.id == 0){
+      setModalDelete({isOpen:false, id:0})
+      return
+    }
+
+    const response = await doDelete({
+      body:{id:modalDelete.id},
+      loadingContext:loadingContext,
+      errorModalContext:errorModalContext
+    })
+
+    if (response?.code == API_CODE.success){
+      getData().then(r => {
+        setModalDelete({isOpen:false, id:0})
+      })
+    }
+  }
+
   useEffect(() => {
     if (rpjmn == undefined) getRpjmn();
     if (exsum.id != 0) getData()
@@ -119,7 +139,10 @@ const useCardRoadmapVM = () => {
     setRequest,
     modal,
     handleOpenModal,
-    updateData
+    updateData,
+    modalDelete,
+    setModalDelete,
+    deleteData
   }
 
 }

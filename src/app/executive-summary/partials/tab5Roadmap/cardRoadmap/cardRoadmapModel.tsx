@@ -20,3 +20,7 @@ export type GetRoadmapByExsumIdServiceModel = BaseAPIServiceParam & {
 export type UpdateRoadmapByExsumIdServiceModel = BaseAPIServiceParam & {
   body: ExsumRoadmapDto;
 };
+
+export type DeleteRoadmapByExsumIdServiceModel = BaseAPIServiceParam & {
+  body: { id:number };
+};

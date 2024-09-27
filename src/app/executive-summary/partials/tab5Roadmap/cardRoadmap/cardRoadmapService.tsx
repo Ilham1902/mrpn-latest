@@ -1,6 +1,7 @@
 import {post, put} from "@/lib/core/api/apiBase";
 import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
+  DeleteRoadmapByExsumIdServiceModel,
   GetRoadmapByExsumIdServiceModel, UpdateRoadmapByExsumIdServiceModel
 } from "@/app/executive-summary/partials/tab5Roadmap/cardRoadmap/cardRoadmapModel";
 
@@ -24,6 +25,14 @@ export async function doUpdate(param: UpdateRoadmapByExsumIdServiceModel) {
   const resp = await put({
     ...param,
     url: "exsum/roadmap/update",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doDelete(param: DeleteRoadmapByExsumIdServiceModel) {
+  const resp = await put({
+    ...param,
+    url: "exsum/roadmap/delete",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
