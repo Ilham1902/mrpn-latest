@@ -7,7 +7,7 @@ const CustomTooltip = ({ task }: { task: any }) => {
  return (
   <Box
    bgcolor="white"
-   color={grey[600]}
+   color={grey[800]}
    p={"10px 16px"}
    width={300}
    boxShadow="rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;"
@@ -27,7 +27,7 @@ const CustomTooltip = ({ task }: { task: any }) => {
      },
     }}
    >
-    <Typography component="span" variant="body2" color={grey[500]}>
+    <Typography component="span" variant="body2">
      Kegiatan:
     </Typography>
     <Typography component="strong" fontWeight={600}>

@@ -10,8 +10,8 @@ import theme from "@/theme";
 import DialogComponent from "@/app/components/dialog";
 import FormCritical from "./form";
 import useCardCriticalVM from "@/app/executive-summary/partials/tab6Critical/cardCriticalVM";
-import {GetColor} from "@/utils/color";
-import {ExsumCriticalData} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
+import { GetColor } from "@/utils/color";
+import { ExsumCriticalData } from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
  return (
@@ -25,19 +25,18 @@ const ProjectType = ({ label, color }: { label: string; color: string }) => {
 };
 
 export default function CardCritical({ project }: { project: string }) {
-
-  const {
-    optionRO,
-    optionStrategy,
-    optionProjectCategory,
-    modalOpen,
-    setModalOpen,
-    state,
-    setState,
-    handleSubmit,
-    data,
-    ganChart
-  } = useCardCriticalVM()
+ const {
+  optionRO,
+  optionStrategy,
+  optionProjectCategory,
+  modalOpen,
+  setModalOpen,
+  state,
+  setState,
+  handleSubmit,
+  data,
+  ganChart,
+ } = useCardCriticalVM();
 
  const handleModalOpen = () => {
   setModalOpen(true);
@@ -48,22 +47,25 @@ export default function CardCritical({ project }: { project: string }) {
  };
 
  const groupProjectCategory = () => {
-   const obj = Object.groupBy(data, ({ kategori_proyek_id }) => kategori_proyek_id)
-   let dt: {
-     id:number
-     name:string
-   }[] = []
-     for (const o in obj){
-       const index:number = parseInt(o)
-       if (obj[index]){
-         dt.push({
-           id:parseInt(o),
-           name:obj[index][0].kategori_proyek.name
-         })
-       }
-     }
-   return dt
- }
+  const obj = Object.groupBy(
+   data,
+   ({ kategori_proyek_id }) => kategori_proyek_id
+  );
+  let dt: {
+   id: number;
+   name: string;
+  }[] = [];
+  for (const o in obj) {
+   const index: number = parseInt(o);
+   if (obj[index]) {
+    dt.push({
+     id: parseInt(o),
+     name: obj[index][0].kategori_proyek.name,
+    });
+   }
+  }
+  return dt;
+ };
 
  return (
   <>
@@ -79,11 +81,11 @@ export default function CardCritical({ project }: { project: string }) {
      <>
       <Stack gap={3}>
        <Stack direction="row" gap={1}>
-         {groupProjectCategory().map((d,index) =>
-            <ProjectType key={index} color={GetColor(d.id)} label={d.name} />
-         )}
+        {groupProjectCategory().map((d, index) => (
+         <ProjectType key={index} color={GetColor(d.id)} label={d.name} />
+        ))}
        </Stack>
-       <GanttChart project={project} tasks={ganChart} />
+       <GanttChart tasks={ganChart} />
       </Stack>
      </>
     )}
@@ -104,7 +106,13 @@ export default function CardCritical({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormCritical optionsRO={optionRO} optionsStrategy={optionStrategy} optionProjectCategory={optionProjectCategory} state={state} setState={setState} />
+    <FormCritical
+     optionsRO={optionRO}
+     optionsStrategy={optionStrategy}
+     optionProjectCategory={optionProjectCategory}
+     state={state}
+     setState={setState}
+    />
    </DialogComponent>
   </>
  );
