@@ -15,6 +15,8 @@ import { SxParams } from "@/app/executive-summary/types";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
 import CascadingPenetapanObjectOrgChart from "@/app/penetapan/objek/partials/org-chart";
 import AddButton from "@/components/buttonAdd";
+import TableNotaDinasViewOnly from "@/app/approval/nota-dinas/partials/table-nota-dinas-view-only";
+import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -66,6 +68,10 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export default function TabObject({}) {
+
+  const {
+    nota
+  } = usePenetapanTopicContext(store => store)
 
   const {
     updateOrCreateLongList,
@@ -202,10 +208,21 @@ export default function TabObject({}) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableNotaDinas
-        edit={editNotaDinas}
-        setEdit={setEditNotaDinas}
-      />
+       editNotaDinas ?
+         <TableNotaDinas
+           edit={editNotaDinas}
+           setEdit={setEditNotaDinas}
+         />
+         :
+         nota ?
+           <TableNotaDinasViewOnly notaDinas={nota}/>
+           :
+           <EmptyState
+             dense
+             icon={<IconEmptyData width={100} />}
+             title="Data Kosong"
+             description=""
+           />
      )}
     </CardItem>
    </CustomTabPanel>
