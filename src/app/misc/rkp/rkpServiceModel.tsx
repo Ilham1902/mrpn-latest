@@ -4,7 +4,9 @@ import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 
 export type GetRKPServiceModel = BaseAPIServiceParam & {
-    body: {};
+    body: {
+        tahun:number
+    };
 };
 
 export type OptionsRKP = ProjectDefaultDto

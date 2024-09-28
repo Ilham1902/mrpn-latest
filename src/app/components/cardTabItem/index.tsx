@@ -71,7 +71,17 @@ export default function CardItem(
     permission
   } = useAuthContext(state => state)
   let pathname = usePathname()
-  pathname = pathname == "/penetapan/konteks-strategis" ?  "/penetapan/kriteriaRisiko" : pathname;
+
+  switch (pathname) {
+    case "/penetapan/konteks-strategis":
+      pathname = "/penetapan/kriteriaRisiko"
+      break;
+    case "/penetapan/objek":
+      pathname = "/penetapan/objectUpr"
+      break;
+    default:
+      break;
+  }
 
   const settingButton = (
     <>
@@ -123,7 +133,7 @@ export default function CardItem(
         transformOrigin={{horizontal: "right", vertical: "top"}}
         anchorOrigin={{horizontal: "right", vertical: "top"}}
       >
-        {(multiEdit && (hasPrivilege(permission,pathname,"add") || hasPrivilege(permission,pathname,"update"))) ? (
+        {(multiEdit && (hasPrivilege(permission, pathname, "add") || hasPrivilege(permission, pathname, "update"))) ? (
           <>
 
             <MenuItem onClick={settingEditBisnisClick}>
@@ -141,24 +151,24 @@ export default function CardItem(
           </MenuItem>
         )}
 
-        {hasPrivilege(permission,pathname,"delete") && settingDeleteOnclick &&
-          <MenuItem
-            onClick={settingDeleteOnclick}
-            sx={{
-              bgcolor: red[100],
-              color: red[700],
-              "&:hover": {
-                bgcolor: red[200],
-              },
-            }}
-          >
-            <ListItemIcon sx={{minWidth: "0 !important"}}>
-              <IconFA size={14} name="trash-alt" color={red[700]}/>
-            </ListItemIcon>
-            <ListItemText>
-              <Typography fontSize={14}>Hapus</Typography>
-            </ListItemText>
-          </MenuItem>
+        {hasPrivilege(permission, pathname, "delete") && settingDeleteOnclick &&
+            <MenuItem
+                onClick={settingDeleteOnclick}
+                sx={{
+                  bgcolor: red[100],
+                  color: red[700],
+                  "&:hover": {
+                    bgcolor: red[200],
+                  },
+                }}
+            >
+                <ListItemIcon sx={{minWidth: "0 !important"}}>
+                    <IconFA size={14} name="trash-alt" color={red[700]}/>
+                </ListItemIcon>
+                <ListItemText>
+                    <Typography fontSize={14}>Hapus</Typography>
+                </ListItemText>
+            </MenuItem>
         }
       </Menu>
     </>
@@ -217,12 +227,12 @@ export default function CardItem(
               {
                 addButton ?
                   (
-                    hasPrivilege(permission,pathname,"add") ? addButton : null
+                    hasPrivilege(permission, pathname, "add") ? addButton : null
                   )
-                    :
+                  :
                   (
                     setting ?
-                      (hasPrivilege(permission,pathname,"add") || hasPrivilege(permission,pathname,"update") || hasPrivilege(permission,pathname,"delete") ? settingButton : null) :
+                      (hasPrivilege(permission, pathname, "add") || hasPrivilege(permission, pathname, "update") || hasPrivilege(permission, pathname, "delete") ? settingButton : null) :
                       null
                   )
               }

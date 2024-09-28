@@ -4,10 +4,10 @@ import {
   GetPenetapanObjectCascadingServiceModel,
   GetPenetapanObjectEntityServiceModel,
   GetPenetapanObjectEntityUsulanServiceModel,
-  GetPenetapanObjectIdServiceModel,
+  GetPenetapanObjectIdServiceModel, GetPenetapanObjectNotaDinasServiceModel,
   GetPenetapanObjectShortListServiceModel, UpdateOrCreatePenetapanObjectEntityServiceModel,
   UpdateOrCreatePenetapanObjectLongListAssignObjectServiceModel,
-  UpdateOrCreatePenetapanObjectLongListServiceModel
+  UpdateOrCreatePenetapanObjectLongListServiceModel, UpdateOrCreatePenetapanObjectNotaDinasServiceModel
 } from "@/app/penetapan/objek/pageModel";
 
 export async function doGetPenetapanObject(param: GetPenetapanObjectIdServiceModel) {
@@ -86,6 +86,22 @@ export async function doUpdateOrCreatePenetapanObjectEntityUsulan(param: UpdateO
   const resp = await post({
     ...param,
     url: "penetapan/object/usulanUprLinsek/add",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doGetPenetapanObjectNotaDinas(param: GetPenetapanObjectNotaDinasServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "penetapan/object/notaDinas/show",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doUpdateOrCreateGetPenetapanObjectNotaDinas(param: UpdateOrCreatePenetapanObjectNotaDinasServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "penetapan/object/notaDinas/add",
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }

@@ -105,10 +105,9 @@ export default function PageTemaView({}) {
  const pathname = usePathname()
 
  const {
-   year
+   year,
+   rkp
  } = useRKPContext(state => state)
-
-  useRkpVM()
 
   const {
     objects,
@@ -127,7 +126,7 @@ export default function PageTemaView({}) {
    updateOrCreateTopic
  } = usePenetapanObjectVM()
 
-  useEffect(useEffectGenerateOption, [year]);
+  useEffect(useEffectGenerateOption, [year,rkp]);
 
   useEffect(useEffectObjectState, [year,objectState]);
 

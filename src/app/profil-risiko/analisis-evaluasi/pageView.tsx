@@ -288,7 +288,7 @@ export default function PageAnalisisEvaluasiView({}) {
       <DialogComponent
         dialogOpen={modal.isOpen && modal.action !== "delete"}
         dialogClose={() => actionModal(true, "create")}
-        title="Tambah Analisis & Evaluasi Risiko"
+        title={`${modal.action == "read" ? "Detail" : (modal.action == "update" ? "Ubah" : "Tambah")} Analisis & Evaluasi Risiko`}
         dialogFooter={dialogActionFooter}
       >
         <FormTable

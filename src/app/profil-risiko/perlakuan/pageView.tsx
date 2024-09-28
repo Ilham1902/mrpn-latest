@@ -437,7 +437,7 @@ export default function PagePerlakuanView({}) {
         width={"80%"}
         dialogOpen={modal.isOpen && modal.action != "delete"}
         dialogClose={() => actionModal(false, "create")}
-        title="Tambah Perlakuan Risiko"
+        title={`${modal.action == "read" ? "Detail" : (modal.action == "update" ? "Ubah" : "Tambah")} Tambah Perlakuan Risiko`}
         dialogFooter={dialogActionFooter}
       >
         <FormTable

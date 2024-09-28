@@ -237,19 +237,21 @@ export default function FormTable(
                   title="Penyebab/Faktor Risiko Strategis MRPN Linsek"
                   information="Penyebab/Faktor Risiko Strategis MRPN Linsek"
                 />
-                <AddButton
-                  title={`Tambah`}
-                  filled
-                  noMargin
-                  onclick={() => setRequest(prevState => {
-                    let p = prevState.penyebab
-                    p.push("")
-                    return {
-                      ...prevState,
-                      penyebab:p
-                    }
-                  })}
-                />
+                {mode !== "read" &&
+                  <AddButton
+                    title={`Tambah`}
+                    filled
+                    noMargin
+                    onclick={() => setRequest(prevState => {
+                      let p = prevState.penyebab
+                      p.push("")
+                      return {
+                        ...prevState,
+                        penyebab:p
+                      }
+                    })}
+                  />
+                }
               </Stack>
 
               <Stack direction={"column"} gap={1}>
@@ -307,19 +309,21 @@ export default function FormTable(
                   title="Dampak Strategis MRPN Linsek"
                   information="Dampak Strategis MRPN Linsek"
                 />
-                <AddButton
-                  title={`Tambah`}
-                  filled
-                  noMargin
-                  onclick={() => setRequest(prevState => {
-                    let p = prevState.dampak
-                    p.push("")
-                    return {
-                      ...prevState,
-                      dampak:p
-                    }
-                  })}
-                />
+                {mode !== "read" &&
+                  <AddButton
+                    title={`Tambah`}
+                    filled
+                    noMargin
+                    onclick={() => setRequest(prevState => {
+                      let p = prevState.dampak
+                      p.push("")
+                      return {
+                        ...prevState,
+                        dampak:p
+                      }
+                    })}
+                  />
+                }
               </Stack>
 
               <Stack direction={"column"} gap={1}>

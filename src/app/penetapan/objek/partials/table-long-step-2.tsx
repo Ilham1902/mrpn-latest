@@ -58,7 +58,7 @@ export default function TableLonglistStepTwo({mode}: { mode?: string }) {
                   <TableRow key={i}>
                     <TableCell>{i + 1}</TableCell>
                     <TableCell>{row.rkp.value}</TableCell>
-                    <TableCell align="center">{row.prioritas.length}</TableCell>
+                    <TableCell align="center">{row.priotitas_order}</TableCell>
                     <TableCell align="center">
                       <Checkbox
                         checked={row.objek}

@@ -7,7 +7,7 @@ import {
 import { ResponseBaseDto } from "@/lib/core/api/apiModel";
 
 export async function doGetRKP(params: GetRKPServiceModel) {
-  const resp = await get({
+  const resp = await post({
     ...params,
     url: "misc/rkp/list",
   });

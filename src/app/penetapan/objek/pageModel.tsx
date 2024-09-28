@@ -150,6 +150,10 @@ export type GetPenetapanObjectEntityServiceModel = BaseAPIServiceParam & {
   body: { id:number };
 };
 
+export type GetPenetapanObjectNotaDinasServiceModel = BaseAPIServiceParam & {
+  body: { id_topik:number };
+};
+
 export interface PenetapanObjectEntityItemDto {
   id:number,
   value:string
@@ -180,4 +184,23 @@ export interface PenetapanObjectEntityReqDto {
 
 export type UpdateOrCreatePenetapanObjectEntityServiceModel = BaseAPIServiceParam & {
   body: PenetapanObjectEntityReqDto;
+};
+
+export interface NotaDinasReqDto {
+  penetapan_object_id:number
+  penjelasan_objek_mrpn:string
+  penjelasan_usulan_upr:string
+  lokasi:string
+  tanggal:string
+  direktorat:string
+  dibuat:string
+  disetujui:string
+  ttd_pembuat:string
+  ttd_pembuat_filename:string
+  ttd_penyetuju:string
+  ttd_penyetuju_filename:string
+}
+
+export type UpdateOrCreatePenetapanObjectNotaDinasServiceModel = BaseAPIServiceParam & {
+  body: NotaDinasReqDto;
 };

@@ -14,6 +14,7 @@ import CascadingOrgChart from "@/app/executive-summary/partials/tab4Cascading/pa
 import { SxParams } from "@/app/executive-summary/types";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
 import CascadingPenetapanObjectOrgChart from "@/app/penetapan/objek/partials/org-chart";
+import AddButton from "@/components/buttonAdd";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -86,6 +87,8 @@ export default function TabObject({}) {
  const isEmpty = false;
 
  const sxParams: SxParams = { variant: "default" };
+
+ const [editNotaDinas, setEditNotaDinas] = React.useState<boolean>(false)
 
  return (
   <Box width="100%">
@@ -182,7 +185,15 @@ export default function TabObject({}) {
     </CardItem>
    </CustomTabPanel>
    <CustomTabPanel value={value} index={4}>
-    <CardItem title="Nota Dinas Objek MRPN & UPR Linsek">
+    <CardItem
+      title="Nota Dinas Objek MRPN & UPR Linsek"
+      addButton={!editNotaDinas && <AddButton
+          title={`Ubah`}
+          filled
+          startIcon={<IconFA size={18} name="pencil"/>}
+          onclick={() => setEditNotaDinas(true)}
+      />}
+    >
      {isEmpty ? (
       <EmptyState
        dense
@@ -191,7 +202,10 @@ export default function TabObject({}) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableNotaDinas />
+      <TableNotaDinas
+        edit={editNotaDinas}
+        setEdit={setEditNotaDinas}
+      />
      )}
     </CardItem>
    </CustomTabPanel>

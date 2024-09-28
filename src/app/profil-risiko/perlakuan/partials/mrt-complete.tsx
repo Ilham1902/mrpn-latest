@@ -58,32 +58,33 @@ export default function MRTPerlakuanComplete(
                 enableColumnActions: false,
                 Cell: ({cell}: { cell: any }) => (
                   <Paper
-                    elevation={0}
-                    sx={{
-                      overflow: "auto",
-                      maxHeight: 160,
-                      backgroundColor: "transparent",
-                      "&::-webkit-scrollbar": {
-                        width: "3px",
-                      },
-                    }}
+                      elevation={0}
+                      sx={{
+                        overflow: "auto",
+                        maxHeight: 160,
+                        backgroundColor: "transparent",
+                        "&::-webkit-scrollbar": {
+                          width: "3px",
+                        },
+                      }}
                   >
-                    <Stack gap={1}>
-                      {cell.getValue().map((itemDesc: any, index: any) => (
-                        <Chip
-                          key={index}
-                          sx={{
-                            height: "auto",
-                            py: 1,
-                            "& .MuiChip-label": {
-                              overflow: "unset",
-                              whiteSpace: "wrap",
-                            },
-                          }}
-                          label={itemDesc}
-                        />
-                      ))}
-                    </Stack>
+                      <Stack gap={1}>
+                        {cell.getValue().map((itemDesc: any, index: any) => (
+                          itemDesc &&
+                          <Chip
+                            key={index}
+                            sx={{
+                              height: "auto",
+                              py: 1,
+                              "& .MuiChip-label": {
+                                overflow: "unset",
+                                whiteSpace: "wrap",
+                              },
+                            }}
+                            label={itemDesc}
+                          />
+                        ))}
+                      </Stack>
                   </Paper>
                 ),
               },
@@ -106,6 +107,7 @@ export default function MRTPerlakuanComplete(
                   >
                     <Stack gap={1}>
                       {cell.getValue().map((itemDesc: any, index: any) => (
+                        itemDesc &&
                         <Chip
                           key={index}
                           sx={{
@@ -171,6 +173,7 @@ export default function MRTPerlakuanComplete(
                 header: "Level Risiko",
                 enableColumnActions: false,
                 Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
+                  renderedCellValue &&
                   <Chip
                     color={
                       renderedCellValue === "Sangat Tinggi (5)"
@@ -325,6 +328,7 @@ export default function MRTPerlakuanComplete(
             header: "Level Risiko",
             enableColumnActions: false,
             Cell: ({renderedCellValue}: { renderedCellValue: any }) => (
+              renderedCellValue &&
               <Chip
                 color={
                   renderedCellValue === "Sangat Tinggi (5)"

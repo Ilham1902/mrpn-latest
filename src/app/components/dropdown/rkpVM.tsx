@@ -14,7 +14,7 @@ const useRkpVM = () => {
   const rkpContext = useRKPContext(state => state);
   const exsumContext = useExsumContext();
 
-  const {rkp,setRkp, rkpOption,setRkpOption, rkpState, setRkpState, year} = rkpContext
+  const {rkpOption,setRkpOption, rkpState, setRkpState, year} = rkpContext
   const [allowedSelectRKP, setAllowedSelectRKP] = useState<string[]>([])
 
   async function getAllowedSelectRKP() {
@@ -36,7 +36,9 @@ const useRkpVM = () => {
   }
   async function getData() {
     const response = await doGetRKP({
-      body: {},
+      body: {
+        tahun:rkpContext.year
+      },
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
     });
@@ -48,43 +50,53 @@ const useRkpVM = () => {
       // generate Options
       let opt: OptionsRKP[] = []
       result.map(pn => {
-        opt.push({
-          id: pn.id,
-          level: "PN",
-          code: pn.code,
-          value: pn.value
-        })
-        pn.pp.map(pp => {
+        if (allowedSelectRKP.includes("PN")){
           opt.push({
-            id: pp.id,
-            level: "PP",
-            code: pp.code,
-            value: pp.value
+            id: pn.id,
+            level: "PN",
+            code: pn.code,
+            value: pn.value
           })
-          
-          pp.kp.map(kp => {
+        }
+        pn.pp.map(pp => {
+          if (allowedSelectRKP.includes("PP")){
             opt.push({
-              id: kp.id,
-              level: "KP",
-              code: kp.code,
-              value: kp.value
+              id: pp.id,
+              level: "PP",
+              code: pp.code,
+              value: pp.value
             })
+          }
+
+          pp.kp.map(kp => {
+            if (allowedSelectRKP.includes("KP")){
+              opt.push({
+                id: kp.id,
+                level: "KP",
+                code: kp.code,
+                value: kp.value
+              })
+            }
 
             kp.prop.map(prop => {
-              opt.push({
-                id: prop.id,
-                level: "PROP",
-                code: prop.code,
-                value: prop.value
-              })
+              if (allowedSelectRKP.includes("PROP")){
+                opt.push({
+                  id: prop.id,
+                  level: "PROP",
+                  code: prop.code,
+                  value: prop.value
+                })
+              }
 
               prop.ro.map(ro => {
-                opt.push({
-                  id: ro.id,
-                  level: "P",
-                  code: ro.code,
-                  value: ro.value
-                })
+                if (allowedSelectRKP.includes("P")){
+                  opt.push({
+                    id: ro.id,
+                    level: "P",
+                    code: ro.code,
+                    value: ro.value
+                  })
+                }
               })
             })
           })

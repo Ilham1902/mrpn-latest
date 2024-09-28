@@ -8,12 +8,19 @@ import {
 import React, {useEffect, useState} from "react";
 import {PNDto, ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 import {
-  initPenetapanObjectState, PenetapanObjectEntityCheckedDto,
+  initPenetapanObjectState,
+  PenetapanObjectEntityCheckedDto,
   PenetapanObjectLongListAssignObjectReqDto,
   PenetapanObjectLongListReqDto,
   PenetapanObjectLongListReqValueDto,
-  PenetapanObjectReqDto, PenetapanObjectShortListDto, PenetapanObjectEntityDto,
-  PenetapanObjectVMState, PenetapanObjectStateEntityDto, PenetapanObjectEntityReqDto, PenetapanObjectEntityValueReqDto
+  PenetapanObjectReqDto,
+  PenetapanObjectShortListDto,
+  PenetapanObjectEntityDto,
+  PenetapanObjectVMState,
+  PenetapanObjectStateEntityDto,
+  PenetapanObjectEntityReqDto,
+  PenetapanObjectEntityValueReqDto,
+  NotaDinasReqDto
 } from "@/app/penetapan/objek/pageModel";
 import {
   doCratePenetapanObjectLongList,
@@ -23,12 +30,20 @@ import {
   doGetPenetapanObjectCascading,
   doGetPenetapanObjectEntity,
   doGetPenetapanObjectEntityUsulan,
-  doGetPenetapanObjectShortList, doUpdateOrCreatePenetapanObjectEntityUsulan
+  doGetPenetapanObjectNotaDinas,
+  doGetPenetapanObjectShortList,
+  doUpdateOrCreateGetPenetapanObjectNotaDinas,
+  doUpdateOrCreatePenetapanObjectEntityUsulan
 } from "@/app/penetapan/objek/pageService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import useRkpVM from "@/components/dropdown/rkpVM";
-import {PenetapanObjectDto, PenetapanObjectUraianDto} from "@/lib/core/context/penetapanTopicContext";
+import {
+  PenetapanObjectDto,
+  PenetapanObjectNotaDto,
+  PenetapanObjectUraianDto
+} from "@/lib/core/context/penetapanTopicContext";
 import {RKPCascadingDto} from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
+import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 const usePenetapanObjectVM = () => {
   const loadingContext = useLoading();
@@ -47,6 +62,8 @@ const usePenetapanObjectVM = () => {
     setObjectState,
     uraianState,
     setUraianState,
+    nota,
+    setNota
   } = usePenetapanTopicContext(state => state)
 
   const initState = JSON.parse(JSON.stringify(initPenetapanObjectState))
@@ -54,6 +71,7 @@ const usePenetapanObjectVM = () => {
   const [stateShorList, setStateShortList] = useState<PenetapanObjectShortListDto[]>([])
   const [stateCascading, setStateCascading] = useState<RKPCascadingDto[]>([])
   const [stateEntity, setStateEntity] = useState<PenetapanObjectStateEntityDto[]>([])
+
   const [optionPN, setOptionPN] = useState<ProjectDefaultDto[]>([])
   const [modalAdd, setModalAdd] = useState<boolean>(false)
 
@@ -279,6 +297,52 @@ const usePenetapanObjectVM = () => {
     }
   }
 
+  async function getPenetapanObjectNotaDinas(){
+    if (objectState !== undefined){
+      const response = await doGetPenetapanObjectNotaDinas({
+        body:{id_topik:objectState.id},
+        errorModalContext:errorModalContext,
+        loadingContext:loadingContext
+      })
+      if (response?.code === API_CODE.success){
+        let result:PenetapanObjectNotaDto = response.result
+        setNota(result)
+      }
+    }
+
+  }
+
+  async function updateOrCreateNotaDinas(){
+
+    if (nota != undefined){
+      const request:NotaDinasReqDto = {
+        penetapan_object_id: objectState?.id ?? 0,
+        penjelasan_objek_mrpn: nota.penjelasan_objek_mrpn,
+        penjelasan_usulan_upr: nota.penjelasan_usulan_upr,
+        lokasi: nota.lokasi,
+        tanggal: nota.tanggal,
+        direktorat: nota.direktorat,
+        dibuat: nota.dibuat,
+        disetujui: nota.disetujui,
+        ttd_pembuat: nota.ttd_pembuat_base64,
+        ttd_pembuat_filename: nota.ttd_pembuat_filename,
+        ttd_penyetuju: nota.ttd_penyetuju_base64,
+        ttd_penyetuju_filename: nota.ttd_penyetuju_filename
+      }
+
+      if (objectState !== undefined){
+        const response = await doUpdateOrCreateGetPenetapanObjectNotaDinas({
+          body:request,
+          errorModalContext:errorModalContext,
+          loadingContext:loadingContext
+        })
+        if (response?.code === API_CODE.success){
+          getPenetapanObjectNotaDinas()
+        }
+      }
+    }
+  }
+
   const useEffectGenerateOption = () => {
     setObjectState(undefined)
     if (rkp.length > 0 && optionPN.length == 0) {
@@ -291,8 +355,12 @@ const usePenetapanObjectVM = () => {
 
   const useEffectObjectState = () => {
     if (objectState !== undefined){
+
       const uraianDt:PenetapanObjectUraianDto[] = objectState.penetapan_object_list.reduce<PenetapanObjectUraianDto[]>(
         (acc,b) => {
+          b.uraian.map((x,index) => {
+            b.uraian[index].priotitas_count = x.prioritas.length
+          })
           return [...acc, ...b.uraian]
         }, []
       )
@@ -307,9 +375,29 @@ const usePenetapanObjectVM = () => {
         }
         return 0;
       })
-      setUraianState(sortedData)
+
+      const objGroupBy = Object.groupBy(sortedData, ({priotitas_count}) => priotitas_count)
+
+      const sorted = Object.keys(objGroupBy).sort((a,b) => (parseInt(a) < parseInt(b)) ? 1 : -1)
+
+      const finalData = sortedData.reduce<PenetapanObjectUraianDto[]>(
+        (a,b) => {
+          let prior:number = 1
+          const getIndex = sorted.findIndex(x => parseInt(x) == b.priotitas_count)
+          if (getIndex > -1){
+            prior = getIndex+1
+          }
+          b.priotitas_order = prior
+          return [...a,b]
+        },
+        []
+      )
+
+      setUraianState(finalData)
 
       getPenetapanObjectEntity()
+
+      getPenetapanObjectNotaDinas()
     }
   }
 
@@ -335,6 +423,8 @@ const usePenetapanObjectVM = () => {
     getPenetapanObjectShortList,
     getPenetapanObjectCascading,
     getPenetapanObjectEntity,
+    getPenetapanObjectNotaDinas,
+    updateOrCreateNotaDinas
   }
 }
 

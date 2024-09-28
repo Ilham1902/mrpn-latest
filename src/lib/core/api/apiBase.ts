@@ -99,6 +99,11 @@ const fetchAPI = async (param: APIParam) => {
     param.usingBase ? API_BASE + param.url : param.url,
     fetchParam
   );
+  if (!response.ok && response.status != 401){
+    if (param.loadingContext != undefined) param.loadingContext.setLoading(false);
+    return null
+  }
+
   let responseJson = await mappingResponse(response);
   if (param.loadingContext != undefined) param.loadingContext.setLoading(false);
 

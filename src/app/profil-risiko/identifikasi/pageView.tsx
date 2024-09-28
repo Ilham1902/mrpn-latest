@@ -185,7 +185,7 @@ export default function PageIdentifikasiView({}) {
         width={"70%"}
         dialogOpen={modal.isOpen && modal.action != "delete"}
         dialogClose={() => actionModal(true, "create")}
-        title="Ubah Identifikasi Risiko"
+        title={`${modal.action == "read" ? "Detail" : (modal.action == "update" ? "Ubah" : "Tambah")} Identifikasi Risiko`}
         dialogFooter={dialogActionFooter}
       >
         <FormTable

@@ -102,6 +102,7 @@ export default function FormTable(
         <Matriks key={"risk-analysis"} levelId={5} handleClick={handleClick} clickedCell={clickedCell}/>
       </Grid>
 
+
       <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
           <FieldLabelInfo
