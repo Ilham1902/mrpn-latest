@@ -5,6 +5,23 @@ import { IconEmptyData } from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import useCardSupportVM from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportVM";
 
+export const getLevel = (level:string) => {
+  switch (level){
+    case "PN":
+      return "PN"
+    case "PP":
+      return "PN"
+    case "KP":
+      return "PP"
+    case "PROP":
+      return "KP"
+    case "P":
+      return "PROP"
+    default:
+      return "KP"
+  }
+}
+
 export default function CardIndicator({ project }: { project: string }) {
 
   const {
@@ -13,7 +30,7 @@ export default function CardIndicator({ project }: { project: string }) {
   } = useCardSupportVM();
 
  return (
-  <CardItem title={`Indikator Kinerja Utama ${exsum.level}`}>
+  <CardItem title={`Indikator Kinerja Utama ${getLevel(exsum.level)}`}>
    {data === undefined ? (
     <EmptyState
      dense
