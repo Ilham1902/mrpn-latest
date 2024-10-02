@@ -5,6 +5,23 @@ import CardItem from "@/components/cardTabItem";
 import TableSupport from "./table-support";
 import useCardSupportVM from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportVM";
 
+export const getLevel = (level:string) => {
+  switch (level){
+    case "PN":
+      return "PN"
+    case "PP":
+      return "PN"
+    case "KP":
+      return "PP"
+    case "PROP":
+      return "KP"
+    case "P":
+      return "PROP"
+    default:
+      return "KP"
+  }
+}
+
 export default function CardSupport({ project }: { project: string }) {
 
   const {
@@ -14,7 +31,7 @@ export default function CardSupport({ project }: { project: string }) {
 
 
  return (
-  <CardItem title={`Mendukung ${exsum.level}`}>
+  <CardItem title={`Mendukung ${getLevel(exsum.level)}`}>
    {data == undefined ? (
     <EmptyState
      dense

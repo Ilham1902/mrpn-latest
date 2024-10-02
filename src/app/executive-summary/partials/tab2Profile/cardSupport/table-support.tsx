@@ -15,6 +15,23 @@ import { dataTema } from "../../../dataTema";
 import {ExsumSupportProjectRes} from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportModel";
 import {ExsumDto} from "@/lib/core/context/exsumContext";
 
+export const getLevel = (level:string) => {
+ switch (level){
+  case "PN":
+   return "PN"
+  case "PP":
+   return "PN"
+  case "KP":
+   return "PP"
+  case "PROP":
+   return "KP"
+  case "P":
+   return "PROP"
+  default:
+   return "KP"
+ }
+}
+
 export default function TableSupport(
   {
     data,
@@ -31,17 +48,17 @@ export default function TableSupport(
      <TableRow>
       <TableCell>
        <Typography variant="body1" fontWeight={600}>
-        {exsum.level}
+        {getLevel(exsum.level)}
        </Typography>
       </TableCell>
       <TableCell width={200}>
        <Typography variant="body1" fontWeight={600}>
-        Kode Sasaran {exsum.level}
+        Kode Sasaran {getLevel(exsum.level)}
        </Typography>
       </TableCell>
       <TableCell width="50%">
        <Typography variant="body1" fontWeight={600}>
-        Sasaran {exsum.level}
+        Sasaran {getLevel(exsum.level)}
        </Typography>
       </TableCell>
      </TableRow>
