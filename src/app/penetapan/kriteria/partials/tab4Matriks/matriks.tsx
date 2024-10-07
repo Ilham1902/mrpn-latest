@@ -153,7 +153,7 @@ export default function Matriks({ levelId }: { levelId?: number }) {
  );
 
  return (
-  <Stack display="grid" gridTemplateColumns="2.75fr 1.25fr" gap={2} mt={4}>
+  <Stack display="grid" gridTemplateColumns="2.75fr 1.25fr" gap={2}>
    {matriksFive}
    {levelMatriks}
   </Stack>

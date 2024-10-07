@@ -51,7 +51,7 @@ export default function FormRoadmap({
    <Grid container spacing={2}>
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Tahun" information="Tahun" />
+      <FieldLabelInfo title="Tahun" />
       <SelectCustomTheme
        defaultStyle
        small
@@ -76,7 +76,7 @@ export default function FormRoadmap({
 
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Output" information="Output" />
+      <FieldLabelInfo title="Output" />
       <TextareaStyled
        aria-label={"Output"}
        placeholder={"Output"}

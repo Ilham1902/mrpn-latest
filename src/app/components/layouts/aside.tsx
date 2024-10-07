@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import React from "react";
 import { Typography, Box, Stack, Collapse, Button } from "@mui/material";
 import Image from "next/image";
 import { MenuItem } from "./partials/menu";
 import { MenuGroup } from "./partials/menu-group";
 import { SubmenuItem } from "./partials/submenu";
 import {
- IconAnalisis,
  IconDashboard,
- IconEvaluasi,
  IconExecutive,
  IconKeluar,
  IconManajemen,

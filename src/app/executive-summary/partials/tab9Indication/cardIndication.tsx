@@ -39,6 +39,29 @@ export default function CardIndication({ project }: { project: string }) {
    <Stack gap={1}>
     <CardItem
      title="Indikasi Risiko Objek MRPN 5 Tahunan"
+     infoTooltip={
+      <Stack spacing={2}>
+       <div>
+        <strong>Indikasi Profil Risiko Objek MRPN Lintas Sektor</strong>
+        <p>
+         Kementerian PPN/Bappenas dalam melakukan proses Rancangan Awal (Ranwal)
+         RKP bersama dengan Kementerian Keuangan dan K/L/P/BU/BL terkait, telah
+         menggunakan prinsip perencanaan berbasis risiko, yang menyertakan
+         pembahasan terkait Indikasi Profil Risiko Objek MRPN Lintas Sektor yang
+         berisikan penilaian dan perlakuan risiko.
+        </p>
+       </div>
+       <div>
+        <strong>Indikasi Risiko RPJMN</strong>
+        <p>
+         Risiko makro dan strategis yang disusun oleh Kementerian yang
+         menyelenggarakan urusan pemerintahan di bidang perencanaan pembangunan
+         nasional mencakup risiko global yang meliputi risiko ekonomi,
+         teknologi, geopolitik, sosial, lingkungan, reputasi dan tata kelola.
+        </p>
+       </div>
+      </Stack>
+     }
      addButton={
       hasPrivilege(permission, pathname, "add") && (
        <AddButton

@@ -21,6 +21,7 @@ import { ExsumIndicationResDto } from "@/app/executive-summary/partials/tab9Indi
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
+import { InfoTooltip } from "@/app/components/InfoTooltip";
 
 export default function TableIndication({
  data,
@@ -51,12 +52,18 @@ export default function TableIndication({
         </Typography>
        </TableCell>
        <TableCell>
-        <Typography variant="body1" fontWeight={600}>
-         Perlakuan Risiko
-        </Typography>
+        <Stack direction="row" alignItems="center" gap={0.5}>
+         <Typography variant="body1" fontWeight={600}>
+          Perlakuan Risiko
+         </Typography>
+         <InfoTooltip
+          title="Proses untuk menurunkan keterpaparan risiko yang dikaitkan dengan toleransi dan selera risiko
+yang telah ditetapkan"
+         />
+        </Stack>
        </TableCell>
        <TableCell>
-        <Typography variant="body1" fontWeight={400}>
+        <Typography variant="body1" fontWeight={600}>
          KL Penanggung Jawab
         </Typography>
        </TableCell>

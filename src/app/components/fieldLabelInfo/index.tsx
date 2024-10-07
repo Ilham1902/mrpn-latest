@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Grow, Stack, Tooltip, Typography } from "@mui/material";
 import { IconFA } from "../icons/icon-fa";
 import { grey } from "@mui/material/colors";
+import { InfoTooltip } from "../InfoTooltip";
 
 export default function FieldLabelInfo({
  title,
@@ -10,6 +11,7 @@ export default function FieldLabelInfo({
  iconOnly,
  buttonInfo,
  buttonInfoOnclick,
+ titleField,
 }: {
  title?: string;
  information?: React.ReactNode;
@@ -17,22 +19,8 @@ export default function FieldLabelInfo({
  iconOnly?: boolean;
  buttonInfo?: boolean;
  buttonInfoOnclick?: () => void;
+ titleField?: boolean;
 }) {
- const tooltipContent = (
-  <Tooltip title={information} followCursor TransitionComponent={Grow}>
-   <Typography
-    sx={{
-     span: {
-      position: "relative",
-      top: titleSection ? 2 : -2,
-     },
-    }}
-   >
-    <IconFA name="circle-info" size={14} />
-   </Typography>
-  </Tooltip>
- );
-
  const buttonInfoContent = (
   <Button
    size="small"
@@ -47,9 +35,13 @@ export default function FieldLabelInfo({
  return (
   <>
    {iconOnly ? (
-    tooltipContent
+    <InfoTooltip
+     title={information}
+     titleSection={titleSection}
+     titleField={titleField}
+    />
    ) : (
-    <Stack direction="row" alignItems="center" gap={1}>
+    <Stack direction="row" alignItems="center" gap={0.5}>
      {titleSection ? (
       <Typography fontWeight={600}>{title}</Typography>
      ) : (
@@ -57,7 +49,19 @@ export default function FieldLabelInfo({
        {title}
       </Typography>
      )}
-     {buttonInfo ? buttonInfoContent : tooltipContent}
+     {buttonInfo ? (
+      buttonInfoContent
+     ) : (
+      <>
+       {information && (
+        <InfoTooltip
+         title={information}
+         titleSection={titleSection}
+         titleField={titleField}
+        />
+       )}
+      </>
+     )}
     </Stack>
    )}
   </>

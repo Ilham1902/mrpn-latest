@@ -68,6 +68,15 @@ export default function PageApprovalSelera() {
    <DashboardLayout>
     <ContentPage
      title="Approval Selera Risiko"
+     infoToolTip={
+      <>
+       <strong>Selera Risiko</strong>
+       <p>
+        Jumlah dan jenis risiko yang bersedia diterima oleh suatu entitas atau
+        organisasi pemerintahan dalam mengejar tujuannya
+       </p>
+      </>
+     }
      chipKp
      addButton={
       buttonStamp ? (

@@ -1,10 +1,10 @@
-import React from "react";
-import { Button, DialogActions } from "@mui/material";
+import AddButton from "@/app/components/buttonAdd";
 import CardItem from "@/app/components/cardTabItem";
+import React from "react";
+import TableKemungkinan from "./table-kriteria-kemungkinan";
 import DialogComponent from "@/app/components/dialog";
-// import TableKemungkinan from "./table-kriteria-kemungkinan";
 import FormKemungkinan from "./form-kemungkinan";
-import TableKemungkinan from "@/app/penetapan/konteks-strategis/form/partials/table-kriteria-kemungkinan";
+import { DialogActions, Button } from "@mui/material";
 
 export default function CardKemungkinan() {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -28,12 +28,27 @@ export default function CardKemungkinan() {
 
  return (
   <>
-   <TableKemungkinan mode="view" />
+   <CardItem
+    title="Kriteria Kemungkinan"
+    // addButton={
+    //  <AddButton
+    //   filled
+    //   small
+    //   title="Tambah Kriteria Kemungkinan"
+    //   onclick={handleModalOpenAdd}
+    //  />
+    // }
+    setting
+    // settingDeleteOnclick={() => deleteData()}
+    settingEditOnclick={handleModalOpenAdd}
+   >
+    <TableKemungkinan mode="view" />
+   </CardItem>
    <DialogComponent
-    width={1200}
+    width={800}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Kriteria Dampak"
+    title="Tambah Kriteria Kemungkinan"
     dialogFooter={dialogActionFooter}
    >
     <FormKemungkinan mode="add" />

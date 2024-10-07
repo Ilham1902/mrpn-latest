@@ -27,7 +27,11 @@ export default function CardMatriks() {
 
  return (
   <>
-   <CardItem title="Matriks dengan Selera Risiko Konservatif">
+   <CardItem
+    title="Matriks Analisis Risiko"
+    infoTooltip="Alat untuk pemeringkatan dan mempertunjukkan risiko dengan mendefinisikan kisaran untuk
+konsekuensi dan kemungkinan-kejadian"
+   >
     <Matriks levelId={5} />
    </CardItem>
    <DialogComponent

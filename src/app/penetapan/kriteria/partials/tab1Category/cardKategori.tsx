@@ -29,6 +29,15 @@ export default function CardKategori() {
   <>
    <CardItem
     title="Kategori Risiko"
+    infoTooltip={
+     <>
+      Pengelompokan risiko misalnya berdasarkan sumber risiko (melalui metode{" "}
+      <em>Risk Breakdown Structure</em>), area yang terkena dampak (melalui
+      metode <em>Work Breakdown Structure</em>), atau kategori lainnya.
+      Kategorisasi risiko pada umumnya dilakukan untuk membantu proses analisis
+      dan evaluasi risiko serta membantu proses perumusan strategi penanganannya
+     </>
+    }
     // setting
     // settingEditOnclick={handleModalOpenAdd}
    >

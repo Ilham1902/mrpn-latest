@@ -33,6 +33,8 @@ export default function PageKepatuhan({}) {
    <DashboardLayout>
     <ContentPage
      title="Kepatuhan"
+     infoToolTip="Risiko yang berkaitan dengan ketidakpatuhan terhadap peraturan perundang-undangan,
+kesepakatan internasional, atau ketentuan lain yang berlaku"
      chipKp
      addButton={
       <AddButton

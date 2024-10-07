@@ -213,6 +213,9 @@ export default function PagePeringatanDiniSaran({}) {
    <DashboardLayout>
     <ContentPage
      title="Peringatan Dini"
+     infoToolTip="Rangkaian terpadu dari proses identifikasi dan pemantauan bahaya, rangkaian komunikasi
+informasi dan peringatan terhadap bahaya tersebut kepada pemilik risiko atau pemangku
+kepentingan terkait dan tindakan yang diambil untuk meminimalkan dampaknya sebelum terjadi"
      chipKp
      withCard={false}
      hasAlert={

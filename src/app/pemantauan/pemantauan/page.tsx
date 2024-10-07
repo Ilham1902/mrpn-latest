@@ -652,6 +652,9 @@ export default function PagePemantauan({}) {
    <DashboardLayout>
     <ContentPage
      title="Pemantauan"
+     infoToolTip="Proses berkelanjutan dan sistematis untuk menilai dan mengawasi efektivitas praktik manajemen
+risiko, termasuk kerangka kerja, proses, tindakan pengendalian risiko, dan pencapaian sasaran
+pembangunan yang telah ditetapkan"
      chipKp
      identificationInfo={
       <Stack direction="row" gap={1}>

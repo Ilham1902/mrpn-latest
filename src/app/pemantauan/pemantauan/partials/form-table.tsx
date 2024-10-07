@@ -45,7 +45,21 @@ export default function FormTable({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Peristiwa Risiko Strategis MRPN Linsek"
-      information="Peristiwa Risiko Strategis MRPN Linsek"
+      titleField
+      information={
+       <>
+        <strong>Risiko Strategis</strong>
+        <p>
+         Risiko yang terkait dengan kebijakan publik atau keputusan bisnis
+         jangka panjang akibat dari penetapan dan penerapan strategi yang kurang
+         tepat, ketidaktepatan dalam perencanaan strategis dan pengambilan suatu
+         keputusan strategis dan kegagalan dalam menghadapi perubahan-perubahan
+         di lingkungan eksternal, termasuk dan/atau pengembangan baru yang dapat
+         dilihat pada saat pengambilan keputusan yang buruk, dan alokasi sumber
+         daya yang tidak memadai
+        </p>
+       </>
+      }
      />
      <Typography fontWeight={600}>
       Rendahnya pengawasan dan penegakan hukum terhadap penyelenggaraan
@@ -57,7 +71,20 @@ export default function FormTable({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <FieldLabelInfo
       title="Kategori Risiko MRPN Linsek"
-      information="Kategori Risiko MRPN Linsek"
+      titleField
+      information={
+       <>
+        <strong>Kategori Risiko</strong>
+        <p>
+         Pengelompokan risiko misalnya berdasarkan sumber risiko (melalui metode{" "}
+         <em>Risk Breakdown Structure</em>), area yang terkena dampak (melalui
+         metode <em>Work Breakdown Structure</em>), atau kategori lainnya.
+         Kategorisasi risiko pada umumnya dilakukan untuk membantu proses
+         analisis dan evaluasi risiko serta membantu proses perumusan strategi
+         penanganannya{" "}
+        </p>
+       </>
+      }
      />
      <Typography fontWeight={600}>Risiko Tata Kelola</Typography>
     </FormControl>
@@ -69,34 +96,25 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Dampak (LD)"
-      information="Level Dampak (LD)"
-     />
+     <FieldLabelInfo title="Level Dampak (LD)" />
      <Typography fontWeight={600}>5</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Kemungkinan (LK)"
-      information="Level Kemungkinan (LK)"
-     />
+     <FieldLabelInfo title="Level Kemungkinan (LK)" />
      <Typography fontWeight={600}>4</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Besaran Risiko (BR)"
-      information="Besaran Risiko (BR)"
-     />
+     <FieldLabelInfo title="Besaran Risiko (BR)" />
      <Typography fontWeight={600}>19</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Level Risiko" information="Level Risiko" />
+     <FieldLabelInfo title="Level Risiko" />
      <Box>
       <Chip
        color="error"
@@ -120,7 +138,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Prioritas Risiko" information="Prioritas Risiko" />
+     <FieldLabelInfo title="Prioritas Risiko" />
      <Typography fontWeight={600}>3</Typography>
     </FormControl>
    </Grid>
@@ -131,7 +149,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Keputusan" information="Keputusan" />
+     <FieldLabelInfo title="Keputusan" />
      <Typography fontWeight={600}>
       Mengurangi kemungkinan terjadinya risiko
      </Typography>
@@ -139,13 +157,13 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Waktu Rencana" information="Waktu Rencana" />
+     <FieldLabelInfo title="Waktu Rencana" />
      <Typography fontWeight={600}>2025</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={6}>
     <FormControl fullWidth>
-     <FieldLabelInfo title="Penanggungjawab" information="Penanggungjawab" />
+     <FieldLabelInfo title="Penanggungjawab" />
      <Typography fontWeight={600}>KLHK</Typography>
     </FormControl>
    </Grid>
@@ -156,28 +174,19 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Kemungkinan (LK)"
-      information="Level Kemungkinan (LK)"
-     />
+     <FieldLabelInfo title="Level Kemungkinan (LK)" />
      <Typography fontWeight={600}>4</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Level Dampak (LD)"
-      information="Level Dampak (LD)"
-     />
+     <FieldLabelInfo title="Level Dampak (LD)" />
      <Typography fontWeight={600}>4</Typography>
     </FormControl>
    </Grid>
    <Grid item xs={12} sm={4}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Besaran Risiko (BR)"
-      information="Besaran Risiko (BR)"
-     />
+     <FieldLabelInfo title="Besaran Risiko (BR)" />
      <Stack sx={{ height: 40 }} direction="row" alignItems="center">
       <Typography fontWeight={600}>22</Typography>
      </Stack>
@@ -188,10 +197,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    </Grid>
    <Grid item xs={12} sm={8}>
     <FormControl fullWidth>
-     <FieldLabelInfo
-      title="Status Pelaksanaan"
-      information="Status Pelaksanaan"
-     />
+     <FieldLabelInfo title="Status Pelaksanaan" />
      <ToggleButtonGroup
       value={progressStatus}
       exclusive
@@ -221,7 +227,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    {progressStatus === "selesai" ? (
     <Grid item xs={12} sm={4}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Bukti Dukung" information="Bukti Dukung" />
+      <FieldLabelInfo title="Bukti Dukung" />
       <Box>
        <Button
         component="label"

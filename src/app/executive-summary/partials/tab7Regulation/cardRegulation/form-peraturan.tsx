@@ -1,4 +1,4 @@
-import React, {Fragment, SetStateAction} from "react";
+import React, { Fragment, SetStateAction } from "react";
 import {
  Autocomplete,
  Box,
@@ -22,7 +22,7 @@ import {
  SxAutocompleteTextField,
 } from "@/app/components/dropdown/dropdownRkp";
 import { paramVariantDefault } from "@/app/utils/constant";
-import {AutocompleteSelectMultiple} from "@/components/autocomplete";
+import { AutocompleteSelectMultiple } from "@/components/autocomplete";
 
 type Option = (typeof listPeraturan)[number];
 
@@ -35,37 +35,32 @@ export default function FormPeraturan({
  request: ExsumRegulationDto;
  setRequest: (value: SetStateAction<ExsumRegulationDto>) => void;
 }) {
-
  return (
   <>
    <Grid container spacing={2}>
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo
-       title="Peraturan Terkait"
-       information="Peraturan Terkait"
-      />
+      <FieldLabelInfo title="Peraturan Terkait" />
       <AutocompleteSelectMultiple
-        value={request.perpres}
-        options={options}
-        getOptionLabel={opt => opt.title}
-        handleChange={(e:MiscMasterListPerpresRes[]) => setRequest(prevState => {
+       value={request.perpres}
+       options={options}
+       getOptionLabel={(opt) => opt.title}
+       handleChange={(e: MiscMasterListPerpresRes[]) =>
+        setRequest((prevState) => {
          return {
           ...prevState,
-          perpres:e
-         }
-        })}
-        placeHolder={"Pilih peraturan terkait"}
-        labelSelectAll={"Pilih semua peraturan terkait"}
-       />
+          perpres: e,
+         };
+        })
+       }
+       placeHolder={"Pilih peraturan terkait"}
+       labelSelectAll={"Pilih semua peraturan terkait"}
+      />
      </FormControl>
     </Grid>
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo
-       title="Amanat Peraturan yang Terkait"
-       information="Amanat Peraturan yang Terkait"
-      />
+      <FieldLabelInfo title="Amanat Peraturan yang Terkait" />
       <TextareaStyled
        aria-label="Amanat Peraturan yang Terkait"
        placeholder="Amanat Peraturan yang Terkait"

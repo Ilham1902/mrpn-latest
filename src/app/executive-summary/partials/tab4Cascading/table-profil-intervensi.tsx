@@ -16,21 +16,21 @@ export default function TableProfilIntervensi({ data }: { data: RoDto[] }) {
    {
     accessorKey: "tahun",
     header: "Tahun",
-    size: 105,
+    size: 130,
     enableColumnFilterModes: true,
     filterFns: "contains",
    },
    {
     accessorKey: "code",
     header: "Format Kode",
-    size: 140,
+    size: 180,
     enableColumnFilterModes: true,
     filterFns: "contains",
    },
    {
     accessorKey: "intervention",
     header: "Keterangan Intervensi",
-    size: 140,
+    size: 180,
     filterFns: "contains",
     Cell: (item: any) => {
      const value =
@@ -43,6 +43,7 @@ export default function TableProfilIntervensi({ data }: { data: RoDto[] }) {
    {
     accessorKey: "kementrian_id",
     header: "Penanggungjawab",
+    size: 210,
     enableColumnFilterModes: true,
     Cell: (item: any) => {
      return item.row.original.kementrian.value;
@@ -56,12 +57,12 @@ export default function TableProfilIntervensi({ data }: { data: RoDto[] }) {
    {
     accessorKey: "target",
     header: "Target",
-    size: 140,
+    size: 150,
    },
    {
     accessorKey: "anggaran",
     header: "Anggaran",
-    size: 140,
+    size: 150,
     Cell: (item: any) => {
      const value = FormatIDR(item.row.original.alokasi);
      return <div style={{ textAlign: "right", width: "100%" }}>{value}</div>;
@@ -70,7 +71,7 @@ export default function TableProfilIntervensi({ data }: { data: RoDto[] }) {
    {
     accessorKey: "sumber_anggaran",
     header: "Sumber Anggaran",
-    size: 170,
+    size: 200,
    },
   ],
   []

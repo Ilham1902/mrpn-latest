@@ -34,7 +34,14 @@ export default function PagePelaporanBerkala({}) {
 
  return (
   <DashboardLayout>
-   <ContentPage title="Pelaporan" withCard chipKp dateRangeDropdown>
+   <ContentPage
+    title="Pelaporan"
+    infoToolTip="Proses sistematis pencatatan dan komunikasi informasi yang berkaitan dengan identifikasi risiko,
+analisis, evaluasi, dan tindakan pengendalian yang diambil untuk mengelola risiko tersebut"
+    withCard
+    chipKp
+    dateRangeDropdown
+   >
     {/* <EmptyState
      icon={<IconEmptyPage />}
      title="Halaman Pelaporan Berkala Kosong"

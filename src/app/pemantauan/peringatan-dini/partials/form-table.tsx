@@ -50,7 +50,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Peristiwa Risiko" information="Peristiwa Risiko" />
+      <FieldLabelInfo title="Peristiwa Risiko" />
       {mode === "add" || mode === "edit" ? (
        <SelectCustomTheme
         defaultStyle
@@ -100,10 +100,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12} md={6}>
      <FormControl fullWidth>
-      <FieldLabelInfo
-       title="Konteks Strategis"
-       information="Konteks Strategis"
-      />
+      <FieldLabelInfo title="Konteks Strategis" />
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -129,7 +126,21 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12} md={6}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Nilai Risiko" information="Nilai Risiko" />
+      <FieldLabelInfo
+       title="Nilai Risiko"
+       titleField
+       information={
+        <>
+         Angka numerik yang mencerminkan tingkat risiko yang diperoleh dari
+         hasil pengukuran atas faktor risiko dengan formula tertentu dan metode
+         yang konsisten. Pada umumnya, semakin tinggi nilai risiko dimaknai
+         sebagai semakin tinggi tingkat risiko. Nilai risiko perlu mudah
+         diinterpretasikan dan actionable yaitu disertai dengan kebijakan
+         mengenai tindakan apa yang perlu dilakukan ketika risiko mencapai batas
+         nilai tertentu (<em>score-based policies</em>)
+        </>
+       }
+      />
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -155,7 +166,15 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12} md={6}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Pengendalian" information="Pengendalian" />
+      <FieldLabelInfo
+       title="Pengendalian"
+       titleField
+       information="Kebijakan atau tindakan atau serangkaian tindakan yang direncanakan dan diimplementasikan
+dengan tujuan untuk mengubah karakteristik risiko, baik melalui pengurangan kemungkinan
+kejadian risiko, pengurangan dampak negatif risiko, atau kombinasi dari keduanya yang mencakup
+penerapan proses, kebijakan, strategi, teknologi, atau praktek yang dirancang untuk
+mengidentifikasi, menilai, dan mengurangi risiko pembangunan nasional"
+      />
       {mode === "add" || mode === "edit" ? (
        <RadioGroup row>
         <FormControlLabel value="ada" control={<Radio />} label="Ada" />
@@ -168,7 +187,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12} md={6}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Tindak Lanjut" information="Tindak Lanjut" />
+      <FieldLabelInfo title="Tindak Lanjut" />
       {mode === "add" || mode === "edit" ? (
        <ToggleButtonGroup value={handle} exclusive onChange={handleHandle}>
         <ToggleButton value="belum">Belum</ToggleButton>
@@ -182,7 +201,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item xs={12}>
      <FormControl fullWidth>
-      <FieldLabelInfo title="Keterangan" information="Keterangan" />
+      <FieldLabelInfo title="Keterangan" />
       {mode === "add" ? (
        <TextareaComponent
         label="Tuliskan keterangan"

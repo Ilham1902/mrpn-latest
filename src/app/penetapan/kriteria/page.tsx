@@ -16,6 +16,10 @@ export default function PageKriteria({}) {
   <DashboardLayout>
    <ContentPage
     title="Kriteria Kemungkinan & Dampak Risiko"
+    infoToolTip="Serangkaian parameter atau standar yang digunakan sebagai acuan untuk menilai dan menentukan
+signifikansi risiko relatif terhadap sasaran dan tujuan pembangunan nasional. Rerangka acuan atau
+referensi yang digunakan untuk mengevaluasi jenis risiko tertentu, serta menentukan signifikansi
+risiko untuk mendukung pengambilan keputusan"
     withCard={false}
     chipKp
     project={project}

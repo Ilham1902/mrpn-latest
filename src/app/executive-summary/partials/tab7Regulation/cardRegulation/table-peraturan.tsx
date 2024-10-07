@@ -1,6 +1,7 @@
 import React from "react";
 import {
- Button, Chip,
+ Button,
+ Chip,
  DialogActions,
  Icon,
  IconButton,
@@ -22,16 +23,15 @@ import { IconEmptyData } from "@/components/icons";
 import DialogComponent from "@/components/dialog";
 import FieldLabelInfo from "@/components/fieldLabelInfo";
 import FormPeraturan from "./form-peraturan";
-import {ExsumRegulationDto} from "@/app/executive-summary/partials/tab7Regulation/cardRegulation/cardRegulationModel";
+import { ExsumRegulationDto } from "@/app/executive-summary/partials/tab7Regulation/cardRegulation/cardRegulationModel";
 
 export default function TablePeraturan({
  data,
-  deleteData
+ deleteData,
 }: {
- data:ExsumRegulationDto[]
- deleteData:any
+ data: ExsumRegulationDto[];
+ deleteData: any;
 }) {
-
  return (
   <>
    <Stack
@@ -43,10 +43,9 @@ export default function TablePeraturan({
     <FieldLabelInfo
      titleSection
      title="Daftar Peraturan Perundang-Undangan yang Terkait"
-     information="Daftar Peraturan Perundang-Undangan yang Terkait"
     />
    </Stack>
-    <TableContainer component={Paper} elevation={0} variant="outlined">
+   <TableContainer component={Paper} elevation={0} variant="outlined">
     <Table size="small">
      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
       <TableRow>
@@ -57,36 +56,34 @@ export default function TablePeraturan({
      </TableHead>
      <TableBody>
       {data.map((row) => (
-        <TableRow
-          key={row.id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-        >
-         <TableCell sx={{ textAlign: "center" }}>
-          <Tooltip title="Delete" placement="top">
-           <IconButton
-             aria-label="delete"
-             color="error"
-             onClick={() => deleteData(row.id)}
-           >
-            <Icon
-              baseClassName="fas"
-              className={`fa-trash-alt`}
-              sx={{
-               fontSize: "14px",
-              }}
-            />
-           </IconButton>
-          </Tooltip>
-         </TableCell>
-         <TableCell>{row.perpres.map((y,index2) => (
-           <Chip
-             key={index2}
-             size="small"
-             label={y.title}
+       <TableRow
+        key={row.id}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+       >
+        <TableCell sx={{ textAlign: "center" }}>
+         <Tooltip title="Delete" placement="top">
+          <IconButton
+           aria-label="delete"
+           color="error"
+           onClick={() => deleteData(row.id)}
+          >
+           <Icon
+            baseClassName="fas"
+            className={`fa-trash-alt`}
+            sx={{
+             fontSize: "14px",
+            }}
            />
-         ))}</TableCell>
-         <TableCell>{row.amanat}</TableCell>
-        </TableRow>
+          </IconButton>
+         </Tooltip>
+        </TableCell>
+        <TableCell>
+         {row.perpres.map((y, index2) => (
+          <Chip key={index2} size="small" label={y.title} />
+         ))}
+        </TableCell>
+        <TableCell>{row.amanat}</TableCell>
+       </TableRow>
       ))}
      </TableBody>
     </Table>

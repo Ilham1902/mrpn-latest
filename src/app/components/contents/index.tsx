@@ -8,7 +8,7 @@ import {
  Paper,
  SelectChangeEvent,
  Stack,
- Tooltip,
+ styled,
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
@@ -18,6 +18,9 @@ import { grey } from "@mui/material/colors";
 import { listSelectKp } from "@/app/executive-summary/data";
 import { listTriwulan } from "@/app/utils/data";
 import DateRangePicker from "@/components/dateRange";
+import { IconFA } from "../icons/icon-fa";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import { InfoTooltip } from "../InfoTooltip";
 
 export default function ContentPage({
  title,
@@ -53,6 +56,7 @@ export default function ContentPage({
  tabArrow,
  darkTheme,
  ref,
+ infoToolTip,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -87,6 +91,7 @@ export default function ContentPage({
  tabArrow?: React.ReactNode;
  darkTheme?: boolean;
  ref?: any;
+ infoToolTip?: React.ReactNode;
 }) {
  const [konteks, setKonteks] = React.useState("");
  const [roDropdown, setRoDropdown] = React.useState("");
@@ -134,6 +139,20 @@ export default function ContentPage({
  minDate.setFullYear(currentDate.getFullYear() - 10);
  maxDate.setFullYear(currentDate.getFullYear() + 20);
 
+ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+ ))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+   backgroundColor: "white",
+   color: "rgba(0, 0, 0, 0.87)",
+   maxWidth: 600,
+   //  fontSize: theme.typography.pxToRem(20),
+   fontSize: "14px !important",
+   border: "1px solid #dadde9",
+   boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)",
+  },
+ }));
+
  return (
   <Box position="relative">
    <Stack
@@ -173,16 +192,19 @@ export default function ContentPage({
       {title && (
        <Stack direction="column">
         {breadcrumb}
-        {title && (
-         <Typography
-          component="h2"
-          fontWeight="600"
-          fontSize="1.25rem"
-          textTransform="capitalize"
-         >
-          {title}
-         </Typography>
-        )}
+        <Stack direction="row" alignItems="center" spacing={0.5}>
+         {title && (
+          <Typography
+           component="h2"
+           fontWeight="600"
+           fontSize="1.25rem"
+           textTransform="capitalize"
+          >
+           {title}
+          </Typography>
+         )}
+         {infoToolTip && <InfoTooltip title={infoToolTip} />}
+        </Stack>
        </Stack>
       )}
       {titleChild}
@@ -280,8 +302,10 @@ export default function ContentPage({
      {tabArrow}
      {chooseProjectPage}
      {dowloadAttachmentFile}
-     {chooseProject && <DropdownRkp handleChangeProject={handleChangeProject} />}
-     {chooseObject && chooseObject }
+     {chooseProject && (
+      <DropdownRkp handleChangeProject={handleChangeProject} />
+     )}
+     {chooseObject && chooseObject}
      {chooseRo && (
       <FormControl size="small">
        <SelectCustomTheme

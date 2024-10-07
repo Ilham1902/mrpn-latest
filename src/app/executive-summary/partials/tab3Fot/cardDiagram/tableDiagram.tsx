@@ -110,7 +110,7 @@ export const StrategyTowsContent = ({ data }: { data: ExsumTWOSDto[] }) => {
       Strategi SO
      </Typography>
      <Typography fontSize={14} align="center">
-      <ul>{data.map((x) => x.type == "SO" && <li>{x.value}</li>)}</ul>
+      {data.map((x) => x.type == "SO" && <li>{x.value}</li>)}
      </Typography>
     </Box>
     <Box>
@@ -118,7 +118,7 @@ export const StrategyTowsContent = ({ data }: { data: ExsumTWOSDto[] }) => {
       Strategi WO
      </Typography>
      <Typography fontSize={14} align="center">
-      <ul>{data.map((x) => x.type == "WO" && <li>{x.value}</li>)}</ul>
+      {data.map((x) => x.type == "WO" && <li>{x.value}</li>)}
      </Typography>
     </Box>
     <Box>

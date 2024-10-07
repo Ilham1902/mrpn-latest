@@ -23,7 +23,13 @@ export const SubmenuItem = ({ label, url, urlLv2 }: IMenu) => {
       ml="20px"
       fontSize="13px"
       color={grey[700]}
-      className={pathname == `/${url}/${urlLv2}` ? "link-active" : ""}
+      className={
+       pathname === `/${url}` ||
+       pathname === `/${urlLv2}` ||
+       pathname === `/${url}/${urlLv2}`
+        ? "link-active"
+        : ""
+      }
       lineHeight={1.2}
       sx={{
        transition: "all 300ms",

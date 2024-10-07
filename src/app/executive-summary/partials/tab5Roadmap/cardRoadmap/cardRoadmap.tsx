@@ -20,6 +20,7 @@ import FormRoadmap from "./form-roadmap";
 import useCardRoadmapVM from "@/app/executive-summary/partials/tab5Roadmap/cardRoadmap/cardRoadmapVM";
 import { ExsumRoadmapDto } from "@/app/executive-summary/partials/tab5Roadmap/cardRoadmap/cardRoadmapModel";
 import { IconFA } from "@/app/components/icons/icon-fa";
+import { InfoTooltip } from "@/app/components/InfoTooltip";
 
 export default function CardRoadmap() {
  const {
@@ -31,9 +32,9 @@ export default function CardRoadmap() {
   modal,
   handleOpenModal,
   updateData,
-   modalDelete,
-   setModalDelete,
-   deleteData
+  modalDelete,
+  setModalDelete,
+  deleteData,
  } = useCardRoadmapVM();
 
  return (
@@ -45,14 +46,8 @@ export default function CardRoadmap() {
    settingEditBisnisClick={() => handleOpenModal(true, "BISNIS")}
   >
    <Box width="100%" textAlign="center">
-    <BusinessTable
-      data={dataBusiness}
-      setModalDelete={setModalDelete}
-    />
-    <OutputTable
-      data={dataOutput}
-      setModalDelete={setModalDelete}
-    />
+    <BusinessTable data={dataBusiness} setModalDelete={setModalDelete} />
+    <OutputTable data={dataOutput} setModalDelete={setModalDelete} />
    </Box>
 
    <DialogComponent
@@ -77,41 +72,61 @@ export default function CardRoadmap() {
    </DialogComponent>
 
    <DialogComponent
-     width={400}
-     dialogOpen={modalDelete.isOpen}
-     dialogClose={() => setModalDelete({isOpen:false,id:0})}
-     title="Hapus Data"
-     dialogFooter={
-      <DialogActions sx={{ p: 2, px: 3 }}>
-       <Button variant="outlined" onClick={() => setModalDelete({isOpen:false,id:0})}>
-        Batal
-       </Button>
-       <Button
-         variant="contained"
-         color="error"
-         type="submit"
-         onClick={() => deleteData()}
-       >
-        Hapus
-       </Button>
-      </DialogActions>
-     }
+    width={400}
+    dialogOpen={modalDelete.isOpen}
+    dialogClose={() => setModalDelete({ isOpen: false, id: 0 })}
+    title="Hapus Data"
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button
+       variant="outlined"
+       onClick={() => setModalDelete({ isOpen: false, id: 0 })}
+      >
+       Batal
+      </Button>
+      <Button
+       variant="contained"
+       color="error"
+       type="submit"
+       onClick={() => deleteData()}
+      >
+       Hapus
+      </Button>
+     </DialogActions>
+    }
    >
     Anda yakin mau hapus data?
    </DialogComponent>
-
   </CardItem>
  );
 }
 
-const BusinessTable = ({ data, setModalDelete }: { data: ExsumRoadmapDto[], setModalDelete:any }) => {
-
+const BusinessTable = ({
+ data,
+ setModalDelete,
+}: {
+ data: ExsumRoadmapDto[];
+ setModalDelete: any;
+}) => {
  return (
   <>
    <Box marginBottom={"30px"}>
-    <Typography component="h2" fontSize="1em" fontWeight={600} textAlign="left">
-     Proses Bisnis
-    </Typography>
+    <Stack direction="row" alignItems="center" gap={0.5}>
+     <Typography
+      component="h2"
+      fontSize="1em"
+      fontWeight={600}
+      textAlign="left"
+     >
+      Proses Bisnis
+     </Typography>
+     <InfoTooltip
+      title="Rangkaian aktivitas atau tugas yang terstruktur dan saling terkait, yang dilakukan oleh organisasi
+atau Entitas MRPN untuk menyelesaikan pekerjaan, menghasilkan produk atau layanan tersebut,
+dan mencapai sasaran dan tujuan pembangunan nasional, mencakup, tetapi tidak terbatas pada,
+perencanaan, pengoperasian, pengelolaan, dan evaluasi kebijakan"
+     />
+    </Stack>
     <Stack
      direction="row"
      gap={2}
@@ -181,7 +196,7 @@ const BusinessTable = ({ data, setModalDelete }: { data: ExsumRoadmapDto[], setM
           {itemOutput.year}
          </Typography>
          <IconButton
-          onClick={() => setModalDelete({isOpen:true,id:itemOutput.id})}
+          onClick={() => setModalDelete({ isOpen: true, id: itemOutput.id })}
           sx={{
            color: "white",
            bgcolor: red[600],
@@ -211,13 +226,17 @@ const BusinessTable = ({ data, setModalDelete }: { data: ExsumRoadmapDto[], setM
      )}
     </Stack>
    </Box>
-
   </>
  );
 };
 
-const OutputTable = ({ data, setModalDelete }: { data: ExsumRoadmapDto[], setModalDelete:any }) => {
-
+const OutputTable = ({
+ data,
+ setModalDelete,
+}: {
+ data: ExsumRoadmapDto[];
+ setModalDelete: any;
+}) => {
  return (
   <>
    <Box marginBottom={"20px"}>
@@ -293,7 +312,7 @@ const OutputTable = ({ data, setModalDelete }: { data: ExsumRoadmapDto[], setMod
           {itemOutput.year}
          </Typography>
          <IconButton
-           onClick={() => setModalDelete({isOpen:true,id:itemOutput.id})}
+          onClick={() => setModalDelete({ isOpen: true, id: itemOutput.id })}
           sx={{
            color: "white",
            bgcolor: red[600],

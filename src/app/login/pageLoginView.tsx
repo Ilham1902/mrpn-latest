@@ -1,18 +1,19 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Button,
-  Checkbox,
-  Collapse,
-  Container, DialogActions,
-  FormControlLabel,
-  IconButton,
-  MenuItem,
-  Stack,
-  TextField,
-  Typography,
+ Box,
+ Button,
+ Checkbox,
+ Collapse,
+ Container,
+ DialogActions,
+ FormControlLabel,
+ IconButton,
+ MenuItem,
+ Stack,
+ TextField,
+ Typography,
 } from "@mui/material";
 import Image from "next/image";
 import { grey, red } from "@mui/material/colors";
@@ -28,6 +29,7 @@ import useAuthorizationVM from "@/app/authorizationVM";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import DialogComponent from "@/components/dialog";
+import LoadingPage from "../components/loadingPage";
 
 gsap.registerPlugin(useGSAP);
 
@@ -39,8 +41,8 @@ export default function PageLoginView() {
   userDropdown,
   handleChangeUser,
   doCheckSSO,
-   modalErrorLogin,
-   setModalErrorLogin
+  modalErrorLogin,
+  setModalErrorLogin,
  } = useAuthorizationVM();
 
  const router = useRouter();
@@ -769,6 +771,9 @@ export default function PageLoginView() {
       [theme.breakpoints.down("md")]: { flexDirection: "column" },
      }}
     >
+     <LoadingPage />
+     {/* CSS LOADER */}
+     {/* <div className="gyro"></div> */}
      {leftBlock}
      {/* {showLogin && rightBlock} */}
      <Collapse
@@ -783,22 +788,21 @@ export default function PageLoginView() {
      {!showLogin && buttonLogin}
     </Stack>
 
-     <DialogComponent
-       width={"200px"}
-       dialogOpen={modalErrorLogin}
-       dialogClose={() => setModalErrorLogin(false)}
-       title="Login Gagal"
-       dialogFooter={
-         <DialogActions sx={{ p: 2, px: 3 }}>
-           <Button variant="contained" onClick={() => setModalErrorLogin(false)}>
-             OK
-           </Button>
-         </DialogActions>
-       }
-     >
-        Maaf username atau password Anda salah
-     </DialogComponent>
-
+    <DialogComponent
+     width={"200px"}
+     dialogOpen={modalErrorLogin}
+     dialogClose={() => setModalErrorLogin(false)}
+     title="Login Gagal"
+     dialogFooter={
+      <DialogActions sx={{ p: 2, px: 3 }}>
+       <Button variant="contained" onClick={() => setModalErrorLogin(false)}>
+        OK
+       </Button>
+      </DialogActions>
+     }
+    >
+     Maaf username atau password Anda salah
+    </DialogComponent>
    </Container>
   </Stack>
  );

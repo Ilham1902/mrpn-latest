@@ -171,7 +171,12 @@ export default function PagePeringatanDiniSaran({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Maturitas" chooseProject>
+    <ContentPage
+     title="Maturitas"
+     infoToolTip="Tingkat kematangan manajemen risiko yang menggambarkan kapabilitas, kualitas, dan efektivitas
+penerapan MRPN di lingkup entitas MRPN yang diperoleh dari pemenuhan parameter tertentu"
+     chooseProject
+    >
      <MaterialReactTable table={table} />
     </ContentPage>
    </DashboardLayout>
