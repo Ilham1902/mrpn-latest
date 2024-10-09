@@ -34,6 +34,8 @@ const useAuthorizationVM = () => {
  const [userDropdown, setUserDropdown] = React.useState("");
  const [modalErrorLogin, setModalErrorLogin] = useState<boolean>(false);
 
+ const [isLoading, setIsLoading] = useState(false);
+
  const handleChangeUser = (event: SelectChangeEvent) => {
   const userDropdownId = event.target.value;
   setUserDropdown(userDropdownId);
@@ -57,8 +59,12 @@ const useAuthorizationVM = () => {
  }
 
  async function doLogin() {
+  setIsLoading(true);
+
   if (userDropdown === "1") {
-   return router.replace(URL_SSO ?? "");
+   router.replace(URL_SSO ?? "");
+   setIsLoading(false);
+   return;
   }
 
   const response = await post({
@@ -74,11 +80,14 @@ const useAuthorizationVM = () => {
    Object.assign(new ResponseBaseDto(), response);
    if (response.code == API_CODE.success) {
     let result: AuthResDto = response.result;
-    return processStoreUserAuthentication(result);
+    processStoreUserAuthentication(result);
+    setIsLoading(false);
+    return;
    }
   }
 
-  return setModalErrorLogin(true);
+  setModalErrorLogin(true);
+  setIsLoading(false);
  }
 
  async function doLogout() {
@@ -193,6 +202,7 @@ const useAuthorizationVM = () => {
   doLogout,
   modalErrorLogin,
   setModalErrorLogin,
+  isLoading,
  };
 };
 
