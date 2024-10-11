@@ -10,6 +10,7 @@ import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/car
 import {useRKPContext} from "@/lib/core/hooks/useHooks";
 import useCardSupportVM from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportVM";
 import useCardDiagramVM from "@/app/executive-summary/partials/tab3Fot/cardDiagram/cardDiagramVM";
+import {MiscMasterListProvinsiRes} from "@/app/misc/master/masterServiceModel";
 
 export default function CardDiagram({project}: { project: string }) {
 
@@ -38,6 +39,14 @@ export default function CardDiagram({project}: { project: string }) {
   const handleModalClose = () => {
     setModalOpen(false);
   };
+
+  const handleChangeLocationProvinsiOnly = (value:MiscMasterListProvinsiRes[]) => {
+    if (value.length == listProvinsi.length) {
+      const filterProv = listProvinsi.filter(x => x.level == 'provinsi')
+      return handleChangeLocation(filterProv)
+    }
+    return handleChangeLocation(value)
+  }
 
   return (
     <>
@@ -76,7 +85,7 @@ export default function CardDiagram({project}: { project: string }) {
           rkpState={rkpState}
           support={useCardSupport.data}
           listProvinsi={listProvinsi}
-          handleChangeLocation={handleChangeLocation}
+          handleChangeLocation={handleChangeLocationProvinsiOnly}
           listStakeholder={listStakeholder}
           handleChangeStakeholder={handleChangeStakeholder}
           listSof={listSof}

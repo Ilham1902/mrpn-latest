@@ -44,6 +44,8 @@ export type MiscMasterListProvinsiReq = BaseAPIServiceParam & {
 };
 export interface MiscMasterListProvinsiRes {
  id: number;
+ kode: string;
+ level: string;
  name: string;
 }
 
