@@ -10,8 +10,8 @@ import { AutocompleteSelectSingle } from "@/components/autocomplete";
 import { MasterListObjectRes } from "@/app/misc/master/masterServiceModel";
 import EmptyState from "@/components/empty";
 import { IconEmptyData } from "@/components/icons";
-import HeaderIdentifikasi from "@/app/profil-risiko/identifikasi/partials/header";
 import useRiskOverviewVM from "@/app/profil-risiko/overview/pageVM";
+import HeaderTable from "./partials/headerTable";
 
 export default function PageOverviewView() {
  const { year } = useRKPContext((state) => state);
@@ -56,7 +56,7 @@ export default function PageOverviewView() {
     ) : (
      <>
       <Paper elevation={2} sx={{ borderRadius: "1.25rem", p: 0, m: 1 }}>
-       <HeaderIdentifikasi asTable viewOnly data={dataRiskOverview?.object} />
+       <HeaderTable asTable viewOnly data={dataRiskOverview?.object} />
       </Paper>
 
       <Box className="table-sticky-horizontal">

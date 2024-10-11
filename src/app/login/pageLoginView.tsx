@@ -43,6 +43,7 @@ export default function PageLoginView() {
   doCheckSSO,
   modalErrorLogin,
   setModalErrorLogin,
+  isLoading,
  } = useAuthorizationVM();
 
  const router = useRouter();
@@ -631,53 +632,6 @@ export default function PageLoginView() {
   </Box>
  );
 
- const bgMap = (
-  <Box
-   position="fixed"
-   top="50%"
-   left="50%"
-   zIndex={2}
-   sx={{
-    transform: "translate(-50%,-50%)",
-    width: "90%",
-   }}
-   className="map-parallax-bg"
-  >
-   <Image
-    alt="Indonesian Map"
-    src="https://res.cloudinary.com/caturteguh/image/upload/v1724106704/mrpn/id-line-map-cmp_hpysgm.png"
-    width={0}
-    height={0}
-    sizes="100vw"
-    style={{ width: "100%", height: "auto", opacity: 0.3 }}
-   />
-  </Box>
- );
-
- const bgBox = (
-  <Box
-   position="fixed"
-   top={0}
-   right={0}
-   zIndex={0}
-   className="box-parallax-bg"
-  >
-   {/* <Image
-    alt="Bg Box"
-    src="https://res.cloudinary.com/caturteguh/image/upload/v1724115148/mrpn/bg-box-v2_em0i0g.png"
-    width={0}
-    height={0}
-    sizes="100vw"
-    style={{
-     width: "auto",
-     height: "100vh",
-     opacity: 0.075,
-     transform: "scale(1.2)",
-    }}
-   /> */}
-  </Box>
- );
-
  const batikCenter = (
   <Box
    position="fixed"
@@ -748,8 +702,6 @@ export default function PageLoginView() {
    {batikBg}
    <BatikCorner position="tl" />
    <BatikCorner position="bl" />
-   {/* {bgMap} */}
-   {/* {bgBox} */}
    <Container
     sx={{
      maxWidth: "1400px !important",
@@ -766,16 +718,12 @@ export default function PageLoginView() {
      direction={showLogin ? "row" : "column"}
      justifyContent={showLogin ? "space-between" : "center"}
      alignItems="center"
-     //  gap={5}
      sx={{
       [theme.breakpoints.down("md")]: { flexDirection: "column" },
      }}
     >
-     <LoadingPage />
-     {/* CSS LOADER */}
-     {/* <div className="gyro"></div> */}
+     {isLoading && <LoadingPage gyro />}
      {leftBlock}
-     {/* {showLogin && rightBlock} */}
      <Collapse
       in={showLogin}
       sx={{

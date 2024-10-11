@@ -96,7 +96,7 @@ export default function FormTable(
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <FormControl fullWidth>
-            <FieldLabelInfo title="Nama Role" information="Nama Role"/>
+            <FieldLabelInfo title="Nama Role" />
             <TextField
               variant="outlined"
               size="small"
