@@ -1,48 +1,64 @@
-import { useExsumContext, useGlobalModalContext, useLoading } from "@/lib/core/hooks/useHooks";
+import {
+  useExsumContext,
+  useGlobalModalContext,
+  useLoading,
+} from "@/lib/core/hooks/useHooks";
 import { useEffect, useState } from "react";
 import {
-  ExsumLocationDto, ExsumLocationUpdateDto, initExsumLocationUpdateDto
+  ExsumLocationDto,
+  ExsumLocationUpdateDto,
+  initExsumLocationUpdateDto,
 } from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationModel";
-import {doCreate, doGet, doUpdate} from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationService";
+import {
+  doCreate,
+  doGet,
+  doUpdate,
+} from "@/app/executive-summary/partials/tab2Profile/cardLocation/cardLocationService";
 import { API_CODE } from "@/lib/core/api/apiModel";
 import { doGetMasterListProvinsi } from "@/app/misc/master/masterService";
 import { MiscMasterListProvinsiRes } from "@/app/misc/master/masterServiceModel";
-import {doGetRkpLocation} from "@/app/misc/rkp/rkpService";
-import {RkpDefaultReqV1Dto, RkpLocationReqDto} from "@/app/misc/rkp/rkpServiceModel";
+import { doGetRkpLocation } from "@/app/misc/rkp/rkpService";
+import {
+  RkpDefaultReqV1Dto,
+  RkpLocationReqDto,
+} from "@/app/misc/rkp/rkpServiceModel";
 
 const useCardLocationVM = () => {
-
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { exsum } = useExsumContext()
+  const { exsum } = useExsumContext();
 
   const [columns, setColumns] = useState<MiscMasterListProvinsiRes[]>([]);
 
-  const [locationExsum, setLocationExsum] = useState<MiscMasterListProvinsiRes[]>([])
-  const [data, setData] = useState<ExsumLocationDto[]>([])
-  const [request, setRequest] = useState<ExsumLocationUpdateDto>({ ...initExsumLocationUpdateDto })
+  const [locationExsum, setLocationExsum] = useState<
+    MiscMasterListProvinsiRes[]
+  >([]);
+  const [data, setData] = useState<ExsumLocationDto[]>([]);
+  const [request, setRequest] = useState<ExsumLocationUpdateDto>({
+    ...initExsumLocationUpdateDto,
+  });
   const [modal, setModal] = useState(false);
 
-  async function getLocationByExsumTOWSDiagram(){
-    const params:RkpLocationReqDto = {
+  async function getLocationByExsumTOWSDiagram() {
+    const params: RkpLocationReqDto = {
       action: "exsum_only",
-      exsum_id: [exsum.id]
-    }
+      exsum_id: [exsum.id],
+    };
     const response = await doGetRkpLocation({
       body: params,
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
-    })
-    if (response?.code == API_CODE.success){
-      const result:MiscMasterListProvinsiRes[] = response.result
-      setLocationExsum(result)
+    });
+    if (response?.code == API_CODE.success) {
+      const result: MiscMasterListProvinsiRes[] = response.result;
+      setLocationExsum(result);
     }
   }
 
   async function getData() {
     const response = await doGet({
       body: {
-        exsum_id: exsum.id
+        exsum_id: exsum.id,
       },
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
@@ -51,11 +67,11 @@ const useCardLocationVM = () => {
     if (response?.code == API_CODE.success) {
       let result: ExsumLocationDto[] = response.result;
       if (result.length > 0) {
-        setData(result)
-        setRequest(result[0])
+        setData(result);
+        setRequest(result[0]);
       } else {
-        setData([])
-        setRequest({ ...initExsumLocationUpdateDto })
+        setData([]);
+        setRequest({ ...initExsumLocationUpdateDto });
       }
     }
   }
@@ -63,32 +79,31 @@ const useCardLocationVM = () => {
   useEffect(() => {
     if (exsum.id !== 0) {
       getData();
-      getLocationByExsumTOWSDiagram()
+      getLocationByExsumTOWSDiagram();
     }
   }, [exsum]);
 
-  async function updateData(req:ExsumLocationUpdateDto) {
-    req.exsum_id = exsum.id
+  async function updateData(req: ExsumLocationUpdateDto) {
+    req.exsum_id = exsum.id;
     const params = {
       body: req,
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
-    }
+    };
 
     if (request.id !== 0) {
-      const response = await doUpdate(params)
+      const response = await doUpdate(params);
       if (response?.code == API_CODE.success) {
         getData();
-        setModal(false)
+        setModal(false);
       }
     } else {
       const response = await doCreate(params);
       if (response?.code == API_CODE.success) {
         getData();
-        setModal(false)
+        setModal(false);
       }
     }
-
   }
 
   return {
@@ -100,9 +115,8 @@ const useCardLocationVM = () => {
     locationExsum,
     updateData,
     columns,
-    setColumns
-  }
-
-}
+    setColumns,
+  };
+};
 
 export default useCardLocationVM;

@@ -1,4 +1,4 @@
-import React, {SetStateAction, useEffect, useMemo} from "react";
+import React, { SetStateAction, useEffect, useMemo } from "react";
 import OrgChart from "@dabeng/react-orgchart";
 import {
   Box,
@@ -15,21 +15,18 @@ import {
 import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
 import theme from "@/theme";
-import {IconFA} from "@/app/components/icons/icon-fa";
-import {styleList, styleOrgChart} from "@/app/executive-summary/style";
-import {grey, orange} from "@mui/material/colors";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import { styleList, styleOrgChart } from "@/app/executive-summary/style";
+import { grey, orange } from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
-import {
-  RKPCascadingDto,
-} from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
-import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
+import { RKPCascadingDto } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import DraggableScroll from "@/app/executive-summary/partials/tab2Profile/partials/draggableScroll";
-import {SxParams} from "@/app/executive-summary/types";
-import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
+import { SxParams } from "@/app/executive-summary/types";
+import { usePenetapanTopicContext } from "@/lib/core/hooks/useHooks";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
 
-
-const NodeTemplate = ({nodeData}: { nodeData: any }) => {
+const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
   const isAssistant = nodeData.isAssistant === true;
   const nodeClass = isAssistant ? "has-assistant" : "";
 
@@ -46,10 +43,10 @@ const NodeTemplate = ({nodeData}: { nodeData: any }) => {
           position="absolute"
           top="50%"
           left={8}
-          sx={{transform: "translateY(-50%)"}}
+          sx={{ transform: "translateY(-50%)" }}
         >
           {nodeData.children && nodeData.children.length > 0 && (
-            <IconFA name="circle-plus" size={14} color="White"/>
+            <IconFA name="circle-plus" size={14} color="White" />
           )}
         </Box>
         <Box
@@ -57,13 +54,13 @@ const NodeTemplate = ({nodeData}: { nodeData: any }) => {
           py={0.5}
           bgcolor={theme.palette.primary.main}
           borderRadius={2}
-          sx={{borderEndStartRadius: 0, borderEndEndRadius: 0}}
+          sx={{ borderEndStartRadius: 0, borderEndEndRadius: 0 }}
           color="white"
         >
           {nodeData.name}
         </Box>
       </Box>
-      <Divider/>
+      <Divider />
       <Box px={2} py={1} fontWeight={500}>
         {nodeData.title}
       </Box>
@@ -71,7 +68,7 @@ const NodeTemplate = ({nodeData}: { nodeData: any }) => {
   );
 };
 
-const FundSource = ({value, isYear}: { value: string; isYear?: boolean }) => {
+const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
   return (
     <Stack
       display="inline-flex"
@@ -106,21 +103,22 @@ const FundSource = ({value, isYear}: { value: string; isYear?: boolean }) => {
   );
 };
 
-const ItemProP = (
-  {
-    isKey,
-    description,
-  }: {
-    isKey?: boolean;
-    description: string;
-  }) => {
+const ItemProP = ({
+  isKey,
+  description,
+}: {
+  isKey?: boolean;
+  description: string;
+}) => {
   return (
-    <ListItem sx={{p: 0, alignItems: "flex-start"}}>
-      <ListItemIcon sx={{minWidth: 0, position: "relative", top: 5, width: 10}}>
+    <ListItem sx={{ p: 0, alignItems: "flex-start" }}>
+      <ListItemIcon
+        sx={{ minWidth: 0, position: "relative", top: 5, width: 10 }}
+      >
         {isKey ? (
-          <IconFA name="key" size={12} color={orange[800]}/>
+          <IconFA name="key" size={12} color={orange[800]} />
         ) : (
-          <IconFA name="circle" size={6}/>
+          <IconFA name="circle" size={6} />
         )}
       </ListItemIcon>
       <Tooltip title={isKey ? "Intervensi Kunci" : null} followCursor>
@@ -143,19 +141,14 @@ type OrgDto = {
 };
 
 export default function CascadingPenetapanObjectOrgChart() {
+  const { stateCascading, getPenetapanObjectCascading } =
+    usePenetapanObjectVM();
 
-  const {
-    stateCascading,
-    getPenetapanObjectCascading
-  } = usePenetapanObjectVM()
-
-  const {
-    objectState
-  } = usePenetapanTopicContext(state => state)
+  const { objectState } = usePenetapanTopicContext((state) => state);
 
   useEffect(() => {
-    if (objectState !== undefined){
-      getPenetapanObjectCascading()
+    if (objectState !== undefined) {
+      getPenetapanObjectCascading();
     }
   }, [objectState]);
 
@@ -183,7 +176,7 @@ export default function CascadingPenetapanObjectOrgChart() {
           children: [],
         };
       }
-      stateCascading.map(pn => {
+      stateCascading.map((pn) => {
         let pnData: OrgDto = {
           name: `PN - ${pn.code}`,
           title: pn.value,
@@ -210,7 +203,11 @@ export default function CascadingPenetapanObjectOrgChart() {
               ssrKP.indikator.map((ind) => {
                 const indData: OrgDto = {
                   name: (
-                    <Stack justifyContent="center" direction="row" alignItems="center">
+                    <Stack
+                      justifyContent="center"
+                      direction="row"
+                      alignItems="center"
+                    >
                       {`INDIKATOR - ${ind.code}`}
                       {/*<IconButton*/}
                       {/* onClick={() => {*/}
@@ -234,7 +231,11 @@ export default function CascadingPenetapanObjectOrgChart() {
                 // ind.kementerian.map((kl) => {
                 const klData: OrgDto = {
                   name: (
-                    <Stack justifyContent="center" direction="row" alignItems="center">
+                    <Stack
+                      justifyContent="center"
+                      direction="row"
+                      alignItems="center"
+                    >
                       {`KL PENGAMPU`}
                       {/*{hasPrivilege(permission,pathname,"delete") &&*/}
                       {/*  <IconButton onClick={() => deleteData(kl.id)} size="small">*/}
@@ -252,7 +253,10 @@ export default function CascadingPenetapanObjectOrgChart() {
                     title: (
                       <List dense sx={styleList}>
                         {prop.ro.map((ros) => (
-                          <ItemProP isKey={ros.intervention} description={ros.value}/>
+                          <ItemProP
+                            isKey={ros.intervention}
+                            description={ros.value}
+                          />
                         ))}
                       </List>
                     ),
@@ -270,24 +274,24 @@ export default function CascadingPenetapanObjectOrgChart() {
           });
           pnData.children?.push(ppData);
         });
-        object.children?.push(pnData)
+        object.children?.push(pnData);
       });
       return object;
     }, [stateCascading]);
 
-  const sxParamsFull: SxParams = {variant: "full"};
-  const sxParamsZoom: SxParams = {variant: "zoom"};
+  const sxParamsFull: SxParams = { variant: "full" };
+  const sxParamsZoom: SxParams = { variant: "zoom" };
 
   return (
     <>
       <Stack gap={2} direction="row">
-        <FundSource value={`Rp. N/A`}/>
+        <FundSource value={`Rp. N/A`} />
         <Box>
           <Button
             variant="contained"
             color="primary"
-            startIcon={<IconFA name="magnifying-glass-plus" size={14}/>}
-            sx={{height: 45, px: 3, borderRadius: 2}}
+            startIcon={<IconFA name="magnifying-glass-plus" size={14} />}
+            sx={{ height: 45, px: 3, borderRadius: 2 }}
             onClick={handleModalImg}
           >
             Perbesar Chart
@@ -324,9 +328,9 @@ export default function CascadingPenetapanObjectOrgChart() {
           minScale={0.1}
           maxScale={3}
           limitToBounds={true}
-          doubleClick={{disabled: false}}
-          wheel={{disabled: false}}
-          panning={{disabled: false}}
+          doubleClick={{ disabled: false }}
+          wheel={{ disabled: false }}
+          panning={{ disabled: false }}
         >
           <TransformComponent>
             <Box sx={styleOrgChart(sxParamsFull)} mt={4}>

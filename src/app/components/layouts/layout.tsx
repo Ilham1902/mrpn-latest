@@ -1,7 +1,7 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
-import {usePathname} from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Box,
   Collapse,
@@ -15,45 +15,42 @@ import {
 import Footer from "./footer";
 // import Aside from "./aside";
 import Header from "./header";
-import {grey} from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import React from "react";
 import Image from "next/image";
-import {loadCSS} from "fg-loadcss";
+import { loadCSS } from "fg-loadcss";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import {ILayout} from "../iLayout";
-import {useRKPContext} from "@/lib/core/hooks/useHooks";
-import {doGetMasterListRpjmn} from "@/app/misc/master/masterService";
-import {API_CODE} from "@/lib/core/api/apiModel";
-import {MiscMasterRPJMNRes} from "@/app/misc/master/masterServiceModel";
+import { ILayout } from "../iLayout";
+import { useRKPContext } from "@/lib/core/hooks/useHooks";
+import { doGetMasterListRpjmn } from "@/app/misc/master/masterService";
+import { API_CODE } from "@/lib/core/api/apiModel";
+import { MiscMasterRPJMNRes } from "@/app/misc/master/masterServiceModel";
 
-const Aside = dynamic(() => import("./aside"), {ssr: false});
+const Aside = dynamic(() => import("./aside"), { ssr: false });
 
-export default function DashboardLayout(
-  props: {
-    children: React.ReactNode;
-    noOverflow?: boolean;
-    darkTheme?: boolean;
-  }
-) {
+export default function DashboardLayout(props: {
+  children: React.ReactNode;
+  noOverflow?: boolean;
+  darkTheme?: boolean;
+}) {
+  const { rpjmn, setRpjmn, year, setYear } = useRKPContext((state) => state);
 
-  const {rpjmn, setRpjmn, year, setYear} = useRKPContext(state => state)
-
-  async function getRpjmn(){
+  async function getRpjmn() {
     const response = await doGetMasterListRpjmn({
       body: {},
-    })
-    if (response?.code == API_CODE.success){
-      const result:MiscMasterRPJMNRes = response.result
-      setRpjmn(result)
+    });
+    if (response?.code == API_CODE.success) {
+      const result: MiscMasterRPJMNRes = response.result;
+      setRpjmn(result);
     }
   }
 
   useEffect(() => {
-    if (rpjmn == undefined){
-      getRpjmn()
+    if (rpjmn == undefined) {
+      getRpjmn();
     } else {
-      if (year == 0) setYear(rpjmn.start)
+      if (year == 0) setYear(rpjmn.start);
     }
   }, [rpjmn]);
 
@@ -139,8 +136,8 @@ export default function DashboardLayout(
         maxWidth: checked
           ? "calc(100vw - 364px)"
           : onlySmallScreen
-            ? "100%"
-            : "calc(100vw - 132px)",
+          ? "100%"
+          : "calc(100vw - 132px)",
         thead: {
           tr: {
             "&:not(:last-of-type)": {
@@ -189,8 +186,8 @@ export default function DashboardLayout(
     gridTemplateColumns: checked
       ? "280px 1fr"
       : flagPathnameTheme && !checked
-        ? "0 1fr"
-        : "64px 1fr",
+      ? "0 1fr"
+      : "64px 1fr",
     gridTemplateRows: "auto 1fr auto",
     gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
     height: "100vh",
@@ -227,7 +224,8 @@ export default function DashboardLayout(
       },
     },
     ".orgchart-container": {
-      maxWidth: "calc(100vw - 444px)",
+      // maxWidth: "calc(100vw - 444px)",
+      maxWidth: "calc(100vw - 404px)",
     },
     ".collapse-active": {
       ".table-sticky-actions-column": {
@@ -239,7 +237,8 @@ export default function DashboardLayout(
         },
       },
       ".orgchart-container": {
-        maxWidth: "calc(100vw - 228px)",
+        // maxWidth: "calc(100vw - 228px)",
+        maxWidth: "calc(100vw - 188px)",
       },
     },
     [theme.breakpoints.down("md")]: {
@@ -248,7 +247,9 @@ export default function DashboardLayout(
     },
   };
 
-  const themeCondition = props.darkTheme ? "#151c26" : theme.palette.primary.light;
+  const themeCondition = props.darkTheme
+    ? "#151c26"
+    : theme.palette.primary.light;
 
   return (
     <Box sx={sxWrapper}>
@@ -271,12 +272,12 @@ export default function DashboardLayout(
             },
           }}
         >
-          <Aside isExpanded={checked}/>
+          <Aside isExpanded={checked} />
         </Collapse>
       </Box>
       <Box
         component="header"
-        sx={{gridArea: "header", p: "20px 0"}}
+        sx={{ gridArea: "header", p: "20px 0" }}
         bgcolor={props.darkTheme ? "#1f2937" : "transparent"}
         position={props.darkTheme ? "inherit" : "unset"}
         zIndex={props.darkTheme ? 1 : "unset"}
@@ -309,7 +310,7 @@ export default function DashboardLayout(
             </Box>
           </Zoom>
         )}
-        <Header/>
+        <Header />
       </Box>
       <Box
         component="main"
@@ -324,7 +325,9 @@ export default function DashboardLayout(
       >
         <Stack
           borderRadius="50%"
-          bgcolor={flagPathnameTheme ? "transparent" : theme.palette.primary.main}
+          bgcolor={
+            flagPathnameTheme ? "transparent" : theme.palette.primary.main
+          }
           justifyContent="center"
           alignItems="center"
           position="absolute"
@@ -387,8 +390,11 @@ export default function DashboardLayout(
         justifyContent="center"
         px="42px"
       >
-        <Divider variant="middle" sx={{bgcolor: grey[200], m: 0, width: 160}}/>
-        <Footer/>
+        <Divider
+          variant="middle"
+          sx={{ bgcolor: grey[200], m: 0, width: 160 }}
+        />
+        <Footer />
       </Stack>
     </Box>
   );

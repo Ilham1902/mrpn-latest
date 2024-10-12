@@ -1,24 +1,39 @@
 import { useEffect, useState } from "react";
-import { doCreateUrgent, doDeleteUrgent, doGetUrgent, doUpdateUrgent } from "./cardUrgentService";
-import { useExsumContext, useGlobalModalContext, useLoading } from "@/lib/core/hooks/useHooks";
+import {
+  doCreateUrgent,
+  doDeleteUrgent,
+  doGetUrgent,
+  doUpdateUrgent,
+} from "./cardUrgentService";
+import {
+  useExsumContext,
+  useGlobalModalContext,
+  useLoading,
+} from "@/lib/core/hooks/useHooks";
 import { API_CODE } from "@/lib/core/api/apiModel";
 import { ExsumUrgentDto, initExsumUrgentDto } from "./cardUrgentModel";
 import { functions } from "lodash";
 
 const useCardUrgentVM = () => {
-
   const loadingContext = useLoading();
   const errorModalContext = useGlobalModalContext();
-  const { exsum } = useExsumContext()
+  const { exsum } = useExsumContext();
 
-  const [data, setData] = useState<ExsumUrgentDto>({ ...initExsumUrgentDto })
-  const [request, setRequest] = useState<ExsumUrgentDto>({ ...initExsumUrgentDto })
+  const [data, setData] = useState<ExsumUrgentDto>({ ...initExsumUrgentDto });
+  const [request, setRequest] = useState<ExsumUrgentDto>({
+    ...initExsumUrgentDto,
+  });
   const [modal, setModal] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+
+  const handleModalDelete = () => {
+    setModalDelete(true);
+  };
 
   async function getData() {
     const response = await doGetUrgent({
       body: {
-        exsum_id: exsum.id
+        exsum_id: exsum.id,
       },
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
@@ -27,11 +42,11 @@ const useCardUrgentVM = () => {
     if (response?.code == API_CODE.success) {
       let result: ExsumUrgentDto = response.result;
       if (result) {
-        setData(result)
-        setRequest(result)
+        setData(result);
+        setRequest(result);
       } else {
-        setData({ ...initExsumUrgentDto })
-        setRequest({ ...initExsumUrgentDto })
+        setData({ ...initExsumUrgentDto });
+        setRequest({ ...initExsumUrgentDto });
       }
     }
   }
@@ -42,33 +57,31 @@ const useCardUrgentVM = () => {
     }
   }, [exsum]);
 
-
   async function updateData(param: ExsumUrgentDto) {
     const req: ExsumUrgentDto = {
       ...param,
-      exsum_id: exsum.id
-    }
+      exsum_id: exsum.id,
+    };
 
     const params = {
       body: req,
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
-    }
+    };
 
     if (request.id !== 0) {
       const response = await doUpdateUrgent(params);
       if (response?.code == API_CODE.success) {
         getData();
-        setModal(false)
+        setModal(false);
       }
     } else {
       const response = await doCreateUrgent(params);
       if (response?.code == API_CODE.success) {
         getData();
-        setModal(false)
+        setModal(false);
       }
     }
-
   }
 
   async function deleteData() {
@@ -76,8 +89,8 @@ const useCardUrgentVM = () => {
       body: request,
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
-    }
-    await doDeleteUrgent(params)
+    };
+    await doDeleteUrgent(params);
     getData();
   }
 
@@ -90,9 +103,11 @@ const useCardUrgentVM = () => {
     request,
     setRequest,
     updateData,
-    deleteData
-  }
+    deleteData,
+    modalDelete,
+    setModalDelete,
+    handleModalDelete,
+  };
+};
 
-}
-
-export default useCardUrgentVM
+export default useCardUrgentVM;
