@@ -52,8 +52,9 @@ export interface RoDto {
     target:string
     fisik:string
     satuan:string
-    lokasi:string
+    lokasi_ro:string
     alokasi:number
+    anggaran:number
     sumber_anggaran:string
     type:string
     intervention:boolean

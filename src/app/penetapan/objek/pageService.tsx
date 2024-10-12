@@ -34,6 +34,14 @@ export async function doUpdatePenetapanObjectTopic(param: GetPenetapanObjectIdSe
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
 
+export async function doDeletePenetapanObjectTopic(param: GetPenetapanObjectIdServiceModel) {
+  const resp = await put({
+    ...param,
+    url: "penetapan/object/delete",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
 export async function doCratePenetapanObjectLongList(param: UpdateOrCreatePenetapanObjectLongListServiceModel) {
   const resp = await post({
     ...param,

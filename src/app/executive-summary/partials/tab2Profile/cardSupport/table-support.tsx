@@ -72,34 +72,52 @@ export default function TableSupport({
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell
-              sx={{ verticalAlign: "top" }}
-              rowSpan={data.sasaran.length + 1}
-            >
-              <Typography variant="body1">{data.value}</Typography>
-            </TableCell>
-          </TableRow>
           {data.sasaran.map((sasaran, index) => (
-            <TableRow
-              key={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body1">{sasaran.code}</Typography>
-              </TableCell>
-              <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography component="p" variant="body1" textAlign="left">
-                  {sasaran.value}
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body1">{sasaran.code}</Typography>
-              </TableCell>
-              <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body1">{sasaran.code}</Typography>
-              </TableCell>
-            </TableRow>
+            <React.Fragment key={`sasaran-${index}`}>
+              <TableRow>
+                {index === 0 && (
+                  <TableCell
+                    rowSpan={data.sasaran.reduce(
+                      (acc, s) => acc + s.indikator.length,
+                      0
+                    )}
+                    sx={{ verticalAlign: "top" }}
+                  >
+                    <Typography variant="body1">{data.value}</Typography>
+                  </TableCell>
+                )}
+                <TableCell
+                  rowSpan={sasaran.indikator.length}
+                  sx={{ verticalAlign: "top" }}
+                >
+                  <Typography variant="body1">{sasaran.code}</Typography>
+                </TableCell>
+                <TableCell
+                  rowSpan={sasaran.indikator.length}
+                  sx={{ verticalAlign: "top" }}
+                >
+                  <Typography variant="body1">{sasaran.value}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body1">
+                    {"sasaran.indikator[0]"}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  rowSpan={sasaran.indikator.length}
+                  sx={{ verticalAlign: "top" }}
+                >
+                  <Typography variant="body1">{sasaran.value}</Typography>
+                </TableCell>
+              </TableRow>
+              {sasaran.indikator.slice(1).map((indikator, i) => (
+                <TableRow key={`${indikator}-${index}-${i}`}>
+                  <TableCell>
+                    <Typography variant="body1">{"indikator"}</Typography>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </React.Fragment>
           ))}
         </TableBody>
       </Table>

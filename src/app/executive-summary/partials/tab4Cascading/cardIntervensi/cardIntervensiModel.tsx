@@ -64,3 +64,24 @@ export type GetExsumInterventionByExsumIdServiceModel = BaseAPIServiceParam & {
 export type UpdateExsumInterventionByExsumIdServiceModel = BaseAPIServiceParam & {
   body: ExsumInterventionProjectReqDto;
 };
+
+export type UpdateById = BaseAPIServiceParam & {
+  body: { id:number };
+};
+
+export type UpdateV2ExsumIntervention = BaseAPIServiceParam & {
+  body: {
+    id: number;
+    prop: number;
+    code: string;
+    nomenklatur: string;
+    kementrian_id: number;
+    indikator: string;
+    target: string;
+    satuan: string;
+    anggaran: number;
+    sumber_anggaran: string;
+    type: string;
+    intervention: boolean;
+  }
+}

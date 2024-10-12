@@ -28,12 +28,14 @@ export default function FormProfilRoProject({
  state,
  setState,
  rpjmn,
+  type
 }: {
  selectProP: AutoCompleteSingleProp<ProPDto>;
  selectStakeholder: AutoCompleteSingleProp<MiscMasterListStakeholderRes>;
  state: ExsumInterventionState;
  setState: (value: SetStateAction<ExsumInterventionState>) => void;
  rpjmn: MiscMasterRPJMNRes | undefined;
+ type:string
 }) {
  return (
   <Grid container spacing={2}>
@@ -63,6 +65,7 @@ export default function FormProfilRoProject({
     <FormControl fullWidth>
      <FieldLabelInfo title="Tagging ProP" />
      <AutocompleteSelectSingle
+       key={state.prop?.id}
       value={selectProP.value}
       options={selectProP.options}
       getOptionLabel={selectProP.getOptionLabel}
@@ -100,6 +103,7 @@ export default function FormProfilRoProject({
     <FormControl fullWidth>
      <FieldLabelInfo title="Penanggungjawab" />
      <AutocompleteSelectSingle
+       key={state.id}
       value={selectStakeholder.value}
       options={selectStakeholder.options}
       handleChange={selectStakeholder.handleChange}
@@ -150,7 +154,7 @@ export default function FormProfilRoProject({
     </FormControl>
    </Grid>
    <Grid item xs={12}>
-    <TableAnggaran rpjmn={rpjmn} state={state} setState={setState} />
+    <TableAnggaran rpjmn={rpjmn} state={state} setState={setState} type={type}/>
    </Grid>
   </Grid>
  );

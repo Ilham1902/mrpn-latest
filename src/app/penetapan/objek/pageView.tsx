@@ -284,7 +284,9 @@ export default function PageTemaView({}) {
                         key={indexPntp}
                         value={x}
                         label={x.topik}
-                        handleEdit={() => setModalAdd(true)}
+                        handleEdit={() => {
+                          setModalAdd(true)
+                        }}
                         handleDelete={handleDeleteTopic}
                       />
                     ))}

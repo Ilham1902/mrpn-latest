@@ -7,6 +7,7 @@ import {
   ProjectTargetAnggaranDto
 } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
 import {FormatCurrency} from "@/lib/utils/currency";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
 
 function GetTableRow(
   {
@@ -113,15 +114,28 @@ export default function TableAnggaran(
   {
     rpjmn,
     state,
-    setState
+    setState,
+    type
   }: {
     rpjmn: MiscMasterRPJMNRes | undefined
     state:ExsumInterventionState,
     setState: (value: SetStateAction<ExsumInterventionState>) => void
+    type:string
   }
 ) {
+
+  const {year} = useRKPContext(store => store)
+
   const rows = () => {
+
     let res: number[] = []
+
+    if (type == "NON_RO_UPDATE"){
+      res.push(year)
+      return res
+    }
+
+
     if (rpjmn) {
       for (let i = rpjmn.start; i <= rpjmn.end; i++) {
         res.push(i)

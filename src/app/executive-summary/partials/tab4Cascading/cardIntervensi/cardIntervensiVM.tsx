@@ -5,7 +5,7 @@ import {doGetPROP, doGetRO} from "@/app/misc/rkp/rkpService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import {
   ExsumInterventionProjectReqDto,
-  ExsumInterventionState, initExsumInterventionState, ProjectTargetAnggaranDto
+  ExsumInterventionState, initExsumInterventionState, ProjectTargetAnggaranDto, UpdateById, UpdateV2ExsumIntervention
 } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
 import {
   MiscMasterListStakeholderRes,
@@ -18,8 +18,8 @@ import {
   doGetMasterListSumberPendanaan
 } from "@/app/misc/master/masterService";
 import {
-  doCreateIntervention,
-  doGetIntervention
+  doCreateIntervention, doDeleteInterventionOnlyRO,
+  doGetIntervention, doUpdateInterventionOnlyRO
 } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiService";
 import {MRT_RowSelectionState} from "material-react-table";
 
@@ -34,6 +34,7 @@ const useCardIntervensiVM = () => {
   const [listSof, setListSof] = useState<MiscMasterListSumberPendanaanRes[]>([])
   const [listStakeholder, setListStakeholder] = useState<MiscMasterListStakeholderRes[]>([])
   const [modal, setModal] = useState<{ action: boolean, type: string }>({action: false, type: ""})
+  const [modalDelete, setModalDelete] = useState(false);
 
   const [state, setState] = useState<ExsumInterventionState>({...initExsumInterventionState})
   const [data, setData] = useState<RoDto[]>([])
@@ -104,7 +105,7 @@ const useCardIntervensiVM = () => {
       })
     }
 
-    if (modal.type == "NON_RO") {
+    if (modal.type == "NON_RO" || modal.type == "NON_RO_UPDATE") {
       setState(prev => {
         return {
           ...prev,
@@ -138,9 +139,37 @@ const useCardIntervensiVM = () => {
 
   const handleSubmit = async () => {
 
-    if (modal.type == "NON_RO" && (state.prop == undefined || state.kementrian == undefined)) {
+    if ((modal.type == "NON_RO" || modal.type == "NON_RO_UPDATE") && (state.prop == undefined || state.kementrian == undefined)) {
       return
     }
+
+    if (modal.type == "NON_RO_UPDATE"){
+     const req:UpdateV2ExsumIntervention = {
+       body: {
+         id: state.id,
+         prop: state.prop?.id ?? 0,
+         code: state.code,
+         nomenklatur: state.nomenklatur,
+         kementrian_id: state.kementrian?.id ?? 0,
+         indikator: state.indikator,
+         target: state.list[0].target,
+         satuan: state.list[0].satuan,
+         anggaran: state.list[0].anggaran,
+         sumber_anggaran: state.list[0].sumber_anggaran,
+         type: modal.type,
+         intervention: state.intervensi
+       },
+       loadingContext: loadingContext,
+       errorModalContext: errorModalContext,
+     }
+      const response = await doUpdateInterventionOnlyRO(req)
+      if (response?.code == API_CODE.success) {
+        await getData()
+        setModal({action:false,type:""})
+      }
+      return
+    }
+
     const request: ExsumInterventionProjectReqDto = {
       id: 0,
       exsum_id: exsum.id,
@@ -165,6 +194,18 @@ const useCardIntervensiVM = () => {
     }
   }
 
+  const handleModalDelete = async () => {
+    const response = await doDeleteInterventionOnlyRO({
+      body: {id : state.id},
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    })
+    if (response?.code == API_CODE.success) {
+      await getData()
+      setModalDelete(false)
+    }
+  };
+
   return {
     exsum,
     rpjmn,
@@ -182,7 +223,10 @@ const useCardIntervensiVM = () => {
     getListSumberPendanaan,
     getListStakeholder,
     getData,
-    listSof
+    listSof,
+    modalDelete,
+    setModalDelete,
+    handleModalDelete,
   }
 }
 

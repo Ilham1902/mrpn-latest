@@ -1,4 +1,8 @@
 export const FormatIDR = (value:number) => {
+  if (value == undefined || value == 0){
+    return "Rp 0"
+  }
+
   return new Intl.NumberFormat('en-ID', { style: 'currency', currency: 'IDR' }).format(value)
 }
 
