@@ -41,6 +41,9 @@ import {
 } from "@/lib/core/context/penetapanTopicContext";
 import useRkpVM from "@/components/dropdown/rkpVM";
 import DialogDelete from "@/app/components/dialogDelete";
+import {PenetapanObjectVMState} from "@/app/penetapan/objek/pageModel";
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+import {forEach} from "lodash";
 
 const styleToggleButton = [
   {
@@ -106,11 +109,7 @@ const styleToggleButton = [
 ];
 
 export default function PageTemaView({}) {
-  const [deleteTopic, setDeleteTopic] = useState(false);
-
-  const handleDeleteTopic = () => {
-    setDeleteTopic(true);
-  };
+  const [modalDeleteTopic, setModalDeleteTopic] = useState(false);
 
   const { permission } = useAuthContext((state) => state);
   const pathname = usePathname();
@@ -130,11 +129,54 @@ export default function PageTemaView({}) {
     stateTopic,
     setStateTopic,
     updateOrCreateTopic,
+    deleteTopic
   } = usePenetapanObjectVM();
 
   useEffect(useEffectGenerateOption, [year, rkp]);
 
   useEffect(useEffectObjectState, [year, objectState]);
+
+  const handleEditTopic = (x:PenetapanObjectDto) => {
+    let optState:ProjectDefaultDto[] = []
+    optionPN.map(f => {
+      x.penetapan_object_list.map(ty => {
+        if (f.id == ty.ref_id && f.level == ty.level){
+          optState.push(f)
+        }
+      })
+    })
+
+    const state:PenetapanObjectVMState = {
+      id: x.id,
+      code: x.code,
+      topik: x.topik,
+      tahun: x.tahun,
+      values: optState
+    }
+    setStateTopic(state)
+    setModalAdd(true)
+  }
+
+  const handleDeleteTopic = (x:PenetapanObjectDto) => {
+    let optState:ProjectDefaultDto[] = []
+    optionPN.map(f => {
+      x.penetapan_object_list.map(ty => {
+        if (f.id == ty.ref_id && f.level == ty.level){
+          optState.push(f)
+        }
+      })
+    })
+
+    const state:PenetapanObjectVMState = {
+      id: x.id,
+      code: x.code,
+      topik: x.topik,
+      tahun: x.tahun,
+      values: optState
+    }
+    setStateTopic(state)
+    setModalDeleteTopic(true)
+  }
 
   const dialogActionFooterAdd = (
     <DialogActions sx={{ p: 2, px: 3 }}>
@@ -284,10 +326,8 @@ export default function PageTemaView({}) {
                         key={indexPntp}
                         value={x}
                         label={x.topik}
-                        handleEdit={() => {
-                          setModalAdd(true)
-                        }}
-                        handleDelete={handleDeleteTopic}
+                        handleEdit={() => handleEditTopic(x)}
+                        handleDelete={() => handleDeleteTopic(x)}
                       />
                     ))}
                   </ToggleButtonGroup>
@@ -317,8 +357,12 @@ export default function PageTemaView({}) {
 
       <DialogDelete
         title="Hapus Topik"
-        handleOpenModal={deleteTopic}
-        handleCloseModal={() => setDeleteTopic(false)}
+        handleOpenModal={modalDeleteTopic}
+        handleCloseModal={() => setModalDeleteTopic(false)}
+        handleDelete={() => {
+          deleteTopic()
+          setModalDeleteTopic(false)
+        }}
       />
 
       {/*<DialogComponent*/}

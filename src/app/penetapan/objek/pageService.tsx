@@ -1,4 +1,4 @@
-import {get, post, put} from "@/lib/core/api/apiBase";
+import {del, get, post, put} from "@/lib/core/api/apiBase";
 import {ResponseBaseDto} from "@/lib/core/api/apiModel";
 import {
   GetPenetapanObjectCascadingServiceModel,
@@ -35,7 +35,7 @@ export async function doUpdatePenetapanObjectTopic(param: GetPenetapanObjectIdSe
 }
 
 export async function doDeletePenetapanObjectTopic(param: GetPenetapanObjectIdServiceModel) {
-  const resp = await put({
+  const resp = await del({
     ...param,
     url: "penetapan/object/delete",
   });

@@ -25,7 +25,7 @@ import {
 import {
   doCratePenetapanObjectLongList,
   doCratePenetapanObjectLongListAssignObject,
-  doCreatePenetapanObjectTopic,
+  doCreatePenetapanObjectTopic, doDeletePenetapanObjectTopic,
   doGetPenetapanObject,
   doGetPenetapanObjectCascading,
   doGetPenetapanObjectEntity,
@@ -33,7 +33,7 @@ import {
   doGetPenetapanObjectNotaDinas,
   doGetPenetapanObjectShortList,
   doUpdateOrCreateGetPenetapanObjectNotaDinas,
-  doUpdateOrCreatePenetapanObjectEntityUsulan
+  doUpdateOrCreatePenetapanObjectEntityUsulan, doUpdatePenetapanObjectTopic
 } from "@/app/penetapan/objek/pageService";
 import {API_CODE} from "@/lib/core/api/apiModel";
 import useRkpVM from "@/components/dropdown/rkpVM";
@@ -130,7 +130,39 @@ const usePenetapanObjectVM = () => {
       tahun: year,
       values: stateTopic.values
     }
-    const response = await doCreatePenetapanObjectTopic({
+
+    let response
+    if (stateTopic.id == 0){
+      response = await doCreatePenetapanObjectTopic({
+        body:req,
+        loadingContext:loadingContext,
+        errorModalContext:errorModalContext
+      })
+    } else {
+      response = await doUpdatePenetapanObjectTopic({
+        body:req,
+        loadingContext:loadingContext,
+        errorModalContext:errorModalContext
+      })
+    }
+    if (response?.code == API_CODE.success){
+      getPenetapanObjectTopic()
+      const initState = JSON.parse(JSON.stringify(initPenetapanObjectState))
+      setModalAdd(false)
+      setStateTopic(initState)
+    }
+  }
+
+  async function deleteTopic(){
+    const req:PenetapanObjectReqDto = {
+      id: stateTopic.id,
+      code: stateTopic.code,
+      topik: stateTopic.topik,
+      tahun: year,
+      values: stateTopic.values
+    }
+
+    const response = await doDeletePenetapanObjectTopic({
       body:req,
       loadingContext:loadingContext,
       errorModalContext:errorModalContext
@@ -418,6 +450,7 @@ const usePenetapanObjectVM = () => {
     setStateEntity,
     generateOptionPN,
     updateOrCreateTopic,
+    deleteTopic,
     updateOrCreateLongList,
     updateOrCreateEntity,
     getPenetapanObjectShortList,
