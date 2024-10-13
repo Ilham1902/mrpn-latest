@@ -23,36 +23,6 @@ import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
 import { InfoTooltip } from "@/app/components/InfoTooltip";
 
-const dataIndikator = {
-  //   value: "Value",
-  sasaran: [
-    {
-      analisis: "Analisis SWOT 1",
-      indikasi: "Indikasi 1",
-      kategori: "Kategori 1",
-      perlakuan: ["Perlakuan 1.1", "Perlakuan 1.2"],
-      ro: ["Ro 1.1", "Ro 1.2"],
-      pj: ["PJ 1.1", "PJ 1.2"],
-    },
-    {
-      analisis: "Analisis SWOT 2",
-      indikasi: "Indikasi 2",
-      kategori: "Kategori 2",
-      perlakuan: ["Perlakuan 2.1", "Perlakuan 2.2", "Perlakuan 2.3"],
-      ro: ["Ro 2.1", "Ro 2.2", "Ro 2.3"],
-      pj: ["PJ 2.1", "PJ 2.2", "PJ 2.3"],
-    },
-    {
-      analisis: "Analisis SWOT 3",
-      indikasi: "Indikasi 3",
-      kategori: "Kategori 3",
-      perlakuan: ["Perlakuan 2.1", "Perlakuan 2.2"],
-      ro: ["Ro 2.1", "Ro 2.2"],
-      pj: ["PJ 2.1", "PJ 2.2"],
-    },
-  ],
-};
-
 export default function TableIndication({
   data,
   handleModalOpen,
@@ -222,13 +192,12 @@ yang telah ditetapkan"
         </Table>
       </TableContainer> */}
 
-      {/*  */}
       <Table sx={{ minWidth: 650 }} size="small">
         <TableHead sx={{ bgcolor: "primary.light" }}>
           <TableRow>
             <TableCell>
               <Typography variant="body1" fontWeight={600}>
-                Analisis SWOT
+                Analisis TOWS
               </Typography>
             </TableCell>
             <TableCell>
@@ -259,49 +228,137 @@ yang telah ditetapkan"
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataIndikator.sasaran.map((sasaran, index) => (
-            <React.Fragment key={sasaran + "-" + index}>
+          {data && data.map((row, index) => (
+            <React.Fragment key={row + "-" + index}>
               <TableRow>
                 <TableCell
-                  rowSpan={sasaran.perlakuan.length}
+                  rowSpan={row.perlakuan.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                  <Typography variant="body1">{sasaran.analisis}</Typography>
+                  <Typography variant="body1">{row.tows.value}</Typography>
                 </TableCell>
                 <TableCell
-                  rowSpan={sasaran.perlakuan.length}
+                  rowSpan={row.perlakuan.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                  <Typography variant="body1">{sasaran.indikasi}</Typography>
+                  <Typography variant="body1">{row.indikasi_risiko}</Typography>
                 </TableCell>
                 <TableCell
-                  rowSpan={sasaran.perlakuan.length}
+                  rowSpan={row.perlakuan.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                  <Typography variant="body1">{sasaran.kategori}</Typography>
+                  <Typography variant="body1">{row.kategori_risiko}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="body1">
-                    {sasaran.perlakuan[0]}
+                    {row.perlakuan[0].perlakuan_risiko}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body1">{sasaran.ro[0]}</Typography>
+                  <Typography variant="body1">{row.perlakuan[0].ro.value}</Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body1">{sasaran.pj[0]}</Typography>
+                <TableCell sx={{ verticalAlign: "middle" }}>
+                  <Stack gap={0.5}>
+                    {Object.entries(row.perlakuan[0].groupStakeholder).map(
+                      ([key, value]) => (
+                        <Paper
+                          key={key}
+                          variant="outlined"
+                          elevation={0}
+                          sx={{ p: "4px 8px", width: 400, bgcolor: grey[50] }}
+                        >
+                          <Typography
+                            fontWeight={500}
+                            fontSize={13}
+                            whiteSpace="nowrap"
+                          >
+                            {key} :
+                          </Typography>
+                          <Stack
+                            marginTop={"10px"}
+                            display="inline-flex"
+                            alignItems="center"
+                            direction="row"
+                            gap={0.5}
+                            flexWrap="wrap"
+                          >
+                            {value.map((st, stIndex) => (
+                              <Box key={stIndex} component="span">
+                                <Chip
+                                  label={st.value}
+                                  size="small"
+                                  sx={{
+                                    height: "auto",
+                                    ".MuiChip-label": {
+                                      whiteSpace: "wrap",
+                                      lineHeight: 1.2,
+                                      py: 0.6,
+                                    },
+                                  }}
+                                />
+                              </Box>
+                            ))}
+                          </Stack>
+                        </Paper>
+                      )
+                    )}
+                  </Stack>
                 </TableCell>
               </TableRow>
-              {sasaran.perlakuan.slice(1).map((perlakuan, i) => (
+              {row.perlakuan.slice(1).map((perlakuan, i) => (
                 <TableRow key={perlakuan + "-" + index + "-" + i}>
                   <TableCell>
-                    <Typography variant="body1">{perlakuan}</Typography>
+                    <Typography variant="body1">{perlakuan.perlakuan_risiko}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body1">{sasaran.ro[i + 1]}</Typography>
+                    <Typography variant="body1">{perlakuan.ro.value}</Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography variant="body1">{sasaran.pj[i + 1]}</Typography>
+                  <TableCell sx={{ verticalAlign: "middle" }}>
+                    <Stack gap={0.5}>
+                      {Object.entries(perlakuan.groupStakeholder).map(
+                        ([key, value]) => (
+                          <Paper
+                            key={key}
+                            variant="outlined"
+                            elevation={0}
+                            sx={{ p: "4px 8px", width: 400, bgcolor: grey[50] }}
+                          >
+                            <Typography
+                              fontWeight={500}
+                              fontSize={13}
+                              whiteSpace="nowrap"
+                            >
+                              {key} :
+                            </Typography>
+                            <Stack
+                              marginTop={"10px"}
+                              display="inline-flex"
+                              alignItems="center"
+                              direction="row"
+                              gap={0.5}
+                              flexWrap="wrap"
+                            >
+                              {value.map((st, stIndex) => (
+                                <Box key={stIndex} component="span">
+                                  <Chip
+                                    label={st.value}
+                                    size="small"
+                                    sx={{
+                                      height: "auto",
+                                      ".MuiChip-label": {
+                                        whiteSpace: "wrap",
+                                        lineHeight: 1.2,
+                                        py: 0.6,
+                                      },
+                                    }}
+                                  />
+                                </Box>
+                              ))}
+                            </Stack>
+                          </Paper>
+                        )
+                      )}
+                    </Stack>
                   </TableCell>
                 </TableRow>
               ))}

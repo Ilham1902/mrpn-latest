@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {
   COORDINATOR,
   ExsumIndicationReqDto, ExsumIndicationResDto,
-  ExsumIndicationState, IndicationReqDto,
+  ExsumIndicationState, ExsumIndicationValueReqDto, IndicationReqDto,
   initStateExsumIndication, MAIN, OthersEntityState, StakeholderReqDto, StakeholderResDto, StakeholderResGroupDto
 } from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
 import {
@@ -41,6 +41,8 @@ const useCardIndicationVM = () => {
   const [state, setState] = useState<ExsumIndicationState>(initState)
   const [modalOpen, setModalOpen] = React.useState(false);
   const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+
+  const tows = useCardTOWSVM()
 
   async function getOptionRiskType(){
     const response = await doGetSystemParamByModuleAndName({
@@ -104,14 +106,16 @@ const useCardIndicationVM = () => {
 
       let stData:StakeholderResGroupDto = {}
       result.map((res,index) => {
-        res.stakeholder.map((st) => {
-          if (stData.hasOwnProperty(st.group.type)){
-            stData[st.group.type].push(st)
-          } else {
-            stData[st.group.type] = [st]
-          }
+        res.perlakuan.map((prl, indexPrl) => {
+          prl.stakeholder.map((st) => {
+            if (stData.hasOwnProperty(st.group.type)){
+              stData[st.group.type].push(st)
+            } else {
+              stData[st.group.type] = [st]
+            }
+          })
+          result[index].perlakuan[indexPrl].groupStakeholder = stData
         })
-        result[index].groupStakeholder = stData
       })
 
       setData(result)
@@ -120,67 +124,54 @@ const useCardIndicationVM = () => {
 
   const updateData = async () => {
 
-    const kejadianState = state.kejadian
-    if (kejadianState.length == 0) return
-    let kejadian:IndicationReqDto[] = []
-    kejadianState.map(k => {
-      const swotIds:number[] = k.keyword_swot.reduce<number[]>(
-        (acc, b) => {
-          return [...acc, b.id]
-        },
-        []
-      )
-      kejadian.push({
-        keterangan:k.keterangan,
-        swot:swotIds
-      })
-    })
+    let values:ExsumIndicationValueReqDto[] = []
+    state.values.map(value => {
 
-    const perlakuanState = state.perlakuan
-    if (perlakuanState.length == 0) return
-    const perlakuan:number[] = perlakuanState.reduce<number[]>(
-      (acc, b) => {
-        return [...acc, b.id]
-      },
-      []
-    )
+      let stakeholders:StakeholderReqDto[] = []
 
-    let stakeholders:StakeholderReqDto[] = []
-
-    const coordinatorStakeholder = state.entity.coordinator
-    if (coordinatorStakeholder == undefined) return
-    stakeholders.push({
-      type: COORDINATOR,
-      id: coordinatorStakeholder.id
-    })
-
-    const mainStakeholder = state.entity.main
-    if (mainStakeholder == undefined) return
-    mainStakeholder.map(d => {
+      const coordinatorStakeholder = value.stakeholder.coordinator
+      if (coordinatorStakeholder == undefined) return
       stakeholders.push({
-        type: MAIN,
-        id: d.id
+        type: COORDINATOR,
+        id: coordinatorStakeholder.id
       })
-    })
 
-    const othersStakeholder = state.entity.others
-    if (othersStakeholder == undefined) return
-    othersStakeholder.map(d => {
-      d.entity.map(e => {
+      const mainStakeholder = value.stakeholder.main
+      if (mainStakeholder == undefined) return
+      mainStakeholder.map(d => {
         stakeholders.push({
-          type: d.type,
-          id: e.id
+          type: MAIN,
+          id: d.id
         })
       })
+
+      const othersStakeholder = value.stakeholder.others
+      if (othersStakeholder == undefined) return
+      othersStakeholder.map(d => {
+        d.entity.map(e => {
+          stakeholders.push({
+            type: d.type,
+            id: e.id
+          })
+        })
+      })
+
+      const val:ExsumIndicationValueReqDto = {
+        perlakuan_risiko: value.perlakuan_risiko,
+        rincian_output_id: value.rincian_output?.id ?? 0,
+        stakeholder: stakeholders
+      }
+
+      values.push(val)
     })
 
     const requestDto:ExsumIndicationReqDto = {
       id: state.id,
-      jenis: state.jenis,
-      kejadian: kejadian,
-      perlakuan: perlakuan,
-      stakeholder: stakeholders,
-      exsum_id: exsum.id
+      exsum_id: exsum.id,
+      swot_id: state.tows?.id ?? 0,
+      indikasi_risiko: state.indikasi_risiko,
+      kategori_risiko: state.kategori_risiko,
+      values: values
     }
 
     let response
@@ -233,29 +224,29 @@ const useCardIndicationVM = () => {
       const initState:ExsumIndicationState = JSON.parse(JSON.stringify(initStateExsumIndication))
       setState(initState)
     } else {
-      const getIndex = data.findIndex(x => x.id)
-      const dataByIndex = data[getIndex]
-      let otherEntityState:OthersEntityState[] = []
-      for (const key in dataByIndex.groupStakeholder){
-        if (key !== COORDINATOR && key !== MAIN){
-          otherEntityState.push({
-            type: key,
-            entity: dataByIndex.groupStakeholder[key]
-          })
-        }
-      }
-      const stateData:ExsumIndicationState = {
-        id:id,
-        jenis: dataByIndex.jenis,
-        kejadian: dataByIndex.kejadian,
-        perlakuan: dataByIndex.perlakuan,
-        entity: {
-          coordinator: dataByIndex.groupStakeholder[COORDINATOR] ? dataByIndex.groupStakeholder[COORDINATOR][0] : undefined,
-          main: dataByIndex.groupStakeholder[MAIN] ? dataByIndex.groupStakeholder[MAIN] : [],
-          others: otherEntityState
-        }
-      }
-      setState(stateData)
+      // const getIndex = data.findIndex(x => x.id)
+      // const dataByIndex = data[getIndex]
+      // let otherEntityState:OthersEntityState[] = []
+      // for (const key in dataByIndex.groupStakeholder){
+      //   if (key !== COORDINATOR && key !== MAIN){
+      //     otherEntityState.push({
+      //       type: key,
+      //       entity: dataByIndex.groupStakeholder[key]
+      //     })
+      //   }
+      // }
+      // const stateData:ExsumIndicationState = {
+      //   id:id,
+      //   kategori_risiko: dataByIndex.jenis,
+      //   kejadian: dataByIndex.kejadian,
+      //   rincian_output: dataByIndex.perlakuan,
+      //   entity: {
+      //     coordinator: dataByIndex.groupStakeholder[COORDINATOR] ? dataByIndex.groupStakeholder[COORDINATOR][0] : undefined,
+      //     main: dataByIndex.groupStakeholder[MAIN] ? dataByIndex.groupStakeholder[MAIN] : [],
+      //     others: otherEntityState
+      //   }
+      // }
+      // setState(stateData)
     }
     setModalOpen(true);
   };
@@ -294,7 +285,8 @@ const useCardIndicationVM = () => {
     modalOpenDelete,
     setModalOpenDelete,
     handleModalOpenDelete,
-    deleteData
+    deleteData,
+    dataTOWS:tows.data.tows
   }
 
 }

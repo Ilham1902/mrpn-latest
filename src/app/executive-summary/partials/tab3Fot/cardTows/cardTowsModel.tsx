@@ -11,6 +11,7 @@ export interface ExsumTWOSOptions {
   wt:ExsumKeyword[]
 }
 export interface ExsumTWOSDto {
+  id:number
   type:string
   value:string
   keywords:ExsumKeyword[]
@@ -38,21 +39,25 @@ export const initExsumTWOSRequestDto:ExsumTWOSReqDto = {
   exsum_id: 0,
   values:[
     {
+      id:0,
       type:"SO",
       value:"",
       keywords:[]
     },
     {
+      id:0,
       type:"WO",
       value:"",
       keywords:[]
     },
     {
+      id:0,
       type:"ST",
       value:"",
       keywords:[]
     },
     {
+      id:0,
       type:"WT",
       value:"",
       keywords:[]

@@ -2,6 +2,7 @@ import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {ExsumSWOTValuesDto} from "@/app/executive-summary/partials/tab1Background/cardSwot/cardSwotModel";
 import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import {ExsumTWOSDto} from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsModel";
 
 export const COORDINATOR = "Entitas Koordinator"
 export const MAIN = "Entitas Utama"
@@ -14,13 +15,18 @@ export interface StakeholderReqDto {
   type:string
   id:number
 }
+export interface ExsumIndicationValueReqDto {
+  perlakuan_risiko:string
+  rincian_output_id:number
+  stakeholder:StakeholderReqDto[]
+}
 export interface ExsumIndicationReqDto {
   id:number,
   exsum_id:number
-  jenis:string
-  kejadian:IndicationReqDto[]
-  perlakuan:number[]
-  stakeholder:StakeholderReqDto[]
+  swot_id:number
+  indikasi_risiko:string
+  kategori_risiko:string
+  values:ExsumIndicationValueReqDto[]
 }
 
 export interface StakeholderResGroupDto {
@@ -31,14 +37,20 @@ export type StakeholderResDto = MiscMasterListStakeholderRes & {
     "type" : string
   }
 }
+export interface ExsumIndicationValueRes {
+  perlakuan_risiko:string
+  ro:RoDto
+  stakeholder:StakeholderResDto[]
+  groupStakeholder:StakeholderResGroupDto
+}
 export interface ExsumIndicationResDto {
   id:number,
   exsum_id:number
   jenis:string
-  kejadian: IndicationState[]
-  perlakuan:RoDto[]
-  stakeholder:StakeholderResDto[]
-  groupStakeholder:StakeholderResGroupDto
+  indikasi_risiko:string
+  kategori_risiko:string
+  perlakuan:ExsumIndicationValueRes[]
+  tows:ExsumTWOSDto
 }
 
 export interface IndicationState {
@@ -49,38 +61,46 @@ export interface OthersEntityState {
   type:string
   entity:MiscMasterListStakeholderRes[]
 }
-export interface ExsumIndicationState {
+export interface ExsumIndicationStateValue {
   id:number
-  jenis:string
-  kejadian:IndicationState[]
-  perlakuan:RoDto[]
-  entity:{
+  perlakuan_risiko:string
+  rincian_output:RoDto|undefined
+  stakeholder:{
     coordinator:MiscMasterListStakeholderRes|undefined
     main:MiscMasterListStakeholderRes[]
     others:OthersEntityState[]
   }
 }
+export interface ExsumIndicationState {
+  id:number
+  tows:ExsumTWOSDto|undefined
+  indikasi_risiko:string
+  kategori_risiko:string
+  values:ExsumIndicationStateValue[]
+}
 
 export const initStateExsumIndication:ExsumIndicationState = {
   id: 0,
-  jenis: "",
-  kejadian: [
+  tows: undefined,
+  indikasi_risiko: "",
+  kategori_risiko: "",
+  values: [
     {
-      keterangan: "",
-      keyword_swot: []
-    }
-  ],
-  entity: {
-    coordinator: undefined,
-    main: [],
-    others: [
-      {
-        type: "",
-        entity: []
+      id:0,
+      perlakuan_risiko: "",
+      rincian_output: undefined,
+      stakeholder: {
+        coordinator: undefined,
+        main: [],
+        others: [
+          {
+            type: "",
+            entity: []
+          }
+        ]
       }
-    ]
-  },
-  perlakuan: []
+    }
+  ]
 }
 
 export interface GetByExsumId {

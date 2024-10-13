@@ -11,6 +11,7 @@ import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
+import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsVM";
 
 export default function CardIndication({ project }: { project: string }) {
   const {
@@ -29,6 +30,7 @@ export default function CardIndication({ project }: { project: string }) {
     setModalOpenDelete,
     handleModalOpenDelete,
     deleteData,
+    dataTOWS
   } = useCardIndicationVM();
 
   const { permission } = useAuthContext((state) => state);
@@ -75,11 +77,6 @@ export default function CardIndication({ project }: { project: string }) {
             )
           }
         >
-          <TableIndication
-            //  data={data}
-            handleModalOpen={handleModalOpen}
-            handleModalOpenDelete={handleModalOpenDelete}
-          />
           {data.length == 0 ? (
             <EmptyState
               dense
@@ -123,6 +120,7 @@ export default function CardIndication({ project }: { project: string }) {
           optionStrategy={optionStrategy}
           optionStakeholder={optionStakeholder}
           optionRO={optionRO}
+          optionTOWS={dataTOWS}
         />
       </DialogComponent>
 
