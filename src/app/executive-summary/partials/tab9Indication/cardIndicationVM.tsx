@@ -104,9 +104,9 @@ const useCardIndicationVM = () => {
     if (response?.code == API_CODE.success) {
       let result: ExsumIndicationResDto[] = response.result
 
-      let stData:StakeholderResGroupDto = {}
       result.map((res,index) => {
         res.perlakuan.map((prl, indexPrl) => {
+          let stData:StakeholderResGroupDto = {}
           prl.stakeholder.map((st) => {
             if (stData.hasOwnProperty(st.group.type)){
               stData[st.group.type].push(st)
