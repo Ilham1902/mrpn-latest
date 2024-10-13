@@ -103,17 +103,19 @@ export default function TableSupport({
                     {"sasaran.indikator[0]"}
                   </Typography>
                 </TableCell>
-                <TableCell
-                  rowSpan={sasaran.indikator.length}
-                  sx={{ verticalAlign: "top" }}
-                >
-                  <Typography variant="body1">{sasaran.value}</Typography>
+                <TableCell>
+                  <Typography variant="body1">{"sasaran.target[0]"}</Typography>
                 </TableCell>
               </TableRow>
               {sasaran.indikator.slice(1).map((indikator, i) => (
-                <TableRow key={`${indikator}-${index}-${i}`}>
+                <TableRow key={`indikator-${index}-${i}`}>
                   <TableCell>
                     <Typography variant="body1">{"indikator"}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body1">
+                      {"sasaran.target[i + 1]"}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

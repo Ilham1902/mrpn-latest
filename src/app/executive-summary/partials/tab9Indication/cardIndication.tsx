@@ -13,124 +13,139 @@ import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
 
 export default function CardIndication({ project }: { project: string }) {
- const {
-  data,
-  optionRiskType,
-  optionStakeholder,
-  optionStrategy,
-  optionRO,
-  state,
-  setState,
-  modalOpen,
-  updateData,
-  handleModalOpen,
-  handleModalClose,
-  modalOpenDelete,
-  setModalOpenDelete,
-  handleModalOpenDelete,
-  deleteData,
- } = useCardIndicationVM();
+  const {
+    data,
+    optionRiskType,
+    optionStakeholder,
+    optionStrategy,
+    optionRO,
+    state,
+    setState,
+    modalOpen,
+    updateData,
+    handleModalOpen,
+    handleModalClose,
+    modalOpenDelete,
+    setModalOpenDelete,
+    handleModalOpenDelete,
+    deleteData,
+  } = useCardIndicationVM();
 
- const { permission } = useAuthContext((state) => state);
- const pathname = usePathname();
+  const { permission } = useAuthContext((state) => state);
+  const pathname = usePathname();
 
- return (
-  <>
-   <Stack gap={1}>
-    <CardItem
-     title="Indikasi Risiko Objek MRPN 5 Tahunan"
-     infoTooltip={
-      <Stack spacing={2}>
-       <div>
-        <strong>Indikasi Profil Risiko Objek MRPN Lintas Sektor</strong>
-        <p>
-         Kementerian PPN/Bappenas dalam melakukan proses Rancangan Awal (Ranwal)
-         RKP bersama dengan Kementerian Keuangan dan K/L/P/BU/BL terkait, telah
-         menggunakan prinsip perencanaan berbasis risiko, yang menyertakan
-         pembahasan terkait Indikasi Profil Risiko Objek MRPN Lintas Sektor yang
-         berisikan penilaian dan perlakuan risiko.
-        </p>
-       </div>
-       <div>
-        <strong>Indikasi Risiko RPJMN</strong>
-        <p>
-         Risiko makro dan strategis yang disusun oleh Kementerian yang
-         menyelenggarakan urusan pemerintahan di bidang perencanaan pembangunan
-         nasional mencakup risiko global yang meliputi risiko ekonomi,
-         teknologi, geopolitik, sosial, lingkungan, reputasi dan tata kelola.
-        </p>
-       </div>
+  return (
+    <>
+      <Stack gap={1}>
+        <CardItem
+          title="Indikasi Risiko Objek MRPN 5 Tahunan"
+          infoTooltip={
+            <Stack spacing={2}>
+              <div>
+                <strong>Indikasi Profil Risiko Objek MRPN Lintas Sektor</strong>
+                <p>
+                  Kementerian PPN/Bappenas dalam melakukan proses Rancangan Awal
+                  (Ranwal) RKP bersama dengan Kementerian Keuangan dan
+                  K/L/P/BU/BL terkait, telah menggunakan prinsip perencanaan
+                  berbasis risiko, yang menyertakan pembahasan terkait Indikasi
+                  Profil Risiko Objek MRPN Lintas Sektor yang berisikan
+                  penilaian dan perlakuan risiko.
+                </p>
+              </div>
+              <div>
+                <strong>Indikasi Risiko RPJMN</strong>
+                <p>
+                  Risiko makro dan strategis yang disusun oleh Kementerian yang
+                  menyelenggarakan urusan pemerintahan di bidang perencanaan
+                  pembangunan nasional mencakup risiko global yang meliputi
+                  risiko ekonomi, teknologi, geopolitik, sosial, lingkungan,
+                  reputasi dan tata kelola.
+                </p>
+              </div>
+            </Stack>
+          }
+          addButton={
+            hasPrivilege(permission, pathname, "add") && (
+              <AddButton
+                filled
+                small
+                title="Tambah Indikasi"
+                onclick={() => handleModalOpen(0)}
+              />
+            )
+          }
+        >
+          <TableIndication
+            //  data={data}
+            handleModalOpen={handleModalOpen}
+            handleModalOpenDelete={handleModalOpenDelete}
+          />
+          {data.length == 0 ? (
+            <EmptyState
+              dense
+              icon={<IconEmptyData width={100} />}
+              title="Data Kosong"
+              description="Silahkan isi konten halaman ini"
+            />
+          ) : (
+            <TableIndication
+              data={data}
+              handleModalOpen={handleModalOpen}
+              handleModalOpenDelete={handleModalOpenDelete}
+            />
+          )}
+        </CardItem>
       </Stack>
-     }
-     addButton={
-      hasPrivilege(permission, pathname, "add") && (
-       <AddButton
-        filled
-        small
-        title="Tambah Indikasi"
-        onclick={() => handleModalOpen(0)}
-       />
-      )
-     }
-    >
-     {data.length == 0 ? (
-      <EmptyState
-       dense
-       icon={<IconEmptyData width={100} />}
-       title="Data Kosong"
-       description="Silahkan isi konten halaman ini"
-      />
-     ) : (
-      <TableIndication
-       data={data}
-       handleModalOpen={handleModalOpen}
-       handleModalOpenDelete={handleModalOpenDelete}
-      />
-     )}
-    </CardItem>
-   </Stack>
-   <DialogComponent
-    width={"50%"}
-    dialogOpen={modalOpen}
-    dialogClose={handleModalClose}
-    title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
-    dialogFooter={
-     <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button variant="outlined" onClick={handleModalClose}>
-       Batal
-      </Button>
-      <Button variant="contained" type="submit" onClick={() => updateData()}>
-       Simpan
-      </Button>
-     </DialogActions>
-    }
-   >
-    <FormIndication
-     state={state}
-     setState={setState}
-     optionRiskType={optionRiskType}
-     optionStrategy={optionStrategy}
-     optionStakeholder={optionStakeholder}
-     optionRO={optionRO}
-    />
-   </DialogComponent>
+      <DialogComponent
+        width={"50%"}
+        dialogOpen={modalOpen}
+        dialogClose={handleModalClose}
+        title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
+        dialogFooter={
+          <DialogActions sx={{ p: 2, px: 3 }}>
+            <Button variant="outlined" onClick={handleModalClose}>
+              Batal
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => updateData()}
+            >
+              Simpan
+            </Button>
+          </DialogActions>
+        }
+      >
+        <FormIndication
+          state={state}
+          setState={setState}
+          optionRiskType={optionRiskType}
+          optionStrategy={optionStrategy}
+          optionStakeholder={optionStakeholder}
+          optionRO={optionRO}
+        />
+      </DialogComponent>
 
-   <DialogComponent
-    width={240}
-    dialogOpen={modalOpenDelete}
-    dialogClose={() => setModalOpenDelete(false)}
-    title="Hapus Data"
-    dialogFooter={
-     <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button onClick={handleModalClose}>Batal</Button>
-      <Button variant="contained" color="error" onClick={() => deleteData()}>
-       Hapus
-      </Button>
-     </DialogActions>
-    }
-   >
-    Anda yakin akan menghapus data ini?
-   </DialogComponent>
-  </>
- );
+      <DialogComponent
+        width={240}
+        dialogOpen={modalOpenDelete}
+        dialogClose={() => setModalOpenDelete(false)}
+        title="Hapus Data"
+        dialogFooter={
+          <DialogActions sx={{ p: 2, px: 3 }}>
+            <Button onClick={handleModalClose}>Batal</Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => deleteData()}
+            >
+              Hapus
+            </Button>
+          </DialogActions>
+        }
+      >
+        Anda yakin akan menghapus data ini?
+      </DialogComponent>
+    </>
+  );
 }

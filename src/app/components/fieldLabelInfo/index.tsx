@@ -5,65 +5,65 @@ import { grey } from "@mui/material/colors";
 import { InfoTooltip } from "../InfoTooltip";
 
 export default function FieldLabelInfo({
- title,
- information,
- titleSection,
- iconOnly,
- buttonInfo,
- buttonInfoOnclick,
- titleField,
+  title,
+  information,
+  titleSection,
+  iconOnly,
+  buttonInfo,
+  buttonInfoOnclick,
+  titleField,
 }: {
- title?: string;
- information?: React.ReactNode;
- titleSection?: boolean;
- iconOnly?: boolean;
- buttonInfo?: boolean;
- buttonInfoOnclick?: () => void;
- titleField?: boolean;
+  title?: string | React.ReactNode;
+  information?: React.ReactNode;
+  titleSection?: boolean;
+  iconOnly?: boolean;
+  buttonInfo?: boolean;
+  buttonInfoOnclick?: () => void;
+  titleField?: boolean;
 }) {
- const buttonInfoContent = (
-  <Button
-   size="small"
-   variant="outlined"
-   sx={{ py: 0, position: "relative", top: -2 }}
-   onClick={buttonInfoOnclick}
-  >
-   Lihat Matriks
-  </Button>
- );
+  const buttonInfoContent = (
+    <Button
+      size="small"
+      variant="outlined"
+      sx={{ py: 0, position: "relative", top: -2 }}
+      onClick={buttonInfoOnclick}
+    >
+      Lihat Matriks
+    </Button>
+  );
 
- return (
-  <>
-   {iconOnly ? (
-    <InfoTooltip
-     title={information}
-     titleSection={titleSection}
-     titleField={titleField}
-    />
-   ) : (
-    <Stack direction="row" alignItems="center" gap={0.5}>
-     {titleSection ? (
-      <Typography fontWeight={600}>{title}</Typography>
-     ) : (
-      <Typography gutterBottom fontSize={14} color={grey[600]}>
-       {title}
-      </Typography>
-     )}
-     {buttonInfo ? (
-      buttonInfoContent
-     ) : (
-      <>
-       {information && (
+  return (
+    <>
+      {iconOnly ? (
         <InfoTooltip
-         title={information}
-         titleSection={titleSection}
-         titleField={titleField}
+          title={information}
+          titleSection={titleSection}
+          titleField={titleField}
         />
-       )}
-      </>
-     )}
-    </Stack>
-   )}
-  </>
- );
+      ) : (
+        <Stack direction="row" alignItems="center" gap={0.5}>
+          {titleSection ? (
+            <Typography fontWeight={600}>{title}</Typography>
+          ) : (
+            <Typography gutterBottom fontSize={14} color={grey[600]}>
+              {title}
+            </Typography>
+          )}
+          {buttonInfo ? (
+            buttonInfoContent
+          ) : (
+            <>
+              {information && (
+                <InfoTooltip
+                  title={information}
+                  titleSection={titleSection}
+                  titleField={titleField}
+                />
+              )}
+            </>
+          )}
+        </Stack>
+      )}
+    </>
+  );
 }
