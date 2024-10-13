@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import FieldLabelInfo from "@/app/components/fieldLabelInfo";
 import AddEntity from "./add";
-import AddRisk from "./addRisk";
 import {
   AutocompleteSelectFreeSolo,
   AutocompleteSelectMultiple,

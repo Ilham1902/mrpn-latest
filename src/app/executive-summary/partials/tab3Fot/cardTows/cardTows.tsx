@@ -143,6 +143,7 @@ function CardFormTWOS(
     props.setRequest(prevState => {
       const values = [...prevState.values]
       const newRow:ExsumTWOSDto = {
+        id:values.length,
         type: props.type,
         value: "",
         keywords: []

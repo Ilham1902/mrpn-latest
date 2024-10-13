@@ -26,7 +26,6 @@ import {
 import { listTagProP } from "@/app/executive-summary/data";
 import { paramVariantDefault } from "@/app/utils/constant";
 import AddEntity from "./add";
-import AddRisk from "./addRisk";
 import TextareaComponent from "@/app/components/textarea";
 
 type OptionProP = (typeof listTagProP)[number];
