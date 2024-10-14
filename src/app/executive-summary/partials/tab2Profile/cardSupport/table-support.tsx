@@ -14,6 +14,8 @@ import theme from "@/theme";
 import { dataTema } from "../../../dataTema";
 import { ExsumSupportProjectRes } from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportModel";
 import { ExsumDto } from "@/lib/core/context/exsumContext";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
+import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
 
 export const getLevel = (level: string) => {
   switch (level) {
@@ -39,6 +41,44 @@ export default function TableSupport({
   data: ExsumSupportProjectRes;
   exsum: ExsumDto;
 }) {
+
+  const { rpjmn, year } = useRKPContext((store) => store);
+
+  const getTarget = (indikator: IndikatorDto) => {
+    let index = 0;
+
+    if (rpjmn != undefined) {
+      for (let i = rpjmn.start; i <= rpjmn.end; i++) {
+        if (i !== year && i <= year) {
+          index++;
+        }
+      }
+    }
+    let target = "";
+    switch (index) {
+      case 0:
+        target = indikator.target_0 +" "+indikator.satuan;
+        break;
+      case 1:
+        target = indikator.target_1 +" "+indikator.satuan;
+        break;
+      case 2:
+        target = indikator.target_2 +" "+indikator.satuan;
+        break;
+      case 3:
+        target = indikator.target_3 +" "+indikator.satuan;
+        break;
+      case 4:
+        target = indikator.target_4 +" "+indikator.satuan;
+        break;
+      default:
+        target = indikator.target_0 +" "+indikator.satuan;
+        break;
+    }
+
+    return target;
+  };
+
   return (
     <TableContainer component={Paper} elevation={0}>
       <Table sx={{ minWidth: 650 }} size="small">
@@ -100,21 +140,23 @@ export default function TableSupport({
                 </TableCell>
                 <TableCell>
                   <Typography variant="body1">
-                    {"sasaran.indikator[0]"}
+                    {sasaran.indikator.length > 0 ? sasaran.indikator[0].value : ""}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body1">{"sasaran.target[0]"}</Typography>
+                  <Typography variant="body1">
+                    {sasaran.indikator.length > 0 ? getTarget(sasaran.indikator[0]) : ""}
+                  </Typography>
                 </TableCell>
               </TableRow>
               {sasaran.indikator.slice(1).map((indikator, i) => (
                 <TableRow key={`indikator-${index}-${i}`}>
                   <TableCell>
-                    <Typography variant="body1">{"indikator"}</Typography>
+                    <Typography variant="body1">{indikator.value}</Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body1">
-                      {"sasaran.target[i + 1]"}
+                      {getTarget(indikator)}
                     </Typography>
                   </TableCell>
                 </TableRow>
