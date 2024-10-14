@@ -101,6 +101,7 @@ export interface AutoCompleteSingleProp<T> {
   handleChange: Function;
   placeHolder: string;
   bgWhite?: boolean | any;
+  rounded?: boolean;
 }
 
 export function AutocompleteSelectSingle<T>({
@@ -110,6 +111,7 @@ export function AutocompleteSelectSingle<T>({
   handleChange,
   placeHolder,
   bgWhite,
+  rounded,
 }: AutoCompleteSingleProp<T>) {
   return (
     <Autocomplete
@@ -140,6 +142,7 @@ export function AutocompleteSelectSingle<T>({
           borderRadius: 1,
           bgcolor: bgWhite && "white",
         },
+        ...(rounded && SxAutocomplete(paramVariantDefault)),
       }}
     />
   );

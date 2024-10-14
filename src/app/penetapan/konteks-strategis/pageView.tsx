@@ -22,52 +22,53 @@ import CardStakeholderInternal from "@/app/penetapan/konteks-strategis/cardStake
 import CardStakeholderEksternal from "@/app/penetapan/konteks-strategis/cardStakeholders/cardStakeholderEksternal";
 
 export default function PageKonteksStrategisView({}) {
- const { year } = useRKPContext((state) => state);
+  const { year } = useRKPContext((state) => state);
 
- const { objects, objectState, setObjectState, getMasterListObject } =
-  usePenetapanGlobalVM();
+  const { objects, objectState, setObjectState, getMasterListObject } =
+    usePenetapanGlobalVM();
 
- useEffect(() => {
-  if (year > 0) {
-   getMasterListObject();
-  }
- }, [year]);
-
- return (
-  <>
-   <ContentPage
-    title="Eksplorasi Konteks Strategis"
-    chooseObject={
-     <FormControl size="small" sx={{ width: "20vw" }}>
-      <AutocompleteSelectSingle
-       value={objectState}
-       options={objects}
-       getOptionLabel={(opt) => `${opt.rkp.code} - ${opt.rkp.value}`}
-       handleChange={(val: MasterListObjectRes) => setObjectState(val)}
-       placeHolder={"Pilih RKP"}
-      />
-     </FormControl>
+  useEffect(() => {
+    if (year > 0) {
+      getMasterListObject();
     }
-    withCard={objectState === undefined}
-   >
-    {objectState === undefined ? (
-     <EmptyState
-      dense
-      icon={<IconEmptyData width={100} />}
-      title="Pilih RKP"
-      description="Silahkan pilih rkp terlebih dulu"
-     />
-    ) : (
-     <Stack gap={1}>
-      <CardIndikasiSasaran />
-      <CardSasaranKinerjaUPR />
-      <CardRegulation />
-      <CardStakeholderInternal />
-      <CardStakeholderEksternal />
-      <CardProfileIntervensi />
-     </Stack>
-    )}
-   </ContentPage>
-  </>
- );
+  }, [year]);
+
+  return (
+    <>
+      <ContentPage
+        title="Eksplorasi Konteks Strategis"
+        chooseObject={
+          <FormControl size="small" sx={{ width: "20vw" }}>
+            <AutocompleteSelectSingle
+              rounded
+              value={objectState}
+              options={objects}
+              getOptionLabel={(opt) => `${opt.rkp.code} - ${opt.rkp.value}`}
+              handleChange={(val: MasterListObjectRes) => setObjectState(val)}
+              placeHolder={"Pilih RKP"}
+            />
+          </FormControl>
+        }
+        withCard={objectState === undefined}
+      >
+        {objectState === undefined ? (
+          <EmptyState
+            dense
+            icon={<IconEmptyData width={100} />}
+            title="Pilih RKP"
+            description="Silahkan pilih rkp terlebih dulu"
+          />
+        ) : (
+          <Stack gap={1}>
+            <CardIndikasiSasaran />
+            <CardSasaranKinerjaUPR />
+            <CardRegulation />
+            <CardStakeholderInternal />
+            <CardStakeholderEksternal />
+            <CardProfileIntervensi />
+          </Stack>
+        )}
+      </ContentPage>
+    </>
+  );
 }
