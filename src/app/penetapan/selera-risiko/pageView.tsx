@@ -12,49 +12,50 @@ import EmptyState from "@/components/empty";
 import { IconEmptyData } from "@/components/icons";
 
 export default function PageSeleraRisikoView({}) {
- const { year } = useRKPContext((state) => state);
+  const { year } = useRKPContext((state) => state);
 
- const { objects, objectState, setObjectState, getMasterListObject } =
-  usePenetapanGlobalVM();
+  const { objects, objectState, setObjectState, getMasterListObject } =
+    usePenetapanGlobalVM();
 
- useEffect(() => {
-  if (year > 0) {
-   getMasterListObject();
-  }
- }, [year]);
-
- const handleModalOpenSave = () => {};
-
- return (
-  <>
-   <ContentPage
-    title="Selera Risiko"
-    infoToolTip="Jumlah dan jenis risiko yang bersedia diterima oleh suatu entitas atau organisasi pemerintahan
-dalam mengejar tujuannya"
-    withCard
-    chooseObject={
-     <FormControl size="small" sx={{ width: "20vw" }}>
-      <AutocompleteSelectSingle
-       value={objectState}
-       options={objects}
-       getOptionLabel={(opt) => `${opt.rkp.code} - ${opt.rkp.value}`}
-       handleChange={(val: MasterListObjectRes) => setObjectState(val)}
-       placeHolder={"Pilih RKP"}
-      />
-     </FormControl>
+  useEffect(() => {
+    if (year > 0) {
+      getMasterListObject();
     }
-   >
-    {objectState === undefined ? (
-     <EmptyState
-      dense
-      icon={<IconEmptyData width={100} />}
-      title="Pilih RKP"
-      description="Silahkan pilih rkp terlebih dulu"
-     />
-    ) : (
-     <RiskContent handleSaveButton={handleModalOpenSave} />
-    )}
-   </ContentPage>
-  </>
- );
+  }, [year]);
+
+  const handleModalOpenSave = () => {};
+
+  return (
+    <>
+      <ContentPage
+        title="Selera Risiko"
+        infoToolTip="Jumlah dan jenis risiko yang bersedia diterima oleh suatu entitas atau organisasi pemerintahan
+dalam mengejar tujuannya"
+        withCard
+        chooseObject={
+          <FormControl size="small" sx={{ width: "20vw" }}>
+            <AutocompleteSelectSingle
+              rounded
+              value={objectState}
+              options={objects}
+              getOptionLabel={(opt) => `${opt.rkp.code} - ${opt.rkp.value}`}
+              handleChange={(val: MasterListObjectRes) => setObjectState(val)}
+              placeHolder={"Pilih RKP"}
+            />
+          </FormControl>
+        }
+      >
+        {objectState === undefined ? (
+          <EmptyState
+            dense
+            icon={<IconEmptyData width={100} />}
+            title="Pilih RKP"
+            description="Silahkan pilih rkp terlebih dulu"
+          />
+        ) : (
+          <RiskContent handleSaveButton={handleModalOpenSave} />
+        )}
+      </ContentPage>
+    </>
+  );
 }
