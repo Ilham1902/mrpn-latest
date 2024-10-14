@@ -15,6 +15,8 @@ import theme from "@/theme";
 import { IdentificationRiskResDto } from "@/app/profil-risiko/identifikasi/pageModel";
 import { InfoTooltip } from "@/app/components/InfoTooltip";
 import { grey } from "@mui/material/colors";
+import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import {useRKPContext} from "@/lib/core/hooks/useHooks";
 
 export default function HeaderTable({
   noPadding,
@@ -27,40 +29,43 @@ export default function HeaderTable({
   viewOnly?: boolean;
   data?: IdentificationRiskResDto;
 }) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const { rpjmn, year } = useRKPContext((store) => store);
+
+  const getTarget = (indikator: IndikatorDto) => {
+    let index = 0;
+
+    if (rpjmn != undefined) {
+      for (let i = rpjmn.start; i <= rpjmn.end; i++) {
+        if (i !== year && i <= year) {
+          index++;
+        }
+      }
+    }
+    let target = "";
+    switch (index) {
+      case 0:
+        target = indikator.target_0+" "+indikator.satuan;
+        break;
+      case 1:
+        target = indikator.target_1+" "+indikator.satuan;
+        break;
+      case 2:
+        target = indikator.target_2+" "+indikator.satuan;
+        break;
+      case 3:
+        target = indikator.target_3+" "+indikator.satuan;
+        break;
+      case 4:
+        target = indikator.target_4+" "+indikator.satuan;
+        break;
+      default:
+        target = indikator.target_0+" "+indikator.satuan;
+        break;
+    }
+
+    return target;
   };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-
-  const dataHeader = [
-    {
-      sasaran:
-        "Meningkatnya produksi dan produktivitas padi di KSPP Kalimantan Tengah",
-      children: [
-        {
-          indikator: "Peningkatan Produksi Padi KSPP Kalimantan Tengah (%)",
-          target: "10%",
-          periodePemantauan: "2025",
-        },
-        {
-          indikator:
-            "Peningkatan Produktivitas Padi KSPP Kalimantan Tengah (%)",
-          target: "10%",
-          periodePemantauan: "2025",
-        },
-      ],
-    },
-  ];
-
-  const nameofKP =
-    "02.10.01 - Pengembangan Kawasan Sentra Produksi Pangan (KSPP) Kalimantan Tengah";
 
   return (
     <React.Fragment>
@@ -100,53 +105,8 @@ export default function HeaderTable({
           </Stack>
           <Box>
             <Typography px={1.5} fontSize={13} fontWeight={600}>
-              Ketahanan Pangan
+              {data?.topik ?? "-"}
             </Typography>
-          </Box>
-        </Stack>
-        <Stack
-          direction="row"
-          alignItems="center"
-          border={1}
-          borderColor={theme.palette.primary.main}
-          borderRadius={20}
-          sx={{ cursor: "pointer" }}
-        >
-          <Stack
-            direction="row"
-            bgcolor={theme.palette.primary.main}
-            px={2}
-            alignItems="center"
-            height="34px"
-            sx={{
-              borderTopLeftRadius: 24,
-              borderBottomLeftRadius: 24,
-            }}
-          >
-            <Typography
-              fontSize={13}
-              color="white"
-              fontWeight={600}
-              lineHeight={1}
-            >
-              KP
-            </Typography>
-          </Stack>
-          <Box>
-            <Tooltip title={nameofKP} followCursor TransitionComponent={Grow}>
-              <Typography
-                aria-owns={open ? "mouse-over-popover" : undefined}
-                aria-haspopup="true"
-                onMouseEnter={handlePopoverOpen}
-                onMouseLeave={handlePopoverClose}
-                px={1.5}
-                fontSize={13}
-                fontWeight={600}
-              >
-                {nameofKP.substring(0, 35) + "..."}
-              </Typography>
-            </Tooltip>
-            <Typography px={1.5} fontSize={13} fontWeight={600}></Typography>
           </Box>
         </Stack>
       </Stack>
@@ -184,24 +144,24 @@ export default function HeaderTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataHeader.map((row: any, index: any) => (
+          {data && data.sasaran && data.sasaran.map((ssr,index) => (
             <React.Fragment key={index}>
               <TableRow>
-                <TableCell rowSpan={row.children.length}>
-                  {row.sasaran}
+                <TableCell rowSpan={data.indikator.length}>
+                  {ssr}
                 </TableCell>
-                <TableCell>{row.children[0].indikator}</TableCell>
-                <TableCell align="center">{row.children[0].target}</TableCell>
+                <TableCell>{data.indikator[0].value}</TableCell>
+                <TableCell align="center">{getTarget(data.indikator[0])}</TableCell>
                 <TableCell align="center">
-                  {row.children[0].periodePemantauan}
+                  {data.periode}
                 </TableCell>
               </TableRow>
-              {row.children.slice(1).map((child: any, childIndex: any) => (
+              {data.indikator.slice(1).map((child, childIndex) => (
                 <TableRow key={childIndex}>
-                  <TableCell>{child.indikator}</TableCell>
-                  <TableCell align="center">{child.target}</TableCell>
+                  <TableCell>{child.value}</TableCell>
+                  <TableCell align="center">{getTarget(child)}</TableCell>
                   <TableCell align="center">
-                    {child.periodePemantauan}
+                    {data.periode}
                   </TableCell>
                 </TableRow>
               ))}

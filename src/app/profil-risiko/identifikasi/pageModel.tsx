@@ -1,5 +1,6 @@
 import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
+import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 
 export interface ProfileRiskDto {
   id: number
@@ -16,13 +17,10 @@ export interface ProfileRiskDto {
 export interface IdentificationRiskResDto {
   objek_mrpn: string
   topik: string
-  sasaran: string
-  sasaran_indikator: string
-  sasaran_target: string
-  periode: string
-  direktorat: string
+  sasaran: string[]
   indikator: IndikatorDto[]
   profile_risiko: ProfileRiskDto[]
+  periode:string
 }
 
 export type GetIdentificationRiskServiceModel = BaseAPIServiceParam & {

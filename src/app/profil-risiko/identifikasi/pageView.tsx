@@ -4,7 +4,7 @@ import ContentPage from "@/app/components/contents";
 import React, { useEffect, useMemo } from "react";
 import {
   Box,
-  Button,
+  Button, Chip,
   DialogActions,
   FormControl,
   Paper,
@@ -78,41 +78,89 @@ export default function PageIdentifikasiView({}) {
         size: 250,
         enableColumnActions: false,
       },
-      // {
-      //   accessorKey: "pemilik",
-      //   header: "Pemilik Risiko MRPN Linsek",
-      //   size: 250,
-      //   enableColumnActions: false,
-      // },
       {
-        accessorKey: "pemilik",
+        accessorKey: "kategori_risiko",
         header: "Kategori Risiko",
         size: 200,
         enableColumnActions: false,
       },
       {
-        accessorKey: "penyebab",
+        accessorKey: "penyebab_dampak",
         header: "Penyebab",
         enableColumnActions: false,
+        Cell: ({cell}: { cell: any }) => (
+          <Paper
+            elevation={0}
+            sx={{
+              overflow: "auto",
+              maxHeight: 160,
+              backgroundColor: "transparent",
+              "&::-webkit-scrollbar": {
+                width: "3px",
+              },
+            }}
+          >
+            <Stack gap={1}>
+              {cell.getValue().penyebab.map((itemDesc: any, index: any) => (
+                itemDesc &&
+                <Chip
+                    key={index}
+                    sx={{
+                      height: "auto",
+                      py: 1,
+                      "& .MuiChip-label": {
+                        overflow: "unset",
+                        whiteSpace: "wrap",
+                      },
+                    }}
+                    label={itemDesc}
+                />
+              ))}
+            </Stack>
+          </Paper>
+        ),
       },
       {
-        accessorKey: "dampak",
+        accessorKey: "penyebab_dampak",
         header: "Dampak",
         enableColumnActions: false,
+        Cell: ({cell}: { cell: any }) => (
+          <Paper
+            elevation={0}
+            sx={{
+              overflow: "auto",
+              maxHeight: 160,
+              backgroundColor: "transparent",
+              "&::-webkit-scrollbar": {
+                width: "3px",
+              },
+            }}
+          >
+            <Stack gap={1}>
+              {cell.getValue().dampak.map((itemDesc: any, index: any) => (
+                itemDesc &&
+                <Chip
+                    key={index}
+                    sx={{
+                      height: "auto",
+                      py: 1,
+                      "& .MuiChip-label": {
+                        overflow: "unset",
+                        whiteSpace: "wrap",
+                      },
+                    }}
+                    label={itemDesc}
+                />
+              ))}
+            </Stack>
+          </Paper>
+        ),
       },
-    ],
-    []
-  );
-
-  const data = dataIdentificationRisk?.profile_risiko ?? [];
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    ...advancedTable,
-    displayColumnDefOptions: {
-      "mrt-row-actions": {
-        header: "",
-        size: 150,
+      {
+        accessorKey: "kategori_risiko",
+        header: "Action",
+        size: 200,
+        enableColumnActions: false,
         Cell: (item: any) => (
           <ActionColumn
             viewClick={
@@ -133,7 +181,40 @@ export default function PageIdentifikasiView({}) {
           />
         ),
       },
-    },
+    ],
+    []
+  );
+
+  const data = dataIdentificationRisk?.profile_risiko ?? [];
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    // ...advancedTable,
+    // displayColumnDefOptions: {
+    //   "mrt-row-actions": {
+    //     header: "",
+    //     size: 150,
+    //     Cell: (item: any) => (
+    //       <ActionColumn
+    //         viewClick={
+    //           hasPrivilege(permission, pathname, "list")
+    //             ? () => actionModal(true, "read", item.cell.row.original.id)
+    //             : undefined
+    //         }
+    //         editClick={
+    //           hasPrivilege(permission, pathname, "update")
+    //             ? () => actionModal(true, "update", item.cell.row.original.id)
+    //             : undefined
+    //         }
+    //         deleteClick={
+    //           hasPrivilege(permission, pathname, "delete")
+    //             ? () => actionModal(true, "delete", item.cell.row.original.id)
+    //             : undefined
+    //         }
+    //       />
+    //     ),
+    //   },
+    // },
     initialState: {
       showGlobalFilter: true,
     },
@@ -206,7 +287,7 @@ export default function PageIdentifikasiView({}) {
         ) : (
           <Stack gap={2}>
             <Paper elevation={2} sx={{ borderRadius: "1.25rem", p: 0, m: 1 }}>
-              <HeaderTable asTable viewOnly data={dataRiskOverview?.object} />
+              <HeaderTable asTable viewOnly data={dataIdentificationRisk} />
               {/* <HeaderIdentifikasi
                 asTable
                 viewOnly

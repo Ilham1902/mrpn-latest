@@ -97,61 +97,6 @@ export default function FormTable({
 
    <Grid container spacing={2}>
     <>
-     <Grid item xs={12}>
-      <Divider>
-       <Chip label="Indikator Sasaran" size="small" />
-      </Divider>
-     </Grid>
-
-     <Grid item xs={12}>
-      <Table size="small">
-       <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-        <TableRow>
-         <TableCell rowSpan={2}>Indikator</TableCell>
-         <TableCell colSpan={2} align="center">
-          Target
-         </TableCell>
-         <TableCell rowSpan={2}>Anggaran</TableCell>
-         <TableCell rowSpan={2}>Objek MRPN</TableCell>
-        </TableRow>
-        <TableRow>
-         <TableCell>Nilai</TableCell>
-         <TableCell>Satuan</TableCell>
-        </TableRow>
-       </TableHead>
-       <TableBody>
-        {mode === "add" ? (
-         <TableRow>
-          <TableCell colSpan={8}>
-           <EmptyState
-            icon={<IconEmptyData />}
-            title="Data Kosong"
-            description="Silahkan isi konten tabel ini"
-           />
-          </TableCell>
-         </TableRow>
-        ) : (
-         <>
-          {data &&
-           data.indikator.map((row) => (
-            <TableRow
-             key={row.id}
-             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-             <TableCell>{row.value}</TableCell>
-             <TableCell sx={{ textAlign: "center" }}>
-              {getTarget(row)}
-             </TableCell>
-             <TableCell>{row.satuan}</TableCell>
-             <TableCell sx={{ textAlign: "right" }}>{"Rp N/A"}</TableCell>
-             <TableCell>{"-"}</TableCell>
-            </TableRow>
-           ))}
-         </>
-        )}
-       </TableBody>
-      </Table>
-     </Grid>
 
      <Grid item xs={12}>
       <Divider />
