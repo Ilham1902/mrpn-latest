@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  alpha,
   Box,
   Button,
   Collapse,
@@ -19,13 +20,13 @@ import {
   Typography,
 } from "@mui/material";
 import theme from "@/theme";
-import {IconFA} from "@/app/components/icons/icon-fa";
-import {blue, green, grey, red} from "@mui/material/colors";
-import {dataTema} from "../../dataTema";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import { blue, green, grey, red } from "@mui/material/colors";
+import { dataTema } from "../../dataTema";
 import EmptyState from "@/app/components/empty";
-import {IconEmptyData} from "@/app/components/icons";
-import {ExsumFundRes} from "@/app/executive-summary/partials/tab8Fund/cardFundModel";
-import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
+import { IconEmptyData } from "@/app/components/icons";
+import { ExsumFundRes } from "@/app/executive-summary/partials/tab8Fund/cardFundModel";
+import { RoDto } from "@/app/misc/rkp/rkpServiceModel";
 
 function createData(aspectRo: string) {
   return {
@@ -78,18 +79,18 @@ function createData(aspectRo: string) {
   };
 }
 
-const ChevronBtn = ({name}: { name: string }) => {
+const ChevronBtn = ({ name }: { name: string }) => {
   return (
     <Button
       variant={name === "up" ? "contained" : "outlined"}
-      sx={{width: "auto", p: 1, minWidth: 0}}
+      sx={{ width: "auto", p: 1, minWidth: 0 }}
     >
-      <IconFA name={`chevron-${name}`} size={12}/>
+      <IconFA name={`chevron-${name}`} size={12} />
     </Button>
   );
 };
 
-const FundSource = ({value, isYear}: { value: string; isYear?: boolean }) => {
+const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
   return (
     <Stack
       display="inline-flex"
@@ -124,79 +125,78 @@ const FundSource = ({value, isYear}: { value: string; isYear?: boolean }) => {
   );
 };
 
-const TableFundPPKP = (props: {
-  row?: RoDto[];
-  project: string;
-}) => {
-  const {row, project} = props;
+const TableFundPPKP = (props: { row?: RoDto[]; project: string }) => {
+  const { row, project } = props;
 
   return (
     <Table size="small">
-      <TableHead sx={{bgcolor: theme.palette.primary.light}}>
+      <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
         <TableRow>
-          <TableCell>
-            Intervansi Kunci
-          </TableCell>
-          <TableCell>
-            Indikator
-          </TableCell>
-          <TableCell align="center">
-            Target
-          </TableCell>
+          <TableCell>Intervansi Kunci</TableCell>
+          <TableCell>Indikator</TableCell>
+          <TableCell align="center">Target</TableCell>
           <TableCell>
             Indikasi Alokasi Tahun Rencana
-            <br/>
+            <br />
             (Rp Miliar)
           </TableCell>
           <TableCell>
             Sumber Pendanaan
-            <br/>
+            <br />
             (Belanja KL/DAK/BUMN/Swasta)
           </TableCell>
-          <TableCell>
-            Instansi Pelaksana RO
-          </TableCell>
+          <TableCell>Instansi Pelaksana RO</TableCell>
           <TableCell>
             Lokasi RO
-            <br/>
+            <br />
             (Prov./Kab./Kota)
           </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {row?.map((fundRow, index) =>
+        {row?.map((fundRow, index) => (
           <TableRow key={index}>
-            <TableCell>{fundRow.value}</TableCell>
-            <TableCell>{fundRow.pkkr}</TableCell>
-            <TableCell align="right">{fundRow.target}</TableCell>
-            <TableCell align="right">{fundRow.anggaran}</TableCell>
-            <TableCell>{fundRow.sumber_anggaran}</TableCell>
-            <TableCell>{fundRow.kementrian.value}</TableCell>
-            <TableCell>{fundRow.lokasi_ro}</TableCell>
+            <TableCell sx={{ verticalAlign: "top" }}>{fundRow.value}</TableCell>
+            <TableCell sx={{ verticalAlign: "top" }}>{fundRow.pkkr}</TableCell>
+            <TableCell align="right" sx={{ verticalAlign: "top" }}>
+              {fundRow.target}
+            </TableCell>
+            <TableCell align="right" sx={{ verticalAlign: "top" }}>
+              {fundRow.anggaran}
+            </TableCell>
+            <TableCell sx={{ verticalAlign: "top" }}>
+              {fundRow.sumber_anggaran}
+            </TableCell>
+            <TableCell sx={{ verticalAlign: "top" }}>
+              {fundRow.kementrian.value}
+            </TableCell>
+            <TableCell sx={{ verticalAlign: "top" }}>
+              {fundRow.lokasi_ro}
+            </TableCell>
           </TableRow>
-        )}
+        ))}
       </TableBody>
     </Table>
   );
 };
 
 function Row(props: { row: ExsumFundRes; project: string }) {
-  const {row, project} = props;
+  const { row, project } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
     <>
-      <TableRow sx={{"& > *": {borderBottom: "unset"}}}>
-        <TableCell width={70} sx={{py: 0.5}}>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        <TableCell width={70} sx={{ py: 0.5 }}>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <ChevronBtn name="up"/> : <ChevronBtn name="down"/>}
+            {open ? <ChevronBtn name="up" /> : <ChevronBtn name="down" />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" sx={{py: 0.5, pl: 0}}>
+        <TableCell component="th" scope="row" sx={{ py: 0.5, pl: 0 }}>
           <Typography component="span" color={grey[600]}>
             Proyek Prioritas:
           </Typography>{" "}
@@ -204,9 +204,9 @@ function Row(props: { row: ExsumFundRes; project: string }) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={2} sx={{p: 0}}>
+        <TableCell colSpan={2} sx={{ p: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <TableFundPPKP row={row.intervensi} project="KP"/>
+            <TableFundPPKP row={row.intervensi} project="KP" />
           </Collapse>
         </TableCell>
       </TableRow>
@@ -221,25 +221,22 @@ const rows = [
   createData("Pelayanan gizi masyarakat di kab/kota"),
 ];
 
-export default function TableFund(
-  {
-    project,
-    data
-  }: {
-    project: string
-    data: ExsumFundRes[]
-  }
-) {
-
+export default function TableFund({
+  project,
+  data,
+}: {
+  project: string;
+  data: ExsumFundRes[];
+}) {
   return (
     <TableContainer component={Paper} elevation={0}>
       <Table aria-label="collapsible table">
         <TableBody>
           {data.map((row, index) => (
-            <Row key={index} row={row} project="KP"/>
+            <Row key={index} row={row} project="KP" />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  )
+  );
 }

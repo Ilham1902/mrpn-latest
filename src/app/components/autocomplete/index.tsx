@@ -2,6 +2,7 @@ import React from "react";
 import {
   Autocomplete,
   Box,
+  Button,
   Checkbox,
   Divider,
   FormControlLabel,
@@ -22,6 +23,7 @@ export interface AutoCompleteMultipleProp<T> {
   placeHolder: string;
   labelSelectAll: string;
   bgWhite?: boolean | any;
+  actionButton?: any;
 }
 
 export function AutocompleteSelectMultiple<T>({
@@ -32,6 +34,7 @@ export function AutocompleteSelectMultiple<T>({
   placeHolder,
   labelSelectAll,
   bgWhite,
+  actionButton,
 }: AutoCompleteMultipleProp<T>) {
   return (
     <Autocomplete
@@ -80,6 +83,12 @@ export function AutocompleteSelectMultiple<T>({
             </Box>
             <Divider />
             {children}
+            {actionButton && (
+              <>
+                <Divider />
+                {actionButton}
+              </>
+            )}
           </Paper>
         );
       }}

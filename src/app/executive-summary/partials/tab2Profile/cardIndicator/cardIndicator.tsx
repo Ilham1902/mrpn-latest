@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Checkbox,
   Paper,
@@ -8,49 +8,45 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
 import EmptyState from "@/components/empty";
-import {IconEmptyData} from "@/components/icons";
+import { IconEmptyData } from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import useCardSupportVM from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportVM";
-import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
-import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import { useExsumContext, useRKPContext } from "@/lib/core/hooks/useHooks";
+import { IndikatorDto } from "@/app/misc/rkp/rkpServiceModel";
 import useCardIndikatorVM from "@/app/executive-summary/partials/tab2Profile/cardIndicator/cardIndikatorVM";
 import theme from "@/theme";
-import {DasarPemilihan} from "@/app/penetapan/objek/pageModel";
+import { DasarPemilihan } from "@/app/penetapan/objek/pageModel";
 
 export const getLevel = (level: string) => {
   switch (level) {
     case "PN":
-      return "PN"
+      return "PN";
     case "PP":
-      return "PN"
+      return "PN";
     case "KP":
-      return "PP"
+      return "PP";
     case "PROP":
-      return "KP"
+      return "KP";
     case "P":
-      return "PROP"
+      return "PROP";
     default:
-      return "KP"
+      return "KP";
   }
-}
+};
 
-export default function CardIndicator({project}: { project: string }) {
+export default function CardIndicator({ project }: { project: string }) {
+  const { exsum } = useExsumContext();
 
-  const {exsum} = useExsumContext()
-
-  const {
-    indikatorKP,
-    getIndikatorProject
-  } = useCardIndikatorVM()
+  const { indikatorKP, getIndikatorProject } = useCardIndikatorVM();
 
   useEffect(() => {
-    getIndikatorProject()
+    getIndikatorProject();
   }, [exsum]);
 
-  const {rpjmn, year} = useRKPContext((store) => store);
+  const { rpjmn, year } = useRKPContext((store) => store);
 
   const getTarget = (indikator: IndikatorDto) => {
     let index = 0;
@@ -92,7 +88,7 @@ export default function CardIndicator({project}: { project: string }) {
       {indikatorKP.length == 0 ? (
         <EmptyState
           dense
-          icon={<IconEmptyData width={100}/>}
+          icon={<IconEmptyData width={100} />}
           title="Data Kosong"
           description="Silahkan isi konten halaman ini"
         />
@@ -101,12 +97,8 @@ export default function CardIndicator({project}: { project: string }) {
           <Table sx={{ minWidth: 650 }} size="small">
             <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
               <TableRow>
-                <TableCell>
-                  Indikator
-                </TableCell>
-                <TableCell align="center">
-                  Target
-                </TableCell>
+                <TableCell>Indikator</TableCell>
+                <TableCell align="center">Target</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

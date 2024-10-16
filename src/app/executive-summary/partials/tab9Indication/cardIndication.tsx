@@ -11,6 +11,8 @@ import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
+import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsVM";
+import DialogDelete from "@/app/components/dialogDelete";
 
 export default function CardIndication({ project }: { project: string }) {
   const {
@@ -29,7 +31,7 @@ export default function CardIndication({ project }: { project: string }) {
     setModalOpenDelete,
     handleModalOpenDelete,
     deleteData,
-    dataTOWS
+    dataTOWS,
   } = useCardIndicationVM();
 
   const { permission } = useAuthContext((state) => state);
@@ -122,27 +124,12 @@ export default function CardIndication({ project }: { project: string }) {
           optionTOWS={dataTOWS}
         />
       </DialogComponent>
-
-      <DialogComponent
-        width={240}
-        dialogOpen={modalOpenDelete}
-        dialogClose={() => setModalOpenDelete(false)}
+      <DialogDelete
         title="Hapus Data"
-        dialogFooter={
-          <DialogActions sx={{ p: 2, px: 3 }}>
-            <Button onClick={() => setModalOpenDelete(false)}>Batal</Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => deleteData()}
-            >
-              Hapus
-            </Button>
-          </DialogActions>
-        }
-      >
-        Anda yakin akan menghapus data ini?
-      </DialogComponent>
+        handleOpenModal={modalOpenDelete}
+        handleCloseModal={() => setModalOpenDelete(false)}
+        handleDelete={() => deleteData()}
+      />
     </>
   );
 }

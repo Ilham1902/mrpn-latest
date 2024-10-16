@@ -1,29 +1,23 @@
-import {RoDto} from "@/app/misc/rkp/rkpServiceModel";
-import {Box, Chip} from "@mui/material";
+import { RoDto } from "@/app/misc/rkp/rkpServiceModel";
+import { Box, Chip, Stack } from "@mui/material";
 import {
   MaterialReactTable,
-  MRT_RowSelectionState,
   useMaterialReactTable,
 } from "material-react-table";
-import React, {SetStateAction, useMemo} from "react";
-import {FormatIDR} from "@/lib/utils/currency";
-import {
-  ExsumInterventionState
-} from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
-import {advancedTable} from "@/app/components/table";
+import React, { useMemo } from "react";
+import { FormatIDR } from "@/lib/utils/currency";
+import { advancedTable } from "@/app/components/table";
 import ActionColumn from "@/components/actions/action";
 
-export default function TableProfilIntervensi(
-  {
-    data,
-    deleteData,
-    updateData
-  }: {
-    data: RoDto[]
-    deleteData?:any
-    updateData?:any
-  }
-) {
+export default function TableProfilIntervensi({
+  data,
+  deleteData,
+  updateData,
+}: {
+  data: RoDto[];
+  deleteData?: any;
+  updateData?: any;
+}) {
   const columns = useMemo(
     () => [
       {
@@ -32,6 +26,13 @@ export default function TableProfilIntervensi(
         size: 130,
         enableColumnFilterModes: true,
         filterFns: "contains",
+        Cell: (item: any) => {
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.tahun}
+            </Stack>
+          );
+        },
       },
       {
         accessorKey: "code",
@@ -39,6 +40,13 @@ export default function TableProfilIntervensi(
         size: 180,
         enableColumnFilterModes: true,
         filterFns: "contains",
+        Cell: (item: any) => {
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.code}
+            </Stack>
+          );
+        },
       },
       {
         accessorKey: "intervention",
@@ -47,10 +55,16 @@ export default function TableProfilIntervensi(
         filterFns: "contains",
         Cell: (item: any) => {
           const value =
-            item.row.original.intervention == true ? "Intervensi Kunci" : "Reguler";
+            item.row.original.intervention == true
+              ? "Intervensi Kunci"
+              : "Reguler";
           const color =
             item.row.original.intervention == true ? "primary" : "default";
-          return <Chip size="small" color={color} label={value}/>;
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              <Chip size="small" color={color} label={value} />
+            </Stack>
+          );
         },
       },
       {
@@ -59,18 +73,36 @@ export default function TableProfilIntervensi(
         size: 210,
         enableColumnFilterModes: true,
         Cell: (item: any) => {
-          return item.row.original.kementrian.value;
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.kementrian.value}
+            </Stack>
+          );
         },
       },
       {
         accessorKey: "value",
         header: "Nomenklatur RO/Project",
         size: 350,
+        Cell: (item: any) => {
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.value}
+            </Stack>
+          );
+        },
       },
       {
         accessorKey: "target",
         header: "Target",
         size: 150,
+        Cell: (item: any) => {
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.target}
+            </Stack>
+          );
+        },
       },
       {
         accessorKey: "anggaran",
@@ -78,7 +110,16 @@ export default function TableProfilIntervensi(
         size: 150,
         Cell: (item: any) => {
           const value = FormatIDR(item.row.original.anggaran);
-          return <div style={{textAlign: "right", width: "100%"}}>{value}</div>;
+          return (
+            <Stack
+              width="100%"
+              height="100%"
+              alignItems="flex-end"
+              justifyContent="flex-start"
+            >
+              {value}
+            </Stack>
+          );
         },
       },
       {
@@ -87,15 +128,17 @@ export default function TableProfilIntervensi(
         size: 200,
       },
       {
-        accessorKey: "sumber_anggaran",
-        header: "Action",
-        size: 200,
+        accessorKey: "action",
+        header: "Aksi",
+        size: 100,
         Cell: (item: any) => {
-          const isNonRO = item.row.original.type == 'NON_RO'
-          return isNonRO ? <ActionColumn
-            editClick={() => updateData(item.row.original.id)}
-            deleteClick={() => deleteData(item.row.original.id)}
-          /> : null
+          const isNonRO = item.row.original.type == "NON_RO";
+          return isNonRO ? (
+            <ActionColumn
+              editClick={() => updateData(item.row.original.id)}
+              deleteClick={() => deleteData(item.row.original.id)}
+            />
+          ) : null;
         },
       },
     ],
@@ -105,24 +148,12 @@ export default function TableProfilIntervensi(
   const table = useMaterialReactTable({
     columns,
     data,
-    // ...advancedTable,
+    ...advancedTable,
+    enableRowActions: false,
     enableStickyHeader: true,
     enableStickyFooter: true,
-    muiTableContainerProps: {sx: {maxHeight: "28vh"}},
+    muiTableContainerProps: { sx: { maxHeight: "28vh" } },
     getRowId: (row) => row.id.toString(),
-    // displayColumnDefOptions: {
-    //   "mrt-row-actions": {
-    //     header: "Action",
-    //     size: 150,
-    //     Cell: () => (
-    //       <ActionColumn
-    //         viewClick={() => console.log("xxxx")}
-    //         editClick={() => console.log("xxxx")}
-    //         deleteClick={() => console.log("xxxx")}
-    //       />
-    //     ),
-    //   },
-    // },
     initialState: {
       showGlobalFilter: true,
     },
@@ -130,15 +161,22 @@ export default function TableProfilIntervensi(
 
   return (
     <Box
-      className="table-collapsed card-level-3"
+      className="table-collapsed card-level-3 thead-blue"
       sx={{
         ".MuiPaper-root": {
           m: 0,
           boxShadow: "none",
         },
+        ".MuiTableContainer-root": {
+          "&::-webkit-scrollbar": {
+            height: "6px",
+            width: "6px",
+            cursor: "pointer",
+          },
+        },
       }}
     >
-      <MaterialReactTable key={data.length} table={table}/>
+      <MaterialReactTable key={data.length} table={table} />
     </Box>
   );
 }

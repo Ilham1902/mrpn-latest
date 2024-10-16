@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import {
+  alpha,
   Autocomplete,
   Box,
   Button,
@@ -154,7 +155,7 @@ const GenerateCard = ({
       flex={1}
     >
       <Box
-        bgcolor={grey[200]}
+        bgcolor={alpha(theme.palette.primary.main, 0.1)}
         textAlign="center"
         p={1.5}
         borderRadius={2}

@@ -9,6 +9,7 @@ import {
   Icon,
   Stack,
   Zoom,
+  alpha,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -165,6 +166,11 @@ export default function DashboardLayout(props: {
       "&.card-level-3": {
         ".MuiTableContainer-root": {
           maxWidth: checked ? "calc(100vw - 424px)" : "calc(100vw - 208px)",
+        },
+      },
+      "&.thead-blue": {
+        ".MuiTableCell-head": {
+          backgroundColor: `${alpha(theme.palette.primary.main, 0.1)}`,
         },
       },
     },
