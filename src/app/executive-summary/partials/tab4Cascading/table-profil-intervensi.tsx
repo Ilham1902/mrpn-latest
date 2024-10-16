@@ -152,7 +152,7 @@ export default function TableProfilIntervensi({
     enableRowActions: false,
     enableStickyHeader: true,
     enableStickyFooter: true,
-    muiTableContainerProps: { sx: { maxHeight: "28vh" } },
+    // muiTableContainerProps: { sx: { maxHeight: "28vh" } },
     getRowId: (row) => row.id.toString(),
     initialState: {
       showGlobalFilter: true,
@@ -168,6 +168,7 @@ export default function TableProfilIntervensi({
           boxShadow: "none",
         },
         ".MuiTableContainer-root": {
+          maxHeight: "calc(100vh - 690px)",
           "&::-webkit-scrollbar": {
             height: "6px",
             width: "6px",

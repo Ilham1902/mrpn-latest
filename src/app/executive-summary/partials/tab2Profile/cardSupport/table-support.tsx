@@ -15,8 +15,8 @@ import theme from "@/theme";
 import { dataTema } from "../../../dataTema";
 import { ExsumSupportProjectRes } from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportModel";
 import { ExsumDto } from "@/lib/core/context/exsumContext";
-import {useRKPContext} from "@/lib/core/hooks/useHooks";
-import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import { useRKPContext } from "@/lib/core/hooks/useHooks";
+import { IndikatorDto } from "@/app/misc/rkp/rkpServiceModel";
 
 export const getLevel = (level: string) => {
   switch (level) {
@@ -42,7 +42,6 @@ export default function TableSupport({
   data: ExsumSupportProjectRes;
   exsum: ExsumDto;
 }) {
-
   const { rpjmn, year } = useRKPContext((store) => store);
 
   const getTarget = (indikator: IndikatorDto) => {
@@ -58,22 +57,22 @@ export default function TableSupport({
     let target = "";
     switch (index) {
       case 0:
-        target = indikator.target_0 +" "+indikator.satuan;
+        target = indikator.target_0 + " " + indikator.satuan;
         break;
       case 1:
-        target = indikator.target_1 +" "+indikator.satuan;
+        target = indikator.target_1 + " " + indikator.satuan;
         break;
       case 2:
-        target = indikator.target_2 +" "+indikator.satuan;
+        target = indikator.target_2 + " " + indikator.satuan;
         break;
       case 3:
-        target = indikator.target_3 +" "+indikator.satuan;
+        target = indikator.target_3 + " " + indikator.satuan;
         break;
       case 4:
-        target = indikator.target_4 +" "+indikator.satuan;
+        target = indikator.target_4 + " " + indikator.satuan;
         break;
       default:
-        target = indikator.target_0 +" "+indikator.satuan;
+        target = indikator.target_0 + " " + indikator.satuan;
         break;
     }
 
@@ -85,21 +84,13 @@ export default function TableSupport({
       <Table sx={{ minWidth: 650 }} size="small">
         <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
           <TableRow>
-            <TableCell>
-                {getLevel(exsum.level)}
-            </TableCell>
+            <TableCell>{getLevel(exsum.level)}</TableCell>
             <TableCell width={200}>
-                Kode Sasaran {getLevel(exsum.level)}
+              Kode Sasaran {getLevel(exsum.level)}
             </TableCell>
-            <TableCell width="40%">
-                Sasaran {getLevel(exsum.level)}
-            </TableCell>
-            <TableCell>
-                Indikator
-            </TableCell>
-            <TableCell>
-                Target
-            </TableCell>
+            <TableCell width="40%">Sasaran {getLevel(exsum.level)}</TableCell>
+            <TableCell>Indikator</TableCell>
+            <TableCell width={200}>Target</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -114,35 +105,39 @@ export default function TableSupport({
                     )}
                     sx={{ verticalAlign: "top" }}
                   >
-                      {data.value}
+                    {data.value}
                   </TableCell>
                 )}
                 <TableCell
                   rowSpan={sasaran.indikator.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                    {sasaran.code}
+                  {sasaran.code}
                 </TableCell>
                 <TableCell
                   rowSpan={sasaran.indikator.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                    {sasaran.value}
+                  {sasaran.value}
                 </TableCell>
-                <TableCell>
-                    {sasaran.indikator.length > 0 ? sasaran.indikator[0].value : ""}
+                <TableCell sx={{ verticalAlign: "top" }}>
+                  {sasaran.indikator.length > 0
+                    ? sasaran.indikator[0].value
+                    : ""}
                 </TableCell>
-                <TableCell align={"right"}>
-                    {sasaran.indikator.length > 0 ? getTarget(sasaran.indikator[0]) : ""}
+                <TableCell align={"right"} sx={{ verticalAlign: "top" }}>
+                  {sasaran.indikator.length > 0
+                    ? getTarget(sasaran.indikator[0])
+                    : ""}
                 </TableCell>
               </TableRow>
               {sasaran.indikator.slice(1).map((indikator, i) => (
                 <TableRow key={`indikator-${index}-${i}`}>
-                  <TableCell>
-                      {indikator.value}
+                  <TableCell sx={{ verticalAlign: "top" }}>
+                    {indikator.value}
                   </TableCell>
-                  <TableCell align={"right"}>
-                      {getTarget(indikator)}
+                  <TableCell align={"right"} sx={{ verticalAlign: "top" }}>
+                    {getTarget(indikator)}
                   </TableCell>
                 </TableRow>
               ))}

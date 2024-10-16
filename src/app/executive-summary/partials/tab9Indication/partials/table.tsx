@@ -54,7 +54,7 @@ export default function TableIndication({
               hasPrivilege(permission, pathname, "delete")) && (
               <TableCell>
                 <Typography variant="body1" fontWeight={600}>
-                  Action
+                  Aksi
                 </Typography>
               </TableCell>
             )}
@@ -146,25 +146,24 @@ export default function TableIndication({
                       {row.kategori_risiko}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ verticalAlign: "top" }}>
                     <Typography variant="body1">
                       {row.perlakuan.length > 0 &&
                         row.perlakuan[0].perlakuan_risiko}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ verticalAlign: "top" }}>
                     <Typography variant="body1">
                       {row.perlakuan.length > 0 && row.perlakuan[0].ro.value}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ verticalAlign: "middle" }}>
+                  <TableCell sx={{ verticalAlign: "top" }}>
                     {row.perlakuan.length > 0 && (
                       <Stack gap={0.5}>
                         <Stack gap={0.5}>
                           <Paper
-                            variant="outlined"
                             elevation={0}
-                            sx={{ p: "4px 8px", width: 400, bgcolor: grey[50] }}
+                            sx={{ width: 400, bgcolor: grey[50] }}
                           >
                             <Stack
                               marginTop={"10px"}
@@ -211,12 +210,11 @@ export default function TableIndication({
                         {perlakuan.ro.value}
                       </Typography>
                     </TableCell>
-                    <TableCell sx={{ verticalAlign: "middle" }}>
+                    <TableCell sx={{ verticalAlign: "top" }}>
                       <Stack gap={0.5}>
                         <Paper
-                          variant="outlined"
                           elevation={0}
-                          sx={{ p: "4px 8px", width: 400, bgcolor: grey[50] }}
+                          sx={{ width: 400, bgcolor: grey[50] }}
                         >
                           <Stack
                             marginTop={"10px"}

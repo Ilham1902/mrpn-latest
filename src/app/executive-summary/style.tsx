@@ -10,7 +10,8 @@ export const styleTabPanel = (params: SxParams) => {
     mt: params.tabLevel === "1" ? 0 : params.tabLevel === "2" ? 1 : 2,
     height:
       params.tabLevel === "0"
-        ? "calc(100vh - 330px)"
+        ? // ? "calc(100vh - 330px)"
+          "calc(100vh - 394px)"
         : params.tabLevel === "1"
         ? "auto"
         : params.tabLevel === "2"
@@ -204,7 +205,7 @@ export const styleOrgChart = (params: SxParams) => {
           p: 0,
           m: "0 5px",
           minWidth: 300,
-          maxWidth: 300,
+          maxWidth: 500,
           "&:before, &:after": {
             bgcolor: grey[400],
             height: 15,
