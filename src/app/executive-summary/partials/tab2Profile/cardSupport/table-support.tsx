@@ -85,29 +85,19 @@ export default function TableSupport({
         <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
           <TableRow>
             <TableCell>
-              <Typography variant="body1" fontWeight={600}>
                 {getLevel(exsum.level)}
-              </Typography>
             </TableCell>
             <TableCell width={200}>
-              <Typography variant="body1" fontWeight={600}>
                 Kode Sasaran {getLevel(exsum.level)}
-              </Typography>
             </TableCell>
             <TableCell width="40%">
-              <Typography variant="body1" fontWeight={600}>
                 Sasaran {getLevel(exsum.level)}
-              </Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="body1" fontWeight={600}>
                 Indikator
-              </Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="body1" fontWeight={600}>
                 Target
-              </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -123,41 +113,35 @@ export default function TableSupport({
                     )}
                     sx={{ verticalAlign: "top" }}
                   >
-                    <Typography variant="body1">{data.value}</Typography>
+                      {data.value}
                   </TableCell>
                 )}
                 <TableCell
                   rowSpan={sasaran.indikator.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                  <Typography variant="body1">{sasaran.code}</Typography>
+                    {sasaran.code}
                 </TableCell>
                 <TableCell
                   rowSpan={sasaran.indikator.length}
                   sx={{ verticalAlign: "top" }}
                 >
-                  <Typography variant="body1">{sasaran.value}</Typography>
+                    {sasaran.value}
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body1">
                     {sasaran.indikator.length > 0 ? sasaran.indikator[0].value : ""}
-                  </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body1">
+                <TableCell align={"right"}>
                     {sasaran.indikator.length > 0 ? getTarget(sasaran.indikator[0]) : ""}
-                  </Typography>
                 </TableCell>
               </TableRow>
               {sasaran.indikator.slice(1).map((indikator, i) => (
                 <TableRow key={`indikator-${index}-${i}`}>
                   <TableCell>
-                    <Typography variant="body1">{indikator.value}</Typography>
+                      {indikator.value}
                   </TableCell>
-                  <TableCell>
-                    <Typography variant="body1">
+                  <TableCell align={"right"}>
                       {getTarget(indikator)}
-                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

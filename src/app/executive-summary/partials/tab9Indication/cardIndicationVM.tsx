@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {
   COORDINATOR,
   ExsumIndicationReqDto, ExsumIndicationResDto,
-  ExsumIndicationState, ExsumIndicationValueReqDto, IndicationReqDto,
+  ExsumIndicationState, ExsumIndicationStateValue, ExsumIndicationValueReqDto, IndicationReqDto,
   initStateExsumIndication, MAIN, OthersEntityState, StakeholderReqDto, StakeholderResDto, StakeholderResGroupDto
 } from "@/app/executive-summary/partials/tab9Indication/cardIndicationModel";
 import {
@@ -129,30 +129,39 @@ const useCardIndicationVM = () => {
 
       let stakeholders:StakeholderReqDto[] = []
 
-      const coordinatorStakeholder = value.stakeholder.coordinator
-      if (coordinatorStakeholder == undefined) return
-      stakeholders.push({
-        type: COORDINATOR,
-        id: coordinatorStakeholder.id
-      })
+      // const coordinatorStakeholder = value.stakeholder.coordinator
+      // if (coordinatorStakeholder == undefined) return
+      // stakeholders.push({
+      //   type: COORDINATOR,
+      //   id: coordinatorStakeholder.id
+      // })
+      //
+      // const mainStakeholder = value.stakeholder.main
+      // if (mainStakeholder == undefined) return
+      // mainStakeholder.map(d => {
+      //   stakeholders.push({
+      //     type: MAIN,
+      //     id: d.id
+      //   })
+      // })
+      //
+      // const othersStakeholder = value.stakeholder.others
+      // if (othersStakeholder == undefined) return
+      // othersStakeholder.map(d => {
+      //   d.entity.map(e => {
+      //     stakeholders.push({
+      //       type: d.type,
+      //       id: e.id
+      //     })
+      //   })
+      // })
 
-      const mainStakeholder = value.stakeholder.main
+      const mainStakeholder = value.stakeholderMultiple
       if (mainStakeholder == undefined) return
       mainStakeholder.map(d => {
         stakeholders.push({
           type: MAIN,
           id: d.id
-        })
-      })
-
-      const othersStakeholder = value.stakeholder.others
-      if (othersStakeholder == undefined) return
-      othersStakeholder.map(d => {
-        d.entity.map(e => {
-          stakeholders.push({
-            type: d.type,
-            id: e.id
-          })
         })
       })
 
@@ -224,29 +233,35 @@ const useCardIndicationVM = () => {
       const initState:ExsumIndicationState = JSON.parse(JSON.stringify(initStateExsumIndication))
       setState(initState)
     } else {
-      // const getIndex = data.findIndex(x => x.id)
-      // const dataByIndex = data[getIndex]
-      // let otherEntityState:OthersEntityState[] = []
-      // for (const key in dataByIndex.groupStakeholder){
-      //   if (key !== COORDINATOR && key !== MAIN){
-      //     otherEntityState.push({
-      //       type: key,
-      //       entity: dataByIndex.groupStakeholder[key]
-      //     })
-      //   }
-      // }
-      // const stateData:ExsumIndicationState = {
-      //   id:id,
-      //   kategori_risiko: dataByIndex.jenis,
-      //   kejadian: dataByIndex.kejadian,
-      //   rincian_output: dataByIndex.perlakuan,
-      //   entity: {
-      //     coordinator: dataByIndex.groupStakeholder[COORDINATOR] ? dataByIndex.groupStakeholder[COORDINATOR][0] : undefined,
-      //     main: dataByIndex.groupStakeholder[MAIN] ? dataByIndex.groupStakeholder[MAIN] : [],
-      //     others: otherEntityState
-      //   }
-      // }
-      // setState(stateData)
+
+      const getIndex = data.findIndex(x => x.id == id)
+      const dataByIndex = data[getIndex]
+
+      let values:ExsumIndicationStateValue[] = []
+      dataByIndex.perlakuan.map(prl => {
+        const val:ExsumIndicationStateValue = {
+          id: prl.id,
+          perlakuan_risiko: prl.perlakuan_risiko,
+          rincian_output: prl.ro,
+          stakeholderMultiple: prl.stakeholder,
+          stakeholder: {
+            coordinator: undefined,
+            main: [],
+            others: []
+          }
+        }
+        values.push(val)
+      })
+
+      const stateData:ExsumIndicationState = {
+        id: id,
+        tows: dataByIndex.tows,
+        indikasi_risiko: dataByIndex.indikasi_risiko,
+        kategori_risiko: dataByIndex.kategori_risiko,
+        values: values
+      }
+      setState(stateData)
+
     }
     setModalOpen(true);
   };

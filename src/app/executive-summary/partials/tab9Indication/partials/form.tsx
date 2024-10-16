@@ -46,8 +46,6 @@ export default function FormIndication({
   optionRO: RoDto[];
   optionTOWS: ExsumTWOSDto[]
 }) {
-  const [itemMenu, setItemMenu] = React.useState([{ id: 1 }]);
-
   const addMenu = () => {
     setState((prevState) => {
       const prevValues = prevState.values
@@ -55,6 +53,7 @@ export default function FormIndication({
         id:prevValues.length,
         perlakuan_risiko: "",
         rincian_output: undefined,
+        stakeholderMultiple:[],
         stakeholder: {
           coordinator: undefined,
           main: [],
@@ -113,6 +112,7 @@ export default function FormIndication({
         <FormControl fullWidth>
           <FieldLabelInfo title="Indikasi Risiko" />
           <TextareaStyled
+            value={state.indikasi_risiko}
             minRows={2}
             aria-label="Tuliskan indikasi risiko"
             placeholder="Tuliskan indikasi risiko"
@@ -252,30 +252,53 @@ yang telah ditetapkan"
                         </FormControl>
                       </Grid>
                       <Grid item xs={12}>
-                        <Paper variant="outlined" sx={{ p: 2 }}>
-                          <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                              <FieldLabelInfo
-                                titleSection
-                                title="PENANGGUNGJAWAB PERLAKUAN"
-                              />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <FormControl fullWidth>
-                                <Typography gutterBottom>
-                                  Indikasi Entitas Utama & Pendukung
-                                </Typography>
-                                <AddEntity
-                                  optionStakeholder={optionStakeholder}
-                                  state={state}
-                                  setState={setState}
-                                  indexTags={index}
-                                />
-                              </FormControl>
-                            </Grid>
-                          </Grid>
-                        </Paper>
+                        <FormControl fullWidth>
+                          <FieldLabelInfo title="K/L PenanggungJawab" titleField />
+                          <AutocompleteSelectMultiple
+                            bgWhite
+                            key={tags.stakeholderMultiple.length}
+                            value={tags.stakeholderMultiple}
+                            options={optionStakeholder}
+                            getOptionLabel={(opt) => opt.value}
+                            handleChange={(newVal: MiscMasterListStakeholderRes[]) => setState((prevState) => {
+                              const prevData = {...prevState};
+                              const getIndex = prevData.values.findIndex(x => x.id === tags.id);
+                              if (getIndex > -1) {
+                                prevData.values[getIndex].stakeholderMultiple = newVal;
+                                return prevData;
+                              }
+                              return prevState;
+                            })}
+                            placeHolder={"Pilih K/L penanggungjawab"}
+                            labelSelectAll={"Pilih semua K/L"}
+                          />
+                        </FormControl>
                       </Grid>
+                      {/*<Grid item xs={12}>*/}
+                      {/*  <Paper variant="outlined" sx={{ p: 2 }}>*/}
+                      {/*    <Grid container spacing={2}>*/}
+                      {/*      <Grid item xs={12}>*/}
+                      {/*        <FieldLabelInfo*/}
+                      {/*          titleSection*/}
+                      {/*          title="PENANGGUNGJAWAB PERLAKUAN"*/}
+                      {/*        />*/}
+                      {/*      </Grid>*/}
+                      {/*      <Grid item xs={12}>*/}
+                      {/*        <FormControl fullWidth>*/}
+                      {/*          <Typography gutterBottom>*/}
+                      {/*            Indikasi Entitas Utama & Pendukung*/}
+                      {/*          </Typography>*/}
+                      {/*          <AddEntity*/}
+                      {/*            optionStakeholder={optionStakeholder}*/}
+                      {/*            state={state}*/}
+                      {/*            setState={setState}*/}
+                      {/*            indexTags={index}*/}
+                      {/*          />*/}
+                      {/*        </FormControl>*/}
+                      {/*      </Grid>*/}
+                      {/*    </Grid>*/}
+                      {/*  </Paper>*/}
+                      {/*</Grid>*/}
                     </Grid>
                   </Paper>
                 </Grid>

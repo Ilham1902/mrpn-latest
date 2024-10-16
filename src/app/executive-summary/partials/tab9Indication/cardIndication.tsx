@@ -11,7 +11,6 @@ import useCardIndicationVM from "@/app/executive-summary/partials/tab9Indication
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
-import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsVM";
 
 export default function CardIndication({ project }: { project: string }) {
   const {
@@ -97,7 +96,7 @@ export default function CardIndication({ project }: { project: string }) {
         width={"50%"}
         dialogOpen={modalOpen}
         dialogClose={handleModalClose}
-        title="Ubah Indikasi Risiko Objek MRPN 5 Tahunan"
+        title="Form Indikasi Risiko Objek MRPN 5 Tahunan"
         dialogFooter={
           <DialogActions sx={{ p: 2, px: 3 }}>
             <Button variant="outlined" onClick={handleModalClose}>
@@ -131,7 +130,7 @@ export default function CardIndication({ project }: { project: string }) {
         title="Hapus Data"
         dialogFooter={
           <DialogActions sx={{ p: 2, px: 3 }}>
-            <Button onClick={handleModalClose}>Batal</Button>
+            <Button onClick={() => setModalOpenDelete(false)}>Batal</Button>
             <Button
               variant="contained"
               color="error"

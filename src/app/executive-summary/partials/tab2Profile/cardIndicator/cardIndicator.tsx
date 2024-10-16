@@ -1,14 +1,27 @@
-import React from "react";
-import { Typography } from "@mui/material";
+import React, {useEffect} from "react";
+import {
+  Checkbox,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography
+} from "@mui/material";
 import EmptyState from "@/components/empty";
-import { IconEmptyData } from "@/components/icons";
+import {IconEmptyData} from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import useCardSupportVM from "@/app/executive-summary/partials/tab2Profile/cardSupport/cardSupportVM";
-import {useRKPContext} from "@/lib/core/hooks/useHooks";
+import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
 import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import useCardIndikatorVM from "@/app/executive-summary/partials/tab2Profile/cardIndicator/cardIndikatorVM";
+import theme from "@/theme";
+import {DasarPemilihan} from "@/app/penetapan/objek/pageModel";
 
-export const getLevel = (level:string) => {
-  switch (level){
+export const getLevel = (level: string) => {
+  switch (level) {
     case "PN":
       return "PN"
     case "PP":
@@ -24,14 +37,20 @@ export const getLevel = (level:string) => {
   }
 }
 
-export default function CardIndicator({ project }: { project: string }) {
+export default function CardIndicator({project}: { project: string }) {
+
+  const {exsum} = useExsumContext()
 
   const {
-    data,
-    exsum
-  } = useCardSupportVM();
+    indikatorKP,
+    getIndikatorProject
+  } = useCardIndikatorVM()
 
-  const { rpjmn, year } = useRKPContext((store) => store);
+  useEffect(() => {
+    getIndikatorProject()
+  }, [exsum]);
+
+  const {rpjmn, year} = useRKPContext((store) => store);
 
   const getTarget = (indikator: IndikatorDto) => {
     let index = 0;
@@ -46,48 +65,61 @@ export default function CardIndicator({ project }: { project: string }) {
     let target = "";
     switch (index) {
       case 0:
-        target = indikator.target_0 +" "+indikator.satuan;
+        target = indikator.target_0 + " " + indikator.satuan;
         break;
       case 1:
-        target = indikator.target_1 +" "+indikator.satuan;
+        target = indikator.target_1 + " " + indikator.satuan;
         break;
       case 2:
-        target = indikator.target_2 +" "+indikator.satuan;
+        target = indikator.target_2 + " " + indikator.satuan;
         break;
       case 3:
-        target = indikator.target_3 +" "+indikator.satuan;
+        target = indikator.target_3 + " " + indikator.satuan;
         break;
       case 4:
-        target = indikator.target_4 +" "+indikator.satuan;
+        target = indikator.target_4 + " " + indikator.satuan;
         break;
       default:
-        target = indikator.target_0 +" "+indikator.satuan;
+        target = indikator.target_0 + " " + indikator.satuan;
         break;
     }
 
     return target;
   };
 
- return (
-  <CardItem title={`Indikator Kinerja Utama ${exsum.level}`}>
-   {data === undefined ? (
-    <EmptyState
-     dense
-     icon={<IconEmptyData width={100} />}
-     title="Data Kosong"
-     description="Silahkan isi konten halaman ini"
-    />
-   ) : (
-     <ul>
-       {data.sasaran.map((sasaran, index) =>
-          sasaran.indikator.map((indikator, index2) => (
-            <li key={index}>
-              <Typography variant="body1">{`${indikator.value} (${getTarget(indikator)})`}</Typography>
-            </li>
-          ))
-       )}
-     </ul>
-   )}
-  </CardItem>
- );
+  return (
+    <CardItem title={`Indikator Kinerja Utama ${exsum.level}`}>
+      {indikatorKP.length == 0 ? (
+        <EmptyState
+          dense
+          icon={<IconEmptyData width={100}/>}
+          title="Data Kosong"
+          description="Silahkan isi konten halaman ini"
+        />
+      ) : (
+        <TableContainer component={Paper} elevation={0} variant="outlined">
+          <Table sx={{ minWidth: 650 }} size="small">
+            <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
+              <TableRow>
+                <TableCell>
+                  Indikator
+                </TableCell>
+                <TableCell align="center">
+                  Target
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {indikatorKP.map((row, i) => (
+                <TableRow key={i}>
+                  <TableCell>{row.value}</TableCell>
+                  <TableCell align={"right"}>{getTarget(row)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </CardItem>
+  );
 }
