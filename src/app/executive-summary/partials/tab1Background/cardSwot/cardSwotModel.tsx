@@ -66,3 +66,7 @@ export type GetSWOTByExsumIdServiceModel = BaseAPIServiceParam & {
 export type UpdateSWOTByExsumIdServiceModel = BaseAPIServiceParam & {
     body: ExsumSWOTRequestDto;
 };
+
+export type DeleteRowSWOTServiceModel = BaseAPIServiceParam & {
+    body: { id:number };
+};

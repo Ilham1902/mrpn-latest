@@ -43,6 +43,7 @@ export default function CardSwot({ project }: { project: string }) {
     modalDelete,
     setModalDelete,
     handleModalDelete,
+    deleteDataRow
   } = useCardSWOTVM();
 
   return (
@@ -101,6 +102,7 @@ export default function CardSwot({ project }: { project: string }) {
         <Grid container spacing={2}>
           {LISTSWOT.map((x, index) => (
             <GetGrid
+              deleteDataRow={deleteDataRow}
               request={request}
               setRequest={setRequest}
               title={x}
@@ -259,10 +261,12 @@ const GetGrid = ({
   request,
   setRequest,
   title,
+  deleteDataRow,
 }: {
   request: ExsumSWOTRequestDto;
   setRequest: any;
   title: string;
+  deleteDataRow:any
 }) => {
   const addNewRow = (type: string) => {
     setRequest((prev: ExsumSWOTRequestDto) => {
@@ -306,6 +310,9 @@ const GetGrid = ({
   const handleDelete = (index: number) => {
     setRequest((prev: ExsumSWOTRequestDto) => {
       const values = [...prev.values];
+
+      deleteDataRow(values[index].id)
+
       values.splice(index, 1);
       return {
         ...prev,

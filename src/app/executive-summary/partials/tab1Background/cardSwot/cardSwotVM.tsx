@@ -12,7 +12,7 @@ import {
   initExsumSWOTResponseDto,
   LISTSWOT,
 } from "./cardSwotModel";
-import { doCreate, doDelete, doGet, doUpdate } from "./cardSwotService";
+import {doCreate, doDelete, doDeleteRow, doGet, doUpdate} from "./cardSwotService";
 
 const useCardSWOTVM = () => {
   const loadingContext = useLoading();
@@ -102,6 +102,15 @@ const useCardSWOTVM = () => {
     getData();
   }
 
+  async function deleteDataRow(id:number){
+    const params = {
+      body: {id:id},
+      loadingContext: loadingContext,
+      errorModalContext: errorModalContext,
+    };
+    await doDeleteRow(params);
+  }
+
   return {
     data,
     setData,
@@ -115,6 +124,7 @@ const useCardSWOTVM = () => {
     modalDelete,
     setModalDelete,
     handleModalDelete,
+    deleteDataRow
   };
 };
 
