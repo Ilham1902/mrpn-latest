@@ -11,14 +11,19 @@ export const styleTabPanel = (params: SxParams) => {
     height:
       params.tabLevel === "0"
         ? "calc(100vh - 330px)"
-        : params.tabLevel === "1"
+        : // "calc(100vh - 394px)"
+        params.tabLevel === "1"
         ? "auto"
         : params.tabLevel === "2"
-        ? "calc(100vh - 456px)"
+        ? "calc(100vh - 454px)"
         : params.tabLevel === "3"
         ? "calc(100vh - 388px)"
         : "calc(100vh - 400px)",
+    // "calc(100vh - 330px)",
     overflow: "auto",
+    ".tab-cascading-diagram": {
+      height: "calc(100vh - 352px)",
+    },
     "&::-webkit-scrollbar": {
       width: "3px",
     },
@@ -154,7 +159,7 @@ export const styleOrgChart = (params: SxParams) => {
   return {
     ".orgchart-container": {
       maxWidth: params.variant === "full" ? "100%" : "calc(100vw - 188px)",
-      maxHeight: params.variant === "full" ? "100%" : "calc(100vh - 525px)",
+      maxHeight: params.variant === "full" ? "100%" : "calc(100vh - 616px)",
       overflow: params.variant === "full" ? "hidden" : "auto",
       height: "auto",
       border: 0,

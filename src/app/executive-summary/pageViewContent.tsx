@@ -46,26 +46,35 @@ function a11yProps(index: number) {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
- const { children, value, index, project, tabLevel, ...other } = props;
+  const { children, value, index, project, tabLevel, classname, ...other } =
+    props;
 
  const sxParams: SxParams = { tabLevel: tabLevel };
 
- return (
-  <div
-   role="tabpanel"
-   hidden={value !== index}
-   id={`simple-tabpanel-${index}`}
-   aria-labelledby={`simple-tab-${index}`}
-   {...other}
-   style={{ display: project === "5" ? "none" : "block" }}
-  >
-   {value === index && <Box sx={styleTabPanel(sxParams)}>{children}</Box>}
-  </div>
- );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+      style={{ display: project === "5" ? "none" : "block" }}
+    >
+      {value === index && (
+        <Box sx={styleTabPanel(sxParams)} className={classname}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
 }
 
-export default function PageExecutiveSummaryContent({}) {
- const { rkp, rkpState } = useRKPContext((state) => state);
+export default function PageExecutiveSummaryContent({
+  toggleShowTab,
+}: {
+  toggleShowTab?: boolean;
+}) {
+  const { rkp, rkpState } = useRKPContext((state) => state);
 
  const [value, setValue] = React.useState(0);
  const [project, setProject] = React.useState(""); // rkpState

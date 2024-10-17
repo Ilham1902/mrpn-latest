@@ -1,16 +1,16 @@
 import React, { SetStateAction, useMemo } from "react";
 import OrgChart from "@dabeng/react-orgchart";
 import {
- Box,
- Button,
- Divider,
- IconButton,
- List,
- ListItem,
- ListItemIcon,
- ListItemText,
- Stack,
- Tooltip,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Tooltip,
 } from "@mui/material";
 import "@dabeng/react-orgchart/dist/ChartNode.css";
 import "@dabeng/react-orgchart/dist/ChartContainer.css";
@@ -20,324 +20,353 @@ import { styleList, styleOrgChart } from "@/app/executive-summary/style";
 import { grey, orange } from "@mui/material/colors";
 import DialogComponent from "@/app/components/dialog";
 import {
- ExsumCascadingStateDto,
- RKPCascadingDto,
+  ExsumCascadingStateDto,
+  RKPCascadingDto,
 } from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import DraggableScroll from "../../tab2Profile/partials/draggableScroll";
 import { SxParams } from "@/app/executive-summary/types";
 
-
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
-import {usePathname} from "next/navigation";
-import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
+import { useAuthContext } from "@/lib/core/hooks/useHooks";
+import { usePathname } from "next/navigation";
+import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
 
 const NodeTemplate = ({ nodeData }: { nodeData: any }) => {
- const isAssistant = nodeData.isAssistant === true;
- const nodeClass = isAssistant ? "has-assistant" : "";
+  const isAssistant = nodeData.isAssistant === true;
+  const nodeClass = isAssistant ? "has-assistant" : "";
 
- return (
-  <Stack
-   mt={0.5}
-   border={`1px solid ${theme.palette.primary.main}`}
-   borderRadius={2}
-   className={nodeClass}
-  >
-   <Box position="relative">
-    <Box
-     display="none"
-     position="absolute"
-     top="50%"
-     left={8}
-     sx={{ transform: "translateY(-50%)" }}
+  return (
+    <Stack
+      mt={0.5}
+      border={`1px solid ${theme.palette.primary.main}`}
+      borderRadius={2}
+      className={nodeClass}
     >
-     {nodeData.children && nodeData.children.length > 0 && (
-      <IconFA name="circle-plus" size={14} color="White" />
-     )}
-    </Box>
-    <Box
-     px={4}
-     py={0.5}
-     bgcolor={theme.palette.primary.main}
-     borderRadius={2}
-     sx={{ borderEndStartRadius: 0, borderEndEndRadius: 0 }}
-     color="white"
-    >
-     {nodeData.name}
-    </Box>
-   </Box>
-   <Divider />
-   <Box px={2} py={1} fontWeight={500}>
-    {nodeData.title}
-   </Box>
-  </Stack>
- );
+      <Box position="relative">
+        <Box
+          display="none"
+          position="absolute"
+          top="50%"
+          left={8}
+          sx={{ transform: "translateY(-50%)" }}
+        >
+          {nodeData.children && nodeData.children.length > 0 && (
+            <IconFA name="circle-plus" size={14} color="White" />
+          )}
+        </Box>
+        <Box
+          px={4}
+          py={0.5}
+          bgcolor={theme.palette.primary.main}
+          borderRadius={2}
+          sx={{ borderEndStartRadius: 0, borderEndEndRadius: 0 }}
+          color="white"
+        >
+          {nodeData.name}
+        </Box>
+      </Box>
+      <Divider />
+      <Box px={2} py={1} fontWeight={500}>
+        {nodeData.title}
+      </Box>
+    </Stack>
+  );
 };
 
 const FundSource = ({ value, isYear }: { value: string; isYear?: boolean }) => {
- return (
-  <Stack
-   display="inline-flex"
-   direction="row"
-   alignItems="center"
-   boxSizing="border-box"
-   border={`2px solid ${grey[300]}`}
-   borderRadius="8px"
-  >
-   <Box
-    color={theme.palette.primary.dark}
-    bgcolor={grey[300]}
-    border={`2px solid ${grey[300]}`}
-    p="8px 16px"
-    fontWeight={500}
-    letterSpacing={0.2}
-    fontSize={14}
-    minWidth={isYear ? 0 : 120}
-   >
-    Total Kebutuhan Pendanaan
-   </Box>
-   <Box
-    p="8px 16px"
-    fontWeight={700}
-    fontSize={14}
-    flexGrow={1}
-    textAlign="right"
-   >
-    {value}
-   </Box>
-  </Stack>
- );
+  return (
+    <Stack
+      display="inline-flex"
+      direction="row"
+      alignItems="center"
+      boxSizing="border-box"
+      border={`2px solid ${grey[300]}`}
+      borderRadius="8px"
+    >
+      <Box
+        color={theme.palette.primary.dark}
+        bgcolor={grey[300]}
+        border={`2px solid ${grey[300]}`}
+        p="8px 16px"
+        fontWeight={500}
+        letterSpacing={0.2}
+        fontSize={14}
+        minWidth={isYear ? 0 : 120}
+      >
+        Total Kebutuhan Pendanaan
+      </Box>
+      <Box
+        p="8px 16px"
+        fontWeight={700}
+        fontSize={14}
+        flexGrow={1}
+        textAlign="right"
+      >
+        {value}
+      </Box>
+    </Stack>
+  );
 };
 
 const ItemProP = ({
- isKey,
- description,
+  isKey,
+  description,
 }: {
- isKey?: boolean;
- description: string;
+  isKey?: boolean;
+  description: string;
 }) => {
- return (
-  <ListItem sx={{ p: 0, alignItems: "flex-start" }}>
-   <ListItemIcon sx={{ minWidth: 0, position: "relative", top: 5, width: 10 }}>
-    {isKey ? (
-     <IconFA name="key" size={12} color={orange[800]} />
-    ) : (
-     <IconFA name="circle" size={6} />
-    )}
-   </ListItemIcon>
-   <Tooltip title={isKey ? "Intervensi Kunci" : null} followCursor>
-    <ListItemText
-     primary={description}
-     sx={{
-      m: 0,
-      color: isKey ? orange[800] : "inherit",
-     }}
-    />
-   </Tooltip>
-  </ListItem>
- );
+  return (
+    <ListItem sx={{ p: 0, alignItems: "flex-start" }}>
+      <ListItemIcon
+        sx={{ minWidth: 0, position: "relative", top: 5, width: 10 }}
+      >
+        {isKey ? (
+          <IconFA name="key" size={12} color={orange[800]} />
+        ) : (
+          <IconFA name="circle" size={6} />
+        )}
+      </ListItemIcon>
+      <Tooltip title={isKey ? "Intervensi Kunci" : null} followCursor>
+        <ListItemText
+          primary={description}
+          sx={{
+            m: 0,
+            color: isKey ? orange[800] : "inherit",
+          }}
+        />
+      </Tooltip>
+    </ListItem>
+  );
 };
 
 type OrgDto = {
- name: string | React.ReactElement;
- title: string | React.ReactElement;
- children: OrgDto[] | undefined;
+  name: string | React.ReactElement;
+  title: string | React.ReactElement;
+  children: OrgDto[] | undefined;
 };
 
 export default function CascadingOrgChart({
- setModal,
- data,
- setState,
-  deleteData
+  setModal,
+  data,
+  setState,
+  deleteData,
 }: {
- setModal: any;
- data: RKPCascadingDto;
- setState: (value: SetStateAction<ExsumCascadingStateDto>) => void;
- deleteData:any
+  setModal: any;
+  data: RKPCascadingDto;
+  setState: (value: SetStateAction<ExsumCascadingStateDto>) => void;
+  deleteData: any;
 }) {
+  const { permission } = useAuthContext((state) => state);
+  const pathname = usePathname();
 
- const {
-  permission
- } = useAuthContext(state => state)
- const pathname = usePathname()
+  const [modalOpenImg, setModalOpenImg] = React.useState(false);
 
- const [modalOpenImg, setModalOpenImg] = React.useState(false);
+  const handleModalImg = () => {
+    setModalOpenImg(true);
+  };
 
- const handleModalImg = () => {
-  setModalOpenImg(true);
- };
+  const handleModalClose = () => {
+    setModalOpenImg(false);
+  };
 
- const handleModalClose = () => {
-  setModalOpenImg(false);
- };
-
- const GenerateData = () =>
-  useMemo(() => {
-   let result: OrgDto = {
-    name: `PN - ${data.code}`,
-    title: data.value,
-    children: [],
-   };
-   data.pp.map((pp) => {
-    const ppData: OrgDto = {
-     name: `PP - ${pp.code}`,
-     title: pp.value,
-     children: [],
-    };
-    pp.kp.map((kp) => {
-     const kpData: OrgDto = {
-      name: `KP - ${kp.code}`,
-      title: kp.value,
-      children: [],
-     };
-     kp.sasaran.map((ssrKP) => {
-      const ssrKPData: OrgDto = {
-       name: `SASARAN - ${ssrKP.code}`,
-       title: ssrKP.value,
-       children: [],
-      };
-      ssrKP.indikator.map((ind) => {
-       const indData: OrgDto = {
-        name: (
-         <Stack justifyContent="center" direction="row" alignItems="center">
-          {`INDIKATOR - ${ind.code}`}
-          {/*<IconButton*/}
-          {/* onClick={() => {*/}
-          {/*  setState((prevState) => {*/}
-          {/*   return {*/}
-          {/*    ...prevState,*/}
-          {/*    src_rkp_kp_indikator_id: ind.id,*/}
-          {/*   };*/}
-          {/*  });*/}
-          {/*  setModal(true);*/}
-          {/* }}*/}
-          {/* size="small"*/}
-          {/*>*/}
-          {/* <IconFA name="circle-plus" size={16} color="white" />*/}
-          {/*</IconButton>*/}
-         </Stack>
-        ),
-        title: ind.value,
+  const GenerateData = () =>
+    useMemo(() => {
+      let result: OrgDto = {
+        name: `PN - ${data.code}`,
+        title: data.value,
         children: [],
-       };
-       // ind.kementerian.map((kl) => {
-        const klData: OrgDto = {
-         name: (
-           <Stack justifyContent="center" direction="row" alignItems="center">
-            {`KL PENGAMPU`}
-            {/*{hasPrivilege(permission,pathname,"delete") &&*/}
-            {/*  <IconButton onClick={() => deleteData(kl.id)} size="small">*/}
-            {/*   <IconFA name="trash" size={16} color="white"/>*/}
-            {/*  </IconButton>*/}
-            {/*}*/}
-           </Stack>
-         ),
-         title: ind.kementerian.value,
-         children: [],
+      };
+      data.pp.map((pp) => {
+        const ppData: OrgDto = {
+          name: `PP - ${pp.code}`,
+          title: pp.value,
+          children: [],
         };
-        ind.kementerian.props.map((prop) => {
-         const propData: OrgDto = {
-          name: prop.value,
-          title: (
-           <List dense sx={styleList}>
-            {prop.ro.map((ros) => (
-             <ItemProP isKey={ros.intervention} description={ros.value} />
-            ))}
-           </List>
-          ),
-          children: undefined,
-         };
-         klData.children?.push(propData);
+        pp.kp.map((kp) => {
+          const kpData: OrgDto = {
+            name: `KP - ${kp.code}`,
+            title: kp.value,
+            children: [],
+          };
+          kp.sasaran.map((ssrKP) => {
+            const ssrKPData: OrgDto = {
+              name: `SASARAN - ${ssrKP.code}`,
+              title: ssrKP.value,
+              children: [],
+            };
+            ssrKP.indikator.map((ind) => {
+              const indData: OrgDto = {
+                name: (
+                  <Stack
+                    justifyContent="center"
+                    direction="row"
+                    alignItems="center"
+                  >
+                    {`INDIKATOR - ${ind.code}`}
+                    {/*<IconButton*/}
+                    {/* onClick={() => {*/}
+                    {/*  setState((prevState) => {*/}
+                    {/*   return {*/}
+                    {/*    ...prevState,*/}
+                    {/*    src_rkp_kp_indikator_id: ind.id,*/}
+                    {/*   };*/}
+                    {/*  });*/}
+                    {/*  setModal(true);*/}
+                    {/* }}*/}
+                    {/* size="small"*/}
+                    {/*>*/}
+                    {/* <IconFA name="circle-plus" size={16} color="white" />*/}
+                    {/*</IconButton>*/}
+                  </Stack>
+                ),
+                title: ind.value,
+                children: [],
+              };
+              // ind.kementerian.map((kl) => {
+              const klData: OrgDto = {
+                name: (
+                  <Stack
+                    justifyContent="center"
+                    direction="row"
+                    alignItems="center"
+                  >
+                    {`KL PENGAMPU`}
+                    {/*{hasPrivilege(permission,pathname,"delete") &&*/}
+                    {/*  <IconButton onClick={() => deleteData(kl.id)} size="small">*/}
+                    {/*   <IconFA name="trash" size={16} color="white"/>*/}
+                    {/*  </IconButton>*/}
+                    {/*}*/}
+                  </Stack>
+                ),
+                title: ind.kementerian.value,
+                children: [],
+              };
+              ind.kementerian.props.map((prop) => {
+                const propData: OrgDto = {
+                  name: prop.value,
+                  title: (
+                    <List dense sx={styleList}>
+                      {prop.ro.map((ros) => (
+                        <ItemProP
+                          isKey={ros.intervention}
+                          description={ros.value}
+                        />
+                      ))}
+                    </List>
+                  ),
+                  children: undefined,
+                };
+                klData.children?.push(propData);
+              });
+              indData.children?.push(klData);
+              // });
+              ssrKPData.children?.push(indData);
+            });
+            kpData.children?.push(ssrKPData);
+          });
+          ppData.children?.push(kpData);
         });
-        indData.children?.push(klData);
-       // });
-       ssrKPData.children?.push(indData);
+        result.children?.push(ppData);
       });
-      kpData.children?.push(ssrKPData);
-     });
-     ppData.children?.push(kpData);
-    });
-    result.children?.push(ppData);
-   });
-   return result;
-  }, [data]);
+      return result;
+    }, [data]);
 
- const sxParamsFull: SxParams = { variant: "full" };
- const sxParamsZoom: SxParams = { variant: "zoom" };
+  const sxParamsFull: SxParams = { variant: "full" };
+  const sxParamsZoom: SxParams = { variant: "zoom" };
 
- return (
-  <>
-   <Stack gap={2} direction="row">
-    <FundSource value={`Rp. N/A`} />
-    <Box>
-     <Button
-      variant="contained"
-      color="primary"
-      startIcon={<IconFA name="magnifying-glass-plus" size={14} />}
-      sx={{ height: 45, px: 3, borderRadius: 2 }}
-      onClick={handleModalImg}
-     >
-      Perbesar Chart
-     </Button>
-    </Box>
-   </Stack>
-   <Box sx={styleOrgChart(sxParamsZoom)} mt={4}>
-    <TransformWrapper
-     centerOnInit
-     initialScale={1}
-     initialPositionX={200}
-     initialPositionY={100}
-    >
-     <TransformComponent>
-      <OrgChart
-       datasource={GenerateData()}
-       NodeTemplate={NodeTemplate}
-       containerClass="containerClass"
-       chartClass="chartClass"
-      />
-     </TransformComponent>
-    </TransformWrapper>
-   </Box>
-   <DialogComponent
-    width="80%"
-    dialogOpen={modalOpenImg}
-    dialogClose={handleModalClose}
-   >
-    <TransformWrapper
-     //   centerOnInit
-     initialScale={0.5}
-     //   initialPositionX={0}
-     //   initialPositionY={0}
-     minScale={0.1}
-     maxScale={3}
-     limitToBounds={true}
-     doubleClick={{ disabled: false }}
-     wheel={{ disabled: false }}
-     panning={{ disabled: false }}
-    >
-     <TransformComponent>
-      <Box sx={styleOrgChart(sxParamsFull)} mt={4}>
-       <DraggableScroll
-        sx={{
-         display: "flex",
-         gap: 1,
-         paddingBottom: 1,
-         "&::-webkit-scrollbar": {
-          height: "3px",
-         },
-        }}
-       >
-        <OrgChart
-         datasource={GenerateData()}
-         NodeTemplate={NodeTemplate}
-         containerClass="containerClass"
-         chartClass="chartClass"
-        />
-       </DraggableScroll>
+  React.useEffect(() => {
+    const element = document.querySelector(".orgchart > ul > li > .oc-node");
+    if (element) {
+      element.classList.add("isChildrenCollapsed");
+    }
+    const elementHidden = document.querySelector(
+      ".orgchart > ul > li > .oc-node + ul"
+    );
+    if (elementHidden) {
+      elementHidden.classList.add("hidden");
+    }
+  }, []);
+
+  return (
+    <>
+      <Stack gap={2} direction="row">
+        <FundSource value={`Rp. N/A`} />
+        <Box>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<IconFA name="magnifying-glass-plus" size={14} />}
+            sx={{ height: 45, px: 3, borderRadius: 2 }}
+            onClick={handleModalImg}
+          >
+            Perbesar Chart
+          </Button>
+        </Box>
+      </Stack>
+      <Box sx={styleOrgChart(sxParamsZoom)} mt={4}>
+        <TransformWrapper
+          centerOnInit
+          initialScale={1}
+          initialPositionX={200}
+          initialPositionY={100}
+        >
+          <TransformComponent>
+            <OrgChart
+              datasource={GenerateData()}
+              NodeTemplate={NodeTemplate}
+              containerClass="containerClass"
+              chartClass="chartClass"
+            />
+          </TransformComponent>
+        </TransformWrapper>
       </Box>
-     </TransformComponent>
-    </TransformWrapper>
-   </DialogComponent>
-  </>
- );
+      <DialogComponent
+        width="100%"
+        maxHeight="100vh"
+        dialogOpen={modalOpenImg}
+        dialogClose={handleModalClose}
+      >
+        <IconButton
+          sx={{ position: "absolute", top: 10, right: 10, zIndex: 9999 }}
+          onClick={handleModalClose}
+        >
+          <IconFA name="circle-xmark" color="red" size={32} />
+        </IconButton>
+        <TransformWrapper
+          //   centerOnInit
+          initialScale={0.5}
+          //   initialPositionX={0}
+          //   initialPositionY={0}
+          minScale={0.1}
+          maxScale={3}
+          limitToBounds={true}
+          doubleClick={{ disabled: false }}
+          wheel={{ disabled: false }}
+          panning={{ disabled: false }}
+        >
+          <TransformComponent>
+            <Box sx={styleOrgChart(sxParamsFull)} mt={4}>
+              <DraggableScroll
+                sx={{
+                  display: "flex",
+                  gap: 1,
+                  paddingBottom: 1,
+                  "&::-webkit-scrollbar": {
+                    height: "3px",
+                  },
+                }}
+              >
+                <OrgChart
+                  datasource={GenerateData()}
+                  NodeTemplate={NodeTemplate}
+                  containerClass="containerClass"
+                  chartClass="chartClass"
+                />
+              </DraggableScroll>
+            </Box>
+          </TransformComponent>
+        </TransformWrapper>
+      </DialogComponent>
+    </>
+  );
 }
