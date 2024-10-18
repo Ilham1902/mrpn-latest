@@ -51,13 +51,13 @@ const CustomTooltip = ({ task }: { task: any }) => {
         <Typography variant="body2" component="span">
           Waktu Mulai:{" "}
           <Typography component="strong" fontWeight={600}>
-            {dayjs(task.start).date()}
+            {dayjs(task.start).format("DD MMM YYYY")}
           </Typography>
         </Typography>
         <Typography variant="body2" component="span">
           Waktu Selesai:{" "}
           <Typography component="strong" fontWeight={600}>
-            {dayjs(task.end).date()}
+            {dayjs(task.end).format("DD MMM YYYY")}
           </Typography>
         </Typography>
         <Typography variant="body2" component="span">

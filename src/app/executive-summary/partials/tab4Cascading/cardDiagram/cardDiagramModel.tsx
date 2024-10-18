@@ -29,22 +29,25 @@ export interface SasaranDto {
   id: number
   code: string
   value: string
-  indikator: IndikatorDto[]
+  indikator: {
+    value: string[]
+    prop:PropDto[][]
+  }
 }
 
 export type KPDto = ProjectDefaultDto & {
-  sasaran: SasaranDto[]
+  sasaran: SasaranDto
 }
 
 export type PPDto = ProjectDefaultDto & {
-  kp: KPDto[]
+  kp: KPDto
 }
 
 export type PNDto = ProjectDefaultDto & {
-  pp: PPDto[]
+  pp: PPDto
 }
 
-export type RKPCascadingDto = PNDto
+export type RKPCascadingDto = { pn : PNDto }
 
 export type PropCascadingDto = ProPDto & { isChecked: boolean }
 
