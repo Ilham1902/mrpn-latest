@@ -221,25 +221,6 @@ export default function CascadingOrgChart({
                 ),
                 children: [],
               };
-              // ind.kementerian.map((kl) => {
-              // const klData: OrgDto = {
-              //   name: (
-              //     <Stack
-              //       justifyContent="center"
-              //       direction="row"
-              //       alignItems="center"
-              //     >
-              //       {`KL PENGAMPU`}
-              //       {/*{hasPrivilege(permission,pathname,"delete") &&*/}
-              //       {/*  <IconButton onClick={() => deleteData(kl.id)} size="small">*/}
-              //       {/*   <IconFA name="trash" size={16} color="white"/>*/}
-              //       {/*  </IconButton>*/}
-              //       {/*}*/}
-              //     </Stack>
-              //   ),
-              //   title: ind.kementerian.value,
-              //   children: [],
-              // };
                 ind.prop.map((props) => {
                   props.map(prop => {
                     const propData: OrgDto = {

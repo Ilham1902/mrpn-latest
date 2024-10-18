@@ -20,7 +20,7 @@ import {
   PenetapanObjectStateEntityDto,
   PenetapanObjectEntityReqDto,
   PenetapanObjectEntityValueReqDto,
-  NotaDinasReqDto
+  NotaDinasReqDto, RKPCascadingDto
 } from "@/app/penetapan/objek/pageModel";
 import {
   doCratePenetapanObjectLongList,
@@ -42,8 +42,6 @@ import {
   PenetapanObjectNotaDto,
   PenetapanObjectUraianDto
 } from "@/lib/core/context/penetapanTopicContext";
-import {RKPCascadingDto} from "@/app/executive-summary/partials/tab4Cascading/cardDiagram/cardDiagramModel";
-import {RiskOverviewData} from "@/app/profil-risiko/overview/pageModel";
 
 const usePenetapanObjectVM = () => {
   const loadingContext = useLoading();

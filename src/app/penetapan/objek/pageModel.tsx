@@ -1,7 +1,7 @@
 import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
 import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
-import {IndikatorDto} from "@/app/misc/rkp/rkpServiceModel";
+import {IndikatorDto, ProPDto, RoDto} from "@/app/misc/rkp/rkpServiceModel";
 
 export const DasarPemilihan:{
   id:number
@@ -204,3 +204,40 @@ export interface NotaDinasReqDto {
 export type UpdateOrCreatePenetapanObjectNotaDinasServiceModel = BaseAPIServiceParam & {
   body: NotaDinasReqDto;
 };
+
+export type PropDto = ProPDto & {
+  ro:RoDto[]
+}
+
+export type KLPengampu = MiscMasterListStakeholderRes & {
+  id:number
+  props:PropDto[]
+}
+
+export interface Indikator2Dto {
+  id: number
+  code: string
+  value: string
+  kementerian: KLPengampu
+}
+
+export interface SasaranDto {
+  id: number
+  code: string
+  value: string
+  indikator: Indikator2Dto[]
+}
+
+export type KPDto = ProjectDefaultDto & {
+  sasaran: SasaranDto[]
+}
+
+export type PPDto = ProjectDefaultDto & {
+  kp: KPDto[]
+}
+
+export type PNDto = ProjectDefaultDto & {
+  pp: PPDto[]
+}
+
+export type RKPCascadingDto = PNDto
