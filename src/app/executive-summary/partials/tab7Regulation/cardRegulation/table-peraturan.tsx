@@ -24,21 +24,19 @@ import { IconEmptyData } from "@/components/icons";
 import DialogComponent from "@/components/dialog";
 import FieldLabelInfo from "@/components/fieldLabelInfo";
 import FormPeraturan from "./form-peraturan";
-import { ExsumRegulationDto } from "@/app/executive-summary/partials/tab7Regulation/cardRegulation/cardRegulationModel";
+import {
+  ExsumRegulationDto,
+  ExsumRegulationResDto
+} from "@/app/executive-summary/partials/tab7Regulation/cardRegulation/cardRegulationModel";
 import DialogDelete from "@/app/components/dialogDelete";
 
 export default function TablePeraturan({
   data,
   deleteData,
 }: {
-  data: ExsumRegulationDto[];
+  data: ExsumRegulationResDto[];
   deleteData: any;
 }) {
-  const [modalDelete, setModalDelete] = React.useState(false);
-
-  const handleModalDelete = () => {
-    setModalDelete(true);
-  };
 
   return (
     <>
@@ -74,7 +72,7 @@ export default function TablePeraturan({
                       <IconButton
                         aria-label="delete"
                         color="error"
-                        onClick={handleModalDelete}
+                        onClick={() => deleteData(row.id)}
                       >
                         <Icon
                           baseClassName="fas"
@@ -93,12 +91,6 @@ export default function TablePeraturan({
                   </TableCell>
                   <TableCell>{row.amanat}</TableCell>
                 </TableRow>
-                <DialogDelete
-                  title="Hapus Data"
-                  handleOpenModal={modalDelete}
-                  handleCloseModal={() => setModalDelete(false)}
-                  handleDelete={() => deleteData(row.id)}
-                />
               </>
             ))}
           </TableBody>

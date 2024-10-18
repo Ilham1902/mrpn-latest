@@ -58,6 +58,14 @@ export interface MiscMasterListPerpresRes {
  title: string;
  value: string;
 }
+export interface MiscMasterListPerpresCreateReq {
+ title: string;
+ value: string;
+}
+
+export type MiscMasterListPerpresCreateReqService = BaseAPIServiceParam & {
+ body: MiscMasterListPerpresCreateReq
+}
 
 // LIST STAKEHOLDER
 export type MiscMasterListStakeholderReq = BaseAPIServiceParam & {

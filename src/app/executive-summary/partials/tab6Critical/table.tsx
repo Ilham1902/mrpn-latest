@@ -18,37 +18,19 @@ import { ExsumIndicationResDto } from "@/app/executive-summary/partials/tab9Indi
 import { useAuthContext } from "@/lib/core/hooks/useHooks";
 import { usePathname } from "next/navigation";
 import ActionColumn from "@/app/components/actions/action";
-
-const data = [
-  {
-    id: 1,
-    kegiatan: "Suplementasi gizi mikro pada balita",
-    status: "FS",
-    penanggungjawab: "Perusahaan patungan",
-    sumberAnggaran: "PMN kepada PT KIW",
-    waktuMulai: "25 Desember 2024",
-    waktuSelesai: "6 Juni 2028",
-  },
-  {
-    id: 2,
-    kegiatan: "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
-    status: "SS",
-    penanggungjawab: "Perusahaan patungan",
-    sumberAnggaran: "PMN kepada PT KIW",
-    waktuMulai: "25 Desember 2024",
-    waktuSelesai: "6 Juni 2028",
-  },
-];
+import {Task} from "gantt-task-react";
+import {ExsumCriticalData} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
+import dayjs from "dayjs";
 
 export default function TableCritical({
   handleEdit,
   handleDelete,
+  data
 }: {
   handleEdit?: any;
   handleDelete?: any;
+  data:ExsumCriticalData[]
 }) {
-  const { permission } = useAuthContext((state) => state);
-  const pathname = usePathname();
 
   return (
     <>
@@ -102,17 +84,17 @@ export default function TableCritical({
           {data.map((item, index) => (
             <TableRow key={index}>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.kegiatan}</Typography>
+                <Typography variant="body2">{item.ro.value}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
                 <Chip
                   label={
-                    item.status === "FS" ? "Finish to Start" : "Start to Start"
+                    item.keterangan_kegiatan
                   }
                   size="small"
                   sx={{
                     bgcolor:
-                      item.status === "FS"
+                      item.keterangan_kegiatan === "Finish to Start"
                         ? red[700]
                         : theme.palette.primary.main,
                     color: "white",
@@ -120,21 +102,21 @@ export default function TableCritical({
                 />
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.penanggungjawab}</Typography>
+                <Typography variant="body2">{item.ro.kementrian.value}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.sumberAnggaran}</Typography>
+                <Typography variant="body2">{item.ro.sumber_anggaran}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.waktuMulai}</Typography>
+                <Typography variant="body2">{dayjs(item.start_date).format("DD MMM YYYY")}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.waktuSelesai}</Typography>
+                <Typography variant="body2">{dayjs(item.end_date).format("DD MMM YYYY")}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
                 <ActionColumn
-                  editClick={handleEdit}
-                  deleteClick={handleDelete}
+                  editClick={() => handleEdit(index)}
+                  deleteClick={() => handleDelete(index)}
                 />
               </TableCell>
             </TableRow>

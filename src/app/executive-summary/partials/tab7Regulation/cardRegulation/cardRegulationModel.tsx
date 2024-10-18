@@ -1,14 +1,31 @@
-import {MiscMasterListPerpresRes} from "@/app/misc/master/masterServiceModel";
+import {MiscMasterListPerpresRes, MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
 import {BaseAPIServiceParam} from "@/lib/core/api/apiModel";
+
+export interface ExsumRegulationResDto {
+  id:number
+  exsum_id:number
+  amanat:string
+  perpres:MiscMasterListPerpresRes[]
+  stakeholder: MiscMasterListStakeholderRes
+}
 
 export interface ExsumRegulationDto {
   id:number
   exsum_id:number
   amanat:string
-  perpres:MiscMasterListPerpresRes[]
+  perpres_state:MiscMasterListPerpresRes|undefined
+  perpres:{id:number}[]
+  stakeholder: MiscMasterListStakeholderRes|undefined
+  stakeholder_id:number
 }
 export const initExsumRegulationDto:ExsumRegulationDto = {
-  amanat: "", exsum_id: 0, id: 0, perpres: []
+  id: 0,
+  exsum_id: 0,
+  amanat: "",
+  stakeholder: undefined,
+  stakeholder_id: 0,
+  perpres_state: undefined,
+  perpres: []
 }
 
 export interface GetByExsumId {

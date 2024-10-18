@@ -7,7 +7,7 @@ import {
 import { doGetRO } from "@/app/misc/rkp/rkpService";
 import { API_CODE } from "@/lib/core/api/apiModel";
 import { RoDto } from "@/app/misc/rkp/rkpServiceModel";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ExsumCriticalData,
   ExsumCriticalReqDto,
@@ -21,8 +21,8 @@ import {
 } from "@/app/misc/master/masterServiceModel";
 import { doGetMasterListlistKategoriProyek } from "@/app/misc/master/masterService";
 import {
-  doCreateCriticalPath,
-  doGetCriticalPath,
+  doCreateCriticalPath, doDeleteCriticalPath,
+  doGetCriticalPath, doUpdateCriticalPath,
 } from "@/app/executive-summary/partials/tab6Critical/cardCriticalService";
 import { Task } from "gantt-task-react";
 import dayjs from "dayjs";
@@ -38,13 +38,13 @@ const useCardCriticalVM = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [modalAdd, setModalAdd] = useState<boolean>(false);
+  const [modalDelete, setModalDelete] = React.useState(false);
   const [optionRO, setOptionRO] = useState<RoDto[]>([]);
   const [optionProjectCategory, setOptionProjectCategory] = useState<
     MiscMasterListKategoriProyekRes[]
   >([]);
-  const [state, setState] = useState<ExsumCriticalState>({
-    ...initExsumCriticalReqDto,
-  });
+  const initState:ExsumCriticalState = JSON.parse(JSON.stringify(initExsumCriticalReqDto))
+  const [state, setState] = useState<ExsumCriticalState>(initState);
   const [optionStrategy, setOptionStrategy] = useState<string[]>([]);
   const [data, setData] = useState<ExsumCriticalData[]>([]);
   const [ganChart, setGanChart] = useState<Task[]>([]);
@@ -143,7 +143,7 @@ const useCardCriticalVM = () => {
     });
 
     const request: ExsumCriticalReqDto = {
-      id: 0,
+      id: state.id,
       exsum_id: exsum.id,
       ro_id: state.ro.id,
       start_date: state.start_date,
@@ -153,7 +153,43 @@ const useCardCriticalVM = () => {
       values: value,
     };
 
-    const response = await doCreateCriticalPath({
+    let response
+    if (request.id == 0){
+      response = await doCreateCriticalPath({
+        body: request,
+        loadingContext: loadingContext,
+        errorModalContext: errorModalContext,
+      });
+    } else {
+      response = await doUpdateCriticalPath({
+        body: request,
+        loadingContext: loadingContext,
+        errorModalContext: errorModalContext,
+      });
+    }
+
+    if (response?.code == API_CODE.success) {
+      getData();
+      const initState:ExsumCriticalState = JSON.parse(JSON.stringify(initExsumCriticalReqDto))
+      setState(initState)
+      setModalOpen(false);
+      setModalAdd(false)
+    }
+  };
+
+  const handleDelete = async () => {
+    const request: ExsumCriticalReqDto = {
+      id: state.id,
+      exsum_id: 0,
+      ro_id: 0,
+      start_date: "",
+      end_date: "",
+      kategori_proyek_id: 0,
+      keterangan_kegiatan: "",
+      values: []
+    };
+
+    const response = await doDeleteCriticalPath({
       body: request,
       loadingContext: loadingContext,
       errorModalContext: errorModalContext,
@@ -161,13 +197,40 @@ const useCardCriticalVM = () => {
 
     if (response?.code == API_CODE.success) {
       getData();
+      const initState:ExsumCriticalState = JSON.parse(JSON.stringify(initExsumCriticalReqDto))
+      setState(initState)
       setModalOpen(false);
+      setModalAdd(false)
+      setModalDelete(false);
     }
-  };
+  }
 
   const handleModalAdd = () => {
     setModalAdd(true);
   };
+
+  const handleModalUpdate = (index:number) => {
+
+    const curData = data[index]
+
+    let selectedStrategy:string[] = []
+    curData.tagging_list.map(t => {
+      selectedStrategy.push(t.value)
+    })
+
+    const state:ExsumCriticalState = {
+      id: curData.id,
+      exsum_id: exsum.id,
+      ro: curData.ro,
+      start_date: curData.start_date,
+      end_date: curData.end_date,
+      kategori_proyek_id: curData.kategori_proyek_id,
+      strategy: selectedStrategy,
+      keterangan_kegiatan: curData.keterangan_kegiatan
+    }
+    setState(state)
+    setModalAdd(true)
+  }
 
   useEffect(() => {
     const data = useCardTows.data;
@@ -200,8 +263,12 @@ const useCardCriticalVM = () => {
     data,
     ganChart,
     handleModalAdd,
+    handleModalUpdate,
+    handleDelete,
     modalAdd,
     setModalAdd,
+    modalDelete,
+    setModalDelete
   };
 };
 

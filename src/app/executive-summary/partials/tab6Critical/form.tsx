@@ -35,14 +35,6 @@ export default function FormCritical({
   state: ExsumCriticalState;
   setState: (value: SetStateAction<ExsumCriticalState>) => void;
 }) {
-  const [alignment, setAlignment] = React.useState("web");
-
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: string
-  ) => {
-    setAlignment(newAlignment);
-  };
 
   return (
     <Grid container spacing={2}>
@@ -50,6 +42,7 @@ export default function FormCritical({
         <FormControl fullWidth>
           <FieldLabelInfo title="Rincian Output/Project" />
           <AutocompleteSelectSingle
+            key={state.ro?.id ?? 0}
             value={state.ro}
             options={optionsRO}
             getOptionLabel={(option) => option.value}

@@ -15,6 +15,9 @@ import { ExsumCriticalData } from "@/app/executive-summary/partials/tab6Critical
 import TableCritical from "./table";
 import AddButton from "@/app/components/buttonAdd";
 import DialogDelete from "@/app/components/dialogDelete";
+import {useAuthContext} from "@/lib/core/hooks/useHooks";
+import {usePathname} from "next/navigation";
+import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
   return (
@@ -44,11 +47,13 @@ export default function CardCritical({ project }: { project: string }) {
     data,
     ganChart,
     handleModalAdd,
+    handleModalUpdate,
+    handleDelete,
     modalAdd,
     setModalAdd,
+    modalDelete,
+    setModalDelete
   } = useCardCriticalVM();
-
-  const [modalDelete, setModalDelete] = React.useState(false);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -62,7 +67,9 @@ export default function CardCritical({ project }: { project: string }) {
     setModalAdd(false);
   };
 
-  const handleModalDelete = () => {
+  const handleModalDelete = (index:number) => {
+    handleModalUpdate(index)
+    setModalAdd(false);
     setModalDelete(true);
   };
 
@@ -140,8 +147,9 @@ export default function CardCritical({ project }: { project: string }) {
         }
       >
         <TableCritical
-          handleEdit={handleModalAdd}
+          handleEdit={handleModalUpdate}
           handleDelete={handleModalDelete}
+          data={data}
         />
       </DialogComponent>
       <DialogComponent
@@ -176,7 +184,7 @@ export default function CardCritical({ project }: { project: string }) {
         title="Hapus Data"
         handleOpenModal={modalDelete}
         handleCloseModal={() => setModalDelete(false)}
-        handleDelete={() => {}}
+        handleDelete={() => handleDelete()}
       />
     </>
   );

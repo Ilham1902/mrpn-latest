@@ -59,6 +59,10 @@ export interface ExsumCriticalData {
   ro:RoDto
   start_date:string
   end_date:string
+  tagging_list:{
+    id:number
+    value:string
+  }[]
 }
 
 export interface GetByExsumId {

@@ -20,3 +20,19 @@ export async function doCreateCriticalPath(param: UpdateCriticalPathByExsumIdSer
   });
   if (resp) return Object.assign(new ResponseBaseDto(), resp);
 }
+
+export async function doUpdateCriticalPath(param: UpdateCriticalPathByExsumIdServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "exsum/criticalPath/update",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}
+
+export async function doDeleteCriticalPath(param: UpdateCriticalPathByExsumIdServiceModel) {
+  const resp = await post({
+    ...param,
+    url: "exsum/criticalPath/delete",
+  });
+  if (resp) return Object.assign(new ResponseBaseDto(), resp);
+}

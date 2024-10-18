@@ -111,6 +111,7 @@ export interface AutoCompleteSingleProp<T> {
   placeHolder: string;
   bgWhite?: boolean | any;
   rounded?: boolean;
+  actionButton?: any;
 }
 
 export function AutocompleteSelectSingle<T>({
@@ -121,6 +122,7 @@ export function AutocompleteSelectSingle<T>({
   placeHolder,
   bgWhite,
   rounded,
+  actionButton
 }: AutoCompleteSingleProp<T>) {
   return (
     <Autocomplete
@@ -143,8 +145,20 @@ export function AutocompleteSelectSingle<T>({
           sx={SxAutocompleteTextField(paramVariantDefault)}
         />
       )}
-      //    sx={SxAutocomplete(paramVariantDefault)}
-
+      PaperComponent={(paperProps) => {
+        const { children, ...restPaperProps } = paperProps;
+        return (
+          <Paper {...restPaperProps}>
+            {children}
+            {actionButton && (
+              <>
+                <Divider />
+                {actionButton}
+              </>
+            )}
+          </Paper>
+        );
+      }}
       sx={{
         ...SxAutocomplete,
         ".MuiInputBase-root": {
