@@ -1,14 +1,15 @@
-import {ProjectDefaultDto} from "@/lib/core/context/rkpContext";
+import { ProjectDefaultDto } from "@/lib/core/context/rkpContext";
 
 export interface TabPanelProps {
- children?: React.ReactNode;
- index: number;
- value: number;
- project?: string;
- tabLevel?: string;
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+  project?: string;
+  tabLevel?: string;
+  classname?: string;
 }
 
 export interface SxParams {
- tabLevel?: string;
- variant?: string;
+  tabLevel?: string;
+  variant?: string;
 }

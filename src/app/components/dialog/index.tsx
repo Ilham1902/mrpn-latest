@@ -17,6 +17,7 @@ export default function DialogComponent({
   onFocus,
   zIndex,
   maxwidth,
+  maxHeight,
 }: {
   title?: React.ReactNode;
   dialogOpen: boolean;
@@ -31,6 +32,7 @@ export default function DialogComponent({
   onFocus?: any;
   zIndex?: number;
   maxwidth?: number | string;
+  maxHeight?: number | string;
 }) {
   return (
     <Dialog
@@ -43,6 +45,7 @@ export default function DialogComponent({
         ".MuiPaper-root": {
           minWidth: width ? width : 800,
           maxWidth: maxwidth,
+          maxHeight: maxHeight,
           [theme.breakpoints.down("md")]: {
             minWidth: "90%",
           },
@@ -90,7 +93,7 @@ export default function DialogComponent({
       )}
       <DialogContent
         dividers={noDivider}
-        sx={{ p: tableMode ? 0 : "16px 24px" }}
+        sx={{ p: tableMode ? 0 : "16px 24px", position: "relative" }}
       >
         {children}
       </DialogContent>

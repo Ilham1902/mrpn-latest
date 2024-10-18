@@ -1,7 +1,7 @@
 "use client";
 
 import ContentPage from "@/app/components/contents";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -17,25 +17,24 @@ import {
 import theme from "@/theme";
 import { IconFA } from "@/components/icons/icon-fa";
 import { CustomTab, styleDownload } from "./style";
-import {useExsumContext, useRKPContext} from "@/lib/core/hooks/useHooks";
+import { useExsumContext, useRKPContext } from "@/lib/core/hooks/useHooks";
 import PageExecutiveSummaryContent from "@/app/executive-summary/pageViewContent";
 
 export default function PageExecutiveSummary({}) {
-
-  const {rkpState, rpjmn, setYear, year} = useRKPContext(state => state);
+  const { rkpState, rpjmn, setYear, year } = useRKPContext((state) => state);
 
   const [valueTab, setValueTab] = React.useState(rpjmn?.start);
   const [toogleShowTab, setToogleShowTab] = React.useState(true);
   const [btnShowTab, setBtnShowTab] = React.useState(false);
-  const [rpjmnState, setRpjmnState] = React.useState<number[]>([])
+  const [rpjmnState, setRpjmnState] = React.useState<number[]>([]);
 
   useEffect(() => {
-    if (rpjmn != undefined){
-      let rpjmnData:number[] = [0]
+    if (rpjmn != undefined) {
+      let rpjmnData: number[] = [0];
       for (let i = rpjmn.start; i <= rpjmn.end; i++) {
-        rpjmnData.push(i)
+        rpjmnData.push(i);
       }
-      setRpjmnState(rpjmnData)
+      setRpjmnState(rpjmnData);
     }
   }, [rpjmn]);
 
@@ -43,12 +42,11 @@ export default function PageExecutiveSummary({}) {
     setValueTab(year);
   }, [year]);
 
-
   const handleChangeTab = (event: any, newValue: any) => {
-    if (newValue == 0){
-      return
-    }else{
-      setYear(newValue)
+    if (newValue == 0) {
+      return;
+    } else {
+      setYear(newValue);
     }
   };
 
@@ -71,7 +69,11 @@ export default function PageExecutiveSummary({}) {
       variant="outlined"
       label={
         <Stack direction="row" gap={1}>
-          <IconFA size={14} name="download" color={theme.palette.primary.main} />
+          <IconFA
+            size={14}
+            name="download"
+            color={theme.palette.primary.main}
+          />
           {breakpointDownMd ? null : "Download Lampiran"}
         </Stack>
       }
@@ -83,9 +85,9 @@ export default function PageExecutiveSummary({}) {
     <ContentPage
       title="Executive Summary"
       overflowHidden
-      chooseProject={(rkpState !== undefined)}
+      chooseProject={rkpState !== undefined}
       dowloadAttachmentFile={
-        (rkpState !== undefined) && (
+        rkpState !== undefined && (
           <>
             {breakpointDownMd ? (
               <Tooltip
@@ -133,14 +135,19 @@ export default function PageExecutiveSummary({}) {
                 sx={{ borderRadius: 2.5 }}
               >
                 <CustomTab label="RPJMN" value={0} />
-                {rpjmnState.map((r,i) =>
-                  i > 0 && <CustomTab label={`RKP ${r}`} value={r} key={i} />
+                {rpjmnState.map(
+                  (r, i) =>
+                    i > 0 && <CustomTab label={`RKP ${r}`} value={r} key={i} />
                 )}
               </Tabs>
             </Box>
             {!(rkpState === undefined) && (
               <Box>
-                <Tooltip title="Sembunyikan" followCursor TransitionComponent={Grow}>
+                <Tooltip
+                  title="Sembunyikan"
+                  followCursor
+                  TransitionComponent={Grow}
+                >
                   <Button onClick={handleToggleTab}>
                     <IconFA name="chevron-up" size={20} />
                   </Button>
@@ -149,7 +156,7 @@ export default function PageExecutiveSummary({}) {
             )}
           </Stack>
         )}
-        <PageExecutiveSummaryContent />
+        <PageExecutiveSummaryContent toggleShowTab={toogleShowTab} />
       </Box>
     </ContentPage>
   );
