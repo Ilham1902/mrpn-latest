@@ -18,6 +18,7 @@ export interface ExsumCriticalState {
   end_date:string
   kategori_proyek_id:number
   strategy:string[]
+  keterangan_kegiatan:string
 }
 
 export const initExsumCriticalReqDto:ExsumCriticalState = {
@@ -27,7 +28,8 @@ export const initExsumCriticalReqDto:ExsumCriticalState = {
   start_date: "",
   end_date: "",
   kategori_proyek_id: 0,
-  strategy: []
+  strategy: [],
+  keterangan_kegiatan:""
 }
 
 export interface ExsumCriticalReqDto {
@@ -37,14 +39,22 @@ export interface ExsumCriticalReqDto {
   start_date:string
   end_date:string
   kategori_proyek_id:number
+  keterangan_kegiatan:string
   values:{
     tagging:string
   }[]
 }
 
+export interface TaskAdditionalData {
+  penanggungjawab:string
+  sumber_anggaran:string
+  keterangan_kegiatan:string
+}
+
 export interface ExsumCriticalData {
   id:number
   kategori_proyek_id:number
+  keterangan_kegiatan:string
   kategori_proyek:MiscMasterListKategoriProyekRes
   ro:RoDto
   start_date:string

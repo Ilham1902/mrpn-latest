@@ -90,12 +90,22 @@ export default function FormCritical({
           <FieldLabelInfo title="Status" />
           <ToggleButtonGroup
             color="primary"
-            value={alignment}
+            value={state.keterangan_kegiatan}
             exclusive
-            onChange={handleChange}
+            onChange={(
+              event: React.MouseEvent<HTMLElement>,
+              newAlignment: string
+            ) => {
+              setState(prevState => {
+                return {
+                  ...prevState,
+                  keterangan_kegiatan:newAlignment
+                }
+              })
+            }}
           >
             <ToggleButton
-              value="SS"
+              value="Start to Start"
               sx={{
                 width: "50%",
                 lineHeight: 1,
@@ -108,7 +118,7 @@ export default function FormCritical({
               Start to Start
             </ToggleButton>
             <ToggleButton
-              value="FS"
+              value="Finish to Start"
               sx={{
                 width: "50%",
                 lineHeight: 1,

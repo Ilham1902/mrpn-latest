@@ -3,7 +3,19 @@ import React from "react";
 import dayjs from "dayjs";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-const CustomTooltip = ({ task }: { task: any }) => {
+import {Task} from "gantt-task-react";
+import {TaskAdditionalData} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
+const CustomTooltip = ({ task }: { task: Task }) => {
+
+  let taskProject:TaskAdditionalData = {
+    penanggungjawab: "",
+    sumber_anggaran: "",
+    keterangan_kegiatan: ""
+  }
+  if (task.project){
+    taskProject = JSON.parse(task.project)
+  }
+
   return (
     <Box
       bgcolor="white"
@@ -38,14 +50,14 @@ const CustomTooltip = ({ task }: { task: any }) => {
       <Stack direction="column" gap={0.5}>
         <Typography variant="body2" component="span">
           Penanggungjawab:{" "}
-          <Typography component="strong" fontWeight={600}>
-            Perusahaan Patungan
-          </Typography>
+        </Typography>
+        <Typography component="strong" fontWeight={600}>
+          {taskProject.penanggungjawab}
         </Typography>
         <Typography variant="body2" component="span">
           Sumber Anggaran:{" "}
           <Typography component="strong" fontWeight={600}>
-            PMN kepada PT KIW
+            {taskProject.sumber_anggaran == "" ? "-" : taskProject.sumber_anggaran}
           </Typography>
         </Typography>
         <Typography variant="body2" component="span">
@@ -63,7 +75,7 @@ const CustomTooltip = ({ task }: { task: any }) => {
         <Typography variant="body2" component="span">
           Status:{" "}
           <Typography component="strong" fontWeight={600}>
-            Finish to Start
+            {taskProject.keterangan_kegiatan}
           </Typography>
         </Typography>
       </Stack>

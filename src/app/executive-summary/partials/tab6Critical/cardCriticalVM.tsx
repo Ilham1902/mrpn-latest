@@ -12,7 +12,7 @@ import {
   ExsumCriticalData,
   ExsumCriticalReqDto,
   ExsumCriticalState,
-  initExsumCriticalReqDto,
+  initExsumCriticalReqDto, TaskAdditionalData,
 } from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
 import useCardTOWSVM from "@/app/executive-summary/partials/tab3Fot/cardTows/cardTowsVM";
 import {
@@ -99,6 +99,12 @@ const useCardCriticalVM = () => {
           endDay = startDay.add(1, "hour");
         }
 
+        const taskAdditionalData:TaskAdditionalData = {
+          penanggungjawab: res.ro.kementrian.value,
+          sumber_anggaran: res.ro.sumber_anggaran,
+          keterangan_kegiatan: res.keterangan_kegiatan
+        }
+
         const t: Task = {
           id: res.id.toString(),
           type: "task",
@@ -108,6 +114,7 @@ const useCardCriticalVM = () => {
           progress: 0,
           styles: { backgroundColor: GetColor(res.kategori_proyek.id) },
           dependencies: [],
+          project: JSON.stringify(taskAdditionalData)
         };
         tasks.push(t);
       });
@@ -122,7 +129,8 @@ const useCardCriticalVM = () => {
       state.start_date == "" ||
       state.end_date == "" ||
       state.kategori_proyek_id == 0 ||
-      state.strategy.length == 0
+      state.strategy.length == 0 ||
+      state.keterangan_kegiatan == ""
     ) {
       return;
     }
@@ -141,6 +149,7 @@ const useCardCriticalVM = () => {
       start_date: state.start_date,
       end_date: state.end_date,
       kategori_proyek_id: state.kategori_proyek_id,
+      keterangan_kegiatan:state.keterangan_kegiatan,
       values: value,
     };
 
