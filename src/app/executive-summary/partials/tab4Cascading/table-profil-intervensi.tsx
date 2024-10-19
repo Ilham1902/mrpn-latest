@@ -13,10 +13,12 @@ export default function TableProfilIntervensi({
   data,
   deleteData,
   updateData,
+  toggleShowTab,
 }: {
   data: RoDto[];
   deleteData?: any;
   updateData?: any;
+  toggleShowTab?: boolean;
 }) {
   const columns = useMemo(
     () => [
@@ -126,6 +128,13 @@ export default function TableProfilIntervensi({
         accessorKey: "sumber_anggaran",
         header: "Sumber Anggaran",
         size: 200,
+        Cell: (item: any) => {
+          return (
+            <Stack height="100%" alignItems="flex-start">
+              {item.row.original.sumber_anggaran}
+            </Stack>
+          );
+        },
       },
       {
         accessorKey: "action",
@@ -168,7 +177,9 @@ export default function TableProfilIntervensi({
           boxShadow: "none",
         },
         ".MuiTableContainer-root": {
-          maxHeight: "calc(100vh - 690px)",
+          maxHeight: toggleShowTab
+            ? "calc(100vh - 690px)"
+            : "calc(100vh - 625px)",
           "&::-webkit-scrollbar": {
             height: "6px",
             width: "6px",

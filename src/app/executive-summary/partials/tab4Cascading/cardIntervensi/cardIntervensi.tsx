@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Typography,
   Stack,
@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import EmptyState from "@/components/empty";
-import {IconEmptyData} from "@/components/icons";
+import { IconEmptyData } from "@/components/icons";
 import CardItem from "@/components/cardTabItem";
 import DialogComponent from "@/components/dialog";
 import AddButton from "@/components/buttonAdd";
@@ -18,20 +18,26 @@ import TableProfilIntervensi from "../table-profil-intervensi";
 import TableProfilRoKunci from "../table-profil-ro-kunci";
 import FormProfilRoProject from "../form-profil-ro-project";
 import useCardIntervensiVM from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiVM";
-import {ProPDto} from "@/app/misc/rkp/rkpServiceModel";
+import { ProPDto } from "@/app/misc/rkp/rkpServiceModel";
 import {
   AutoCompleteMultipleProp,
   AutoCompleteSingleProp,
 } from "@/components/autocomplete";
-import {MiscMasterListStakeholderRes} from "@/app/misc/master/masterServiceModel";
+import { MiscMasterListStakeholderRes } from "@/app/misc/master/masterServiceModel";
 import {
   ExsumInterventionState,
-  ProjectTargetAnggaranDto
+  ProjectTargetAnggaranDto,
 } from "@/app/executive-summary/partials/tab4Cascading/cardIntervensi/cardIntervensiModel";
-import {grey} from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import DialogDelete from "@/components/dialogDelete";
 
-export default function CardIntervensi({project}: { project: string }) {
+export default function CardIntervensi({
+  project,
+  toggleShowTab,
+}: {
+  project: string;
+  toggleShowTab?: boolean;
+}) {
   const {
     rpjmn,
     state,
@@ -65,7 +71,7 @@ export default function CardIntervensi({project}: { project: string }) {
 
   useEffect(() => {
     if (rpjmn && state.list.length == 0) {
-      const thisState = {...state};
+      const thisState = { ...state };
       for (let i = rpjmn.start; i <= rpjmn.end; i++) {
         const dataAnggaran: ProjectTargetAnggaranDto = {
           tahun: i,
@@ -113,13 +119,13 @@ export default function CardIntervensi({project}: { project: string }) {
             filled
             small
             title="Tambah Project"
-            onclick={() => setModal({action: true, type: "NON_RO"})}
+            onclick={() => setModal({ action: true, type: "NON_RO" })}
           />
           <AddButton
             filled
             small
             title="Tambah Profil RO"
-            onclick={() => setModal({action: true, type: "RO"})}
+            onclick={() => setModal({ action: true, type: "RO" })}
           />
         </>
       }
@@ -127,33 +133,36 @@ export default function CardIntervensi({project}: { project: string }) {
       {data.length == 0 ? (
         <EmptyState
           dense
-          icon={<IconEmptyData width={100}/>}
+          icon={<IconEmptyData width={100} />}
           title="Data Kosong"
           description="Silahkan isi konten halaman ini"
         />
       ) : (
         <TableProfilIntervensi
+          toggleShowTab={toggleShowTab}
           data={data}
           deleteData={(id: number) => {
-            setState(prevState => {
+            setState((prevState) => {
               return {
                 ...prevState,
-                id: id
-              }
-            })
-            setModalDelete(true)
+                id: id,
+              };
+            });
+            setModalDelete(true);
           }}
           updateData={(id: number) => {
-            const getIndex = data.findIndex(x => x.id == id)
+            const getIndex = data.findIndex((x) => x.id == id);
             if (getIndex > -1) {
-              const thisData = data[getIndex]
+              const thisData = data[getIndex];
 
-              let propData = undefined
-              const getPropIndex = listProP.findIndex(y => y.id == thisData.src_rkp_prop_id)
+              let propData = undefined;
+              const getPropIndex = listProP.findIndex(
+                (y) => y.id == thisData.src_rkp_prop_id
+              );
               if (getPropIndex > -1) {
-                propData = listProP[getPropIndex]
+                propData = listProP[getPropIndex];
               }
-              const st:ExsumInterventionState = {
+              const st: ExsumInterventionState = {
                 id: thisData.id,
                 exsum_id: 0,
                 type: thisData.type,
@@ -167,16 +176,16 @@ export default function CardIntervensi({project}: { project: string }) {
                     target: thisData.target,
                     satuan: thisData.satuan,
                     anggaran: thisData.anggaran,
-                    anggaranString: (thisData.anggaran).toString(),
-                    sumber_anggaran: thisData.sumber_anggaran
-                  }
+                    anggaranString: thisData.anggaran.toString(),
+                    sumber_anggaran: thisData.sumber_anggaran,
+                  },
                 ],
                 intervensi: thisData.intervention,
                 prop: propData,
-                ro: []
-              }
-              setState(st)
-              setModal({action: true, type: "NON_RO_UPDATE"})
+                ro: [],
+              };
+              setState(st);
+              setModal({ action: true, type: "NON_RO_UPDATE" });
             }
           }}
         />
@@ -186,39 +195,50 @@ export default function CardIntervensi({project}: { project: string }) {
         tableMode
         width={"90%"}
         dialogOpen={modal.type == "RO" && modal.action}
-        dialogClose={() => setModal({action: false, type: "RO"})}
+        dialogClose={() => setModal({ action: false, type: "RO" })}
         title="Tambah Profil RO Kunci"
         dialogFooter={
-          <DialogActions sx={{p: 2, px: 3}}>
+          <DialogActions sx={{ p: 2, px: 3 }}>
             <Button
               variant="outlined"
-              onClick={() => setModal({action: false, type: "RO"})}
+              onClick={() => setModal({ action: false, type: "RO" })}
             >
               Batal
             </Button>
-            <Button variant="contained" type="submit" onClick={() => handleSubmit()}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => handleSubmit()}
+            >
               Simpan
             </Button>
           </DialogActions>
         }
       >
-        <TableProfilRoKunci data={state.ro} setState={setState}/>
+        <TableProfilRoKunci data={state.ro} setState={setState} />
       </DialogComponent>
 
       <DialogComponent
         width={"90%"}
-        dialogOpen={(modal.type == "NON_RO" || modal.type == "NON_RO_UPDATE") && modal.action}
-        dialogClose={() => setModal({action: false, type: "NON_RO"})}
+        dialogOpen={
+          (modal.type == "NON_RO" || modal.type == "NON_RO_UPDATE") &&
+          modal.action
+        }
+        dialogClose={() => setModal({ action: false, type: "NON_RO" })}
         title="Tambah Nomenklatur RO/Project"
         dialogFooter={
-          <DialogActions sx={{p: 2, px: 3}}>
+          <DialogActions sx={{ p: 2, px: 3 }}>
             <Button
               variant="outlined"
-              onClick={() => setModal({action: false, type: "NON_RO"})}
+              onClick={() => setModal({ action: false, type: "NON_RO" })}
             >
               Batal
             </Button>
-            <Button variant="contained" type="submit" onClick={() => handleSubmit()}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => handleSubmit()}
+            >
               Simpan
             </Button>
           </DialogActions>

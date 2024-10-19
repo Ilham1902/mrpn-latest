@@ -177,58 +177,52 @@ export default function CascadingPenetapanObjectOrgChart() {
         };
       }
       stateCascading.map((pnData) => {
-        const pn = pnData.pn
+        const pn = pnData.pn;
         let result: OrgDto = {
           name: `PN - ${pn.code}`,
           title: pn.value,
           children: [],
         };
         // data.pp.map((pp) => {
-        const pp = pn.pp
+        const pp = pn.pp;
         const ppData: OrgDto = {
           name: `PP - ${pp.code}`,
           title: pp.value,
           children: [],
         };
         // pp.kp.map((kp) => {
-        const kp = pp.kp
+        const kp = pp.kp;
         const kpData: OrgDto = {
           name: `KP - ${kp.code}`,
           title: kp.value,
           children: [],
         };
         // kp.sasaran.map((ssrKP) => {
-        const ssrKP = kp.sasaran
+        const ssrKP = kp.sasaran;
         const ssrKPData: OrgDto = {
           name: `SASARAN - ${ssrKP.code}`,
           title: ssrKP.value,
           children: [],
         };
         // ssrKP.indikator.map((ind) => {
-        const ind = ssrKP.indikator
+        const ind = ssrKP.indikator;
         const indData: OrgDto = {
           name: (
-            <Stack
-              justifyContent="center"
-              direction="row"
-              alignItems="center"
-            >
+            <Stack justifyContent="center" direction="row" alignItems="center">
               {`INDIKATOR`}
             </Stack>
           ),
           title: (
             <List dense sx={styleList}>
               {ind.value.map((ros) => (
-                <ItemProP
-                  description={ros}
-                />
+                <ItemProP description={ros} />
               ))}
             </List>
           ),
           children: [],
         };
         ind.prop.map((props) => {
-          props.map(prop => {
+          props.map((prop) => {
             const propData: OrgDto = {
               name: prop.value,
               title: (
@@ -244,7 +238,7 @@ export default function CascadingPenetapanObjectOrgChart() {
               children: undefined,
             };
             indData.children?.push(propData);
-          })
+          });
         });
         // indData.children?.push(klData);
         // });
@@ -263,6 +257,24 @@ export default function CascadingPenetapanObjectOrgChart() {
 
   const sxParamsFull: SxParams = { variant: "full" };
   const sxParamsZoom: SxParams = { variant: "zoom" };
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      const element = document.querySelector(".orgchart > ul > li > .oc-node");
+      if (element) {
+        element.classList.add("isChildrenCollapsed");
+      }
+      const innerUl = document.querySelector(
+        ".orgchart > ul > li > .oc-node + ul"
+      );
+      // if (innerUl) {
+      //   innerUl.removeAttribute("class");
+      // }
+      if (innerUl) {
+        innerUl.classList.add("hidden");
+      }
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -298,10 +310,17 @@ export default function CascadingPenetapanObjectOrgChart() {
         </TransformWrapper>
       </Box>
       <DialogComponent
-        width="80%"
+        width="100%"
+        maxHeight="100vh"
         dialogOpen={modalOpenImg}
         dialogClose={handleModalClose}
       >
+        <IconButton
+          sx={{ position: "absolute", top: 10, right: 10, zIndex: 9999 }}
+          onClick={handleModalClose}
+        >
+          <IconFA name="circle-xmark" color="red" size={32} />
+        </IconButton>
         <TransformWrapper
           //   centerOnInit
           initialScale={0.5}

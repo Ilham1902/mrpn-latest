@@ -1,7 +1,9 @@
-import React, {SetStateAction, useState} from "react";
+import React, { SetStateAction, useState } from "react";
 import {
   Box,
   Button,
+  List,
+  ListItem,
   Paper,
   Stack,
   Table,
@@ -12,88 +14,81 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {grey} from "@mui/material/colors";
-import {IconFA} from "@/app/components/icons/icon-fa";
-import {VisuallyHiddenInput} from "@/app/utils/constant";
-import {TextareaStyled} from "@/app/components/textarea";
-import {usePenetapanTopicContext} from "@/lib/core/hooks/useHooks";
+import { grey } from "@mui/material/colors";
+import { IconFA } from "@/app/components/icons/icon-fa";
+import { VisuallyHiddenInput } from "@/app/utils/constant";
+import { TextareaStyled } from "@/app/components/textarea";
+import { usePenetapanTopicContext } from "@/lib/core/hooks/useHooks";
 import usePenetapanObjectVM from "@/app/penetapan/objek/pageVM";
 import Image from "next/image";
 
-export default function TableNotaDinas(
-  {
-    edit,
-    setEdit
-  }: {
-    edit: boolean
-    setEdit: (value:(SetStateAction<boolean>)) => void
-  }
-) {
+export default function TableNotaDinas({
+  edit,
+  setEdit,
+}: {
+  edit: boolean;
+  setEdit: (value: SetStateAction<boolean>) => void;
+}) {
+  const { nota, setNota } = usePenetapanTopicContext((store) => store);
 
-  const {
-    nota,
-    setNota
-  } = usePenetapanTopicContext(store => store)
+  const { updateOrCreateNotaDinas } = usePenetapanObjectVM();
 
-  const {
-    updateOrCreateNotaDinas
-  } = usePenetapanObjectVM()
-
-  const [creatorFile, setCreatorFile] = useState<{ fileName: string, ext: string }>({fileName: "", ext: ""})
-  const [approverFile, setApproverFile] = useState<{ fileName: string, ext: string }>({fileName: "", ext: ""})
+  const [creatorFile, setCreatorFile] = useState<{
+    fileName: string;
+    ext: string;
+  }>({ fileName: "", ext: "" });
+  const [approverFile, setApproverFile] = useState<{
+    fileName: string;
+    ext: string;
+  }>({ fileName: "", ext: "" });
 
   const handleFileChange = async (e: any, field: string) => {
-
     if (nota == undefined) {
-      return
+      return;
     }
 
     let file = e.target.files[0];
     if (file) {
-
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function () {
-        const res = reader.result as string
-        const stringBase64 = res.split(",")[1]
+        const res = reader.result as string;
+        const stringBase64 = res.split(",")[1];
 
-        let prevData = {...nota}
+        let prevData = { ...nota };
 
         const fileName = file.name;
         const fileData = {
           fileName: fileName,
-          ext: ""
-        }
+          ext: "",
+        };
 
         switch (field) {
           case "creator":
-            prevData.ttd_pembuat_base64 = stringBase64
-            prevData.ttd_pembuat_filename = fileName
-            setCreatorFile(fileData)
-            setNota(prevData)
+            prevData.ttd_pembuat_base64 = stringBase64;
+            prevData.ttd_pembuat_filename = fileName;
+            setCreatorFile(fileData);
+            setNota(prevData);
             break;
           default:
-            prevData.ttd_penyetuju_base64 = stringBase64
-            prevData.ttd_penyetuju_filename = fileName
-            setApproverFile(fileData)
-            setNota(prevData)
+            prevData.ttd_penyetuju_base64 = stringBase64;
+            prevData.ttd_penyetuju_filename = fileName;
+            setApproverFile(fileData);
+            setNota(prevData);
             break;
         }
-
       };
       reader.onerror = function (error) {
-        console.log('Error: ', error);
+        console.log("Error: ", error);
       };
-
     }
-
-  }
+  };
 
   return (
     <>
       <Stack gap={2}>
         <TableContainer component={Paper} elevation={0} variant="outlined">
-          <Table sx={{minWidth: 650}} size="small">
+          <Table sx={{ minWidth: 650 }} size="small">
             <TableBody>
               <TableRow>
                 <TableCell width={300}>
@@ -101,7 +96,7 @@ export default function TableNotaDinas(
                     Topik
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>{nota?.topik}</TableCell>
@@ -112,25 +107,25 @@ export default function TableNotaDinas(
                     Periode
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>{nota?.periode}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{verticalAlign: "top"}}>
+                <TableCell sx={{ verticalAlign: "top" }}>
                   <Typography fontSize={14} color={grey[600]}>
                     Usulan Objek MRPN Lintas Sektor
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0, verticalAlign: "top"}}>
+                <TableCell width={2} sx={{ px: 0, verticalAlign: "top" }}>
                   :
                 </TableCell>
                 <TableCell>
                   <ul>
-                    {nota?.usulan_objek_ls.map(x =>
+                    {nota?.usulan_objek_ls.map((x) => (
                       <li>{x}</li>
-                    )}
+                    ))}
                   </ul>
                 </TableCell>
               </TableRow>
@@ -139,7 +134,7 @@ export default function TableNotaDinas(
                   <Typography gutterBottom fontSize={14} color={grey[600]}>
                     Justifikasi & Penjelasan
                   </Typography>
-                  {edit ?
+                  {edit ? (
                     <TextareaStyled
                       aria-label="Justifikasi & Penjelasan Usulan Objek MRPN Lintas Sektor"
                       placeholder="Justifikasi & Penjelasan Usulan Objek MRPN Lintas Sektor"
@@ -147,17 +142,17 @@ export default function TableNotaDinas(
                       value={nota?.penjelasan_objek_mrpn}
                       onChange={(e) => {
                         if (nota !== undefined) {
-                          const prev = {...nota}
-                          prev.penjelasan_objek_mrpn = e.target.value
-                          setNota(prev)
+                          const prev = { ...nota };
+                          prev.penjelasan_objek_mrpn = e.target.value;
+                          setNota(prev);
                         }
                       }}
                     />
-                    :
+                  ) : (
                     <Typography fontSize={14}>
                       {nota?.penjelasan_objek_mrpn}
                     </Typography>
-                  }
+                  )}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -165,58 +160,58 @@ export default function TableNotaDinas(
         </TableContainer>
         <Typography fontWeight={600}>Usulan UPR Lintas Sektor</Typography>
         <TableContainer component={Paper} elevation={0} variant="outlined">
-          <Table sx={{minWidth: 650}} size="small">
+          <Table sx={{ minWidth: 650 }} size="small">
             <TableBody>
               <TableRow>
-                <TableCell width={300} sx={{verticalAlign: "top"}}>
+                <TableCell width={300} sx={{ verticalAlign: "top" }}>
                   <Typography fontSize={14} color={grey[600]}>
                     1. Kementerian Koordinasi
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0, verticalAlign: "top"}}>
+                <TableCell width={2} sx={{ px: 0, verticalAlign: "top" }}>
                   :
                 </TableCell>
                 <TableCell>
-                  <ul>
-                    {nota?.kementerian_koordinasi.map(x =>
-                      <li>{x}</li>
-                    )}
-                  </ul>
+                  <List sx={{ pl: "0 !important" }}>
+                    {nota?.kementerian_koordinasi.map((x) => (
+                      <ListItem>{x}</ListItem>
+                    ))}
+                  </List>
                 </TableCell>
               </TableRow>
 
               <TableRow>
-                <TableCell width={300} sx={{verticalAlign: "top"}}>
+                <TableCell width={300} sx={{ verticalAlign: "top" }}>
                   <Typography fontSize={14} color={grey[600]}>
                     2. Entitas MRPN Sektor Utama
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0, verticalAlign: "top"}}>
+                <TableCell width={2} sx={{ px: 0, verticalAlign: "top" }}>
                   :
                 </TableCell>
                 <TableCell>
                   <ul>
-                    {nota?.entitas_sektor_utama.map(x =>
+                    {nota?.entitas_sektor_utama.map((x) => (
                       <li>{x}</li>
-                    )}
+                    ))}
                   </ul>
                 </TableCell>
               </TableRow>
 
               <TableRow>
-                <TableCell width={300} sx={{verticalAlign: "top"}}>
+                <TableCell width={300} sx={{ verticalAlign: "top" }}>
                   <Typography fontSize={14} color={grey[600]}>
                     3. Entitas MRPN Pendukung
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0, verticalAlign: "top"}}>
+                <TableCell width={2} sx={{ px: 0, verticalAlign: "top" }}>
                   :
                 </TableCell>
                 <TableCell>
                   <ul>
-                    {nota?.entitas_pendukung.map(x =>
+                    {nota?.entitas_pendukung.map((x) => (
                       <li>{x}</li>
-                    )}
+                    ))}
                   </ul>
                 </TableCell>
               </TableRow>
@@ -226,7 +221,7 @@ export default function TableNotaDinas(
                   <Typography gutterBottom fontSize={14} color={grey[600]}>
                     Justifikasi & Penjelasan
                   </Typography>
-                  {edit ?
+                  {edit ? (
                     <TextareaStyled
                       disabled={!edit}
                       aria-label="Justifikasi & Penjelasan Usulan UPR Lintas Sektor"
@@ -235,24 +230,24 @@ export default function TableNotaDinas(
                       value={nota?.penjelasan_usulan_upr}
                       onChange={(e) => {
                         if (nota !== undefined) {
-                          const prev = {...nota}
-                          prev.penjelasan_usulan_upr = e.target.value
-                          setNota(prev)
+                          const prev = { ...nota };
+                          prev.penjelasan_usulan_upr = e.target.value;
+                          setNota(prev);
                         }
                       }}
                     />
-                    :
+                  ) : (
                     <Typography fontSize={14}>
                       {nota?.penjelasan_usulan_upr}
                     </Typography>
-                  }
+                  )}
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
         <TableContainer component={Paper} elevation={0} variant="outlined">
-          <Table sx={{minWidth: 650}} size="small">
+          <Table sx={{ minWidth: 650 }} size="small">
             <TableBody>
               <TableRow>
                 <TableCell width={300}>
@@ -260,7 +255,7 @@ export default function TableNotaDinas(
                     Lokasi & Tanggal
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>
@@ -276,9 +271,9 @@ export default function TableNotaDinas(
                           value={nota?.lokasi}
                           onChange={(e) => {
                             if (nota !== undefined) {
-                              const prev = {...nota}
-                              prev.lokasi = e.target.value
-                              setNota(prev)
+                              const prev = { ...nota };
+                              prev.lokasi = e.target.value;
+                              setNota(prev);
                             }
                           }}
                         />
@@ -291,9 +286,9 @@ export default function TableNotaDinas(
                           value={nota?.tanggal}
                           onChange={(e) => {
                             if (nota !== undefined) {
-                              const prev = {...nota}
-                              prev.tanggal = e.target.value
-                              setNota(prev)
+                              const prev = { ...nota };
+                              prev.tanggal = e.target.value;
+                              setNota(prev);
                             }
                           }}
                         />
@@ -312,11 +307,11 @@ export default function TableNotaDinas(
                     Direktorat
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>
-                  {edit ?
+                  {edit ? (
                     <TextField
                       size="small"
                       InputLabelProps={{
@@ -326,17 +321,15 @@ export default function TableNotaDinas(
                       value={nota?.direktorat}
                       onChange={(e) => {
                         if (nota !== undefined) {
-                          const prev = {...nota}
-                          prev.direktorat = e.target.value
-                          setNota(prev)
+                          const prev = { ...nota };
+                          prev.direktorat = e.target.value;
+                          setNota(prev);
                         }
                       }}
                     />
-                    :
-                    <Typography fontSize={14}>
-                      {nota?.direktorat}
-                    </Typography>
-                  }
+                  ) : (
+                    <Typography fontSize={14}>{nota?.direktorat}</Typography>
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -345,20 +338,27 @@ export default function TableNotaDinas(
                     Dibuat oleh
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>
-                  <Stack direction={edit ? "row" : "column"} gap={2} alignItems="center">
-                    {nota && nota.ttd_pembuat != "" && !edit &&
-                        <Image
-                            width={70}
-                            height={70}
-                            src={process.env.NEXT_PUBLIC_BASE_URL_FILES + nota.ttd_pembuat}
-                            alt={"tanda tangan digital creator"}
-                        />
-                    }
-                    {edit ?
+                  <Stack
+                    direction={edit ? "row" : "column"}
+                    gap={2}
+                    alignItems="center"
+                  >
+                    {nota && nota.ttd_pembuat != "" && !edit && (
+                      <Image
+                        width={70}
+                        height={70}
+                        src={
+                          process.env.NEXT_PUBLIC_BASE_URL_FILES +
+                          nota.ttd_pembuat
+                        }
+                        alt={"tanda tangan digital creator"}
+                      />
+                    )}
+                    {edit ? (
                       <>
                         <TextField
                           size="small"
@@ -369,9 +369,9 @@ export default function TableNotaDinas(
                           value={nota?.dibuat}
                           onChange={(e) => {
                             if (nota !== undefined) {
-                              const prev = {...nota}
-                              prev.dibuat = e.target.value
-                              setNota(prev)
+                              const prev = { ...nota };
+                              prev.dibuat = e.target.value;
+                              setNota(prev);
                             }
                           }}
                         />
@@ -381,23 +381,27 @@ export default function TableNotaDinas(
                           role={undefined}
                           variant="contained"
                           tabIndex={-1}
-                          startIcon={<IconFA name="upload" size={14}/>}
-                          sx={{textTransform: "capitalize", px: 2, height: 36}}
+                          startIcon={<IconFA name="upload" size={14} />}
+                          sx={{
+                            textTransform: "capitalize",
+                            px: 2,
+                            height: 36,
+                          }}
                         >
-                          {creatorFile.fileName == "" ? "Upload tanda tangan digital" : "Pilih ulang"}
-                          <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, "creator")}/>
+                          {creatorFile.fileName == ""
+                            ? "Upload tanda tangan digital"
+                            : "Pilih ulang"}
+                          <VisuallyHiddenInput
+                            type="file"
+                            onChange={(e) => handleFileChange(e, "creator")}
+                          />
                         </Button>
 
-                        <Typography>
-                          {creatorFile.fileName}
-                        </Typography>
+                        <Typography>{creatorFile.fileName}</Typography>
                       </>
-                      :
-                      <Typography fontSize={14}>
-                        {nota?.dibuat}
-                      </Typography>
-                    }
-
+                    ) : (
+                      <Typography fontSize={14}>{nota?.dibuat}</Typography>
+                    )}
                   </Stack>
                 </TableCell>
               </TableRow>
@@ -407,21 +411,28 @@ export default function TableNotaDinas(
                     Disetujui oleh
                   </Typography>
                 </TableCell>
-                <TableCell width={2} sx={{px: 0}}>
+                <TableCell width={2} sx={{ px: 0 }}>
                   :
                 </TableCell>
                 <TableCell>
-                  <Stack direction={edit ? "row" : "column"} gap={2} alignItems="center">
-                    {nota && nota.ttd_penyetuju != "" && !edit &&
-                        <Image
-                            width={70}
-                            height={70}
-                            src={process.env.NEXT_PUBLIC_BASE_URL_FILES + nota.ttd_penyetuju}
-                            alt={"tanda tangan digital creator"}
-                        />
-                    }
+                  <Stack
+                    direction={edit ? "row" : "column"}
+                    gap={2}
+                    alignItems="center"
+                  >
+                    {nota && nota.ttd_penyetuju != "" && !edit && (
+                      <Image
+                        width={70}
+                        height={70}
+                        src={
+                          process.env.NEXT_PUBLIC_BASE_URL_FILES +
+                          nota.ttd_penyetuju
+                        }
+                        alt={"tanda tangan digital creator"}
+                      />
+                    )}
 
-                    {edit ?
+                    {edit ? (
                       <>
                         <TextField
                           size="small"
@@ -432,9 +443,9 @@ export default function TableNotaDinas(
                           value={nota?.disetujui}
                           onChange={(e) => {
                             if (nota !== undefined) {
-                              const prev = {...nota}
-                              prev.disetujui = e.target.value
-                              setNota(prev)
+                              const prev = { ...nota };
+                              prev.disetujui = e.target.value;
+                              setNota(prev);
                             }
                           }}
                         />
@@ -444,42 +455,55 @@ export default function TableNotaDinas(
                           role={undefined}
                           variant="contained"
                           tabIndex={-1}
-                          startIcon={<IconFA name="upload" size={14}/>}
-                          sx={{textTransform: "capitalize", px: 2, height: 36}}
+                          startIcon={<IconFA name="upload" size={14} />}
+                          sx={{
+                            textTransform: "capitalize",
+                            px: 2,
+                            height: 36,
+                          }}
                         >
-                          {approverFile.fileName == "" ? "Upload tanda tangan digital" : "Pilih ulang"}
-                          <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, "approver")}/>
+                          {approverFile.fileName == ""
+                            ? "Upload tanda tangan digital"
+                            : "Pilih ulang"}
+                          <VisuallyHiddenInput
+                            type="file"
+                            onChange={(e) => handleFileChange(e, "approver")}
+                          />
                         </Button>
-                        <Typography>
-                          {approverFile.fileName}
-                        </Typography>
+                        <Typography>{approverFile.fileName}</Typography>
                       </>
-                      :
-                      <Typography fontSize={14}>
-                        {nota?.disetujui}
-                      </Typography>
-                    }
-
+                    ) : (
+                      <Typography fontSize={14}>{nota?.disetujui}</Typography>
+                    )}
                   </Stack>
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        {edit &&
-            <Stack width="100%" direction="row" justifyContent="flex-end" gap={2}>
-                <Box>
-                    <Button variant="contained" color="error" sx={{borderRadius: 24, px: 4}} onClick={() => setEdit(false)}>
-                        Batal
-                    </Button>
-                </Box>
-                <Box>
-                    <Button variant="contained" sx={{borderRadius: 24, px: 4}} onClick={() => updateOrCreateNotaDinas()}>
-                        Simpan
-                    </Button>
-                </Box>
-            </Stack>
-        }
+        {edit && (
+          <Stack width="100%" direction="row" justifyContent="flex-end" gap={2}>
+            <Box>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ borderRadius: 24, px: 4 }}
+                onClick={() => setEdit(false)}
+              >
+                Batal
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: 24, px: 4 }}
+                onClick={() => updateOrCreateNotaDinas()}
+              >
+                Simpan
+              </Button>
+            </Box>
+          </Stack>
+        )}
       </Stack>
     </>
   );

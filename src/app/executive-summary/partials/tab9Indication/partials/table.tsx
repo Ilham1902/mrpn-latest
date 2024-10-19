@@ -83,12 +83,11 @@ export default function TableIndication({
                 Rincian Output
               </Typography>
             </TableCell>
-            <TableCell>
+            <TableCell width={120}>
               <Typography variant="body1" fontWeight={600}>
                 Penanggungjawab
               </Typography>
             </TableCell>
-            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -124,7 +123,9 @@ export default function TableIndication({
                     }
                     sx={{ verticalAlign: "top" }}
                   >
-                    <Typography variant="body1">{row.tows?.value ?? ""}</Typography>
+                    <Typography variant="body1">
+                      {row.tows?.value ?? ""}
+                    </Typography>
                   </TableCell>
                   <TableCell
                     rowSpan={
@@ -157,7 +158,7 @@ export default function TableIndication({
                       {row.perlakuan.length > 0 && row.perlakuan[0].ro.value}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ verticalAlign: "top" }}>
+                  <TableCell sx={{ verticalAlign: "top" }} width={120}>
                     {row.perlakuan.length > 0 && (
                       <Stack gap={0.5}>
                         <Stack gap={0.5}>
@@ -210,7 +211,7 @@ export default function TableIndication({
                         {perlakuan.ro.value}
                       </Typography>
                     </TableCell>
-                    <TableCell sx={{ verticalAlign: "top" }}>
+                    <TableCell sx={{ verticalAlign: "top" }} width={120}>
                       <Stack gap={0.5}>
                         <Paper
                           elevation={0}
