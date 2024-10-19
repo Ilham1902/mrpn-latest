@@ -209,35 +209,26 @@ export type PropDto = ProPDto & {
   ro:RoDto[]
 }
 
-export type KLPengampu = MiscMasterListStakeholderRes & {
-  id:number
-  props:PropDto[]
-}
-
-export interface Indikator2Dto {
-  id: number
-  code: string
-  value: string
-  kementerian: KLPengampu
-}
-
 export interface SasaranDto {
   id: number
   code: string
   value: string
-  indikator: Indikator2Dto[]
+  indikator: {
+    value: string[]
+    prop:PropDto[][]
+  }
 }
 
 export type KPDto = ProjectDefaultDto & {
-  sasaran: SasaranDto[]
+  sasaran: SasaranDto
 }
 
 export type PPDto = ProjectDefaultDto & {
-  kp: KPDto[]
+  kp: KPDto
 }
 
 export type PNDto = ProjectDefaultDto & {
-  pp: PPDto[]
+  pp: PPDto
 }
 
-export type RKPCascadingDto = PNDto
+export type RKPCascadingDto = { pn : PNDto }

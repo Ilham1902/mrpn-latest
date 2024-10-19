@@ -99,7 +99,7 @@ const fetchAPI = async (param: APIParam) => {
     param.usingBase ? API_BASE + param.url : param.url,
     fetchParam
   );
-  if (!response.ok && response.status == 500){
+  if (!response.ok && response.status != 400 && response.status != 401){
     if (param.loadingContext != undefined) param.loadingContext.setLoading(false);
     return null
   }
