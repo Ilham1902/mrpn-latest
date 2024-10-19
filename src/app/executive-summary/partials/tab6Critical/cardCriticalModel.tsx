@@ -56,7 +56,7 @@ export interface ExsumCriticalData {
   kategori_proyek_id:number
   keterangan_kegiatan:string
   kategori_proyek:MiscMasterListKategoriProyekRes
-  ro:RoDto
+  ro?:RoDto
   start_date:string
   end_date:string
   tagging_list:{

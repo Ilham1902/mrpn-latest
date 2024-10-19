@@ -51,7 +51,7 @@ export interface ExsumIndicationResDto {
   indikasi_risiko:string
   kategori_risiko:string
   perlakuan:ExsumIndicationValueRes[]
-  tows:ExsumTWOSDto
+  tows?:ExsumTWOSDto
 }
 
 export interface IndicationState {

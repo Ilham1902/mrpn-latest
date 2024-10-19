@@ -84,7 +84,7 @@ export default function TableCritical({
           {data.map((item, index) => (
             <TableRow key={index}>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.ro.value}</Typography>
+                <Typography variant="body2">{item.ro?.value}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
                 <Chip
@@ -102,10 +102,10 @@ export default function TableCritical({
                 />
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.ro.kementrian.value}</Typography>
+                <Typography variant="body2">{item.ro?.kementrian.value}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
-                <Typography variant="body2">{item.ro.sumber_anggaran}</Typography>
+                <Typography variant="body2">{item.ro?.sumber_anggaran}</Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: "top" }}>
                 <Typography variant="body2">{dayjs(item.start_date).format("DD MMM YYYY")}</Typography>

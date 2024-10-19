@@ -100,15 +100,15 @@ const useCardCriticalVM = () => {
         }
 
         const taskAdditionalData:TaskAdditionalData = {
-          penanggungjawab: res.ro.kementrian.value,
-          sumber_anggaran: res.ro.sumber_anggaran,
+          penanggungjawab: res.ro?.kementrian.value ?? "",
+          sumber_anggaran: res.ro?.sumber_anggaran ?? "",
           keterangan_kegiatan: res.keterangan_kegiatan
         }
 
         const t: Task = {
           id: res.id.toString(),
           type: "task",
-          name: res.ro.value,
+          name: res.ro?.value ?? "",
           start: startDay.toDate(),
           end: endDay.toDate(),
           progress: 0,

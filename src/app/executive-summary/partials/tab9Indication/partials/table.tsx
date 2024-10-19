@@ -124,7 +124,7 @@ export default function TableIndication({
                     }
                     sx={{ verticalAlign: "top" }}
                   >
-                    <Typography variant="body1">{row.tows.value}</Typography>
+                    <Typography variant="body1">{row.tows?.value ?? ""}</Typography>
                   </TableCell>
                   <TableCell
                     rowSpan={
