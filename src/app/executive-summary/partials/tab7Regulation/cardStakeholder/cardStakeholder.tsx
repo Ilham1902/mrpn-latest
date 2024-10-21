@@ -1,15 +1,14 @@
 import React from "react";
-import {Button, DialogActions, Grid} from "@mui/material";
+import { Button, DialogActions, Grid } from "@mui/material";
 import EmptyState from "@/app/components/empty";
-import {IconEmptyData} from "@/app/components/icons";
+import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
 import FormStakeholder from "./form-stakeholder";
 import StakeholderChart from "@/components/cardStakeholder/stakeholder-chart";
 import useCardStakeholderVM from "@/app/executive-summary/partials/tab7Regulation/cardStakeholder/cardStakeholderVM";
 
-export default function CardStakeholder({project}: { project: string }) {
-
+export default function CardStakeholder({ project }: { project: string }) {
   const {
     data,
     listStakeholder,
@@ -18,9 +17,8 @@ export default function CardStakeholder({project}: { project: string }) {
     request,
     updateData,
     handleSelectStakeholder,
-    handleChangeDescription
-  } = useCardStakeholderVM()
-
+    handleChangeDescription,
+  } = useCardStakeholderVM();
 
   const handleModalOpenStakeholder = () => {
     setModalOpenStakeholder(true);
@@ -34,47 +32,55 @@ export default function CardStakeholder({project}: { project: string }) {
 
   return (
     <CardItem
-      title="Kerangka Kelembagaan"
+      title="Institusi Pelaksana"
       setting
       settingEditOnclick={handleModalOpenStakeholder}
     >
       {data.length == 0 ? (
         <EmptyState
           dense
-          icon={<IconEmptyData width={100}/>}
+          icon={<IconEmptyData width={100} />}
           title="Data Kosong"
           description="Silahkan isi konten halaman ini"
         />
       ) : (
-        <StakeholderChart data={data}/>
+        <StakeholderChart data={data} />
       )}
 
       <DialogComponent
-        width={"80%"}
+        width="800px"
         dialogOpen={modalOpenStakeholder}
         dialogClose={handleModalClose}
-        title="Ubah Kerangka Kelembagaan"
+        title="Ubah Institusi Pelaksana"
         dialogFooter={
-          <DialogActions sx={{p: 2, px: 3}}>
+          <DialogActions sx={{ p: 2, px: 3 }}>
             <Button variant="outlined" onClick={handleModalClose}>
               Batal
             </Button>
-            <Button variant="contained" type="submit" onClick={() => updateData()}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => updateData()}
+            >
               Simpan
             </Button>
           </DialogActions>
         }
       >
         <Grid container spacing={2}>
-          {request.values.map((req,index) => (
+          {request.values.map((req, index) => (
             <FormStakeholder
               key={index}
               title={req.label}
               listStakeholder={listStakeholder}
               selectedStakeholder={req.stakeholder}
-              setSelectedStakeholder={(items:number[]) => handleSelectStakeholder(items, req.type)}
+              setSelectedStakeholder={(items: number[]) =>
+                handleSelectStakeholder(items, req.type)
+              }
               description={req.value}
-              setDescription={(item:string) => handleChangeDescription(item, req.type)}
+              setDescription={(item: string) =>
+                handleChangeDescription(item, req.type)
+              }
             />
           ))}
         </Grid>

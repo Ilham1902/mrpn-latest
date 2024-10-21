@@ -17,9 +17,14 @@ export const styleTabPanel = (params: SxParams) => {
         : params.tabLevel === "2"
         ? "calc(100vh - 454px)"
         : params.tabLevel === "3"
-        ? "calc(100vh - 388px)"
-        : "calc(100vh - 400px)",
-    // "calc(100vh - 330px)",
+        ? "calc(100vh - 452px)"
+        : params.tabLevel === "lv-2"
+        ? // ? "calc(100vh - 330px)"
+          "calc(100vh - 454px)"
+        : params.tabLevel === "lv-2-tab-hide"
+        ? "calc(100vh - 390px)"
+        : // : "calc(100vh - 400px)",
+          "calc(100vh - 330px)",
     overflow: "auto",
     ".tab-cascading-diagram": {
       height: "calc(100vh - 352px)",

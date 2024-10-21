@@ -98,15 +98,22 @@ export default function CardIndicator({ project }: { project: string }) {
           <Table sx={{ minWidth: 650 }} size="small">
             <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
               <TableRow>
+                <TableCell>Kode</TableCell>
                 <TableCell>Indikator</TableCell>
-                <TableCell align="center">Target</TableCell>
+                <TableCell>Target</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {indikatorKP.map((row, i) => (
-                <TableRow key={i}>
+                <TableRow
+                  key={i}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
+                >
+                  <TableCell>Kode</TableCell>
                   <TableCell>{row.value}</TableCell>
-                  <TableCell align={"right"}>{getTarget(row)}</TableCell>
+                  <TableCell>{getTarget(row)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

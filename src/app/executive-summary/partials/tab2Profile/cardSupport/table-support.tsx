@@ -80,7 +80,7 @@ export default function TableSupport({
   };
 
   return (
-    <TableContainer component={Paper} elevation={0}>
+    <TableContainer component={Paper} elevation={0} variant="outlined">
       <Table sx={{ minWidth: 650 }} size="small">
         <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
           <TableRow>
@@ -125,7 +125,7 @@ export default function TableSupport({
                     ? sasaran.indikator[0].value
                     : ""}
                 </TableCell>
-                <TableCell align={"right"} sx={{ verticalAlign: "top" }}>
+                <TableCell sx={{ verticalAlign: "top" }}>
                   {sasaran.indikator.length > 0
                     ? getTarget(sasaran.indikator[0])
                     : ""}
@@ -136,7 +136,7 @@ export default function TableSupport({
                   <TableCell sx={{ verticalAlign: "top" }}>
                     {indikator.value}
                   </TableCell>
-                  <TableCell align={"right"} sx={{ verticalAlign: "top" }}>
+                  <TableCell sx={{ verticalAlign: "top" }}>
                     {getTarget(indikator)}
                   </TableCell>
                 </TableRow>

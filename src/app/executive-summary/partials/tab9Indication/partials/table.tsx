@@ -8,6 +8,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -46,7 +47,7 @@ export default function TableIndication({
   };
 
   return (
-    <>
+    <TableContainer component={Paper} elevation={0} variant="outlined">
       <Table sx={{ minWidth: 650 }} size="small">
         <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
           <TableRow>
@@ -250,6 +251,6 @@ export default function TableIndication({
             ))}
         </TableBody>
       </Table>
-    </>
+    </TableContainer>
   );
 }

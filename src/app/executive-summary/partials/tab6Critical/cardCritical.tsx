@@ -6,18 +6,12 @@ import "gantt-task-react/dist/index.css";
 import GanttChart from "./gantt-critical";
 import { Box, Button, DialogActions, Stack, Typography } from "@mui/material";
 import { green, grey, orange } from "@mui/material/colors";
-import theme from "@/theme";
 import DialogComponent from "@/app/components/dialog";
 import FormCritical from "./form";
 import useCardCriticalVM from "@/app/executive-summary/partials/tab6Critical/cardCriticalVM";
 import { GetColor } from "@/utils/color";
-import { ExsumCriticalData } from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
 import TableCritical from "./table";
-import AddButton from "@/app/components/buttonAdd";
 import DialogDelete from "@/app/components/dialogDelete";
-import {useAuthContext} from "@/lib/core/hooks/useHooks";
-import {usePathname} from "next/navigation";
-import {hasPrivilege} from "@/lib/core/helpers/authHelpers";
 
 const ProjectType = ({ label, color }: { label: string; color: string }) => {
   return (
@@ -52,7 +46,7 @@ export default function CardCritical({ project }: { project: string }) {
     modalAdd,
     setModalAdd,
     modalDelete,
-    setModalDelete
+    setModalDelete,
   } = useCardCriticalVM();
 
   const handleModalOpen = () => {
@@ -67,8 +61,8 @@ export default function CardCritical({ project }: { project: string }) {
     setModalAdd(false);
   };
 
-  const handleModalDelete = (index:number) => {
-    handleModalUpdate(index)
+  const handleModalDelete = (index: number) => {
+    handleModalUpdate(index);
     setModalAdd(false);
     setModalDelete(true);
   };
@@ -122,6 +116,7 @@ export default function CardCritical({ project }: { project: string }) {
                 ))}
               </Stack>
               <GanttChart tasks={ganChart} />
+              {/* <GanttChartCritical /> */}
             </Stack>
           </>
         )}
