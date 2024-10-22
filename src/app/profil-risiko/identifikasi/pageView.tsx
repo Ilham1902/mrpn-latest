@@ -20,12 +20,10 @@ import { AutocompleteSelectSingle } from "@/components/autocomplete";
 import { MasterListObjectRes } from "@/app/misc/master/masterServiceModel";
 import EmptyState from "@/components/empty";
 import { IconEmptyData } from "@/components/icons";
-import HeaderIdentifikasi from "@/app/profil-risiko/identifikasi/partials/header";
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import { advancedTable } from "@/components/table";
 import ActionColumn from "@/components/actions/action";
 import { usePathname } from "next/navigation";
 import { hasPrivilege } from "@/lib/core/helpers/authHelpers";
@@ -70,120 +68,117 @@ export default function PageIdentifikasiView({}) {
     if (objectState !== undefined) getIdentificationRiskData();
   }, [objectState]);
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "peristiwa_risiko",
-        header: "Peristiwa Risiko Strategis MRPN Linsek",
-        size: 250,
-        enableColumnActions: false,
-      },
-      {
-        accessorKey: "kategori_risiko",
-        header: "Kategori Risiko",
-        size: 200,
-        enableColumnActions: false,
-      },
-      {
-        accessorKey: "penyebab_dampak",
-        header: "Penyebab",
-        enableColumnActions: false,
-        Cell: ({cell}: { cell: any }) => (
-          <Paper
-            elevation={0}
-            sx={{
-              overflow: "auto",
-              maxHeight: 160,
-              backgroundColor: "transparent",
-              "&::-webkit-scrollbar": {
-                width: "3px",
-              },
-            }}
-          >
-            <Stack gap={1}>
-              {cell.getValue().penyebab.map((itemDesc: any, index: any) => (
-                itemDesc &&
-                <Chip
-                    key={index}
-                    sx={{
-                      height: "auto",
-                      py: 1,
-                      "& .MuiChip-label": {
-                        overflow: "unset",
-                        whiteSpace: "wrap",
-                      },
-                    }}
-                    label={itemDesc}
-                />
-              ))}
-            </Stack>
-          </Paper>
-        ),
-      },
-      {
-        accessorKey: "penyebab_dampak",
-        header: "Dampak",
-        enableColumnActions: false,
-        Cell: ({cell}: { cell: any }) => (
-          <Paper
-            elevation={0}
-            sx={{
-              overflow: "auto",
-              maxHeight: 160,
-              backgroundColor: "transparent",
-              "&::-webkit-scrollbar": {
-                width: "3px",
-              },
-            }}
-          >
-            <Stack gap={1}>
-              {cell.getValue().dampak.map((itemDesc: any, index: any) => (
-                itemDesc &&
-                <Chip
-                    key={index}
-                    sx={{
-                      height: "auto",
-                      py: 1,
-                      "& .MuiChip-label": {
-                        overflow: "unset",
-                        whiteSpace: "wrap",
-                      },
-                    }}
-                    label={itemDesc}
-                />
-              ))}
-            </Stack>
-          </Paper>
-        ),
-      },
-      {
-        accessorKey: "kategori_risiko",
-        header: "Action",
-        size: 200,
-        enableColumnActions: false,
-        Cell: (item: any) => (
-          <ActionColumn
-            viewClick={
-              hasPrivilege(permission, pathname, "list")
-                ? () => actionModal(true, "read", item.cell.row.original.id)
-                : undefined
-            }
-            editClick={
-              hasPrivilege(permission, pathname, "update")
-                ? () => actionModal(true, "update", item.cell.row.original.id)
-                : undefined
-            }
-            deleteClick={
-              hasPrivilege(permission, pathname, "delete")
-                ? () => actionModal(true, "delete", item.cell.row.original.id)
-                : undefined
-            }
-          />
-        ),
-      },
-    ],
-    []
-  );
+  const columns = [
+    {
+      accessorKey: "peristiwa_risiko",
+      header: "Peristiwa Risiko Strategis MRPN Linsek",
+      size: 250,
+      enableColumnActions: false,
+    },
+    {
+      accessorKey: "kategori_risiko",
+      header: "Kategori Risiko",
+      size: 200,
+      enableColumnActions: false,
+    },
+    {
+      accessorKey: "penyebab_dampak",
+      header: "Penyebab",
+      enableColumnActions: false,
+      Cell: ({cell}: { cell: any }) => (
+        <Paper
+          elevation={0}
+          sx={{
+            overflow: "auto",
+            maxHeight: 160,
+            backgroundColor: "transparent",
+            "&::-webkit-scrollbar": {
+              width: "3px",
+            },
+          }}
+        >
+          <Stack gap={1}>
+            {cell.getValue().penyebab.map((itemDesc: any, index: any) => (
+              itemDesc &&
+              <Chip
+                  key={index}
+                  sx={{
+                    height: "auto",
+                    py: 1,
+                    "& .MuiChip-label": {
+                      overflow: "unset",
+                      whiteSpace: "wrap",
+                    },
+                  }}
+                  label={itemDesc}
+              />
+            ))}
+          </Stack>
+        </Paper>
+      ),
+    },
+    {
+      accessorKey: "penyebab_dampak",
+      header: "Dampak",
+      enableColumnActions: false,
+      Cell: ({cell}: { cell: any }) => (
+        <Paper
+          elevation={0}
+          sx={{
+            overflow: "auto",
+            maxHeight: 160,
+            backgroundColor: "transparent",
+            "&::-webkit-scrollbar": {
+              width: "3px",
+            },
+          }}
+        >
+          <Stack gap={1}>
+            {cell.getValue().dampak.map((itemDesc: any, index: any) => (
+              itemDesc &&
+              <Chip
+                  key={index}
+                  sx={{
+                    height: "auto",
+                    py: 1,
+                    "& .MuiChip-label": {
+                      overflow: "unset",
+                      whiteSpace: "wrap",
+                    },
+                  }}
+                  label={itemDesc}
+              />
+            ))}
+          </Stack>
+        </Paper>
+      ),
+    },
+    {
+      accessorKey: "kategori_risiko",
+      header: "Action",
+      size: 200,
+      enableColumnActions: false,
+      Cell: (item: any) => (
+        <ActionColumn
+          viewClick={
+            hasPrivilege(permission, pathname, "list")
+              ? () => actionModal(true, "read", item.cell.row.original.id)
+              : undefined
+          }
+          editClick={
+            hasPrivilege(permission, pathname, "update")
+              ? () => actionModal(true, "update", item.cell.row.original.id)
+              : undefined
+          }
+          deleteClick={
+            hasPrivilege(permission, pathname, "delete")
+              ? () => actionModal(true, "delete", item.cell.row.original.id)
+              : undefined
+          }
+        />
+      ),
+    },
+  ];
 
   const data = dataIdentificationRisk?.profile_risiko ?? [];
   const table = useMaterialReactTable({

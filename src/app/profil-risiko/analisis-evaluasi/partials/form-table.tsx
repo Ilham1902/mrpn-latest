@@ -35,7 +35,7 @@ export default function FormTable({
  });
 
  const handleClick = (rowIndex: any, colIndex: any, value: any) => {
-  const getIndex = optionsRiskMatrix.findIndex((x) => x.id == value);
+  const getIndex = optionsRiskMatrix.findIndex((x) => x.nilai == value);
   if (getIndex > -1) {
    setState((prevState) => {
     return {

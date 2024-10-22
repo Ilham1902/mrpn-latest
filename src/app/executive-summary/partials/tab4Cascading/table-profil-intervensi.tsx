@@ -20,139 +20,136 @@ export default function TableProfilIntervensi({
   updateData?: any;
   toggleShowTab?: boolean;
 }) {
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "tahun",
-        header: "Tahun",
-        size: 130,
-        enableColumnFilterModes: true,
-        filterFns: "contains",
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.tahun}
-            </Stack>
-          );
-        },
+  const columns = [
+    {
+      accessorKey: "tahun",
+      header: "Tahun",
+      size: 130,
+      enableColumnFilterModes: true,
+      filterFns: "contains",
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.tahun}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "code",
-        header: "Format Kode",
-        size: 180,
-        enableColumnFilterModes: true,
-        filterFns: "contains",
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.code}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "code",
+      header: "Format Kode",
+      size: 180,
+      enableColumnFilterModes: true,
+      filterFns: "contains",
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.code}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "intervention",
-        header: "Keterangan Intervensi",
-        size: 180,
-        filterFns: "contains",
-        Cell: (item: any) => {
-          const value =
-            item.row.original.intervention == true
-              ? "Intervensi Kunci"
-              : "Reguler";
-          const color =
-            item.row.original.intervention == true ? "primary" : "default";
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              <Chip size="small" color={color} label={value} />
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "intervention",
+      header: "Keterangan Intervensi",
+      size: 180,
+      filterFns: "contains",
+      Cell: (item: any) => {
+        const value =
+          item.row.original.intervention == true
+            ? "Intervensi Kunci"
+            : "Reguler";
+        const color =
+          item.row.original.intervention == true ? "primary" : "default";
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            <Chip size="small" color={color} label={value} />
+          </Stack>
+        );
       },
-      {
-        accessorKey: "kementrian_id",
-        header: "Penanggungjawab",
-        size: 210,
-        enableColumnFilterModes: true,
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.kementrian.value}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "kementrian_id",
+      header: "Penanggungjawab",
+      size: 210,
+      enableColumnFilterModes: true,
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.kementrian.value}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "value",
-        header: "Nomenklatur RO/Project",
-        size: 350,
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.value}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "value",
+      header: "Nomenklatur RO/Project",
+      size: 350,
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.value}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "target",
-        header: "Target",
-        size: 150,
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.target}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "target",
+      header: "Target",
+      size: 150,
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.target}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "anggaran",
-        header: "Anggaran",
-        size: 150,
-        Cell: (item: any) => {
-          const value = FormatIDR(item.row.original.anggaran);
-          return (
-            <Stack
-              width="100%"
-              height="100%"
-              alignItems="flex-end"
-              justifyContent="flex-start"
-            >
-              {value}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "anggaran",
+      header: "Anggaran",
+      size: 150,
+      Cell: (item: any) => {
+        const value = FormatIDR(item.row.original.anggaran);
+        return (
+          <Stack
+            width="100%"
+            height="100%"
+            alignItems="flex-end"
+            justifyContent="flex-start"
+          >
+            {value}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "sumber_anggaran",
-        header: "Sumber Anggaran",
-        size: 200,
-        Cell: (item: any) => {
-          return (
-            <Stack height="100%" alignItems="flex-start">
-              {item.row.original.sumber_anggaran}
-            </Stack>
-          );
-        },
+    },
+    {
+      accessorKey: "sumber_anggaran",
+      header: "Sumber Anggaran",
+      size: 200,
+      Cell: (item: any) => {
+        return (
+          <Stack height="100%" alignItems="flex-start">
+            {item.row.original.sumber_anggaran}
+          </Stack>
+        );
       },
-      {
-        accessorKey: "action",
-        header: "Aksi",
-        size: 100,
-        Cell: (item: any) => {
-          const isNonRO = item.row.original.type == "NON_RO";
-          return isNonRO ? (
-            <ActionColumn
-              editClick={() => updateData(item.row.original.id)}
-              deleteClick={() => deleteData(item.row.original.id)}
-            />
-          ) : null;
-        },
+    },
+    {
+      accessorKey: "action",
+      header: "Aksi",
+      size: 100,
+      Cell: (item: any) => {
+        const isNonRO = item.row.original.type == "NON_RO";
+        return isNonRO ? (
+          <ActionColumn
+            editClick={() => updateData(item.row.original.id)}
+            deleteClick={() => deleteData(item.row.original.id)}
+          />
+        ) : null;
       },
-    ],
-    []
-  );
+    },
+  ];
 
   const table = useMaterialReactTable({
     columns,

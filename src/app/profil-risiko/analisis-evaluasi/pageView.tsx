@@ -101,130 +101,127 @@ export default function PageAnalisisEvaluasiView({}) {
     </DialogActions>
   );
 
-  const columns = useMemo<MRT_ColumnDef<RiskOverviewData>[]>(
-    () => [
-      {
-        id: "penilaian_risiko",
-        header: "Penilaian Risiko",
-        columns: [
-          {
-            id: "identifikasi_risiko",
-            header: "Identifikasi Risiko",
-            columns: [
-              {
-                accessorKey: "peristiwa",
-                header: "Peristiwa Risiko",
-                enableColumnActions: false,
+  const columns:MRT_ColumnDef<RiskOverviewData>[] = [
+    {
+      id: "penilaian_risiko",
+      header: "Penilaian Risiko",
+      columns: [
+        {
+          id: "identifikasi_risiko",
+          header: "Identifikasi Risiko",
+          columns: [
+            {
+              accessorKey: "peristiwa",
+              header: "Peristiwa Risiko",
+              enableColumnActions: false,
+            },
+            {
+              accessorKey: "kategori",
+              header: "Kategori Risiko",
+              enableColumnActions: false,
+            },
+          ],
+        },
+        {
+          id: "analisis_evaluasi_risiko",
+          header: "Analisis & Evaluasi Risiko",
+          columns: [
+            {
+              accessorKey: "analisis_lk",
+              header: "LK",
+              enableColumnActions: false,
+              size: 120,
+              muiTableHeadCellProps: {
+                align: "center",
               },
-              {
-                accessorKey: "kategori",
-                header: "Kategori Risiko",
-                enableColumnActions: false,
+              muiTableBodyCellProps: {
+                align: "center",
               },
-            ],
-          },
-          {
-            id: "analisis_evaluasi_risiko",
-            header: "Analisis & Evaluasi Risiko",
-            columns: [
-              {
-                accessorKey: "analisis_lk",
-                header: "LK",
-                enableColumnActions: false,
-                size: 120,
-                muiTableHeadCellProps: {
-                  align: "center",
-                },
-                muiTableBodyCellProps: {
-                  align: "center",
-                },
+            },
+            {
+              accessorKey: "analisis_ld",
+              header: "LD",
+              enableColumnActions: false,
+              size: 120,
+              muiTableHeadCellProps: {
+                align: "center",
               },
-              {
-                accessorKey: "analisis_ld",
-                header: "LD",
-                enableColumnActions: false,
-                size: 120,
-                muiTableHeadCellProps: {
-                  align: "center",
-                },
-                muiTableBodyCellProps: {
-                  align: "center",
-                },
+              muiTableBodyCellProps: {
+                align: "center",
               },
-              {
-                id: "row-br",
-                accessorKey: "analisis_br",
-                header: "BR",
-                enableColumnActions: false,
-                size: 120,
-                muiTableHeadCellProps: {
-                  align: "center",
-                },
-                muiTableBodyCellProps: {
-                  align: "center",
-                },
+            },
+            {
+              id: "row-br",
+              accessorKey: "analisis_br",
+              header: "BR",
+              enableColumnActions: false,
+              size: 120,
+              muiTableHeadCellProps: {
+                align: "center",
               },
-              {
-                accessorKey: "analisis_level",
-                header: "Level Risiko",
-                enableColumnActions: false,
-                size: 160,
-                Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
-                  <Chip
-                    color={
-                      renderedCellValue === "Sangat Tinggi (5)"
-                        ? "error"
-                        : renderedCellValue === "Tinggi (4)"
+              muiTableBodyCellProps: {
+                align: "center",
+              },
+            },
+            {
+              accessorKey: "analisis_level",
+              header: "Level Risiko",
+              enableColumnActions: false,
+              size: 160,
+              Cell: ({ renderedCellValue }: { renderedCellValue: any }) => (
+                <Chip
+                  color={
+                    renderedCellValue === "Sangat Tinggi (5)"
+                      ? "error"
+                      : renderedCellValue === "Tinggi (4)"
                         ? "warning"
                         : "success"
-                    }
-                    sx={{
-                      minWidth: 80,
-                      borderWidth: "2px",
-                      borderStyle: "solid",
-                      "& .MuiChip-label": {
-                        fontWeight: 600,
-                      },
-                      "&.MuiChip-colorWarning": {
-                        bgcolor: orange[100],
-                        borderColor: orange[600],
-                        color: orange[900],
-                      },
-                      "&.MuiChip-colorError": {
-                        bgcolor: red[100],
-                        borderColor: red[400],
-                        color: red[900],
-                      },
-                      "&.MuiChip-colorSuccess": {
-                        bgcolor: green[100],
-                        borderColor: green[400],
-                        color: green[900],
-                      },
-                    }}
-                    label={renderedCellValue}
-                  />
-                ),
+                  }
+                  sx={{
+                    minWidth: 80,
+                    borderWidth: "2px",
+                    borderStyle: "solid",
+                    "& .MuiChip-label": {
+                      fontWeight: 600,
+                    },
+                    "&.MuiChip-colorWarning": {
+                      bgcolor: orange[100],
+                      borderColor: orange[600],
+                      color: orange[900],
+                    },
+                    "&.MuiChip-colorError": {
+                      bgcolor: red[100],
+                      borderColor: red[400],
+                      color: red[900],
+                    },
+                    "&.MuiChip-colorSuccess": {
+                      bgcolor: green[100],
+                      borderColor: green[400],
+                      color: green[900],
+                    },
+                  }}
+                  label={renderedCellValue}
+                />
+              ),
+            },
+            {
+              id: "row-prioritas",
+              accessorKey: "prioritas",
+              header: "Prioritas Risiko",
+              enableColumnActions: false,
+              size: 160,
+              muiTableHeadCellProps: {
+                align: "center",
               },
-              {
-                id: "row-prioritas",
-                accessorKey: "prioritas",
-                header: "Prioritas Risiko",
-                enableColumnActions: false,
-                size: 160,
-                muiTableHeadCellProps: {
-                  align: "center",
-                },
-                muiTableBodyCellProps: {
-                  align: "center",
-                },
+              muiTableBodyCellProps: {
+                align: "center",
               },
-            ],
-          },
-        ],
-      },
-    ],
-    []
-  );
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
   const data = dataTable;
   const renderTopToolbar: ColumnsType = {
