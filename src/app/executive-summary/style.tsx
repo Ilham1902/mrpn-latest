@@ -21,7 +21,8 @@ export const styleTabPanel = (params: SxParams) => {
         : params.tabLevel === "3"
         ? "calc(100vh - 452px)"
         : params.tabLevel === "lv-2"
-        ? "calc(100vh - 330px)"
+        ? // ? "calc(100vh - 330px)"
+          "calc(100vh - 454px)"
         : params.tabLevel === "lv-2-tab-hide"
         ? "calc(100vh - 390px)"
         : // : "calc(100vh - 400px)",
@@ -165,7 +166,7 @@ export const styleOrgChart = (params: SxParams) => {
   return {
     ".orgchart-container": {
       maxWidth: params.variant === "full" ? "100%" : "calc(100vw - 188px)",
-      maxHeight: params.variant === "full" ? "100%" : "calc(100vh - 626px)",
+      maxHeight: params.variant === "full" ? "100%" : "calc(100vh - 616px)",
       overflow: params.variant === "full" ? "hidden" : "auto",
       height: "auto",
       border: 0,
@@ -215,7 +216,6 @@ export const styleOrgChart = (params: SxParams) => {
           p: 0,
           m: "0 5px",
           minWidth: 300,
-          maxWidth: 500,
           "&:before, &:after": {
             bgcolor: grey[400],
             height: 15,
@@ -293,7 +293,6 @@ export const styleOrgChart2 = [
           p: 0,
           m: "0 5px",
           minWidth: 300,
-          maxWidth: 500,
           "&:before, &:after": {
             bgcolor: grey[400],
             height: 15,

@@ -90,11 +90,9 @@ export default function CardLocation({ project }: { project: string }) {
                 </Typography>
               </Typography>
               <Stack direction="row" flexWrap="wrap" gap={0.5}>
-                <Box>
-                  {locationExsum.map((x, index) => (
-                    <Chip size="small" label={x.name} key={index} />
-                  ))}
-                </Box>
+                {locationExsum.map((x, index) => (
+                  <Chip size="small" label={x.name} key={index} />
+                ))}
               </Stack>
             </Stack>
             <Stack gap={1}>

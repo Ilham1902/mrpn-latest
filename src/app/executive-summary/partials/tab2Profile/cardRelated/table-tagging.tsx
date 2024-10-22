@@ -34,25 +34,13 @@ export default function TableTagging({
   };
 
   return (
-    <TableContainer component={Paper} elevation={0}>
+    <TableContainer component={Paper} elevation={0} variant="outlined">
       <Table sx={{ minWidth: 650 }} size="small">
         <TableHead sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1) }}>
           <TableRow>
-            <TableCell sx={{ width: 100 }}>
-              <Typography variant="body1" fontWeight={600}>
-                Action
-              </Typography>
-            </TableCell>
-            <TableCell sx={{ width: 200 }}>
-              <Typography variant="body1" fontWeight={600}>
-                Kebijakan
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="body1" fontWeight={600}>
-                Keterangan
-              </Typography>
-            </TableCell>
+            <TableCell sx={{ width: 100 }}>Action</TableCell>
+            <TableCell sx={{ width: 200 }}>Kebijakan</TableCell>
+            <TableCell>Keterangan</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -88,9 +76,7 @@ export default function TableTagging({
                     />
                   ))}
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body1">{x.value}</Typography>
-                </TableCell>
+                <TableCell>{x.value}</TableCell>
               </TableRow>
               <DialogDelete
                 title="Hapus Data"

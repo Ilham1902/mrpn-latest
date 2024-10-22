@@ -3,17 +3,16 @@ import React from "react";
 import dayjs from "dayjs";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import {Task} from "gantt-task-react";
-import {TaskAdditionalData} from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
+import { Task } from "gantt-task-react";
+import { TaskAdditionalData } from "@/app/executive-summary/partials/tab6Critical/cardCriticalModel";
 const CustomTooltip = ({ task }: { task: Task }) => {
-
-  let taskProject:TaskAdditionalData = {
+  let taskProject: TaskAdditionalData = {
     penanggungjawab: "",
     sumber_anggaran: "",
-    keterangan_kegiatan: ""
-  }
-  if (task.project){
-    taskProject = JSON.parse(task.project)
+    keterangan_kegiatan: "",
+  };
+  if (task.project) {
+    taskProject = JSON.parse(task.project);
   }
 
   return (
@@ -57,7 +56,9 @@ const CustomTooltip = ({ task }: { task: Task }) => {
         <Typography variant="body2" component="span">
           Sumber Anggaran:{" "}
           <Typography component="strong" fontWeight={600}>
-            {taskProject.sumber_anggaran == "" ? "-" : taskProject.sumber_anggaran}
+            {taskProject.sumber_anggaran == ""
+              ? "-"
+              : taskProject.sumber_anggaran}
           </Typography>
         </Typography>
         <Typography variant="body2" component="span">
@@ -72,12 +73,14 @@ const CustomTooltip = ({ task }: { task: Task }) => {
             {dayjs(task.end).format("DD MMM YYYY")}
           </Typography>
         </Typography>
-        <Typography variant="body2" component="span">
-          Status:{" "}
-          <Typography component="strong" fontWeight={600}>
-            {taskProject.keterangan_kegiatan}
+        {taskProject.keterangan_kegiatan && (
+          <Typography variant="body2" component="span">
+            Status:{" "}
+            <Typography component="strong" fontWeight={600}>
+              {taskProject.keterangan_kegiatan}
+            </Typography>
           </Typography>
-        </Typography>
+        )}
       </Stack>
     </Box>
   );

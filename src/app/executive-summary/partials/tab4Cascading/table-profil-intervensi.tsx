@@ -178,8 +178,12 @@ export default function TableProfilIntervensi({
         },
         ".MuiTableContainer-root": {
           maxHeight: toggleShowTab
-            ? "calc(100vh - 690px)"
-            : "calc(100vh - 625px)",
+            ? // ? "calc(100vh - 690px)"
+              // "calc(100vh - 390px)"
+              "80vh"
+            : // : "calc(100vh - 625px)",
+              // "calc(100vh - 325px)",
+              "80vh",
           "&::-webkit-scrollbar": {
             height: "6px",
             width: "6px",
