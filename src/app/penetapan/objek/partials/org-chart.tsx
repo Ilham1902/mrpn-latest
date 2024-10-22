@@ -190,63 +190,68 @@ export default function CascadingPenetapanObjectOrgChart() {
           title: pp.value,
           children: [],
         };
-        // pp.kp.map((kp) => {
-        const kp = pp.kp;
-        const kpData: OrgDto = {
-          name: `KP - ${kp.code}`,
-          title: kp.value,
-          children: [],
-        };
-        // kp.sasaran.map((ssrKP) => {
-        const ssrKP = kp.sasaran;
-        const ssrKPData: OrgDto = {
-          name: `SASARAN - ${ssrKP.code}`,
-          title: ssrKP.value,
-          children: [],
-        };
-        // ssrKP.indikator.map((ind) => {
-        const ind = ssrKP.indikator;
-        const indData: OrgDto = {
-          name: (
-            <Stack justifyContent="center" direction="row" alignItems="center">
-              {`INDIKATOR`}
-            </Stack>
-          ),
-          title: (
-            <List dense sx={styleList}>
-              {ind.value.map((ros) => (
-                <ItemProP description={ros} />
-              ))}
-            </List>
-          ),
-          children: [],
-        };
-        ind.prop.map((props) => {
-          props.map((prop) => {
-            const propData: OrgDto = {
-              name: prop.value,
+        pp.kp.map((kps) => {
+          kps.map((kp) => {
+            // const kp = pp.kp;
+            const kpData: OrgDto = {
+              name: `KP - ${kp.code}`,
+              title: kp.value,
+              children: [],
+            };
+            // kp.sasaran.map((ssrKP) => {
+            const ssrKP = kp.sasaran;
+            const ssrKPData: OrgDto = {
+              name: `SASARAN - ${ssrKP.code}`,
+              title: ssrKP.value,
+              children: [],
+            };
+            // ssrKP.indikator.map((ind) => {
+            const ind = ssrKP.indikator;
+            const indData: OrgDto = {
+              name: (
+                <Stack justifyContent="center" direction="row" alignItems="center">
+                  {`INDIKATOR`}
+                </Stack>
+              ),
               title: (
                 <List dense sx={styleList}>
-                  {prop.ro.map((ros) => (
-                    <ItemProP
-                      isKey={ros.intervention}
-                      description={`${ros.value} (${ros.kementerian})`}
-                    />
+                  {ind.value.map((ros) => (
+                    <ItemProP description={ros} />
                   ))}
                 </List>
               ),
-              children: undefined,
+              children: [],
             };
-            indData.children?.push(propData);
+            ind.prop.map((props) => {
+              props.map((prop) => {
+                const propData: OrgDto = {
+                  name: prop.value,
+                  title: (
+                    <List dense sx={styleList}>
+                      {prop.ro.map((ros) => (
+                        <ItemProP
+                          isKey={ros.intervention}
+                          description={`${ros.value} (${ros.kementerian})`}
+                        />
+                      ))}
+                    </List>
+                  ),
+                  children: undefined,
+                };
+                indData.children?.push(propData);
+              });
+            });
+
+            // indData.children?.push(klData);
+            // });
+            ssrKPData.children?.push(indData);
+            // });
+            kpData.children?.push(ssrKPData);
+            // });
+            ppData.children?.push(kpData);
+
           });
         });
-        // indData.children?.push(klData);
-        // });
-        ssrKPData.children?.push(indData);
-        // });
-        kpData.children?.push(ssrKPData);
-        // });
-        ppData.children?.push(kpData);
         // });
         result.children?.push(ppData);
         // });
